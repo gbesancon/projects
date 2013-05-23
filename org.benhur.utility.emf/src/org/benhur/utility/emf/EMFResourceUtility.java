@@ -42,6 +42,7 @@ public class EMFResourceUtility
     return filepath;
   }
 
+  @SuppressWarnings("deprecation")
   public static IFile getWorkspaceIFile(URI uri)
   {
     IFile result = null;

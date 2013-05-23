@@ -7,10 +7,9 @@ public class RegExUtility
 {
   public static char[] SPECIAL_CHARACTERS = { '<', '(', '[', '{', '\\', '^', '-', '=', '$', '!', '|', '}', ']', ')',
       '?', '*', '+', '.', '>' };
-  public static Map<Character, String> SPECIAL_CHARACTERS_REPLACEMENT = null;
+  public static Map<Character, String> SPECIAL_CHARACTERS_REPLACEMENT = new HashMap<Character, String>();
   static
   {
-    SPECIAL_CHARACTERS_REPLACEMENT = new HashMap<Character, String>();
     for (char character : SPECIAL_CHARACTERS)
     {
       SPECIAL_CHARACTERS_REPLACEMENT.put(character, "\\" + character);
@@ -38,7 +37,6 @@ public class RegExUtility
         stringBuilder.append(character);
       }
     }
-
     return stringBuilder.toString();
   }
 }

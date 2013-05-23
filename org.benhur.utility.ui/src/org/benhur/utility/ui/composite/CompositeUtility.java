@@ -26,6 +26,7 @@ import org.osgi.service.prefs.Preferences;
 
 public class CompositeUtility
 {
+  @SuppressWarnings("unused")
   public static Composite createTextBlock(Composite composite, int nbColumns, final String labelText,
       final String labelTooltipText, final String textPreference, final Preferences preferences)
   {
@@ -54,6 +55,7 @@ public class CompositeUtility
     return composite;
   }
 
+  @SuppressWarnings("unused")
   public static Composite createFileBlock(final Composite composite, int nbColumns, final String labelText,
       final String labelTooltipText, final String filePreference, final Preferences preferences,
       final String defaultFolder, final String[] filters)
@@ -120,6 +122,7 @@ public class CompositeUtility
     return composite;
   }
 
+  @SuppressWarnings("unused")
   public static Composite createFolderBlock(final Composite composite, int nbColumns, final String labelText,
       final String labelTooltipText, final String folderPreference, final Preferences preferences,
       final String defaultFolder)
@@ -361,6 +364,7 @@ public class CompositeUtility
     return parent;
   }
 
+  @SuppressWarnings("unused")
   public static Composite createDateTimeBlock(Composite composite, int nbColumns, final String labelText,
       final String labelTooltipText, final String dateTimePreference, final Preferences preferences)
   {

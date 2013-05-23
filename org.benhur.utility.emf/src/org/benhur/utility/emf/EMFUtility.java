@@ -76,6 +76,7 @@ public class EMFUtility
     return contents;
   }
 
+  @SuppressWarnings("unchecked")
   protected static <T extends EObject> void getAllContents(EObject object, Class<T> aClass, List<T> contents)
   {
     if (object != null)
@@ -98,6 +99,7 @@ public class EMFUtility
     return containers;
   }
 
+  @SuppressWarnings("unchecked")
   protected static <T extends EObject> void getAllContainers(EObject object, Class<T> aClass, List<T> containers)
   {
     if (object != null)
