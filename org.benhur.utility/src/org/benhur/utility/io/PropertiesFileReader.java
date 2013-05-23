@@ -10,9 +10,6 @@ import javax.xml.bind.PropertyException;
 
 public class PropertiesFileReader
 {
-  public PropertiesFileReader()
-  {}
-
   protected static String getPropertyFromFile(String filePath, String propertyName)
   {
     String propertyValue = null;

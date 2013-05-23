@@ -5,7 +5,7 @@ public class CalledTask implements Runnable
   protected final Runnable task;
   protected final ICallback callback;
 
-  public CalledTask(Runnable task, ICallback callback)
+  public CalledTask(final Runnable task, final ICallback callback)
   {
     this.task = task;
     this.callback = callback;

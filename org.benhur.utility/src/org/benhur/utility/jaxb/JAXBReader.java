@@ -24,12 +24,12 @@ public class JAXBReader<T>
   }
 
   @SuppressWarnings("unchecked")
-  public T readFile(final URL xmlFileUrl)
+  public T readFile(final File xmlFile)
   {
     T result = null;
     try
     {
-      if (xmlFileUrl == null)
+      if (xmlFile == null)
       {
         throw new JAXBException("Fichier de description du format de données indéfini.");
       }
@@ -39,10 +39,10 @@ public class JAXBReader<T>
       {
         validateXmlFile(unmarshaller);
       }
-      JAXBElement<T> root = (JAXBElement<T>) unmarshaller.unmarshal(xmlFileUrl);
+      JAXBElement<T> root = (JAXBElement<T>) unmarshaller.unmarshal(xmlFile);
       result = root.getValue();
 
-      String translationFilename = FileUtility.changeExtension(xmlFileUrl.getFile(), ".properties");
+      String translationFilename = FileUtility.changeExtension(xmlFile.getAbsolutePath(), ".properties");
       File translationFile = new File(translationFilename);
       if (translationFile.exists())
       {

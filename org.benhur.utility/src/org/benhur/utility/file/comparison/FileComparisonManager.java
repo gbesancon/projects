@@ -17,12 +17,7 @@ public class FileComparisonManager
   protected Map<FileFilter, IFileComparisonStrategy> fileComparisonStrategies = new HashMap<FileFilter, IFileComparisonStrategy>();
   protected FileFilter comparedFileFilter = null;
 
-  public static FileComparisonManager createFileComparisonManager()
-  {
-    return new FileComparisonManager();
-  }
-
-  private FileComparisonManager()
+  public FileComparisonManager()
   {
     init();
   }

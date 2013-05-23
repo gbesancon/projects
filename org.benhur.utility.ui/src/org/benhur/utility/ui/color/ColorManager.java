@@ -1,7 +1,7 @@
 package org.benhur.utility.ui.color;
 
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import org.eclipse.swt.SWT;
@@ -106,10 +106,10 @@ public class ColorManager
 
   public void dispose()
   {
-    Iterator<Color> colors = mUserColors.values().iterator();
-    while (colors.hasNext())
+    Collection<Color> colors = mUserColors.values();
+    for (Color color : colors)
     {
-      colors.next().dispose();
+      color.dispose();
     }
   }
 }

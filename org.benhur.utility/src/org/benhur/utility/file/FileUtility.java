@@ -143,6 +143,7 @@ public class FileUtility
     }
   }
 
+  @SuppressWarnings("resource")
   public static void removeBlanckLinesForFile(File file)
   {
     if (file.exists())
@@ -299,55 +300,6 @@ public class FileUtility
     else
     {
       result = filename + newExtension;
-    }
-    return result;
-  }
-
-  public static boolean compareFiles(String filename1, String filename2)
-  {
-    boolean result = false;
-    try
-    {
-      File file1 = new File(filename1);
-      File file2 = new File(filename2);
-      if (file1.length() == file2.length())
-      {
-        FileInputStream fileInputStream1 = new FileInputStream(file1);
-        FileInputStream fileInputStream2 = new FileInputStream(file1);
-        int byte1 = fileInputStream1.read();
-        result = true;
-        while (result && byte1 >= 0)
-        {
-          result = (byte1 == fileInputStream2.read());
-          byte1 = fileInputStream1.read();
-        }
-        fileInputStream1.close();
-        fileInputStream2.close();
-      }
-    }
-    catch (IOException e)
-    {
-      e.printStackTrace();
-    }
-    return result;
-  }
-
-  public static boolean compareFolders(String foldername1, String foldername2)
-  {
-    File folder1 = new File(foldername1);
-    File folder2 = new File(foldername2);
-
-    boolean result = folder1.isDirectory() && folder2.isDirectory();
-    if (result)
-    {
-      File[] files1 = folder1.listFiles();
-      File[] files2 = folder2.listFiles();
-      result = (files1.length == files2.length);
-      for (int i = 0; result == true && i < files1.length; i++)
-      {
-        String filename = files1[i].getName();
-        result = compareFiles(foldername1 + File.separator + filename, foldername2 + File.separator + filename);
-      }
     }
     return result;
   }

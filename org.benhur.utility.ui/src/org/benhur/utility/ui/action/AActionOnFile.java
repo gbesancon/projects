@@ -17,6 +17,7 @@ public abstract class AActionOnFile extends ActionDelegate implements IActionDel
   protected List<IFile> files = null;
   protected PrintWriter logFileWriter = null;
 
+  @SuppressWarnings("unchecked")
   @Override
   public void selectionChanged(IAction action, ISelection selection)
   {

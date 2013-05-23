@@ -14,14 +14,7 @@ public class DifferedTask implements Runnable
   @Override
   public void run()
   {
-    try
-    {
-      Thread.sleep(delay);
-      task.run();
-    }
-    catch (InterruptedException e)
-    {
-      e.printStackTrace();
-    }
+    ThreadUtility.sleep(delay);
+    task.run();
   }
 }

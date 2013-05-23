@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 
 public class IntrospectUtility
 {
+  @SuppressWarnings("unchecked")
   public static <U> U getAttribute(Object object, String name)
   {
     U attribute = null;
