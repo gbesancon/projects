@@ -1,4 +1,4 @@
-package org.benhur.utility.emf;
+package org.benhur.utility.emf.resource;
 
 import java.io.File;
 import java.io.IOException;
