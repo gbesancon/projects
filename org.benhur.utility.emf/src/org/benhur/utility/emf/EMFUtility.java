@@ -50,6 +50,16 @@ public class EMFUtility
     }
   }
 
+  public static List<Resource> getAllResources(Resource resource)
+  {
+    List<Resource> result = new ArrayList<Resource>();
+    for (EObject object : resource.getContents())
+    {
+      getAllResources(object, result);
+    }
+    return result;
+  }
+
   public static List<Resource> getAllResources(EObject object)
   {
     List<Resource> result = new ArrayList<Resource>();

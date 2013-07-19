@@ -4,7 +4,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EObject;
 
-public interface EMFModelElementCustomValidator<T extends EObject>
+public interface IEMFModelElementCustomValidator<T extends EObject>
 {
   IStatus validate(T modelElement, IProgressMonitor progressMonitor);
 }

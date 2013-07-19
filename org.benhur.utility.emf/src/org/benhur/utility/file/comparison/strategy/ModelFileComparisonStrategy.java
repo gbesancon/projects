@@ -25,25 +25,19 @@ public class ModelFileComparisonStrategy implements IFileComparisonStrategy
 
     try
     {
-      // register XMI resource factory for all other extensions
       Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(Resource.Factory.Registry.DEFAULT_EXTENSION,
                                                                         new XMIResourceFactoryImpl());
 
       ResourceSet resourceSet = new ResourceSetImpl();
 
-      // Loading resources
       EObject model1 = ModelUtils.load(file1, resourceSet);
       EObject model2 = ModelUtils.load(file2, resourceSet);
 
-      // matching models
-      // MatchModel match = MatchService.doMatch(model1, model2, Collections.<String, Object> emptyMap());
       MatchModel match = MatchService.doContentMatch(model1, model2, Collections.<String, Object> emptyMap());
 
-      // matching engine and matching
-      GenericMatchEngine eng = new GenericMatchEngine();
-      match = eng.contentMatch(model1, model2, Collections.<String, Object> emptyMap());
+      GenericMatchEngine engine = new GenericMatchEngine();
+      match = engine.contentMatch(model1, model2, Collections.<String, Object> emptyMap());
 
-      // Differencing models
       DiffModel diff = DiffService.doDiff(match);
 
       if (diff.getOwnedElements().size() == 0)

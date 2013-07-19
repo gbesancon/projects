@@ -24,6 +24,11 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 public class EMFResourceUtility
 {
+  public static URI getURI(String filepath)
+  {
+    return getURI(new File(filepath));
+  }
+
   public static URI getURI(File file)
   {
     return URI.createFileURI(file.getPath());
