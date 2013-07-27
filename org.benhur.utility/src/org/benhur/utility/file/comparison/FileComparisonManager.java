@@ -106,7 +106,6 @@ public class FileComparisonManager
 
     FileFilter fileFilter = new FileFilter()
     {
-      @Override
       public boolean accept(File pathname)
       {
         boolean result = true;
@@ -131,7 +130,6 @@ public class FileComparisonManager
       // Sort files
       Arrays.sort(content1, new Comparator<File>()
       {
-        @Override
         public int compare(File o1, File o2)
         {
           return o1.compareTo(o2);
@@ -139,7 +137,6 @@ public class FileComparisonManager
       });
       Arrays.sort(content2, new Comparator<File>()
       {
-        @Override
         public int compare(File o1, File o2)
         {
           return o1.compareTo(o2);

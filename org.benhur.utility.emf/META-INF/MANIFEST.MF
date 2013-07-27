@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Utility EMF
 Bundle-SymbolicName: org.benhur.utility.emf
 Bundle-Version: 1.0.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.eclipse.emf.ecore.xmi;visibility:=reexport,
  org.eclipse.emf.validation;visibility:=reexport,
  org.benhur.utility;visibility:=reexport,

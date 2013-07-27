@@ -11,7 +11,6 @@ public class CalledTask implements Runnable
     this.callback = callback;
   }
 
-  @Override
   public void run()
   {
     Exception catchedException = null;

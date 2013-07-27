@@ -13,7 +13,6 @@ public abstract class AApplication implements IApplication
     this.application = application;
   }
 
-  @Override
   public Object start(IApplicationContext context) throws Exception
   {
     this.context = context;
@@ -24,7 +23,6 @@ public abstract class AApplication implements IApplication
   protected void customStart()
   {}
 
-  @Override
   public void stop()
   {
     customStop();

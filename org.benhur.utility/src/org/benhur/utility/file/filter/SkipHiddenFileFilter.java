@@ -5,7 +5,6 @@ import java.io.FileFilter;
 
 public class SkipHiddenFileFilter implements FileFilter
 {
-  @Override
   public boolean accept(File pathname)
   {
     return !pathname.isHidden();

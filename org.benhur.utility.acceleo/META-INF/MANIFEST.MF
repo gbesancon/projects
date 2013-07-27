@@ -3,6 +3,6 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Utility Acceleo
 Bundle-SymbolicName: org.benhur.utility.emf.acceleo
 Bundle-Version: 1.0.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.benhur.utility.emf.acceleo
 Require-Bundle: org.benhur.utility.emf;visibility:=reexport
