@@ -18,7 +18,6 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 public class ModelFileComparisonStrategy implements IFileComparisonStrategy
 {
-  @Override
   public boolean compareFile(File file1, File file2)
   {
     boolean result = false;

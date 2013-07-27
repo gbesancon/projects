@@ -13,13 +13,11 @@ public class EMFModelCustomValidator implements IEMFModelCustomValidator
 {
   protected List<IEMFModelElementCustomValidator<?>> modelElementValidators = new ArrayList<IEMFModelElementCustomValidator<?>>();
 
-  @Override
   public List<IEMFModelElementCustomValidator<?>> getModelElementValidators()
   {
     return modelElementValidators;
   }
 
-  @Override
   public <T extends EObject> IStatus validate(T model, IProgressMonitor progressMonitor)
   {
     return null;

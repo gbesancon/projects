@@ -7,7 +7,6 @@ import java.util.Arrays;
 
 public class TextFileComparisonStrategy implements IFileComparisonStrategy
 {
-  @Override
   public boolean compareFile(File file1, File file2)
   {
     boolean result = true;

@@ -12,7 +12,6 @@ public class ExtensionFileFilter implements FileFilter
     this.extension = extension;
   }
 
-  @Override
   public boolean accept(File pathname)
   {
     return pathname.getName().endsWith("." + extension);

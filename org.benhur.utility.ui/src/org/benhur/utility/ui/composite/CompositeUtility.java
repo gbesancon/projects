@@ -45,7 +45,6 @@ public class CompositeUtility
     text.setLayoutData(fillGridData);
     text.addModifyListener(new ModifyListener()
     {
-      @Override
       public void modifyText(ModifyEvent e)
       {
         String textString = text.getText();
@@ -76,7 +75,6 @@ public class CompositeUtility
     text.setLayoutData(textFillGridData);
     text.addModifyListener(new ModifyListener()
     {
-      @Override
       public void modifyText(ModifyEvent e)
       {
         String textString = text.getText();
@@ -86,13 +84,11 @@ public class CompositeUtility
     pathButton.setText("...");
     pathButton.addSelectionListener(new SelectionListener()
     {
-      @Override
       public void widgetSelected(SelectionEvent e)
       {
         widgetDefaultSelected(e);
       }
 
-      @Override
       public void widgetDefaultSelected(SelectionEvent e)
       {
         FileDialog dialog = new FileDialog(composite.getShell(), SWT.SINGLE);
@@ -143,7 +139,6 @@ public class CompositeUtility
     text.setLayoutData(textFillGridData);
     text.addModifyListener(new ModifyListener()
     {
-      @Override
       public void modifyText(ModifyEvent e)
       {
         String textString = text.getText();
@@ -153,13 +148,11 @@ public class CompositeUtility
     folderButton.setText("...");
     folderButton.addSelectionListener(new SelectionListener()
     {
-      @Override
       public void widgetSelected(SelectionEvent e)
       {
         widgetDefaultSelected(e);
       }
 
-      @Override
       public void widgetDefaultSelected(SelectionEvent e)
       {
         DirectoryDialog dialog = new DirectoryDialog(composite.getShell(), SWT.SINGLE);
@@ -193,13 +186,11 @@ public class CompositeUtility
     // Behaviour
     selectedButton.addSelectionListener(new SelectionListener()
     {
-      @Override
       public void widgetSelected(SelectionEvent e)
       {
         widgetDefaultSelected(e);
       }
 
-      @Override
       public void widgetDefaultSelected(SelectionEvent e)
       {
         boolean selected = selectedButton.getSelection();
@@ -224,7 +215,6 @@ public class CompositeUtility
     text.setEnabled(preferences.getBoolean(selectedPreference, false));
     text.addModifyListener(new ModifyListener()
     {
-      @Override
       public void modifyText(ModifyEvent e)
       {
         String textString = text.getText();
@@ -235,13 +225,11 @@ public class CompositeUtility
     folderButton.setEnabled(preferences.getBoolean(selectedPreference, false));
     folderButton.addSelectionListener(new SelectionListener()
     {
-      @Override
       public void widgetSelected(SelectionEvent e)
       {
         widgetDefaultSelected(e);
       }
 
-      @Override
       public void widgetDefaultSelected(SelectionEvent e)
       {
         DirectoryDialog dialog = new DirectoryDialog(composite.getShell(), SWT.SINGLE);
@@ -267,13 +255,11 @@ public class CompositeUtility
     // Behaviour
     selectedButton.addSelectionListener(new SelectionListener()
     {
-      @Override
       public void widgetSelected(SelectionEvent e)
       {
         widgetDefaultSelected(e);
       }
 
-      @Override
       public void widgetDefaultSelected(SelectionEvent e)
       {
         boolean selected = selectedButton.getSelection();
@@ -300,13 +286,11 @@ public class CompositeUtility
     // Behaviour
     selectedButton.addSelectionListener(new SelectionListener()
     {
-      @Override
       public void widgetSelected(SelectionEvent e)
       {
         widgetDefaultSelected(e);
       }
 
-      @Override
       public void widgetDefaultSelected(SelectionEvent e)
       {
         boolean selected = selectedButton.getSelection();
@@ -384,13 +368,11 @@ public class CompositeUtility
     dateTime.setLayoutData(textFillGridData);
     dateTime.addSelectionListener(new SelectionListener()
     {
-      @Override
       public void widgetSelected(SelectionEvent e)
       {
         widgetDefaultSelected(e);
       }
 
-      @Override
       public void widgetDefaultSelected(SelectionEvent e)
       {
         if (e.data != null)

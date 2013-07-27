@@ -54,7 +54,6 @@ public class FileLogListener implements ILogListener
     }
   }
 
-  @Override
   public void logging(IStatus status, String plugin)
   {
     if (status.matches(severityMask))
