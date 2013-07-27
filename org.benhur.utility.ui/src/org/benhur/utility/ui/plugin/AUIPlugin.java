@@ -4,12 +4,12 @@ import org.benhur.utility.plugin.PluginLogger;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.osgi.framework.BundleContext;
 
-public abstract class AbstractUIPlugin extends org.eclipse.ui.plugin.AbstractUIPlugin
+public abstract class AUIPlugin extends org.eclipse.ui.plugin.AbstractUIPlugin
 {
   protected PluginLogger mLogger;
   protected String mPluginId;
 
-  public AbstractUIPlugin(String pluginId)
+  public AUIPlugin(String pluginId)
   {
     mPluginId = pluginId;
   }
@@ -17,8 +17,15 @@ public abstract class AbstractUIPlugin extends org.eclipse.ui.plugin.AbstractUIP
   @Override
   public void start(BundleContext context) throws Exception
   {
-    mLogger = new PluginLogger(this, mPluginId);
     super.start(context);
+    mLogger = new PluginLogger(this, mPluginId);
+  }
+
+  @Override
+  public void stop(BundleContext context) throws Exception
+  {
+    mLogger = null;
+    super.stop(context);
   }
 
   public PluginLogger getLogger()

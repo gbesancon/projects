@@ -4,11 +4,9 @@ Bundle-Name: Utility UI
 Bundle-SymbolicName: org.benhur.utility.ui
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Require-Bundle: org.eclipse.ui;bundle-version="3.104.0",
- org.eclipse.core.resources;bundle-version="3.8.1",
- org.eclipse.core.runtime;bundle-version="3.8.0",
- org.benhur.utility;bundle-version="0.0.1",
- org.eclipse.nebula.widgets.cdatetime;bundle-version="0.14.0"
+Require-Bundle: org.eclipse.ui;visibility:=reexport,
+ org.benhur.utility;visibility:=reexport,
+ org.eclipse.nebula.widgets.cdatetime;visibility:=reexport
 Export-Package: org.benhur.utility.ui.action,
  org.benhur.utility.ui.application,
  org.benhur.utility.ui.color,

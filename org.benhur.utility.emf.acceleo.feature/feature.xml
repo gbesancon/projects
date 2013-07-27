@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.benhur.utility.emf.acceleo.feature"
+      label="Utility EMF Acceleo Feature"
+      version="1.0.0.qualifier">
+
+   <requires>
+      <import plugin="org.benhur.utility.emf"/>
+   </requires>
+
+   <plugin
+         id="org.benhur.utility.emf.acceleo"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>
