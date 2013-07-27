@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.benhur.utility.emf.feature"
+      label="Utility EMF Feature"
+      version="1.0.0.qualifier">
+
+   <description url="http://www.example.com/description">
+      [Enter Feature Description here.]
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      [Enter Copyright Description here.]
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <requires>
+      <import plugin="org.eclipse.emf.ecore.xmi"/>
+      <import plugin="org.eclipse.emf.validation"/>
+      <import plugin="org.benhur.utility"/>
+      <import plugin="org.eclipse.emf.compare"/>
+      <import plugin="org.eclipse.emf.compare.diff"/>
+      <import plugin="org.eclipse.emf.compare.match"/>
+   </requires>
+
+   <plugin
+         id="org.benhur.utility.emf"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

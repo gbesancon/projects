@@ -18,7 +18,7 @@
         <acceleoCompiler 
             sourceFolder="${target.folder}"
             outputFolder="${target.folder}"
-            dependencies=""
+            dependencies="${target.folder}/../../org.benhur.utility.emf;${target.folder}/../../org.benhur.utility;"
             binaryResource="false"
             packagesToRegister="">
         </acceleoCompiler>

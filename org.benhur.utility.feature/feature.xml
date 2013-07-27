@@ -4,35 +4,13 @@
       label="Utility"
       version="1.0.0.qualifier">
 
+   <requires>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.core.runtime"/>
+   </requires>
+
    <plugin
          id="org.benhur.utility"
-         download-size="0"
-         install-size="0"
-         version="1.0.0.qualifier"
-         unpack="false"/>
-
-   <plugin
-         id="org.benhur.utility.emf"
-         download-size="0"
-         install-size="0"
-         version="1.0.0.qualifier"
-         unpack="false"/>
-
-   <plugin
-         id="org.benhur.utility.emf.acceleo"
-         download-size="0"
-         install-size="0"
-         version="1.0.0.qualifier"
-         unpack="false"/>
-
-   <plugin
-         id="org.benhur.utility.emf.ui"
-         download-size="0"
-         install-size="0"
-         version="1.0.0.qualifier"/>
-
-   <plugin
-         id="org.benhur.utility.ui"
          download-size="0"
          install-size="0"
          version="1.0.0.qualifier"

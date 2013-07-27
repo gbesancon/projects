@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.benhur.utility.emf.ui.feature"
+      label="Utility EMF UI Feature"
+      version="1.0.0.qualifier">
+
+   <requires>
+      <import plugin="org.eclipse.emf.common.ui"/>
+      <import plugin="org.benhur.utility.emf"/>
+   </requires>
+
+   <plugin
+         id="org.benhur.utility.emf.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+</feature>
