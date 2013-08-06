@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Utility EMF
-Bundle-SymbolicName: org.benhur.utility.emf
+Bundle-SymbolicName: org.benhur.utility.emf;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.eclipse.emf.ecore.xmi;visibility:=reexport,
@@ -16,3 +16,4 @@ Export-Package: org.benhur.utility.emf,
  org.benhur.utility.emf.validation.custom,
  org.benhur.utility.emf.validation.custom.impl,
  org.benhur.utility.file.comparison.strategy
+Bundle-ActivationPolicy: lazy
