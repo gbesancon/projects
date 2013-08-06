@@ -1,9 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Ui
-Bundle-SymbolicName: org.benhur.utility.emf.ui
+Bundle-SymbolicName: org.benhur.utility.emf.ui;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.eclipse.emf.common.ui;visibility:=reexport,
  org.benhur.utility.emf;visibility:=reexport
 Export-Package: org.benhur.utility.emf.ui.diagnostic
+Bundle-ActivationPolicy: lazy

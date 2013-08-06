@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Utility
-Bundle-SymbolicName: org.benhur.utility
+Bundle-SymbolicName: org.benhur.utility;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Export-Package: 
  org.benhur.utility.application,
@@ -28,3 +28,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Vendor: Ben-Hur
 Require-Bundle: org.eclipse.core.resources;visibility:=reexport,
  org.eclipse.core.runtime;visibility:=reexport
+Bundle-ActivationPolicy: lazy

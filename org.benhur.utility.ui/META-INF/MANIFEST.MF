@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Utility UI
-Bundle-SymbolicName: org.benhur.utility.ui
+Bundle-SymbolicName: org.benhur.utility.ui;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.eclipse.ui;visibility:=reexport,
@@ -11,9 +11,12 @@ Export-Package: org.benhur.utility.ui.action,
  org.benhur.utility.ui.application,
  org.benhur.utility.ui.color,
  org.benhur.utility.ui.composite,
+ org.benhur.utility.ui.control.button,
+ org.benhur.utility.ui.control.time,
  org.benhur.utility.ui.copy,
  org.benhur.utility.ui.dialog,
  org.benhur.utility.ui.font,
  org.benhur.utility.ui.plugin,
  org.benhur.utility.ui.service,
  org.benhur.utility.ui.workbench
+Bundle-ActivationPolicy: lazy
