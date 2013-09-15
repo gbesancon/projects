@@ -1,8 +1,10 @@
 package org.benhur.utility.ui.plugin;
 
 import org.benhur.utility.plugin.PluginLogger;
+import org.eclipse.core.runtime.preferences.ConfigurationScope;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.osgi.framework.BundleContext;
+import org.osgi.service.prefs.Preferences;
 
 public abstract class AUIPlugin extends org.eclipse.ui.plugin.AbstractUIPlugin
 {
@@ -26,6 +28,11 @@ public abstract class AUIPlugin extends org.eclipse.ui.plugin.AbstractUIPlugin
   {
     mLogger = null;
     super.stop(context);
+  }
+
+  public Preferences getPreferences()
+  {
+    return ConfigurationScope.INSTANCE.getNode(mPluginId);
   }
 
   public PluginLogger getLogger()
