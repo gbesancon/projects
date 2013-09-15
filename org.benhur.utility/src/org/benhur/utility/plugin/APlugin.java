@@ -1,6 +1,8 @@
 package org.benhur.utility.plugin;
 
+import org.eclipse.core.runtime.preferences.ConfigurationScope;
 import org.osgi.framework.BundleContext;
+import org.osgi.service.prefs.Preferences;
 
 public abstract class APlugin extends org.eclipse.core.runtime.Plugin
 {
@@ -24,6 +26,11 @@ public abstract class APlugin extends org.eclipse.core.runtime.Plugin
   {
     mLogger = null;
     super.stop(context);
+  }
+
+  public Preferences getPreferences()
+  {
+    return ConfigurationScope.INSTANCE.getNode(mPluginId);
   }
 
   public PluginLogger getLogger()

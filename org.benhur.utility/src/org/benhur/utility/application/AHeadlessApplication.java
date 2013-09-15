@@ -18,7 +18,7 @@ public abstract class AHeadlessApplication extends AApplication
 {
   protected static final String PARAMETER_PREFIX = "--";
   protected static final String CONFIGURATION = "configuration";
-  protected static final String PRINT_USE = "printUse";
+  protected static final String HELP = "help";
   protected static final String LOG = "log";
 
   protected static final String LOG_LEVEL_MASK = LOG + ".level";
@@ -106,7 +106,7 @@ public abstract class AHeadlessApplication extends AApplication
   protected boolean checkPrintUseArgument(String[][] arguments)
   {
     boolean result = true;
-    String[] printUse = getArgument(arguments, PRINT_USE);
+    String[] printUse = getArgument(arguments, HELP);
     if (printUse != null)
     {
       result = false;
@@ -315,7 +315,7 @@ public abstract class AHeadlessApplication extends AApplication
     builder.append("############### Command Line ###############\n");
     builder.append("############################################\n");
     builder.append("java -jar plugins/org.eclipse.equinox.launcher_<version>.jar -application " + application + "\n");
-    builder.append(PARAMETER_PREFIX + PRINT_USE + " : Display this message (All actions are inhibited)\n");
+    builder.append(PARAMETER_PREFIX + HELP + " : Display this message (All actions are inhibited)\n");
     builder.append(PARAMETER_PREFIX + CONFIGURATION + "='Path' : File to configure application\n");
   }
 
@@ -325,8 +325,8 @@ public abstract class AHeadlessApplication extends AApplication
     builder.append("############### Configuration file content ###############\n");
     builder.append("##########################################################\n");
     builder.append("#---------> Log <---------\n");
-    builder.append(LOG + "='Path' : Log directory path\n");
-    builder.append(LOG_LEVEL_MASK + "=" + LEVEL_OK + "," + LEVEL_INFO + "," + LEVEL_WARNING + "," + LEVEL_ERROR + ","
+    builder.append(LOG + " = 'Path' : Log directory path\n");
+    builder.append(LOG_LEVEL_MASK + " = " + LEVEL_OK + "," + LEVEL_INFO + "," + LEVEL_WARNING + "," + LEVEL_ERROR + ","
         + LEVEL_CANCEL + " : Comma separated value of log level mask\n");
   }
 
