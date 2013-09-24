@@ -19,6 +19,11 @@ import java.util.regex.Pattern;
 
 public class FileUtility
 {
+  public static String getUserHomeFilepath()
+  {
+    return System.getProperty("user.home");
+  }
+
   public static URL getURL(File file)
   {
     URL result = null;
