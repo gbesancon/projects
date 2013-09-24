@@ -7,9 +7,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.eclipse.emf.ecore.xmi;visibility:=reexport,
  org.eclipse.emf.validation;visibility:=reexport,
  org.benhur.utility;visibility:=reexport,
- org.eclipse.emf.compare;visibility:=reexport,
- org.eclipse.emf.compare.diff;visibility:=reexport,
- org.eclipse.emf.compare.match;visibility:=reexport
+ org.eclipse.emf.compare;visibility:=reexport
 Export-Package: org.benhur.utility.emf,
  org.benhur.utility.emf.resource,
  org.benhur.utility.emf.validation,
