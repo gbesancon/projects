@@ -1,6 +1,6 @@
 <project name="Build Utility" default="build">
 
-	<import file="git.ant"/>
+	<import file="../../eclipse-tips/eclipse-ant/scripts/git.ant"/>
 
 	<property name="work.dir" value="${basedir}/work"/>
 
@@ -47,18 +47,28 @@
 	</target>
 
 	<target name="get_sources">
-		<mkdir dir="${git.dir}"/>
-		<git-clone-pull repository="git@github.com:gbesancon/eclipse-common.git" dest="${git.dir}/eclipse-utility"/>
-
+		<mkdir dir="${git.dir}" />
+		<git-clone-pull repository="git@github.com:gbesancon/eclipse-utility.git" dest="${git.dir}/eclipse-utility" />
 		<move todir="${build.dir}/features" includeEmptyDirs="yes" verbose="true">
 			<fileset dir="${git.dir}/eclipse-utility">
 				<include name="**/org.benhur.utility*.feature/**" />
 			</fileset>
 		</move>
-
 		<move todir="${build.dir}/plugins" includeEmptyDirs="yes" verbose="true">
 			<fileset dir="${git.dir}/eclipse-utility">
 				<include name="**/org.benhur.utility*/**" />
+			</fileset>
+		</move>
+
+		<git-clone-pull repository="git@github.com:gbesancon/eclipse-cots.git" dest="${git.dir}/eclipse-cots" />
+		<move todir="${build.dir}/features" includeEmptyDirs="yes" verbose="true">
+			<fileset dir="${git.dir}/eclipse-cots">
+				<include name="**/org.eclipse.nebula*.feature/**" />
+			</fileset>
+		</move>
+		<move todir="${build.dir}/plugins" includeEmptyDirs="yes" verbose="true">
+			<fileset dir="${git.dir}/eclipse-cots">
+				<include name="**/org.eclipse.nebula*/**" />
 			</fileset>
 		</move>
 
