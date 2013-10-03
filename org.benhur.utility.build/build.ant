@@ -1,49 +1,79 @@
-<project name="Build Utility">
+<project name="Build Utility" default="build">
+
+	<import file="git.ant"/>
 
 	<property name="work.dir" value="${basedir}/work"/>
 
 	<property name="build_configuration.dir" value="${work.dir}/build_configuration"/>
 	<property name="build.dir" value="${work.dir}/build"/>
 	<property name="workspace.dir" value="${work.dir}/workspace"/>
+	<property name="git.dir" value="${work.dir}/git"/>
+
 	<property name="eclipse.dir" value="/home/benhur/Tools/eclipse-modeling-kepler-R-linux-gtk-x86_64"/>
 
-	<delete dir="${work.dir}"/>
-	
-	<mkdir dir="${work.dir}"/>
-	
-	<mkdir dir="${build_configuration.dir}"/>
-	<copy file="${eclipse.dir}/plugins/org.eclipse.pde.build_3.8.100.v20130514-1028/templates/headless-build/build.properties" todir="${build_configuration.dir}"/>
+	<target name="build">
+		<antcall target="delete_work"/>
+		<antcall target="create_work_skeleton"/>
+		<antcall target="create_build_configuration"/>
+		<antcall target="get_sources"/>
+		<antcall target="build_sources"/>
+	</target>
 
-	<propertyfile file="${build_configuration.dir}/build.properties">
-		<entry key="topLevelElementId" value="org.benhur.utility.feature"/>
-		<entry key="base" value="${eclipse.dir}/.."/>
-		<entry key="baseLocation" value="${eclipse.dir}"/>
-		<entry key="buildDirectory" value="${build.dir}"/>
-		<entry key="configs" value="*,*,*"/>
-		<entry key="archivePrefix" value="eclipse-utility"/>
-		<entry key="javacSource" value="1.6"/>
-		<entry key="javacTarget" value="1.6"/>
-	</propertyfile>
-	
-	<mkdir dir="${build.dir}"/>
-	<mkdir dir="${build.dir}/plugins"/>
-	<mkdir dir="${build.dir}/plugins/org.benhur.utility"/>
-	<copy todir="${build.dir}/plugins/org.benhur.utility">
-		<fileset dir="/home/benhur/git/eclipse-common/org.benhur.utility"/>
-	</copy>
-	<mkdir dir="${build.dir}/features"/>
-	<mkdir dir="${build.dir}/features/org.benhur.utility.feature"/>
-	<copy todir="${build.dir}/features/org.benhur.utility.feature">
-		<fileset dir="/home/benhur/git/eclipse-common/org.benhur.utility.feature"/>
-	</copy>
-	
-	<java fork="true" jar="${eclipse.dir}/plugins/org.eclipse.equinox.launcher_1.3.0.v20130327-1440.jar" dir="${eclipse.dir}" failonerror="true">
-		<arg value="-data"/>
-		<arg value="${workspace.dir}"/>
-		<arg value="-application" />
-		<arg value="org.eclipse.ant.core.antRunner"/>
-		<arg value="-buildfile" />
-		<arg value="${eclipse.dir}/plugins/org.eclipse.pde.build_3.8.100.v20130514-1028/scripts/build.xml" />
-		<arg value="-Dbuilder=${build_configuration.dir}" />
-	</java>
+	<target name="delete_work">
+		<delete dir="${work.dir}"/>
+	</target>
+
+	<target name="create_work_skeleton">
+		<mkdir dir="${work.dir}"/>
+		<mkdir dir="${build_configuration.dir}"/>
+		<mkdir dir="${build.dir}"/>
+		<mkdir dir="${build.dir}/plugins"/>
+		<mkdir dir="${build.dir}/features"/>
+		<mkdir dir="${workspace.dir}"/>
+	</target>
+
+	<target name="create_build_configuration">
+		<copy file="${eclipse.dir}/plugins/org.eclipse.pde.build_3.8.100.v20130514-1028/templates/headless-build/build.properties" todir="${build_configuration.dir}"/>
+		<propertyfile file="${build_configuration.dir}/build.properties">
+			<entry key="topLevelElementId" value="org.benhur.utility.updatesite.feature"/>
+			<entry key="base" value="${eclipse.dir}/.."/>
+			<entry key="baseLocation" value="${eclipse.dir}"/>
+			<entry key="buildDirectory" value="${build.dir}"/>
+			<entry key="configs" value="*,*,*"/>
+			<entry key="archivePrefix" value="eclipse-utility"/>
+			<entry key="javacSource" value="1.6"/>
+			<entry key="javacTarget" value="1.6"/>
+		</propertyfile>
+	</target>
+
+	<target name="get_sources">
+		<mkdir dir="${git.dir}"/>
+		<git-clone-pull repository="git@github.com:gbesancon/eclipse-common.git" dest="${git.dir}/eclipse-utility"/>
+
+		<move todir="${build.dir}/features" includeEmptyDirs="yes" verbose="true">
+			<fileset dir="${git.dir}/eclipse-utility">
+				<include name="**/org.benhur.utility*.feature/**" />
+			</fileset>
+		</move>
+
+		<move todir="${build.dir}/plugins" includeEmptyDirs="yes" verbose="true">
+			<fileset dir="${git.dir}/eclipse-utility">
+				<include name="**/org.benhur.utility*/**" />
+			</fileset>
+		</move>
+
+		<delete dir="${git.dir}" />
+	</target>
+
+	<target name="build_sources">
+		<java fork="true" jar="${eclipse.dir}/plugins/org.eclipse.equinox.launcher_1.3.0.v20130327-1440.jar" dir="${eclipse.dir}" failonerror="true">
+			<arg value="-data"/>
+			<arg value="${workspace.dir}"/>
+			<arg value="-application" />
+			<arg value="org.eclipse.ant.core.antRunner"/>
+			<arg value="-buildfile" />
+			<arg value="${eclipse.dir}/plugins/org.eclipse.pde.build_3.8.100.v20130514-1028/scripts/build.xml" />
+			<arg value="-Dbuilder=${build_configuration.dir}" />
+		</java>
+	</target>
 </project>
