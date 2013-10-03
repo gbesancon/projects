@@ -1,4 +1,4 @@
-eclipse-common
+eclipse-utility
 ==============
 
-Common
+Utility
