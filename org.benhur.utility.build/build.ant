@@ -1,6 +1,7 @@
 <project name="Build Utility" default="build">
 
 	<import file="../../eclipse-tips/eclipse-ant/git.ant"/>
+	<import file="../../eclipse-tips/eclipse-ant/p2.ant"/>
 
 	<property name="work.dir" value="${basedir}/work"/>
 
@@ -26,24 +27,17 @@
 	<target name="create_work_skeleton">
 		<mkdir dir="${work.dir}"/>
 		<mkdir dir="${build_configuration.dir}"/>
-		<mkdir dir="${build.dir}"/>
-		<mkdir dir="${build.dir}/plugins"/>
-		<mkdir dir="${build.dir}/features"/>
+		<create.build.dir 
+			build.dir="${build.dir}"/>
 		<mkdir dir="${workspace.dir}"/>
 	</target>
 
 	<target name="create_build_configuration">
-		<copy file="${eclipse.dir}/plugins/org.eclipse.pde.build_3.8.100.v20130514-1028/templates/headless-build/build.properties" todir="${build_configuration.dir}"/>
-		<propertyfile file="${build_configuration.dir}/build.properties">
-			<entry key="topLevelElementId" value="org.benhur.utility.feature"/>
-			<entry key="base" value="${eclipse.dir}/.."/>
-			<entry key="baseLocation" value="${eclipse.dir}"/>
-			<entry key="buildDirectory" value="${build.dir}"/>
-			<entry key="configs" value="*,*,*"/>
-			<entry key="archivePrefix" value="eclipse-utility"/>
-			<entry key="javacSource" value="1.6"/>
-			<entry key="javacTarget" value="1.6"/>
-		</propertyfile>
+		<create.build.configuration 
+			build.dir="${build.dir}" 
+			build.feature.id="org.benhur.utility.feature" 
+			archive.prefix="eclipse-utility" 
+			build.configuration.file="${build_configuration.dir}/build.properties"/>
 	</target>
 
 	<target name="get_sources">
@@ -76,14 +70,6 @@
 	</target>
 
 	<target name="build_sources">
-		<java fork="true" jar="${eclipse.dir}/plugins/org.eclipse.equinox.launcher_1.3.0.v20130327-1440.jar" dir="${eclipse.dir}" failonerror="true">
-			<arg value="-data"/>
-			<arg value="${workspace.dir}"/>
-			<arg value="-application" />
-			<arg value="org.eclipse.ant.core.antRunner"/>
-			<arg value="-buildfile" />
-			<arg value="${eclipse.dir}/plugins/org.eclipse.pde.build_3.8.100.v20130514-1028/scripts/build.xml" />
-			<arg value="-Dbuilder=${build_configuration.dir}" />
-		</java>
+		<run.eclipse.build build.configuration.dir="${build_configuration.dir}"/>
 	</target>
 </project>
