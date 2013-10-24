@@ -5,9 +5,9 @@
 
 	<property name="work.dir" value="${basedir}/work"/>
 
-	<property name="build_configuration.dir" value="${work.dir}/build_configuration"/>
 	<property name="build.dir" value="${work.dir}/build"/>
-	<property name="workspace.dir" value="${work.dir}/workspace"/>
+	<property name="configuration.dir" value="${build.dir}/configuration"/>
+	<property name="workspace.dir" value="${build.dir}/workspace"/>
 	<property name="git.dir" value="${work.dir}/git"/>
 
 	<property name="eclipse.dir" value="/home/benhur/Tools/eclipse-modeling-kepler-R-linux-gtk-x86_64"/>
@@ -25,19 +25,15 @@
 	</target>
 
 	<target name="create_work_skeleton">
-		<mkdir dir="${work.dir}"/>
-		<mkdir dir="${build_configuration.dir}"/>
-		<create.build.dir 
-			build.dir="${build.dir}"/>
-		<mkdir dir="${workspace.dir}"/>
+		<create.eclipse.build.dir build.dir="${build.dir}"/>
 	</target>
 
 	<target name="create_build_configuration">
-		<create.build.configuration 
+		<create.build.configuration.file 
 			build.dir="${build.dir}" 
 			build.feature.id="org.benhur.utility.feature" 
 			archive.prefix="eclipse-utility" 
-			build.configuration.file="${build_configuration.dir}/build.properties"/>
+			build.configuration.file="${configuration.dir}/build.properties"/>
 	</target>
 
 	<target name="get_sources">
@@ -70,6 +66,6 @@
 	</target>
 
 	<target name="build_sources">
-		<run.eclipse.build build.configuration.dir="${build_configuration.dir}"/>
+		<run.eclipse.build build.configuration.dir="${configuration.dir}"/>
 	</target>
 </project>
