@@ -4,68 +4,29 @@
 	<import file="../../eclipse-tips/eclipse-ant/p2.ant"/>
 
 	<property name="work.dir" value="${basedir}/work"/>
-
 	<property name="build.dir" value="${work.dir}/build"/>
-	<property name="configuration.dir" value="${build.dir}/configuration"/>
-	<property name="workspace.dir" value="${build.dir}/workspace"/>
 	<property name="git.dir" value="${work.dir}/git"/>
 
-	<property name="eclipse.dir" value="/home/benhur/Tools/eclipse-modeling-kepler-R-linux-gtk-x86_64"/>
-
 	<target name="build">
-		<antcall target="delete_work"/>
-		<antcall target="create_work_skeleton"/>
-		<antcall target="create_build_configuration"/>
-		<antcall target="get_sources"/>
-		<antcall target="build_sources"/>
+		<build.feature
+			work.dir="${work.dir}"
+			build.feature.id="org.benhur.utility.feature"
+			get.source.target="get_sources"
+		/>
 	</target>
-
-	<target name="delete_work">
-		<delete dir="${work.dir}"/>
-	</target>
-
-	<target name="create_work_skeleton">
-		<create.eclipse.build.dir build.dir="${build.dir}"/>
-	</target>
-
-	<target name="create_build_configuration">
-		<create.build.configuration.file 
-			build.dir="${build.dir}" 
-			build.feature.id="org.benhur.utility.feature" 
-			archive.prefix="eclipse-utility" 
-			build.configuration.file="${configuration.dir}/build.properties"/>
-	</target>
-
+	
 	<target name="get_sources">
-		<mkdir dir="${git.dir}" />
-		<git-clone-pull repository="git@github.com:gbesancon/eclipse-utility.git" destination="${git.dir}/eclipse-utility" />
-		<move todir="${build.dir}/features" includeEmptyDirs="yes" verbose="true">
-			<fileset dir="${git.dir}/eclipse-utility">
-				<include name="**/org.benhur.utility*.feature/**" />
-			</fileset>
-		</move>
-		<move todir="${build.dir}/plugins" includeEmptyDirs="yes" verbose="true">
-			<fileset dir="${git.dir}/eclipse-utility">
-				<include name="**/org.benhur.utility*/**" />
-			</fileset>
-		</move>
-
-		<git-clone-pull repository="git@github.com:gbesancon/eclipse-cots.git" destination="${git.dir}/eclipse-cots" />
-		<move todir="${build.dir}/features" includeEmptyDirs="yes" verbose="true">
-			<fileset dir="${git.dir}/eclipse-cots">
-				<include name="**/org.eclipse.nebula*.feature/**" />
-			</fileset>
-		</move>
-		<move todir="${build.dir}/plugins" includeEmptyDirs="yes" verbose="true">
-			<fileset dir="${git.dir}/eclipse-cots">
-				<include name="**/org.eclipse.nebula*/**" />
-			</fileset>
-		</move>
-
-		<delete dir="${git.dir}" />
-	</target>
-
-	<target name="build_sources">
-		<run.eclipse.build build.configuration.dir="${configuration.dir}"/>
+		<extract.source.git
+			build.dir="${build.dir}" 
+			repository.url="file:///home/benhur/git/eclipse-utility"
+			repository.name="eclipse-utility"
+			base.package.id="org.benhur.utility"
+		/>
+		<extract.source.git
+			build.dir="${build.dir}" 
+			repository.url="file:///home/benhur/git/eclipse-cots"
+			repository.name="eclipse-cots"
+			base.package.id=""
+		/>
 	</target>
 </project>
