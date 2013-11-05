@@ -1,5 +1,7 @@
 <project name="Build Utility" default="build">
 
+	<property file="build.properties"/>
+	
 	<import file="../../eclipse-tips/eclipse-ant/git.ant"/>
 	<import file="../../eclipse-tips/eclipse-ant/p2.ant"/>
 
@@ -18,13 +20,13 @@
 	<target name="get_sources">
 		<extract.source.git
 			build.dir="${build.dir}" 
-			repository.url="file:///home/benhur/git/eclipse-utility"
+			repository.url="${eclipse-utility.repository.url}"
 			repository.name="eclipse-utility"
 			base.package.id="org.benhur.utility"
 		/>
 		<extract.source.git
 			build.dir="${build.dir}" 
-			repository.url="file:///home/benhur/git/eclipse-cots"
+			repository.url="${eclipse-cots.repository.url}"
 			repository.name="eclipse-cots"
 			base.package.id=""
 		/>
