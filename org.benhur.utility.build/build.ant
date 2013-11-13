@@ -10,7 +10,7 @@
 	<property name="git.dir" value="${work.dir}/git"/>
 
 	<target name="build">
-		<build.feature
+		<build.feature.updatesite
 			work.dir="${work.dir}"
 			build.feature.id="org.benhur.utility.updatesite.feature"
 			get.source.target="get_sources"
