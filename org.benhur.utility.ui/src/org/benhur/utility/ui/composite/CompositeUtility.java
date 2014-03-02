@@ -273,6 +273,8 @@ public class CompositeUtility
       label.setToolTipText(labelTooltipText);
     }
     GridData fillGridData = new GridData(SWT.FILL, SWT.FILL, true, true);
+    fillGridData.verticalAlignment = SWT.CENTER;
+    fillGridData.grabExcessVerticalSpace = true;
     fillGridData.horizontalSpan = nbColumns - 1;
     label.setLayoutData(fillGridData);
     return composite;
