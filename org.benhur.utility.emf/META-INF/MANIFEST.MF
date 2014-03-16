@@ -15,3 +15,4 @@ Export-Package: org.benhur.utility.emf,
  org.benhur.utility.emf.validation.custom.impl,
  org.benhur.utility.file.comparison.strategy
 Bundle-ActivationPolicy: lazy
+Bundle-Activator: org.benhur.utility.emf.UtilityEMFActivator
