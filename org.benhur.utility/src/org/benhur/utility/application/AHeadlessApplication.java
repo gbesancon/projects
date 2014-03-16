@@ -17,11 +17,12 @@ import org.eclipse.osgi.util.NLS;
 public abstract class AHeadlessApplication extends AApplication
 {
   protected static final String PARAMETER_PREFIX = "--";
-  protected static final String CONFIGURATION = "configuration";
-  protected static final String HELP = "help";
-  protected static final String LOG = "log";
 
-  protected static final String LOG_LEVEL_MASK = LOG + ".level";
+  protected static final String HELP = "help";
+  protected static final String CONFIGURATION_FILE = "configuration-file";
+
+  protected static final String PROPERTY_LOG_FOLDER = "log.folder";
+  protected static final String PROPERTY_LOG_LEVEL_MASK = "log.level";
   protected static final String LEVEL_OK = "OK";
   protected static final String LEVEL_INFO = "INFO";
   protected static final String LEVEL_WARNING = "WARNING";
@@ -117,14 +118,14 @@ public abstract class AHeadlessApplication extends AApplication
   protected boolean checkConfigurationPropertyFileArgument(String[][] arguments)
   {
     boolean result = true;
-    String[] config = getArgument(arguments, CONFIGURATION);
-    if (config == null || config.length != 2)
+    String[] configurationFile = getArgument(arguments, CONFIGURATION_FILE);
+    if (configurationFile == null || configurationFile.length != 2)
     {
       result = false;
     }
     else
     {
-      File file = new File(config[1]);
+      File file = new File(configurationFile[1]);
       if (file.exists())
       {
         loadProperties(file);
@@ -133,7 +134,7 @@ public abstract class AHeadlessApplication extends AApplication
       else
       {
         result = false;
-        System.out.println(NLS.bind("Configuration file {0} doesn't exist.", new String[] { config[1] }));
+        System.out.println(NLS.bind("Configuration file {0} doesn't exist.", new String[] { configurationFile[1] }));
       }
     }
 
@@ -143,7 +144,7 @@ public abstract class AHeadlessApplication extends AApplication
   protected boolean checkConfigurationPropertyFileContent()
   {
     boolean result = true;
-    result = result && checkFolder(LOG, true, false);
+    result = result && checkFolder(PROPERTY_LOG_FOLDER, true, false);
     return result;
   }
 
@@ -315,8 +316,8 @@ public abstract class AHeadlessApplication extends AApplication
     builder.append("############### Command Line ###############\n");
     builder.append("############################################\n");
     builder.append("java -jar plugins/org.eclipse.equinox.launcher_<version>.jar -application " + application + "\n");
-    builder.append(PARAMETER_PREFIX + HELP + " : Display this message (All actions are inhibited)\n");
-    builder.append(PARAMETER_PREFIX + CONFIGURATION + "='Path' : File to configure application\n");
+    builder.append(PARAMETER_PREFIX + HELP + " : Display this message (Disable all actions)\n");
+    builder.append(PARAMETER_PREFIX + CONFIGURATION_FILE + "='Path' : File to configure application\n");
   }
 
   protected void printConfigurationPropertyFileUse(StringBuilder builder)
@@ -325,9 +326,9 @@ public abstract class AHeadlessApplication extends AApplication
     builder.append("############### Configuration file content ###############\n");
     builder.append("##########################################################\n");
     builder.append("#---------> Log <---------\n");
-    builder.append(LOG + " = 'Path' : Log directory path\n");
-    builder.append(LOG_LEVEL_MASK + " = " + LEVEL_OK + "," + LEVEL_INFO + "," + LEVEL_WARNING + "," + LEVEL_ERROR + ","
-        + LEVEL_CANCEL + " : Comma separated value of log level mask\n");
+    builder.append(PROPERTY_LOG_FOLDER + " = 'Path' : Log directory path\n");
+    builder.append(PROPERTY_LOG_LEVEL_MASK + " = " + LEVEL_OK + "," + LEVEL_INFO + "," + LEVEL_WARNING + ","
+        + LEVEL_ERROR + "," + LEVEL_CANCEL + " : Comma separated value of log level mask\n");
   }
 
   protected void loadProperties(File configuration)
@@ -346,10 +347,10 @@ public abstract class AHeadlessApplication extends AApplication
 
   protected void initialiseLog()
   {
-    String log = null;
-    if (properties.containsKey(LOG))
+    String logFolder = null;
+    if (properties.containsKey(PROPERTY_LOG_FOLDER))
     {
-      log = properties.getProperty(LOG);
+      logFolder = properties.getProperty(PROPERTY_LOG_FOLDER);
     }
     else
     {
@@ -358,22 +359,22 @@ public abstract class AHeadlessApplication extends AApplication
         Location instanceLocation = Platform.getInstanceLocation();
         URL instanceUrl = instanceLocation.getURL();
         File instanceFile = new File(instanceUrl.toURI());
-        log = instanceFile.getAbsolutePath();
+        logFolder = instanceFile.getAbsolutePath();
       }
       catch (URISyntaxException e)
       {
-        log = ".";
+        logFolder = ".";
       }
     }
 
     int severityMask = IStatus.OK | IStatus.INFO | IStatus.WARNING | IStatus.ERROR | IStatus.CANCEL;
-    if (properties.containsKey(LOG_LEVEL_MASK))
+    if (properties.containsKey(PROPERTY_LOG_LEVEL_MASK))
     {
-      String logMask = properties.getProperty(LOG_LEVEL_MASK);
-      severityMask = getLogSeverityMask(logMask);
+      String logLevelMask = properties.getProperty(PROPERTY_LOG_LEVEL_MASK);
+      severityMask = getLogSeverityMask(logLevelMask);
     }
 
-    logListener = new FileLogListener(log, severityMask);
+    logListener = new FileLogListener(logFolder, severityMask);
     logListener.init();
     Platform.addLogListener(logListener);
   }
@@ -414,10 +415,6 @@ public abstract class AHeadlessApplication extends AApplication
       else if (severity.equalsIgnoreCase(LEVEL_CANCEL))
       {
         severityMask |= IStatus.CANCEL;
-      }
-      else
-      {
-        // FIXME Unknown log severity mask
       }
     }
     return severityMask;
