@@ -5,23 +5,24 @@ import org.eclipse.equinox.app.IApplicationContext;
 
 public abstract class AApplication implements IApplication
 {
-  protected final String application;
+  protected final String applicationName;
   protected IApplicationContext context = null;
 
-  public AApplication(String application)
+  public AApplication(String applicationName)
   {
-    this.application = application;
+    this.applicationName = applicationName;
   }
 
   public Object start(IApplicationContext context) throws Exception
   {
     this.context = context;
-    customStart();
-    return IApplication.EXIT_OK;
+    return customStart();
   }
 
-  protected void customStart()
-  {}
+  protected Object customStart()
+  {
+    return IApplication.EXIT_OK;
+  }
 
   public void stop()
   {

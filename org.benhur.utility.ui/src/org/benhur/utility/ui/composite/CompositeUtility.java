@@ -324,7 +324,7 @@ public class CompositeUtility
 
   public static Composite createScrolledComposite(Composite composite, int nbColumns)
   {
-    final ScrolledComposite scrolledComposite = new ScrolledComposite(composite, SWT.V_SCROLL);
+    final ScrolledComposite scrolledComposite = new ScrolledComposite(composite, SWT.V_SCROLL | SWT.H_SCROLL);
     GridData scrolledCompositeGridData = new GridData(GridData.FILL_BOTH);
     scrolledCompositeGridData.horizontalSpan = nbColumns;
     scrolledComposite.setLayoutData(scrolledCompositeGridData);

@@ -10,6 +10,7 @@ import java.util.Properties;
 import org.benhur.utility.log.FileLogListener;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 import org.eclipse.osgi.service.datalocation.Location;
 import org.eclipse.osgi.util.NLS;
@@ -39,7 +40,7 @@ public abstract class AHeadlessApplication extends AApplication
   }
 
   @Override
-  protected void customStart()
+  protected Object customStart()
   {
     arguments = parseArguments();
 
@@ -55,6 +56,8 @@ public abstract class AHeadlessApplication extends AApplication
       run(arguments, properties);
       closeLog();
     }
+
+    return IApplication.EXIT_OK;
   }
 
   protected String[] getArgument(String[][] arguments, String name)
@@ -315,7 +318,7 @@ public abstract class AHeadlessApplication extends AApplication
     builder.append("############################################\n");
     builder.append("############### Command Line ###############\n");
     builder.append("############################################\n");
-    builder.append("java -jar plugins/org.eclipse.equinox.launcher_<version>.jar -application " + application + "\n");
+    builder.append("java -jar plugins/org.eclipse.equinox.launcher_<version>.jar -application " + applicationName + "\n");
     builder.append(PARAMETER_PREFIX + HELP + " : Display this message (Disable all actions)\n");
     builder.append(PARAMETER_PREFIX + CONFIGURATION_FILE + "='Path' : File to configure application\n");
   }
