@@ -2,24 +2,22 @@ package org.benhur.utility.ui.application;
 
 import org.benhur.utility.application.AApplication;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 
 public abstract class AGraphicalApplication extends AApplication
 {
-  public AGraphicalApplication(String application)
+  public AGraphicalApplication(String applicationName)
   {
-    super(application);
+    super(applicationName);
   }
 
   @Override
-  protected void customStart()
+  protected Object customStart()
   {
     Display display = PlatformUI.createDisplay();
     try
     {
-      Shell shell = new Shell(display);
-      createShellContent(shell);
+      return customStart(display);
     }
     finally
     {
@@ -27,5 +25,5 @@ public abstract class AGraphicalApplication extends AApplication
     }
   }
 
-  protected abstract void createShellContent(Shell shell);
+  protected abstract Object customStart(Display display);
 }
