@@ -9,6 +9,8 @@ Require-Bundle: org.eclipse.ui;visibility:=reexport,
  org.eclipse.nebula.widgets.cdatetime;visibility:=reexport
 Export-Package: org.benhur.utility.ui.action,
  org.benhur.utility.ui.application,
+ org.benhur.utility.ui.application.shell,
+ org.benhur.utility.ui.application.workbench,
  org.benhur.utility.ui.color,
  org.benhur.utility.ui.composite,
  org.benhur.utility.ui.control.button,
