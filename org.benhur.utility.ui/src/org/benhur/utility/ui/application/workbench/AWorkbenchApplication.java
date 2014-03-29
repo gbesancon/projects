@@ -7,9 +7,9 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.WorkbenchAdvisor;
 
-public abstract class WorkbenchApplication extends AGraphicalApplication
+public abstract class AWorkbenchApplication extends AGraphicalApplication
 {
-  public WorkbenchApplication(String applicationName)
+  public AWorkbenchApplication(String applicationName)
   {
     super(applicationName);
   }
