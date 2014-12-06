@@ -26,11 +26,5 @@
 			repository.name="eclipse-utility"
 			base.package.id="org.benhur.utility"
 		/>
-		<extract.source.git
-			build.dir="${build.dir}" 
-			repository.url="${eclipse-cots.repository.url}"
-			repository.name="eclipse-cots"
-			base.package.id=""
-		/>
 	</target>
 </project>
