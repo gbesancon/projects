@@ -82,12 +82,10 @@ class Solution1
   public static Map ParseInput()
   {
     Scanner in = new Scanner(System.in);
-
     Map map = new Map();
     map.nbLines = in.nextInt();
     map.nbColumns = in.nextInt();
     in.nextLine();
-
     map.map = new char[map.nbLines][map.nbColumns];
     for (int iLine = 0; iLine < map.nbLines; iLine++)
     {
@@ -97,6 +95,7 @@ class Solution1
         map.map[iLine][iColumn] = line.charAt(iColumn);
       }
     }
+    in.close();
     return map;
   }
 

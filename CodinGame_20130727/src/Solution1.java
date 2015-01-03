@@ -13,46 +13,31 @@ class Solution1
 {
   private static Map<Integer, List<Integer>> buildRelationships()
   {
-    Map<Integer, List<Integer>> relationships = new HashMap<Integer, List<Integer>>();
-
     Scanner in = new Scanner(System.in);
-    try
+    Map<Integer, List<Integer>> relationships = new HashMap<Integer, List<Integer>>();
+    int nbRelationships = in.nextInt();
+    for (int i = 0; i < nbRelationships; i++)
     {
-      int nbRelationships = in.nextInt();
-
-      for (int i = 0; i < nbRelationships; i++)
+      int a = in.nextInt();
+      int b = in.nextInt();
+      List<Integer> relationshipsFor = relationships.get(a);
+      if (relationshipsFor == null)
       {
-        int a = in.nextInt();
-        int b = in.nextInt();
-
-        List<Integer> relationshipsFor = relationships.get(a);
-        if (relationshipsFor == null)
-        {
-          relationshipsFor = new ArrayList<Integer>();
-          relationships.put(a, relationshipsFor);
-        }
-
-        if (!relationshipsFor.contains(b))
-        {
-          relationshipsFor.add(b);
-        }
+        relationshipsFor = new ArrayList<Integer>();
+        relationships.put(a, relationshipsFor);
+      }
+      if (!relationshipsFor.contains(b))
+      {
+        relationshipsFor.add(b);
       }
     }
-    catch (Exception e)
-    {
-      e.printStackTrace();
-    }
-    finally
-    {
-      in.close();
-    }
+    in.close();
     return relationships;
   }
 
   private static List<List<Integer>> performInfluenceChains(Map<Integer, List<Integer>> relationships)
   {
     List<List<Integer>> influenceChains = new ArrayList<List<Integer>>();
-
     for (Entry<Integer, List<Integer>> entries : relationships.entrySet())
     {
       Integer relater = entries.getKey();
@@ -61,11 +46,9 @@ class Solution1
         List<Integer> precedingInfluenceChain = new ArrayList<Integer>();
         precedingInfluenceChain.add(relater);
         precedingInfluenceChain.add(related);
-
         influenceChains.addAll(performInfluenceChains(relationships, precedingInfluenceChain));
       }
     }
-
     return influenceChains;
   }
 
@@ -73,7 +56,6 @@ class Solution1
       List<Integer> precedingInfluenceChain)
   {
     List<List<Integer>> influenceChains = new ArrayList<List<Integer>>();
-
     List<Integer> relateds = relationships.get(precedingInfluenceChain.get(precedingInfluenceChain.size() - 1));
     if (relateds != null)
     {
@@ -96,7 +78,6 @@ class Solution1
     {
       influenceChains.add(precedingInfluenceChain);
     }
-
     return influenceChains;
   }
 
