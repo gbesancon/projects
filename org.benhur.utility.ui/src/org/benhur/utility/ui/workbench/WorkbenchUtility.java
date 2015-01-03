@@ -7,9 +7,9 @@ import org.eclipse.ui.internal.WorkbenchPartReference;
 @SuppressWarnings("restriction")
 public class WorkbenchUtility
 {
-  public static Composite getComposite(IWorkbenchPart part)
+  public static Composite getComposite(IWorkbenchPart workbenchPart)
   {
-    WorkbenchPartReference workbenchPartReference = (WorkbenchPartReference) part.getSite().getPage()
+    WorkbenchPartReference workbenchPartReference = (WorkbenchPartReference) workbenchPart.getSite().getPage()
         .getActivePartReference();
     return (Composite) workbenchPartReference.getPane().getControl();
   }

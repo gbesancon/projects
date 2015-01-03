@@ -4,7 +4,7 @@ import java.net.URL;
 
 public interface IJAXBReaderConfigurer
 {
-  public String getJaxbPackage();
+  public String getJAXBPackage();
 
   public URL getXsdUrl();
 

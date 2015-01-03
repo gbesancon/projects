@@ -8,40 +8,40 @@ import org.osgi.service.prefs.Preferences;
 
 public abstract class AUIPlugin extends org.eclipse.ui.plugin.AbstractUIPlugin
 {
-  protected PluginLogger mLogger;
-  protected String mPluginId;
+  protected PluginLogger logger;
+  protected String pluginId;
 
   public AUIPlugin(String pluginId)
   {
-    mPluginId = pluginId;
+    this.pluginId = pluginId;
   }
 
   @Override
   public void start(BundleContext context) throws Exception
   {
     super.start(context);
-    mLogger = new PluginLogger(this, mPluginId);
+    logger = new PluginLogger(this, pluginId);
   }
 
   @Override
   public void stop(BundleContext context) throws Exception
   {
-    mLogger = null;
+    logger = null;
     super.stop(context);
   }
 
   public Preferences getPreferences()
   {
-    return ConfigurationScope.INSTANCE.getNode(mPluginId);
+    return ConfigurationScope.INSTANCE.getNode(pluginId);
   }
 
   public PluginLogger getLogger()
   {
-    return mLogger;
+    return logger;
   }
 
   public ImageDescriptor getImageDescriptor(String path)
   {
-    return imageDescriptorFromPlugin(mPluginId, path);
+    return imageDescriptorFromPlugin(pluginId, path);
   }
 }

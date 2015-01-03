@@ -15,7 +15,7 @@ import org.eclipse.ui.actions.ActionDelegate;
 public abstract class AActionOnFile extends ActionDelegate implements IActionDelegate
 {
   protected List<IFile> files = null;
-  protected PrintWriter logFileWriter = null;
+  protected PrintWriter printWriter = null;
 
   @SuppressWarnings("unchecked")
   @Override
@@ -31,12 +31,12 @@ public abstract class AActionOnFile extends ActionDelegate implements IActionDel
   {
     try
     {
-      if (logFileWriter != null)
+      if (printWriter != null)
       {
-        logFileWriter.flush();
-        logFileWriter.close();
+        printWriter.flush();
+        printWriter.close();
       }
-      logFileWriter = new PrintWriter(logPath + File.separator + "log_" + System.currentTimeMillis() + "_" + prefix
+      printWriter = new PrintWriter(logPath + File.separator + "log_" + System.currentTimeMillis() + "_" + prefix
           + ".log");
     }
     catch (IOException e)
@@ -49,10 +49,10 @@ public abstract class AActionOnFile extends ActionDelegate implements IActionDel
   public void run(IAction action)
   {
     specificRun(action);
-    if (logFileWriter != null)
+    if (printWriter != null)
     {
-      logFileWriter.flush();
-      logFileWriter.close();
+      printWriter.flush();
+      printWriter.close();
     }
   }
 
@@ -60,9 +60,9 @@ public abstract class AActionOnFile extends ActionDelegate implements IActionDel
 
   protected void logException(Throwable e)
   {
-    if (logFileWriter != null)
+    if (printWriter != null)
     {
-      e.printStackTrace(logFileWriter);
+      e.printStackTrace(printWriter);
     }
   }
 }

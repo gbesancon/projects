@@ -8,37 +8,35 @@ import java.util.List;
 
 public class CsvFileReader
 {
-  protected File mFile = null;
-  protected FileReader mFileReader = null;
-  protected BufferedReader mBuffer = null;
-  protected String mHeader = null;
-  protected String mSeparator = null;
-
-  protected List<String> mColumnTitles = null;
-
-  protected int mFilePosition = 0;
+  protected File file = null;
+  protected String header = null;
+  protected String separator = null;
+  protected FileReader fileReader = null;
+  protected BufferedReader buffer = null;
+  protected int filePosition = 0;
+  protected List<String> columnTitles = null;
 
   public CsvFileReader(File file, String header, String separator) throws IOException
   {
-    mFile = file;
-    mHeader = header;
-    mSeparator = separator;
-    mFileReader = new FileReader(mFile);
-    mBuffer = new BufferedReader(mFileReader);
+    this.file = file;
+    this.header = header;
+    this.separator = separator;
+    this.fileReader = new FileReader(this.file);
+    this.buffer = new BufferedReader(fileReader);
   }
 
   public long getFileSize()
   {
-    return mFile.length();
+    return file.length();
   }
 
   public int getFilePosition()
   {
-    return mFilePosition;
+    return filePosition;
   }
 
   public List<String> getColumnTitles()
   {
-    return mColumnTitles;
+    return columnTitles;
   }
 }
