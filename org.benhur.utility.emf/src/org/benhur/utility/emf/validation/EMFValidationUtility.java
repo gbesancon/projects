@@ -2,6 +2,7 @@ package org.benhur.utility.emf.validation;
 
 import java.util.List;
 
+import org.benhur.utility.emf.UtilityEMFActivator;
 import org.benhur.utility.emf.resource.EMFResourceUtility;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -19,14 +20,15 @@ public class EMFValidationUtility
 {
   public static IStatus isValidStructureAndConstraints(URI modelUri, IProgressMonitor monitor)
   {
-    Resource resource = EMFResourceUtility.loadResource(modelUri, null, null, EMFResourceUtility.getDefaultLoadSaveOptions());
+    Resource resource = EMFResourceUtility.loadResource(modelUri, null, null,
+                                                        EMFResourceUtility.getDefaultLoadSaveOptions());
     return isValidStructureAndConstraints(resource, monitor);
   }
 
   public static IStatus isValidStructureAndConstraints(Resource resource, IProgressMonitor monitor)
   {
-    MultiStatus status = new MultiStatus("org.benhur.utility.emf", IStatus.OK, "Validate structure and constraints.",
-        null);
+    MultiStatus status = new MultiStatus(UtilityEMFActivator.PLUGIN_ID, IStatus.OK,
+        "Validate structure and constraints.", null);
     status.add(validateStructure(resource, monitor));
     status.add(validateConstraints(resource, monitor));
     return status;
@@ -34,13 +36,14 @@ public class EMFValidationUtility
 
   public static IStatus validateConstraints(URI modelUri, IProgressMonitor monitor)
   {
-    Resource resource = EMFResourceUtility.loadResource(modelUri, null, null, EMFResourceUtility.getDefaultLoadSaveOptions());
+    Resource resource = EMFResourceUtility.loadResource(modelUri, null, null,
+                                                        EMFResourceUtility.getDefaultLoadSaveOptions());
     return validateConstraints(resource, monitor);
   }
 
   public static IStatus validateConstraints(Resource resource, IProgressMonitor monitor)
   {
-    MultiStatus status = new MultiStatus("org.benhur.utility.emf", IStatus.OK, "Validate constraints", null);
+    MultiStatus status = new MultiStatus(UtilityEMFActivator.PLUGIN_ID, IStatus.OK, "Validate constraints", null);
     status.add(validateConstraints(resource.getContents(), monitor));
     return status;
   }
@@ -55,13 +58,14 @@ public class EMFValidationUtility
 
   public static IStatus validateStructure(URI modelUri, IProgressMonitor monitor)
   {
-    Resource resource = EMFResourceUtility.loadResource(modelUri, null, null, EMFResourceUtility.getDefaultLoadSaveOptions());
+    Resource resource = EMFResourceUtility.loadResource(modelUri, null, null,
+                                                        EMFResourceUtility.getDefaultLoadSaveOptions());
     return validateStructure(resource, monitor);
   }
 
   public static IStatus validateStructure(Resource resource, IProgressMonitor monitor)
   {
-    MultiStatus status = new MultiStatus("org.benhur.utility.emf", IStatus.OK, "Validate structure", null);
+    MultiStatus status = new MultiStatus(UtilityEMFActivator.PLUGIN_ID, IStatus.OK, "Validate structure", null);
     for (EObject object : resource.getContents())
     {
       status.add(validateStructure(object, monitor));

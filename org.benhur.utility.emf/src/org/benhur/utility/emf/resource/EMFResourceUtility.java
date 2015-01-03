@@ -24,9 +24,9 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 public class EMFResourceUtility
 {
-  public static URI getURI(String filepath)
+  public static URI getURI(String filePath)
   {
-    return getURI(new File(filepath));
+    return getURI(new File(filePath));
   }
 
   public static URI getURI(File file)
@@ -36,15 +36,15 @@ public class EMFResourceUtility
 
   public static String getWorkspaceFilepath(URI uri)
   {
-    String filepath = null;
+    String filePath = null;
     if (uri != null)
     {
       if (uri.isPlatformResource())
       {
-        filepath = (uri.toString().substring(18));
+        filePath = (uri.toString().substring(18));
       }
     }
-    return filepath;
+    return filePath;
   }
 
   @SuppressWarnings("deprecation")

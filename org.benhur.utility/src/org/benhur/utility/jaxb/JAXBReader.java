@@ -16,11 +16,11 @@ import org.xml.sax.SAXException;
 
 public class JAXBReader<T>
 {
-  protected IJAXBReaderConfigurer mConfigurer = null;
+  protected IJAXBReaderConfigurer jaxbReaderConfigurer = null;
 
-  public JAXBReader(final IJAXBReaderConfigurer configurer)
+  public JAXBReader(final IJAXBReaderConfigurer jaxbReaderConfigurer)
   {
-    mConfigurer = configurer;
+    this.jaxbReaderConfigurer = jaxbReaderConfigurer;
   }
 
   @SuppressWarnings("unchecked")
@@ -31,11 +31,12 @@ public class JAXBReader<T>
     {
       if (xmlFile == null)
       {
-        throw new JAXBException("Fichier de description du format de données indéfini.");
+        throw new JAXBException("XML file undefined.");
       }
-      JAXBContext jc = JAXBContext.newInstance(mConfigurer.getJaxbPackage(), mConfigurer.getClassLoader());
-      Unmarshaller unmarshaller = jc.createUnmarshaller();
-      if (mConfigurer.getXsdUrl() != null)
+      JAXBContext jaxbContext = JAXBContext.newInstance(jaxbReaderConfigurer.getJAXBPackage(),
+                                                        jaxbReaderConfigurer.getClassLoader());
+      Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+      if (jaxbReaderConfigurer.getXsdUrl() != null)
       {
         validateXmlFile(unmarshaller);
       }
@@ -71,7 +72,7 @@ public class JAXBReader<T>
     try
     {
       final SchemaFactory schemaFactory = SchemaFactory.newInstance(javax.xml.XMLConstants.W3C_XML_SCHEMA_NS_URI);
-      Schema schema = schemaFactory.newSchema(mConfigurer.getXsdUrl());
+      Schema schema = schemaFactory.newSchema(jaxbReaderConfigurer.getXsdUrl());
       unmarshaller.setSchema(schema);
     }
     catch (SAXException e)

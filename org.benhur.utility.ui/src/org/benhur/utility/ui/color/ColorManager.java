@@ -21,6 +21,7 @@ public class ColorManager
   public final static String COLOR_RED = "red";
   public final static String COLOR_WHITE = "white";
   public final static String COLOR_YELLOW = "yellow";
+
   public final static int COLOR_TEXT_R_INDEX_MIN = 0;
   public final static int COLOR_TEXT_R_INDEX_MAX = 2;
   public final static int COLOR_TEXT_G_INDEX_MIN = 2;
@@ -30,8 +31,8 @@ public class ColorManager
   public final static int COLOR_TEXT_RGB_SIZE = 6;
 
   private final static int HEXA_BASE = 16;
-  private final Map<String, Color> mSystemColors = new HashMap<String, Color>();
-  private final Map<String, Color> mUserColors = new HashMap<String, Color>();
+  private final Map<String, Color> systemColors = new HashMap<String, Color>();
+  private final Map<String, Color> userColors = new HashMap<String, Color>();
 
   public ColorManager()
   {
@@ -41,31 +42,25 @@ public class ColorManager
   public Color getColor(String color)
   {
     Color result = null;
-
     if (color != null)
     {
+      // System color by name
+      result = systemColors.get(color);
       if (result == null)
       {
-        result = mSystemColors.get(color);
-      }
-
-      // Couleur RGB?
-      if (result == null)
-      {
-        result = mUserColors.get(color);
-      }
-
-      // Pas encore en cache
-      if (result == null)
-      {
-        result = getRGBColor(color);
-        if (result != null)
+        // User color by RGB from cache
+        result = userColors.get(color);
+        if (result == null)
         {
-          mUserColors.put(color, result);
+          // User color by RGB not in cache
+          result = getRGBColor(color);
+          if (result != null)
+          {
+            userColors.put(color, result);
+          }
         }
       }
     }
-
     return result;
   }
 
@@ -79,7 +74,6 @@ public class ColorManager
         int r = Integer.parseInt(color.substring(COLOR_TEXT_R_INDEX_MIN, COLOR_TEXT_R_INDEX_MAX), HEXA_BASE);
         int g = Integer.parseInt(color.substring(COLOR_TEXT_G_INDEX_MIN, COLOR_TEXT_G_INDEX_MAX), HEXA_BASE);
         int b = Integer.parseInt(color.substring(COLOR_TEXT_B_INDEX_MIN, COLOR_TEXT_B_INDEX_MAX), HEXA_BASE);
-        // RGB?
         result = new Color(Display.getCurrent(), new RGB(r, g, b));
       }
       catch (NumberFormatException e)
@@ -92,21 +86,21 @@ public class ColorManager
 
   private void initSystemColors()
   {
-    mSystemColors.put(COLOR_BLACK, Display.getCurrent().getSystemColor(SWT.COLOR_BLACK));
-    mSystemColors.put(COLOR_BLUE, Display.getCurrent().getSystemColor(SWT.COLOR_BLUE));
-    mSystemColors.put(COLOR_CYAN, Display.getCurrent().getSystemColor(SWT.COLOR_CYAN));
-    mSystemColors.put(COLOR_DARKGRAY, Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY));
-    mSystemColors.put(COLOR_GRAY, Display.getCurrent().getSystemColor(SWT.COLOR_GRAY));
-    mSystemColors.put(COLOR_GREEN, Display.getCurrent().getSystemColor(SWT.COLOR_GREEN));
-    mSystemColors.put(COLOR_MAGENTA, Display.getCurrent().getSystemColor(SWT.COLOR_MAGENTA));
-    mSystemColors.put(COLOR_RED, Display.getCurrent().getSystemColor(SWT.COLOR_RED));
-    mSystemColors.put(COLOR_WHITE, Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
-    mSystemColors.put(COLOR_YELLOW, Display.getCurrent().getSystemColor(SWT.COLOR_YELLOW));
+    systemColors.put(COLOR_BLACK, Display.getCurrent().getSystemColor(SWT.COLOR_BLACK));
+    systemColors.put(COLOR_BLUE, Display.getCurrent().getSystemColor(SWT.COLOR_BLUE));
+    systemColors.put(COLOR_CYAN, Display.getCurrent().getSystemColor(SWT.COLOR_CYAN));
+    systemColors.put(COLOR_DARKGRAY, Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY));
+    systemColors.put(COLOR_GRAY, Display.getCurrent().getSystemColor(SWT.COLOR_GRAY));
+    systemColors.put(COLOR_GREEN, Display.getCurrent().getSystemColor(SWT.COLOR_GREEN));
+    systemColors.put(COLOR_MAGENTA, Display.getCurrent().getSystemColor(SWT.COLOR_MAGENTA));
+    systemColors.put(COLOR_RED, Display.getCurrent().getSystemColor(SWT.COLOR_RED));
+    systemColors.put(COLOR_WHITE, Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
+    systemColors.put(COLOR_YELLOW, Display.getCurrent().getSystemColor(SWT.COLOR_YELLOW));
   }
 
   public void dispose()
   {
-    Collection<Color> colors = mUserColors.values();
+    Collection<Color> colors = userColors.values();
     for (Color color : colors)
     {
       color.dispose();

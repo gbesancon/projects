@@ -13,9 +13,9 @@ import org.benhur.utility.io.PropertiesFileReader;
 
 public class NLUtility
 {
-  public static final String NL_PREFIX = "@";
+  protected static final String NL_PREFIX = "@";
 
-  public static String getTranslationBaseFilename(URL xmlFileUrl)
+  protected static String getTranslationBaseFilename(URL xmlFileUrl)
   {
     String result = null;
     URL url = getTranslationBaseFileUrl(xmlFileUrl);
@@ -26,7 +26,7 @@ public class NLUtility
     return result;
   }
 
-  public static URL getTranslationBaseFileUrl(URL xmlFileUrl)
+  protected static URL getTranslationBaseFileUrl(URL xmlFileUrl)
   {
     URL result = null;
     try
@@ -54,7 +54,7 @@ public class NLUtility
     }
   }
 
-  public static void translate(Object jaxbObject, Package thePackage, URL translationFile)
+  protected static void translate(Object jaxbObject, Package thePackage, URL translationFile)
   {
     Field[] fields = jaxbObject.getClass().getDeclaredFields();
 
@@ -64,8 +64,7 @@ public class NLUtility
       {
         if (field.getType().isPrimitive())
         {
-          // C'est des primitive on fait rien.
-          ;
+          ; // It's primitive, we do nothing.
         }
         else if (field.getType().equals(String.class))
         {
