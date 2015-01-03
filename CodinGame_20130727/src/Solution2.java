@@ -15,7 +15,6 @@ public class Solution2
       this.width = width;
       this.height = height;
       this.map = new MapPoint[height][width];
-
       for (int y = 0; y < height; y++)
       {
         for (int x = 0; x < width; x++)
@@ -56,9 +55,7 @@ public class Solution2
   {
     int width = in.nextInt();
     int height = in.nextInt();
-
     Map map = new Map(width, height);
-
     for (int y = 0; y < height; y++)
     {
       String line = in.next();
@@ -71,7 +68,6 @@ public class Solution2
         }
       }
     }
-
     return map;
   }
 
@@ -138,7 +134,6 @@ public class Solution2
   public static void main(String args[])
   {
     Scanner in = new Scanner(System.in);
-
     Map map = buildMap(in);
     List<Point> probedPoints = buildProbedPoints(in);
     for (Point probedPoint : probedPoints)
@@ -146,5 +141,6 @@ public class Solution2
       List<MapPoint> lake = getLakeAt(map, probedPoint);
       System.out.println(lake.size());
     }
+    in.close();
   }
 }
