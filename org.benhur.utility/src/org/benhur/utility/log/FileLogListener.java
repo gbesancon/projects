@@ -10,19 +10,19 @@ import org.eclipse.core.runtime.IStatus;
 
 public class FileLogListener implements ILogListener
 {
-  protected final String folderpath;
+  protected final String folderPath;
   protected final int severityMask;
   protected PrintStream logStream = null;
 
-  public FileLogListener(String folderpath, int severityMask)
+  public FileLogListener(String folderPath, int severityMask)
   {
-    this.folderpath = folderpath;
+    this.folderPath = folderPath;
     this.severityMask = severityMask;
   }
 
   public void init()
   {
-    File logFolder = new File(folderpath);
+    File logFolder = new File(folderPath);
     if (!logFolder.exists())
     {
       logFolder.mkdirs();

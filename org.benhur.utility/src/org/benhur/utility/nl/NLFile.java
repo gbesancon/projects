@@ -6,47 +6,47 @@ import org.benhur.utility.file.FileUtility;
 
 public class NLFile
 {
-  protected final String mDirectory;
-  protected final String mBaseFilename;
-  protected final String mFileExtension;
-  protected final String mLocaleLanguage;
-  protected final String mLocaleCountry;
+  protected final String folderPath;
+  protected final String baseFileName;
+  protected final String fileExtension;
+  protected final String localeLanguage;
+  protected final String localeCountry;
 
-  public NLFile(String filename)
+  public NLFile(String fileName)
   {
-    mDirectory = FileUtility.getFolder(filename);
-    mBaseFilename = FileUtility.getBaseFilename(filename);
-    mFileExtension = FileUtility.getExtension(filename);
+    folderPath = FileUtility.getFolder(fileName);
+    baseFileName = FileUtility.getBaseFilename(fileName);
+    fileExtension = FileUtility.getExtension(fileName);
     if (!Locale.getDefault().getLanguage().isEmpty())
     {
-      mLocaleLanguage = "_" + Locale.getDefault().getLanguage();
+      localeLanguage = "_" + Locale.getDefault().getLanguage();
     }
     else
     {
-      mLocaleLanguage = "";
+      localeLanguage = "";
     }
     if (!Locale.getDefault().getCountry().isEmpty())
     {
-      mLocaleCountry = "_" + Locale.getDefault().getCountry();
+      localeCountry = "_" + Locale.getDefault().getCountry();
     }
     else
     {
-      mLocaleCountry = "";
+      localeCountry = "";
     }
   }
 
   public String getFilename()
   {
-    return mDirectory + mBaseFilename + mFileExtension;
+    return folderPath + baseFileName + fileExtension;
   }
 
   public String getLanguageFilename()
   {
-    return mDirectory + mBaseFilename + mLocaleLanguage + mFileExtension;
+    return folderPath + baseFileName + localeLanguage + fileExtension;
   }
 
   public String getCountryFilename()
   {
-    return mDirectory + mBaseFilename + mLocaleLanguage + mLocaleCountry + mFileExtension;
+    return folderPath + baseFileName + localeLanguage + localeCountry + fileExtension;
   }
 }

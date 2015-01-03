@@ -5,9 +5,9 @@ import java.util.List;
 
 public class Pool<T>
 {
-  protected final int mCapacity;
-  protected final List<T> mPool;
-  protected final PoolObjectProvider<T> mProvider;
+  protected final int capacity;
+  protected final List<T> pool;
+  protected final PoolObjectProvider<T> provider;
 
   public Pool(PoolObjectProvider<T> provider)
   {
@@ -16,33 +16,33 @@ public class Pool<T>
 
   public Pool(PoolObjectProvider<T> provider, int capacity)
   {
-    mCapacity = capacity;
-    mProvider = provider;
-    mPool = new ArrayList<T>(capacity);
+    this.capacity = capacity;
+    this.provider = provider;
+    this.pool = new ArrayList<T>(capacity);
   }
 
-  public T getOut()
+  public T pull()
   {
     T object = null;
-    if (mPool.size() > 0)
+    if (pool.size() > 0)
     {
-      object = mPool.remove(0);
+      object = pool.remove(0);
       if (object == null)
       {
-        object = mProvider.createInstance();
+        object = provider.createInstance();
       }
     }
     return object;
   }
 
-  public void getIn(T object)
+  public void push(T object)
   {
     if (object != null)
     {
-      mProvider.cleanInstance(object);
-      if (mPool.size() < mCapacity)
+      provider.cleanInstance(object);
+      if (pool.size() < capacity)
       {
-        mPool.add(object);
+        pool.add(object);
       }
     }
   }

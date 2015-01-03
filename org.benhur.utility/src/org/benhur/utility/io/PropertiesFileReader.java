@@ -48,15 +48,15 @@ public class PropertiesFileReader
     return propertyValue;
   }
 
-  protected static String getProperty(final String filepath, final String propertyName)
+  protected static String getProperty(final String filePath, final String propertyName)
   {
     String propertyValue = null;
 
-    if (filepath != null)
+    if (filePath != null)
     {
-      File file = new File(filepath);
+      File file = new File(filePath);
 
-      // Initialisation des variables
+      // Initialize variables
       String initialDirectory = file.getParent() + "/";
       String initialFileName = file.getName();
       String fileExtension = "";
@@ -89,95 +89,90 @@ public class PropertiesFileReader
         }
         if (propertyValue == null)
         {
-          propertyValue = getPropertyFromFile(filepath, propertyName);
+          propertyValue = getPropertyFromFile(filePath, propertyName);
         }
       }
     }
     return propertyValue;
   }
 
-  public static String getStringProperty(final String pathFile, final String keyProperty) throws PropertyException
+  public static String getStringProperty(final String filePath, final String propertyName) throws PropertyException
   {
     String result;
-    String stringProperty = getProperty(pathFile, keyProperty);
-    if (stringProperty == null)
+    String propertyValue = getProperty(filePath, propertyName);
+    if (propertyValue == null)
     {
-      throw new PropertyException("La propriété " + keyProperty + " n'est pas présente dans le fichier de propriétés "
-          + pathFile + " .");
+      throw new PropertyException("Property " + propertyName + " is not present in property file " + filePath + " .");
     }
     else
     {
-      result = stringProperty;
+      result = propertyValue;
     }
     return result;
   }
 
-  public static int getIntProperty(final String pathFile, final String property) throws PropertyException
+  public static int getIntProperty(final String filePath, final String propertyName) throws PropertyException
   {
     int result;
-    String stringProperty = getProperty(pathFile, property);
-    if (stringProperty == null)
+    String propertyValue = getProperty(filePath, propertyName);
+    if (propertyValue == null)
     {
-      throw new PropertyException("La propriété " + property + " n'est pas présente dans le fichier de propriétés "
-          + pathFile + " .");
+      throw new PropertyException("Property " + propertyName + " is not present in property file " + filePath + " .");
     }
     else
     {
       try
       {
-        result = Integer.parseInt(stringProperty);
+        result = Integer.parseInt(propertyValue);
       }
       catch (NumberFormatException e)
       {
-        throw new PropertyException("La propriété " + property + " du fichier de propriétés " + pathFile
-            + " ne correspond pas à un nombre entier.");
+        throw new PropertyException("Property " + propertyName + " in property file " + filePath
+            + " is not an integer.");
       }
     }
     return result;
   }
 
-  public static boolean getBooleanProperty(final String pathFile, final String property) throws PropertyException
+  public static boolean getBooleanProperty(final String filePath, final String propertyName) throws PropertyException
   {
     boolean result;
-    String stringProperty = getProperty(pathFile, property);
-    if (stringProperty == null)
+    String propertyValue = getProperty(filePath, propertyName);
+    if (propertyValue == null)
     {
-      result = true;
+      throw new PropertyException("Property " + propertyName + " is not present in property file " + filePath + " .");
     }
     else
     {
       try
       {
-        result = Boolean.parseBoolean(stringProperty);
+        result = Boolean.parseBoolean(propertyValue);
       }
       catch (NumberFormatException e)
       {
-        throw new PropertyException("La propriété " + property + " du fichier de propriétés " + pathFile
-            + " ne correspond pas à un booléen.");
+        throw new PropertyException("Property " + propertyName + " in property file " + filePath + " is not a boolean.");
       }
     }
     return result;
   }
 
-  public static double getDoubleProperty(final String pathFile, final String property) throws PropertyException
+  public static double getDoubleProperty(final String filePath, final String propertyName) throws PropertyException
   {
     double result;
-    String stringProperty = getProperty(pathFile, property);
-    if (stringProperty == null)
+    String propertyValue = getProperty(filePath, propertyName);
+    if (propertyValue == null)
     {
-      throw new PropertyException("La propriété " + property + " n'est pas présente dans le fichier de propriétés "
-          + pathFile + " .");
+      throw new PropertyException("Property " + propertyName + " is not present in property file " + filePath + " .");
     }
     else
     {
       try
       {
-        result = Double.parseDouble(stringProperty);
+        result = Double.parseDouble(propertyValue);
       }
       catch (NumberFormatException e)
       {
-        throw new PropertyException("La propriété " + property + " du fichier de propriétés " + pathFile
-            + " ne correspond pas à un double.");
+        throw new PropertyException("Property " + propertyName + " in property file " + filePath + " is not a double.");
       }
     }
     return result;
