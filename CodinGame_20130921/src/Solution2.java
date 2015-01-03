@@ -80,7 +80,7 @@ class Solution2
         room.accessibleRoom2 = null;
       }
     }
-
+    in.close();
     return graphe;
   }
 
