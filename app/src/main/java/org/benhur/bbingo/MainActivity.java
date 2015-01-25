@@ -52,12 +52,12 @@ public class MainActivity extends Activity {
 
         setContentView(R.layout.activity_main);
 
-        final View controlsView = findViewById(R.id.fullscreen_content_controls);
-        final View contentView = findViewById(R.id.fullscreen_content);
+        final View menu_layout = findViewById(R.id.menu_layout);
+        final View background_view = findViewById(R.id.background_view);
 
         // Set up an instance of SystemUiHider to control the system UI for
         // this activity.
-        mSystemUiHider = SystemUiHider.getInstance(this, contentView, HIDER_FLAGS);
+        mSystemUiHider = SystemUiHider.getInstance(this, background_view, HIDER_FLAGS);
         mSystemUiHider.setup();
         mSystemUiHider
                 .setOnVisibilityChangeListener(new SystemUiHider.OnVisibilityChangeListener() {
@@ -74,20 +74,20 @@ public class MainActivity extends Activity {
                             // in-layout UI controls at the bottom of the
                             // screen.
                             if (mControlsHeight == 0) {
-                                mControlsHeight = controlsView.getHeight();
+                                mControlsHeight = menu_layout.getHeight();
                             }
                             if (mShortAnimTime == 0) {
                                 mShortAnimTime = getResources().getInteger(
                                         android.R.integer.config_shortAnimTime);
                             }
-                            controlsView.animate()
+                            menu_layout.animate()
                                     .translationY(visible ? 0 : mControlsHeight)
                                     .setDuration(mShortAnimTime);
                         } else {
                             // If the ViewPropertyAnimator APIs aren't
                             // available, simply show or hide the in-layout UI
                             // controls.
-                            controlsView.setVisibility(visible ? View.VISIBLE : View.GONE);
+                            menu_layout.setVisibility(visible ? View.VISIBLE : View.GONE);
                         }
 
                         if (visible && AUTO_HIDE) {
@@ -98,7 +98,7 @@ public class MainActivity extends Activity {
                 });
 
         // Set up the user interaction to manually show or hide the system UI.
-        contentView.setOnClickListener(new View.OnClickListener() {
+        background_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (TOGGLE_ON_CLICK) {
@@ -112,7 +112,8 @@ public class MainActivity extends Activity {
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+        findViewById(R.id.new_button).setOnTouchListener(mDelayHideTouchListener);
+        findViewById(R.id.exit_button).setOnTouchListener(mDelayHideTouchListener);
     }
 
     @Override
