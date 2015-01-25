@@ -24,11 +24,22 @@
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
             android:background="@color/black_overlay" android:orientation="vertical"
-            tools:ignore="UselessParent">
+            tools:ignore="UselessParent"
+            android:layout_marginBottom="100dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
 
-            <Button android:id="@+id/new_button" style="?metaButtonBarButtonStyle"
+            <Button android:id="@+id/start_button" style="?metaButtonBarButtonStyle"
                 android:layout_width="fill_parent" android:layout_height="fill_parent"
-                android:layout_weight="1" android:text="@string/new_button" />
+                android:layout_weight="1" android:text="@string/start_button" />
+
+            <Button
+                style="?metaButtonBarButtonStyle"
+                android:id="@+id/preferences_button"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="@string/preferences_button" />
 
             <Button
                 style="?metaButtonBarButtonStyle"
