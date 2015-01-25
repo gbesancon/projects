@@ -1,0 +1,4 @@
+<resources>
+    <string name="start_button">Start</string>
+    <string name="settings_button">Settings</string>
+</resources>

@@ -1,6 +1,6 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:background="#0099cc" tools:context=".MainActivity"
+    android:layout_height="match_parent" android:background="#0099cc" tools:context=".activity.BBingoActivity"
     android:id="@+id/main_layout">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
@@ -35,19 +35,11 @@
 
             <Button
                 style="?metaButtonBarButtonStyle"
-                android:id="@+id/preferences_button"
+                android:id="@+id/settings_button"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:text="@string/preferences_button" />
-
-            <Button
-                style="?metaButtonBarButtonStyle"
-                android:id="@+id/exit_button"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:text="@string/exit_button" />
+                android:text="@string/settings_button" />
 
         </LinearLayout>
 
