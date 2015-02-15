@@ -38,8 +38,8 @@ class Player
 
   class Board
   {
-    public int width = 0;
-    public int height = 0;
+    public int width;
+    public int height;
 
     boolean isInside(Position position)
     {
@@ -55,15 +55,20 @@ class Player
 
   class GamePlayer
   {
-    public int id = 0;
+    public final int id;
     boolean isDead = false;
     public Path path = new Path();
     public int wallsLeft = 0;
 
+    public GamePlayer(int id)
+    {
+      this.id = id;
+    }
+
     @Override
     public String toString()
     {
-      return "id:" + id + ",path(" + path + "),wallsLeft:" + wallsLeft;
+      return "id:" + id + ",isDead:" + isDead + ",path(" + path + "),wallsLeft:" + wallsLeft;
     }
   }
 
@@ -91,8 +96,8 @@ class Player
 
   class Position
   {
-    public int x = 0;
-    public int y = 0;
+    public final int x;
+    public final int y;
 
     public Position(int x, int y)
     {
@@ -109,8 +114,98 @@ class Player
 
   class Wall
   {
-    public Position position = new Position(0, 0);
-    public ORIENTATION orientation = ORIENTATION.VERTICAL;
+    public final Position position;
+    public final ORIENTATION orientation;
+
+    public Wall(Position possition, ORIENTATION orientation)
+    {
+      this.position = possition;
+      this.orientation = orientation;
+    }
+
+    public boolean intersect(Wall wall)
+    {
+      boolean intersect = false;
+      if (orientation == ORIENTATION.VERTICAL && wall.orientation == ORIENTATION.VERTICAL)
+      {
+        if (position.x == wall.position.x)
+        {
+          if (wall.position.y - 1 <= position.y && position.y <= wall.position.y + 1)
+          {
+            intersect = true;
+          }
+        }
+      }
+      else if (orientation == ORIENTATION.HORIZONTAL && wall.orientation == ORIENTATION.HORIZONTAL)
+      {
+        if (wall.position.x - 1 <= position.x && position.x <= wall.position.x + 1)
+        {
+          if (position.y == wall.position.y)
+          {
+            intersect = true;
+          }
+        }
+      }
+      else if (orientation == ORIENTATION.HORIZONTAL && wall.orientation == ORIENTATION.VERTICAL)
+      {
+        if (position.x + 1 == wall.position.x)
+        {
+          if (position.y == wall.position.y - 1)
+          {
+            intersect = true;
+          }
+        }
+      }
+      else if (orientation == ORIENTATION.VERTICAL && wall.orientation == ORIENTATION.HORIZONTAL)
+      {
+        if (position.x == wall.position.x + 1)
+        {
+          if (position.y - 1 == wall.position.y)
+          {
+            intersect = true;
+          }
+        }
+      }
+      return intersect;
+    }
+
+    public boolean isRunningInto(Position position, DIRECTION direction)
+    {
+      boolean isRunningIntoWall = false;
+      if (this.orientation == ORIENTATION.HORIZONTAL)
+      {
+        boolean validateX = position.x >= this.position.x && position.x < this.position.x + 2;
+        if (direction == DIRECTION.UP)
+        {
+          isRunningIntoWall = validateX && (position.y == this.position.y);
+        }
+        else if (direction == DIRECTION.DOWN)
+        {
+          isRunningIntoWall = validateX && (position.y + 1 == this.position.y);
+        }
+        else
+        {
+          // Going Left or Right : no problem
+        }
+      }
+      else
+      {
+        boolean validateY = position.y >= this.position.y && position.y < this.position.y + 2;
+        if (direction == DIRECTION.LEFT)
+        {
+          isRunningIntoWall = (position.x == this.position.x) && validateY;
+        }
+        else if (direction == DIRECTION.RIGHT)
+        {
+          isRunningIntoWall = (position.x + 1 == this.position.x) && validateY;
+        }
+        else
+        {
+          // Going Up or Down : no problem
+        }
+      }
+      return isRunningIntoWall;
+    }
 
     @Override
     public String toString()
@@ -146,7 +241,7 @@ class Player
 
   enum DIRECTION
   {
-    UP, RIGHT, DOWN, LEFT
+    NONE, UP, RIGHT, DOWN, LEFT
   }
 
   class MoveAction extends Action
@@ -162,29 +257,22 @@ class Player
     public int computeScore()
     {
       int score = 0;
-      if (canMove(getMyLastPosition(), direction))
+      if ((getMyGamePlayer().path.directions.size() == 0)
+          || (getMyGamePlayer().path.directions.size() != 0 && direction != getOppositeDirection(getMyLastDirection())))
       {
-        if ((getMyGamePlayer().path.directions.size() == 0)
-            || (getMyGamePlayer().path.directions.size() != 0 && direction != getOppositeDirection(getMyLastDirection())))
+        if (getMyPreferredDirection() == direction)
         {
-          if (getMyPreferredDirection() == direction)
-          {
-            score = 75;
-          }
-          else
-          {
-            score = 50;
-          }
+          score = 75;
         }
         else
         {
-          // Can move but no progress, just backtracking
-          score = 25;
+          score = 50;
         }
       }
       else
       {
-        score = -100;
+        // Can move but no progress, just backtracking
+        score = 25;
       }
       return score;
     }
@@ -199,28 +287,25 @@ class Player
 
   class PuttWallAction extends Action
   {
-    Position position = new Position(0, 0);
-    ORIENTATION orientation = ORIENTATION.VERTICAL;
+    public final Wall wall;
 
-    public PuttWallAction(int x, int y, ORIENTATION orientation)
+    public PuttWallAction(Wall wall)
     {
-      this.position.x = x;
-      this.position.y = y;
-      this.orientation = orientation;
+      this.wall = wall;
     }
 
     @Override
     public int computeScore()
     {
-      return -100;
+      return 100;
     }
 
     @Override
     public String toString()
     {
       // action: LEFT, RIGHT, UP, DOWN or "putX putY putOrientation" to place a wall
-      return Integer.toString(position.x) + " " + Integer.toString(position.y) + " "
-          + (orientation == ORIENTATION.HORIZONTAL ? "H" : "V");
+      return Integer.toString(wall.position.x) + " " + Integer.toString(wall.position.y) + " "
+          + (wall.orientation == ORIENTATION.HORIZONTAL ? "H" : "V");
     }
   }
 
@@ -263,8 +348,11 @@ class Player
       case 2:
         direction = DIRECTION.DOWN;
         break;
+      case 3:
+        direction = DIRECTION.UP;
+        break;
       default:
-        direction = null;
+        direction = DIRECTION.NONE;
         break;
     }
     return direction;
@@ -303,7 +391,7 @@ class Player
     }
     else
     {
-      direction = null;
+      direction = DIRECTION.NONE;
     }
     return direction;
   }
@@ -326,10 +414,34 @@ class Player
         oppositeDirection = DIRECTION.UP;
         break;
       default:
-        oppositeDirection = null;
+        oppositeDirection = DIRECTION.NONE;
         break;
     }
     return oppositeDirection;
+  }
+
+  public Position computeNextPosition(Position position, DIRECTION direction)
+  {
+    final Position nextPosition;
+    switch (direction)
+    {
+      case UP:
+        nextPosition = new Position(position.x, position.y - 1);
+        break;
+      case RIGHT:
+        nextPosition = new Position(position.x + 1, position.y);
+        break;
+      case DOWN:
+        nextPosition = new Position(position.x, position.y + 1);
+        break;
+      case LEFT:
+        nextPosition = new Position(position.x - 1, position.y);
+        break;
+      default:
+        nextPosition = position;
+        break;
+    }
+    return nextPosition;
   }
 
   public static void main(String args[])
@@ -345,8 +457,7 @@ class Player
 
     for (int i = 0; i < playerCount; i++)
     {
-      GamePlayer gamePlayer = player.new GamePlayer();
-      gamePlayer.id = i;
+      GamePlayer gamePlayer = player.new GamePlayer(i);
       player.world.gamePlayers.add(gamePlayer);
     }
 
@@ -386,12 +497,11 @@ class Player
       player.world.walls.clear();
       for (int i = 0; i < wallCount; i++)
       {
-        Wall wall = player.new Wall();
-        wall.position.x = in.nextInt(); // x-coordinate of the wall
-        wall.position.y = in.nextInt(); // y-coordinate of the wall
-        // wall orientation ('H' or 'V')
-        wall.orientation = in.next().compareTo("H") == 0 ? ORIENTATION.HORIZONTAL : ORIENTATION.VERTICAL;
-        player.world.walls.add(wall);
+        int x = in.nextInt(); // x-coordinate of the wall
+        int y = in.nextInt(); // y-coordinate of the wall
+        String orientation = in.next(); // wall orientation ('H' or 'V')
+        player.world.walls.add(player.new Wall(player.new Position(x, y),
+            orientation.compareTo("H") == 0 ? ORIENTATION.HORIZONTAL : ORIENTATION.VERTICAL));
       }
 
       System.err.println(player.world);
@@ -417,13 +527,27 @@ class Player
   public List<Action> computePotentialActions()
   {
     List<Action> actions = new ArrayList<Player.Action>();
+    actions.addAll(computePotentialMoveActions());
+    actions.addAll(computePotentialPutWallActions());
+    return actions;
+  }
+
+  public List<Action> computePotentialMoveActions()
+  {
+    List<Action> actions = new ArrayList<Player.Action>();
     int algorithm = 0;
     if (algorithm == 0)
     {
-      actions.add(new MoveAction(DIRECTION.RIGHT));
-      actions.add(new MoveAction(DIRECTION.LEFT));
-      actions.add(new MoveAction(DIRECTION.UP));
-      actions.add(new MoveAction(DIRECTION.DOWN));
+      for (DIRECTION direction : DIRECTION.values())
+      {
+        if (direction != DIRECTION.NONE)
+        {
+          if (canMove(getMyLastPosition(), direction))
+          {
+            actions.add(new MoveAction(direction));
+          }
+        }
+      }
     }
     else if (algorithm == 1)
     {
@@ -431,6 +555,36 @@ class Player
       actions.add(new MoveAction(shortestPathGuidance.get(0)));
     }
     return actions;
+  }
+
+  public boolean canMove(Position position, DIRECTION direction)
+  {
+    boolean canMove = false;
+    Position nextPosition = computeNextPosition(position, direction);
+    if (world.board.isInside(nextPosition))
+    {
+      if (getBlockingWall(position, direction) == null)
+      {
+        canMove = true;
+      }
+    }
+    return canMove;
+  }
+
+  public Wall getBlockingWall(Position position, DIRECTION direction)
+  {
+    Wall blockingWall = null;
+    for (Wall wall : world.walls)
+    {
+      if (blockingWall == null)
+      {
+        if (wall.isRunningInto(position, direction))
+        {
+          blockingWall = wall;
+        }
+      }
+    }
+    return blockingWall;
   }
 
   public List<DIRECTION> computeShortestPathGuidance()
@@ -506,6 +660,107 @@ class Player
     return foundPath;
   }
 
+  public List<Action> computePotentialPutWallActions()
+  {
+    List<Action> actions = new ArrayList<Player.Action>();
+    if (getMyGamePlayer().wallsLeft > 0)
+    {
+      for (GamePlayer gamePlayer : world.gamePlayers)
+      {
+        if (gamePlayer.id != world.myId)
+        {
+          Position position = getLastPosition(gamePlayer.id);
+          DIRECTION preferredDirection = getPreferredDirection(gamePlayer.id);
+          if (canMove(position, preferredDirection))
+          {
+            List<Wall> blockingWalls = computeBlockingWall(position, preferredDirection);
+            for (Wall blockingWall : blockingWalls)
+            {
+              actions.add(new PuttWallAction(blockingWall));
+            }
+          }
+        }
+      }
+    }
+    return actions;
+  }
+
+  public List<Wall> computeBlockingWall(Position position, DIRECTION direction)
+  {
+    List<Wall> walls = new ArrayList<Player.Wall>();
+    final Wall wall1;
+    final Wall wall2;
+    switch (direction)
+    {
+      case LEFT:
+        wall1 = new Wall(new Position(position.x, position.y - 1), ORIENTATION.VERTICAL);
+        wall2 = new Wall(new Position(position.x, position.y), ORIENTATION.VERTICAL);
+        break;
+      case RIGHT:
+        wall1 = new Wall(new Position(position.x + 1, position.y - 1), ORIENTATION.VERTICAL);
+        wall2 = new Wall(new Position(position.x + 1, position.y), ORIENTATION.VERTICAL);
+        break;
+      case UP:
+        wall1 = new Wall(new Position(position.x - 1, position.y), ORIENTATION.HORIZONTAL);
+        wall2 = new Wall(new Position(position.x, position.y), ORIENTATION.HORIZONTAL);
+        break;
+      case DOWN:
+        wall1 = new Wall(new Position(position.x - 1, position.y + 1), ORIENTATION.HORIZONTAL);
+        wall2 = new Wall(new Position(position.x, position.y + 1), ORIENTATION.HORIZONTAL);
+        break;
+      default:
+        wall1 = null;
+        wall2 = null;
+        break;
+    }
+    if (wall1 != null && canPutWall(wall1))
+    {
+      walls.add(wall1);
+    }
+    if (wall2 != null && canPutWall(wall2))
+    {
+      walls.add(wall2);
+    }
+    return walls;
+  }
+
+  public boolean canPutWall(Wall wall)
+  {
+    boolean canPutWall = true;
+    switch (wall.orientation)
+    {
+      case HORIZONTAL:
+        if ((wall.position.x > 0 && wall.position.x < world.board.width - 1)
+            && (wall.position.y > 0 && wall.position.y < world.board.height))
+        {
+          for (Wall aWall : world.walls)
+          {
+            canPutWall &= !wall.intersect(aWall);
+          }
+        }
+        else
+        {
+          canPutWall = false;
+        }
+        break;
+      case VERTICAL:
+        if ((wall.position.x > 0 && wall.position.x < world.board.width)
+            && (wall.position.y > 0 && wall.position.y < world.board.height - 1))
+        {
+          for (Wall aWall : world.walls)
+          {
+            canPutWall &= !wall.intersect(aWall);
+          }
+        }
+        else
+        {
+          canPutWall = false;
+        }
+        break;
+    }
+    return canPutWall;
+  }
+
   public int sortActionsByScore(List<Action> actions)
   {
     Collections.sort(actions, new Comparator<Action>()
@@ -540,91 +795,5 @@ class Player
       iIndex = (int) Math.rint(value);
     }
     return actions.get(iIndex);
-  }
-
-  public boolean canMove(Position position, DIRECTION direction)
-  {
-    boolean canMove = false;
-    Position nextPosition = computeNextPosition(position, direction);
-    if (world.board.isInside(nextPosition))
-    {
-      if (!isRunningIntoWall(position, direction))
-      {
-        canMove = true;
-      }
-    }
-    return canMove;
-  }
-
-  public Position computeNextPosition(Position position, DIRECTION direction)
-  {
-    final Position nextPosition;
-    switch (direction)
-    {
-      case UP:
-        nextPosition = new Position(position.x, position.y - 1);
-        break;
-      case RIGHT:
-        nextPosition = new Position(position.x + 1, position.y);
-        break;
-      case DOWN:
-        nextPosition = new Position(position.x, position.y + 1);
-        break;
-      case LEFT:
-        nextPosition = new Position(position.x - 1, position.y);
-        break;
-      default:
-        nextPosition = null;
-        break;
-    }
-    return nextPosition;
-  }
-
-  public boolean isRunningIntoWall(Position position, DIRECTION direction)
-  {
-    boolean isRunningIntoWall = false;
-    for (Wall wall : world.walls)
-    {
-      isRunningIntoWall |= isRunningIntoWall(position, direction, wall);
-    }
-    return isRunningIntoWall;
-  }
-
-  public boolean isRunningIntoWall(Position position, DIRECTION direction, Wall wall)
-  {
-    boolean isRunningIntoWall = false;
-    if (wall.orientation == ORIENTATION.HORIZONTAL)
-    {
-      boolean validateX = position.x >= wall.position.x && position.x < wall.position.x + 2;
-      if (direction == DIRECTION.UP)
-      {
-        isRunningIntoWall = validateX && (position.y == wall.position.y);
-      }
-      else if (direction == DIRECTION.DOWN)
-      {
-        isRunningIntoWall = validateX && (position.y + 1 == wall.position.y);
-      }
-      else
-      {
-        // Going Left or Right : no problem
-      }
-    }
-    else
-    {
-      boolean validateY = position.y >= wall.position.y && position.y < wall.position.y + 2;
-      if (direction == DIRECTION.LEFT)
-      {
-        isRunningIntoWall = (position.x == wall.position.x) && validateY;
-      }
-      else if (direction == DIRECTION.RIGHT)
-      {
-        isRunningIntoWall = (position.x + 1 == wall.position.x) && validateY;
-      }
-      else
-      {
-        // Going Up or Down : no problem
-      }
-    }
-    return isRunningIntoWall;
   }
 }
