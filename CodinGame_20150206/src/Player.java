@@ -262,21 +262,33 @@ class Player
       {
         if (direction == getMyPreferredDirection())
         {
-          score = 100;
+          // Preferred direction
+          if (getMyStress() > 7)
+          {
+            // Stressed, give a chance to attack
+            score = 50;
+          }
+          else
+          {
+            // No stress we keep in preferred direction
+            score = 100;
+          }
         }
         else if (direction != getOppositeDirection(getMyPreferredDirection()))
         {
+          // Moving in lateral direction
           score = 50;
         }
         else
         {
-          score = 20;
+          // Opposite Direction to the preferred one
+          score = 50;
         }
       }
       else
       {
         // Can move but no progress, just backtracking
-        score = 10;
+        score = 30;
       }
       return score;
     }
@@ -292,13 +304,11 @@ class Player
   class PuttWallAction extends Action
   {
     public final int id;
-    public final DIRECTION direction;
     public final Wall wall;
 
-    public PuttWallAction(int id, DIRECTION direction, Wall wall)
+    public PuttWallAction(int id, Wall wall)
     {
       this.id = id;
-      this.direction = direction;
       this.wall = wall;
     }
 
@@ -306,13 +316,23 @@ class Player
     public int computeScore()
     {
       int score = 0;
-      if (direction == getPreferredDirection(id))
+      // player can move in it's preferred direction.
+      if (getMyStress() > 7)
       {
-        score = 90;
+        // Stressed, we attack
+        score = 100;
       }
       else
       {
-        score = 40;
+        // No stress we prefer moving in right direction if wee can
+        if (getDistanceToGoal(id) < 2)
+        {
+          score = 90;
+        }
+        else
+        {
+          score = 50;
+        }
       }
       return score;
     }
@@ -344,6 +364,63 @@ class Player
   public Position getLastPosition(int id)
   {
     return getGamePlayer(id).path.positions.get(0);
+  }
+
+  public int getMyStress()
+  {
+    return getStress(world.myId);
+  }
+
+  public int getStress(int id)
+  {
+    int stress = 0;
+    for (GamePlayer gamePlayer : world.gamePlayers)
+    {
+      if (gamePlayer.id != id)
+      {
+        int distanceToGoal = getDistanceToGoal(gamePlayer.id);
+        DIRECTION direction = getPreferredDirection(gamePlayer.id);
+        switch (direction)
+        {
+          case LEFT:
+          case RIGHT:
+            stress = (world.board.width - distanceToGoal) > stress ? (world.board.width - distanceToGoal) : stress;
+            break;
+          case UP:
+          case DOWN:
+            stress = (world.board.height - distanceToGoal) > stress ? (world.board.height - distanceToGoal) : stress;
+            break;
+          default:
+            break;
+        }
+      }
+    }
+    return stress;
+  }
+
+  public int getDistanceToGoal(int id)
+  {
+    int stress = 0;
+    Position lastPosition = getLastPosition(id);
+    DIRECTION direction = getPreferredDirection(id);
+    switch (direction)
+    {
+      case LEFT:
+        stress = lastPosition.x;
+        break;
+      case RIGHT:
+        stress = world.board.width - lastPosition.x;
+        break;
+      case UP:
+        stress = lastPosition.y;
+        break;
+      case DOWN:
+        stress = world.board.height - lastPosition.y;
+        break;
+      default:
+        break;
+    }
+    return stress;
   }
 
   public DIRECTION getMyPreferredDirection()
@@ -541,6 +618,7 @@ class Player
   {
     List<Action> actions = computePotentialActions();
     int tie = sortActionsByScore(actions);
+    System.err.println("myStress:" + getMyStress());
     System.err.println("tie:" + tie);
     for (Action action : actions)
     {
@@ -644,7 +722,7 @@ class Player
       directions[iDirection++] = preferredDirection;
       for (DIRECTION direction : DIRECTION.values())
       {
-        if (direction != preferredDirection)
+        if (direction != preferredDirection && direction != DIRECTION.NONE)
         {
           directions[iDirection++] = direction;
         }
@@ -695,18 +773,13 @@ class Player
         if (gamePlayer.id != world.myId)
         {
           Position position = getLastPosition(gamePlayer.id);
-          for (DIRECTION direction : DIRECTION.values())
+          DIRECTION direction = getPreferredDirection(gamePlayer.id);
+          if (canMove(position, direction))
           {
-            if (direction != DIRECTION.NONE)
+            List<Wall> blockingWalls = computeBlockingWall(position, direction);
+            for (Wall blockingWall : blockingWalls)
             {
-              if (canMove(position, direction))
-              {
-                List<Wall> blockingWalls = computeBlockingWall(position, direction);
-                for (Wall blockingWall : blockingWalls)
-                {
-                  actions.add(new PuttWallAction(gamePlayer.id, direction, blockingWall));
-                }
-              }
+              actions.add(new PuttWallAction(gamePlayer.id, blockingWall));
             }
           }
         }
