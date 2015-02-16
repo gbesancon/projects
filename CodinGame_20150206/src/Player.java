@@ -150,7 +150,7 @@ class Player
       {
         if (position.x + 1 == wall.position.x)
         {
-          if (position.y == wall.position.y - 1)
+          if (position.y - 1 == wall.position.y)
           {
             intersect = true;
           }
@@ -158,9 +158,9 @@ class Player
       }
       else if (orientation == ORIENTATION.VERTICAL && wall.orientation == ORIENTATION.HORIZONTAL)
       {
-        if (position.x == wall.position.x + 1)
+        if (position.x - 1 == wall.position.x)
         {
-          if (position.y - 1 == wall.position.y)
+          if (position.y + 1 == wall.position.y)
           {
             intersect = true;
           }
@@ -260,19 +260,23 @@ class Player
       if ((getMyGamePlayer().path.directions.size() == 0)
           || (getMyGamePlayer().path.directions.size() != 0 && direction != getOppositeDirection(getMyLastDirection())))
       {
-        if (getMyPreferredDirection() == direction)
+        if (direction == getMyPreferredDirection())
         {
-          score = 75;
+          score = 100;
+        }
+        else if (direction != getOppositeDirection(getMyPreferredDirection()))
+        {
+          score = 50;
         }
         else
         {
-          score = 50;
+          score = 20;
         }
       }
       else
       {
         // Can move but no progress, just backtracking
-        score = 25;
+        score = 10;
       }
       return score;
     }
@@ -287,17 +291,30 @@ class Player
 
   class PuttWallAction extends Action
   {
+    public final int id;
+    public final DIRECTION direction;
     public final Wall wall;
 
-    public PuttWallAction(Wall wall)
+    public PuttWallAction(int id, DIRECTION direction, Wall wall)
     {
+      this.id = id;
+      this.direction = direction;
       this.wall = wall;
     }
 
     @Override
     public int computeScore()
     {
-      return 100;
+      int score = 0;
+      if (direction == getPreferredDirection(id))
+      {
+        score = 90;
+      }
+      else
+      {
+        score = 40;
+      }
+      return score;
     }
 
     @Override
@@ -365,7 +382,15 @@ class Player
 
   public DIRECTION getLastDirection(int id)
   {
-    return getGamePlayer(id).path.directions.get(0);
+    DIRECTION direction = DIRECTION.NONE;
+    for (DIRECTION aDirection : getGamePlayer(id).path.directions)
+    {
+      if (direction == DIRECTION.NONE && aDirection != DIRECTION.NONE)
+      {
+        direction = aDirection;
+      }
+    }
+    return direction;
   }
 
   public DIRECTION getDirection(Position position0, Position position1)
@@ -438,7 +463,7 @@ class Player
         nextPosition = new Position(position.x - 1, position.y);
         break;
       default:
-        nextPosition = position;
+        nextPosition = null;
         break;
     }
     return nextPosition;
@@ -670,13 +695,18 @@ class Player
         if (gamePlayer.id != world.myId)
         {
           Position position = getLastPosition(gamePlayer.id);
-          DIRECTION preferredDirection = getPreferredDirection(gamePlayer.id);
-          if (canMove(position, preferredDirection))
+          for (DIRECTION direction : DIRECTION.values())
           {
-            List<Wall> blockingWalls = computeBlockingWall(position, preferredDirection);
-            for (Wall blockingWall : blockingWalls)
+            if (direction != DIRECTION.NONE)
             {
-              actions.add(new PuttWallAction(blockingWall));
+              if (canMove(position, direction))
+              {
+                List<Wall> blockingWalls = computeBlockingWall(position, direction);
+                for (Wall blockingWall : blockingWalls)
+                {
+                  actions.add(new PuttWallAction(gamePlayer.id, direction, blockingWall));
+                }
+              }
             }
           }
         }
@@ -730,7 +760,7 @@ class Player
     switch (wall.orientation)
     {
       case HORIZONTAL:
-        if ((wall.position.x > 0 && wall.position.x < world.board.width - 1)
+        if ((wall.position.x >= 0 && wall.position.x < world.board.width - 1)
             && (wall.position.y > 0 && wall.position.y < world.board.height))
         {
           for (Wall aWall : world.walls)
@@ -745,7 +775,7 @@ class Player
         break;
       case VERTICAL:
         if ((wall.position.x > 0 && wall.position.x < world.board.width)
-            && (wall.position.y > 0 && wall.position.y < world.board.height - 1))
+            && (wall.position.y >= 0 && wall.position.y < world.board.height - 1))
         {
           for (Wall aWall : world.walls)
           {
