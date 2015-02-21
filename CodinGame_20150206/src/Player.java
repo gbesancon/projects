@@ -6,6 +6,8 @@ import java.util.Scanner;
 
 /**
  * Auto-generated code below aims at helping you parse the standard input according to the problem statement.
+ * 
+ * @param <T>
  **/
 class Player
 {
@@ -221,22 +223,20 @@ class Player
 
   abstract class Action
   {
-    boolean scoreComputed = false;
-    int score = 0;
-
-    public int getScore()
-    {
-      if (!scoreComputed)
-      {
-        score = computeScore();
-      }
-      return score;
-    }
-
     // -100 < score < 0 : Deadly action
     // 0 : No action
     // 0 < score < 100 : Survival action
-    public abstract int computeScore();
+    int score = 0;
+
+    public void setScore(int score)
+    {
+      this.score = score;
+    }
+
+    public int getScore()
+    {
+      return score;
+    }
   }
 
   enum DIRECTION
@@ -254,46 +254,6 @@ class Player
     }
 
     @Override
-    public int computeScore()
-    {
-      int score = 0;
-      if ((getMyGamePlayer().path.directions.size() == 0)
-          || (getMyGamePlayer().path.directions.size() != 0 && direction != getOppositeDirection(getMyLastDirection())))
-      {
-        if (direction == getMyPreferredDirection())
-        {
-          // Preferred direction
-          if (getMyStress() > 7)
-          {
-            // Stressed, give a chance to attack
-            score = 50;
-          }
-          else
-          {
-            // No stress we keep in preferred direction
-            score = 100;
-          }
-        }
-        else if (direction != getOppositeDirection(getMyPreferredDirection()))
-        {
-          // Moving in lateral direction
-          score = 50;
-        }
-        else
-        {
-          // Opposite Direction to the preferred one
-          score = 50;
-        }
-      }
-      else
-      {
-        // Can move but no progress, just backtracking
-        score = 30;
-      }
-      return score;
-    }
-
-    @Override
     public String toString()
     {
       // action: LEFT, RIGHT, UP, DOWN or "putX putY putOrientation" to place a wall
@@ -301,40 +261,15 @@ class Player
     }
   }
 
-  class PuttWallAction extends Action
+  class PutWallAction extends Action
   {
     public final int id;
     public final Wall wall;
 
-    public PuttWallAction(int id, Wall wall)
+    public PutWallAction(int id, Wall wall)
     {
       this.id = id;
       this.wall = wall;
-    }
-
-    @Override
-    public int computeScore()
-    {
-      int score = 0;
-      // player can move in it's preferred direction.
-      if (getMyStress() > 7)
-      {
-        // Stressed, we attack
-        score = 100;
-      }
-      else
-      {
-        // No stress we prefer moving in right direction if wee can
-        if (getDistanceToGoal(id) < 2)
-        {
-          score = 90;
-        }
-        else
-        {
-          score = 50;
-        }
-      }
-      return score;
     }
 
     @Override
@@ -366,14 +301,19 @@ class Player
     return getGamePlayer(id).path.positions.get(0);
   }
 
-  public int getMyStress()
+  public boolean isStressed(int id)
+  {
+    return getStress(id) > 0.5;
+  }
+
+  public float getMyStress()
   {
     return getStress(world.myId);
   }
 
-  public int getStress(int id)
+  public float getStress(int id)
   {
-    int stress = 0;
+    float stress = 0;
     for (GamePlayer gamePlayer : world.gamePlayers)
     {
       if (gamePlayer.id != id)
@@ -384,11 +324,11 @@ class Player
         {
           case LEFT:
           case RIGHT:
-            stress = (world.board.width - distanceToGoal) > stress ? (world.board.width - distanceToGoal) : stress;
+            stress = 1.0f - (1.0f * distanceToGoal) / (1.0f * world.board.height);
             break;
           case UP:
           case DOWN:
-            stress = (world.board.height - distanceToGoal) > stress ? (world.board.height - distanceToGoal) : stress;
+            stress = 1.0f - (1.0f * distanceToGoal) / (1.0f * world.board.width);
             break;
           default:
             break;
@@ -400,27 +340,27 @@ class Player
 
   public int getDistanceToGoal(int id)
   {
-    int stress = 0;
+    int distanceToGoal = 0;
     Position lastPosition = getLastPosition(id);
     DIRECTION direction = getPreferredDirection(id);
     switch (direction)
     {
       case LEFT:
-        stress = lastPosition.x;
+        distanceToGoal = lastPosition.x;
         break;
       case RIGHT:
-        stress = world.board.width - lastPosition.x;
+        distanceToGoal = world.board.width - lastPosition.x - 1;
         break;
       case UP:
-        stress = lastPosition.y;
+        distanceToGoal = lastPosition.y;
         break;
       case DOWN:
-        stress = world.board.height - lastPosition.y;
+        distanceToGoal = world.board.height - lastPosition.y - 1;
         break;
       default:
         break;
     }
-    return stress;
+    return distanceToGoal;
   }
 
   public DIRECTION getMyPreferredDirection()
@@ -606,7 +546,7 @@ class Player
             orientation.compareTo("H") == 0 ? ORIENTATION.HORIZONTAL : ORIENTATION.VERTICAL));
       }
 
-      System.err.println(player.world);
+      // System.err.println(player.world);
 
       String action = player.computeAction();
       // Write an action using System.out.println()
@@ -617,14 +557,33 @@ class Player
   public String computeAction()
   {
     List<Action> actions = computePotentialActions();
-    int tie = sortActionsByScore(actions);
+    sortActionsByScore(actions);
+    printActions(actions);
+    return selectRandom(actions, getNbTieActions(actions)).toString();
+  }
+
+  public void printActions(List<Action> actions)
+  {
     System.err.println("myStress:" + getMyStress());
-    System.err.println("tie:" + tie);
+    System.err.println("tie:" + getNbTieActions(actions));
     for (Action action : actions)
     {
       System.err.println(action + ":" + action.getScore());
     }
-    return selectAction(actions, tie).toString();
+  }
+
+  public int getNbTieActions(List<Action> actions)
+  {
+    int tie = 0;
+    int maxScore = actions.get(0).getScore();
+    for (Action action : actions)
+    {
+      if (action.getScore() == maxScore)
+      {
+        tie++;
+      }
+    }
+    return tie;
   }
 
   public List<Action> computePotentialActions()
@@ -638,25 +597,23 @@ class Player
   public List<Action> computePotentialMoveActions()
   {
     List<Action> actions = new ArrayList<Player.Action>();
-    int algorithm = 0;
-    if (algorithm == 0)
+    List<DIRECTION> directions = computeMyHeatMapDirections();
+    DIRECTION direction = selectRandom(directions, directions.size());
+    MoveAction moveAction = new MoveAction(direction);
+    int score = 0;
+    // Preferred direction
+    if (!isStressed(world.myId))
     {
-      for (DIRECTION direction : DIRECTION.values())
-      {
-        if (direction != DIRECTION.NONE)
-        {
-          if (canMove(getMyLastPosition(), direction))
-          {
-            actions.add(new MoveAction(direction));
-          }
-        }
-      }
+      // No stress we keep in preferred direction
+      score = 100;
     }
-    else if (algorithm == 1)
+    else
     {
-      List<DIRECTION> shortestPathGuidance = computeShortestPathGuidance();
-      actions.add(new MoveAction(shortestPathGuidance.get(0)));
+      // Stressed, give a chance to attack
+      score = 50;
     }
+    moveAction.setScore(score);
+    actions.add(moveAction);
     return actions;
   }
 
@@ -664,11 +621,14 @@ class Player
   {
     boolean canMove = false;
     Position nextPosition = computeNextPosition(position, direction);
-    if (world.board.isInside(nextPosition))
+    if (nextPosition != null)
     {
-      if (getBlockingWall(position, direction) == null)
+      if (world.board.isInside(nextPosition))
       {
-        canMove = true;
+        if (getBlockingWall(position, direction) == null)
+        {
+          canMove = true;
+        }
       }
     }
     return canMove;
@@ -690,77 +650,159 @@ class Player
     return blockingWall;
   }
 
-  public List<DIRECTION> computeShortestPathGuidance()
+  public List<DIRECTION> computeMyHeatMapDirections()
   {
-    List<DIRECTION> guidance = new ArrayList<Player.DIRECTION>();
-    computeShortestPathGuidance(getMyLastPosition(), getMyPreferredDirection(), guidance);
-    return guidance;
+    return computeHeatMapDirections(world.myId);
   }
 
-  public boolean computeShortestPathGuidance(Position position, DIRECTION preferredDirection, List<DIRECTION> guidance)
+  public List<DIRECTION> computeHeatMapDirections(int id)
   {
-    boolean foundPath = false;
-    // Stop conditions
-    if ((preferredDirection == DIRECTION.RIGHT && position.x == world.board.width - 1)
-        || (preferredDirection == DIRECTION.LEFT && position.x == 0)
-        || (preferredDirection == DIRECTION.UP && position.y == 0)
-        || (preferredDirection == DIRECTION.DOWN && position.y == world.board.height - 1))
+    float[][] heatMap = computeHeatMap(id);
+    // printHeatMap(heatMap);
+    List<DIRECTION> directions = computeDirectionsFromHeatMap(heatMap, id);
+    return directions;
+  }
+
+  public void printHeatMap(float[][] heatMap)
+  {
+    StringBuilder builder = new StringBuilder();
+    for (int iY = 0; iY < world.board.height; iY++)
     {
-      guidance.add(preferredDirection);
-      foundPath = true;
-    }
-    else if (guidance.size() > 14)
-    {
-      // Cut infinite loop
-      foundPath = false;
-    }
-    // Search the path
-    else
-    {
-      DIRECTION[] directions = new DIRECTION[4];
-      int iDirection = 0;
-      directions[iDirection++] = preferredDirection;
-      for (DIRECTION direction : DIRECTION.values())
+      for (int iX = 0; iX < world.board.width; iX++)
       {
-        if (direction != preferredDirection && direction != DIRECTION.NONE)
-        {
-          directions[iDirection++] = direction;
-        }
+        builder.append(heatMap[iX][iY]);
+        builder.append(" ");
       }
-      DIRECTION shortestPathNextDirection = null;
-      List<DIRECTION> shortestPathTmpGuidance = null;
-      for (DIRECTION direction : directions)
+      builder.append("\n");
+    }
+    System.err.println(builder.toString());
+  }
+
+  public float[][] computeHeatMap(int id)
+  {
+    float[][] heatMap = new float[world.board.width][world.board.height];
+    List<Position> firstStepHotPositionsToVisit = setHeatMapSeed(heatMap, getPreferredDirection(id));
+    List<Position> positionVisited = new ArrayList<Player.Position>();
+    visitStep(heatMap, firstStepHotPositionsToVisit, positionVisited);
+    return heatMap;
+  }
+
+  public List<Position> setHeatMapSeed(float[][] heatMap, DIRECTION preferredDirection)
+  {
+    List<Position> hotPositions = new ArrayList<Player.Position>();
+    for (int iX = 0; iX < world.board.width; iX++)
+    {
+      for (int iY = 0; iY < world.board.height; iY++)
       {
-        if (canMove(getMyLastPosition(), direction))
+        heatMap[iX][iY] = -1.0f;
+      }
+    }
+    switch (preferredDirection)
+    {
+      case UP:
+        for (int iX = 0; iX < world.board.width; iX++)
         {
-          List<DIRECTION> tmpGuidance = new ArrayList<Player.DIRECTION>();
-          tmpGuidance.addAll(guidance);
-          tmpGuidance.add(direction);
-          Position nextPosition = computeNextPosition(position, direction);
-          boolean foundSubPath = computeShortestPathGuidance(nextPosition, preferredDirection, tmpGuidance);
-          if (foundSubPath)
+          heatMap[iX][0] = 1.0f;
+          hotPositions.add(new Position(iX, 0));
+        }
+        break;
+      case DOWN:
+        for (int iX = 0; iX < world.board.width; iX++)
+        {
+          heatMap[iX][world.board.height - 1] = 1.0f;
+          hotPositions.add(new Position(iX, world.board.height - 1));
+        }
+        break;
+      case LEFT:
+        for (int iY = 0; iY < world.board.height; iY++)
+        {
+          heatMap[0][iY] = 1.0f;
+          hotPositions.add(new Position(0, iY));
+        }
+        break;
+      case RIGHT:
+        for (int iY = 0; iY < world.board.height; iY++)
+        {
+          heatMap[world.board.width - 1][iY] = 1.0f;
+          hotPositions.add(new Position(world.board.width - 1, iY));
+        }
+        break;
+
+      default:
+        break;
+    }
+    return hotPositions;
+  }
+
+  public void visitStep(float[][] heatMap, List<Position> stepHotPositionsToVisit, List<Position> positionVisited)
+  {
+    List<Position> nextStepHotPositionsToVisit = new ArrayList<Player.Position>();
+    for (Position hotPosition : stepHotPositionsToVisit)
+    {
+      visitPosition(heatMap, hotPosition, positionVisited, nextStepHotPositionsToVisit);
+    }
+    if (!nextStepHotPositionsToVisit.isEmpty())
+    {
+      visitStep(heatMap, nextStepHotPositionsToVisit, positionVisited);
+    }
+  }
+
+  public void visitPosition(float[][] heatMap, Position hotPosition, List<Position> positionVisited,
+      List<Position> nextStepHotPositionsToVisit)
+  {
+    float newHeat = 0.9f * heatMap[hotPosition.x][hotPosition.y];
+    for (DIRECTION direction : DIRECTION.values())
+    {
+      if (direction != DIRECTION.NONE)
+      {
+        if (canMove(hotPosition, direction))
+        {
+          Position nextPosition = computeNextPosition(hotPosition, direction);
+          if (newHeat > heatMap[nextPosition.x][nextPosition.y])
           {
-            if (shortestPathTmpGuidance == null || (tmpGuidance.size() < shortestPathTmpGuidance.size()))
+            if (heatMap[nextPosition.x][nextPosition.y] < 0.0f)
             {
-              shortestPathNextDirection = direction;
-              shortestPathTmpGuidance = tmpGuidance;
+              if (!nextStepHotPositionsToVisit.contains(nextPosition) && !positionVisited.contains(nextPosition))
+              {
+                nextStepHotPositionsToVisit.add(nextPosition);
+              }
             }
+            heatMap[nextPosition.x][nextPosition.y] = newHeat;
           }
         }
       }
+    }
+    positionVisited.add(hotPosition);
+  }
 
-      if (shortestPathNextDirection != null)
+  public List<DIRECTION> computeDirectionsFromHeatMap(float[][] heatMap, int id)
+  {
+    List<DIRECTION> directions = new ArrayList<Player.DIRECTION>();
+    Position position = getLastPosition(id);
+    float maxHeat = -1.0f;
+    for (DIRECTION direction : DIRECTION.values())
+    {
+      if (canMove(position, direction))
       {
-        guidance.clear();
-        guidance.addAll(shortestPathTmpGuidance);
-        foundPath = true;
-      }
-      else
-      {
-        foundPath = false;
+        Position nextPosition = computeNextPosition(position, direction);
+        float heatValue = heatMap[nextPosition.x][nextPosition.y];
+        if (heatValue > maxHeat)
+        {
+          maxHeat = heatValue;
+          directions.clear();
+          directions.add(direction);
+        }
+        else if (heatValue == maxHeat)
+        {
+          directions.add(direction);
+        }
+        else
+        {
+          // Not interesting
+        }
       }
     }
-    return foundPath;
+    return directions;
   }
 
   public List<Action> computePotentialPutWallActions()
@@ -779,7 +821,21 @@ class Player
             List<Wall> blockingWalls = computeBlockingWall(position, direction);
             for (Wall blockingWall : blockingWalls)
             {
-              actions.add(new PuttWallAction(gamePlayer.id, blockingWall));
+              PutWallAction putWallAction = new PutWallAction(gamePlayer.id, blockingWall);
+              int score = 0;
+              // player can move in it's preferred direction.
+              if (isStressed(world.myId))
+              {
+                // Stressed, we attack
+                score = 100;
+              }
+              else
+              {
+                // No stress we prefer moving in right direction if we can
+                score = 50;
+              }
+              putWallAction.setScore(score);
+              actions.add(putWallAction);
             }
           }
         }
@@ -864,7 +920,7 @@ class Player
     return canPutWall;
   }
 
-  public int sortActionsByScore(List<Action> actions)
+  public void sortActionsByScore(List<Action> actions)
   {
     Collections.sort(actions, new Comparator<Action>()
     {
@@ -874,29 +930,17 @@ class Player
         return o2.getScore() - o1.getScore();
       }
     });
-
-    int tie = 0;
-    int maxScore = actions.get(0).getScore();
-    for (Action action : actions)
-    {
-      if (action.getScore() == maxScore)
-      {
-        tie++;
-      }
-    }
-
-    return tie;
   }
 
-  public Action selectAction(List<Action> actions, int tie)
+  public <T> T selectRandom(List<T> list, int nbFirstElementToPickFrom)
   {
     int iIndex = 0;
-    if (tie > 1)
+    if (nbFirstElementToPickFrom > 1)
     {
       double randomValue = Math.random();
-      double value = randomValue * (tie - 1);
+      double value = randomValue * (nbFirstElementToPickFrom - 1);
       iIndex = (int) Math.rint(value);
     }
-    return actions.get(iIndex);
+    return list.get(iIndex);
   }
 }
