@@ -57,7 +57,7 @@ public class PropertiesFileReader
       File file = new File(filePath);
 
       // Initialize variables
-      String initialDirectory = file.getParent() + "/";
+      String initialDirectory = file.getParent() != null ? file.getParent() + "/" : "";
       String initialFileName = file.getName();
       String fileExtension = "";
       String newFilePath = "";
