@@ -1,0 +1,40 @@
+<project name="org.benhur.utility.database.depenencies" default="dist" basedir=".">
+
+	<property name="lib.dir" value="../lib"/>
+	<property name="dist.dir" value="../dist"/>
+	
+	<target name="clean.lib">
+		<delete dir="${lib.dir}" />
+	</target>
+
+	<target name="clean.dist">
+		<delete dir="${dist.dir}" />
+	</target>
+
+	<target name="mysqlj">
+		<condition property="mysqlj.exists" value="true" else="false">
+			<and>
+				<resourceexists>
+					<file file="${lib.dir}/mysql-connector-java-5.1.35.zip" />
+				</resourceexists>
+			</and>
+		</condition>
+	</target>
+
+	<target name="download.lib.mysqlj" depends="clean.lib, mysqlj" if="mysqlj.exists">
+		<mkdir dir="${lib.dir}" />
+		<get dest="${lib.dir}">
+			<url url="http://cdn.mysql.com/Downloads/Connector-J/mysql-connector-java-5.1.35.zip" />
+		</get>
+		<unzip dest="${lib.dir}">
+			<fileset dir="${lib.dir}">
+				<include name="**/mysql-connector-java-*.zip" />
+			</fileset>
+		</unzip>
+	</target>
+
+	<target name="dist" depends="clean.dist">
+		<delete dir="${dist.dir}/dependencies" />
+		<mkdir dir="${dist.dir}/dependencies" />
+	</target>
+</project>
