@@ -37,7 +37,8 @@ public class DatabaseBuilder
       {
         String tableName = resultSet.getString(3);
         tableNames.add(tableName);
-        getTable(tableName, tableByNames);
+        ITable table = getTable(tableName, tableByNames);
+        database.addTable(table);
       }
 
       Set<String> foreignKeyTables = new HashSet<>();
