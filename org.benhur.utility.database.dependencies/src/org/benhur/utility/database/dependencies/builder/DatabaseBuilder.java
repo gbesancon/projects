@@ -11,6 +11,7 @@ import java.util.Set;
 import org.benhur.utility.database.dependencies.Database;
 import org.benhur.utility.database.dependencies.IDatabase;
 import org.benhur.utility.database.dependencies.ITable;
+import org.benhur.utility.database.dependencies.Table;
 
 public class DatabaseBuilder
 {
@@ -78,6 +79,16 @@ public class DatabaseBuilder
 
   protected ITable getTable(String tableName, Map<String, ITable> tables)
   {
-    return null;
+    ITable table = null;
+    if (tables.containsKey(tableName))
+    {
+      table = tables.get(tableName);
+    }
+    else
+    {
+      table = new Table(tableName);
+      tables.put(tableName, table);
+    }
+    return table;
   }
 }
