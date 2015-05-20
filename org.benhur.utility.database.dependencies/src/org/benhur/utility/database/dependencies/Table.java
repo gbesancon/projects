@@ -15,6 +15,12 @@ public class Table implements ITable
   }
 
   @Override
+  public String getId()
+  {
+    return name;
+  }
+
+  @Override
   public String getName()
   {
     return name;

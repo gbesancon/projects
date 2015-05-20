@@ -41,7 +41,7 @@ public class Group
     tables.add(table);
   }
 
-  public List<ITable> getProjects()
+  public List<ITable> getTables()
   {
     return tables;
   }
