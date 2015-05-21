@@ -35,7 +35,7 @@ public class MainDGML
       DatabaseBuilder databaseBuilder = new DatabaseBuilder();
       IDatabase database = databaseBuilder.buildDatabase(host, port, username, password, databaseName);
 
-      createDGMLFile(database, "graph.dgml");
+      createDGMLFile(database, database.getName() + ".dgml");
     }
     catch (PropertyException e)
     {
@@ -104,8 +104,8 @@ public class MainDGML
     directedGraph.nodes.add(node);
   }
 
-  protected static void createGroupTableLinks(Group group, DirectedGraph directedGraph,
-      Category containsCategory, Map<String, Node> nodeByIds)
+  protected static void createGroupTableLinks(Group group, DirectedGraph directedGraph, Category containsCategory,
+      Map<String, Node> nodeByIds)
   {
     for (ITable table : group.getTables())
     {
