@@ -5,13 +5,21 @@ import java.util.List;
 
 public class Database implements IDatabase
 {
+  protected final String id;
   protected final String name;
   protected final List<ITable> tables;
 
-  public Database(String name)
+  public Database(String id, String name)
   {
+    this.id = id;
     this.name = name;
     this.tables = new ArrayList<>();
+  }
+
+  @Override
+  public String getId()
+  {
+    return id;
   }
 
   @Override

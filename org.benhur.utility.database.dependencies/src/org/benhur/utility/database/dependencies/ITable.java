@@ -8,7 +8,7 @@ public interface ITable
 
   String getName();
 
-  void addDependency(ITable dependency);
+  void addColumn(IColumn column);
 
-  List<ITable> getDependencies();
+  List<IColumn> getColumns();
 }
