@@ -108,7 +108,7 @@ public class MainDGML
 
   protected static void createTableNode(ITable table, DirectedGraph directedGraph, Map<String, Node> nodeByIds)
   {
-    Node node = new Node(table.getId(), table.getName(), false, false);
+    Node node = new Node(table.getId(), table.getName(), true, true);
     nodeByIds.put(node.id, node);
     directedGraph.nodes.add(node);
   }
