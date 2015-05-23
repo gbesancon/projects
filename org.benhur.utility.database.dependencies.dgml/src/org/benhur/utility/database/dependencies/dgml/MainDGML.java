@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.xml.bind.PropertyException;
 
+import org.benhur.utility.database.dependencies.IColumn;
 import org.benhur.utility.database.dependencies.IDatabase;
 import org.benhur.utility.database.dependencies.ITable;
 import org.benhur.utility.database.dependencies.builder.DatabaseBuilder;
@@ -67,9 +68,13 @@ public class MainDGML
     for (Group aGroup : allGroups)
     {
       createGroupNode(aGroup, directedGraph, nodeByIds);
-      for (ITable solutionItem : aGroup.getTables())
+      for (ITable table : aGroup.getTables())
       {
-        createTableNode(solutionItem, directedGraph, nodeByIds);
+        createTableNode(table, directedGraph, nodeByIds);
+        for (IColumn column : table.getColumns())
+        {
+          createColumnNode(column, directedGraph, nodeByIds);
+        }
       }
     }
 
@@ -81,9 +86,13 @@ public class MainDGML
     {
       createGroupTableLinks(aGroup, directedGraph, containsCategory, nodeByIds);
       createGroupSubGroupLinks(aGroup, directedGraph, containsCategory, nodeByIds);
-      for (ITable solutionItem : aGroup.getTables())
+      for (ITable table : aGroup.getTables())
       {
-        createTableDependenciesLinks(solutionItem, directedGraph, nodeByIds);
+        createTableColumnLinks(table, directedGraph, containsCategory, nodeByIds);
+        for (IColumn column : table.getColumns())
+        {
+          createColumnForeignColumnLink(column, directedGraph, nodeByIds);
+        }
       }
     }
 
@@ -100,6 +109,13 @@ public class MainDGML
   protected static void createTableNode(ITable table, DirectedGraph directedGraph, Map<String, Node> nodeByIds)
   {
     Node node = new Node(table.getId(), table.getName(), false, false);
+    nodeByIds.put(node.id, node);
+    directedGraph.nodes.add(node);
+  }
+
+  protected static void createColumnNode(IColumn column, DirectedGraph directedGraph, Map<String, Node> nodeByIds)
+  {
+    Node node = new Node(column.getId(), column.getName(), false, false);
     nodeByIds.put(node.id, node);
     directedGraph.nodes.add(node);
   }
@@ -128,13 +144,25 @@ public class MainDGML
     }
   }
 
-  protected static void createTableDependenciesLinks(ITable table, DirectedGraph directedGraph,
+  protected static void createTableColumnLinks(ITable table, DirectedGraph directedGraph, Category containsCategory,
       Map<String, Node> nodeByIds)
   {
-    for (ITable dependency : table.getDependencies())
+    for (IColumn column : table.getColumns())
     {
       Node source = nodeByIds.get(table.getId());
-      Node target = nodeByIds.get(dependency.getId());
+      Node target = nodeByIds.get(column.getId());
+      Link link = new Link(source, target, containsCategory);
+      directedGraph.links.add(link);
+    }
+  }
+
+  protected static void createColumnForeignColumnLink(IColumn column, DirectedGraph directedGraph,
+      Map<String, Node> nodeByIds)
+  {
+    if (column.getForeignColumn() != null)
+    {
+      Node source = nodeByIds.get(column.getId());
+      Node target = nodeByIds.get(column.getForeignColumn().getId());
       Link link = new Link(source, target, null);
       directedGraph.links.add(link);
     }

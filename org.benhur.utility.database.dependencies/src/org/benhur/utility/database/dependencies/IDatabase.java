@@ -4,6 +4,8 @@ import java.util.List;
 
 public interface IDatabase
 {
+  String getId();
+
   String getName();
 
   void addTable(ITable table);

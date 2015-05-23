@@ -5,19 +5,21 @@ import java.util.List;
 
 public class Table implements ITable
 {
+  protected final String id;
   protected final String name;
-  protected final List<ITable> dependencies;
+  protected final List<IColumn> columns;
 
-  public Table(String name)
+  public Table(String id, String name)
   {
+    this.id = id;
     this.name = name;
-    this.dependencies = new ArrayList<>();
+    this.columns = new ArrayList<>();
   }
 
   @Override
   public String getId()
   {
-    return name;
+    return id;
   }
 
   @Override
@@ -27,14 +29,14 @@ public class Table implements ITable
   }
 
   @Override
-  public void addDependency(ITable dependency)
+  public void addColumn(IColumn column)
   {
-    dependencies.add(dependency);
+    columns.add(column);
   }
 
   @Override
-  public List<ITable> getDependencies()
+  public List<IColumn> getColumns()
   {
-    return dependencies;
+    return columns;
   }
 }
