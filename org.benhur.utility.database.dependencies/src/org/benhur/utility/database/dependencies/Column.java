@@ -2,15 +2,23 @@ package org.benhur.utility.database.dependencies;
 
 public class Column implements IColumn
 {
+  protected final ITable table;
   protected final String id;
   protected final String name;
   protected IColumn foreignColumn;
 
-  public Column(String id, String name)
+  public Column(ITable table, String id, String name)
   {
+    this.table = table;
     this.id = id;
     this.name = name;
     this.foreignColumn = null;
+  }
+
+  @Override
+  public ITable getTable()
+  {
+    return table;
   }
 
   @Override
