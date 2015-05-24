@@ -106,7 +106,7 @@ public class DatabaseBuilder
     }
     else
     {
-      table = new Table(id, tableName);
+      table = new Table(database, id, tableName);
       tableByIds.put(table.getId(), table);
     }
     return table;
@@ -122,7 +122,7 @@ public class DatabaseBuilder
     }
     else
     {
-      column = new Column(id, columnName);
+      column = new Column(table, id, columnName);
       columnByIds.put(column.getId(), column);
     }
     return column;
