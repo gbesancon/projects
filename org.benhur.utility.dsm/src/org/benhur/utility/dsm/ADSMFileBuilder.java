@@ -1,86 +1,63 @@
 package org.benhur.utility.dsm;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
-import org.benhur.utility.text.TextUtility;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public abstract class ADSMFileBuilder<TInput>
 {
-  protected static char COLUMN_CHAR = '|';
-  protected static char ROW_CHAR = '-';
-  protected static int ID_LENGTH = 2;
-
   public void createDSMFile(TInput input, String dsmFilepath) throws IOException
   {
-    FileWriter fileWriter = new FileWriter(new File(dsmFilepath));
+    Map<String, Node> nodeByIds = new HashMap<>();
+    List<Edge> edges = new ArrayList<>();
+    buildDSMFile(input, nodeByIds, edges);
+    createDSMFile(nodeByIds, edges, dsmFilepath);
+    createDSMMatrix(dsmFilepath);
+  }
 
-    buildDSMFile(fileWriter, input);
+  protected abstract void buildDSMFile(TInput input, Map<String, Node> nodeByIds, List<Edge> edges);
 
+  protected void createNode(String id, String name, Map<String, Node> nodeByIds)
+  {
+    Node node = new Node(id, name);
+    nodeByIds.put(node.getId(), node);
+  }
+
+  protected void createEdge(String sourceId, String targetId, Map<String, Node> nodeByIds, List<Edge> edges)
+  {
+    Node source = nodeByIds.get(sourceId);
+    Node target = nodeByIds.get(targetId);
+    Edge edge = new Edge(source, target);
+    edges.add(edge);
+  }
+
+  protected void createDSMFile(Map<String, Node> nodeByIds, List<Edge> edges, String dsmFilepath) throws IOException
+  {
+    FileWriter fileWriter = new FileWriter(dsmFilepath);
+    List<Node> nodes = new ArrayList<>();
+    for (Node node : nodeByIds.values())
+    {
+      fileWriter.append((nodes.size() + 1) + " " + node.getName() + "\n");
+      nodes.add(node);
+    }
+    fileWriter.append("dep\n");
+    for (Edge edge : edges)
+    {
+      Node source = edge.getSource();
+      Node target = edge.getTarget();
+      fileWriter.append((nodes.indexOf(source) + 1) + " " + (nodes.indexOf(target) + 1) + "\n");
+    }
     fileWriter.close();
   }
 
-  protected abstract void buildDSMFile(FileWriter fileWriter, TInput input) throws IOException;
-
-  protected String GetRowTitle(int nameMaxLength, int nbItems)
+  protected void createDSMMatrix(String dsmFilepath)
   {
-    StringBuilder builder = new StringBuilder();
-    builder.append(COLUMN_CHAR);
-    builder.append(" ");
-    builder.append(TextUtility.PadText("", nameMaxLength, ' '));
-    builder.append(" ");
-    builder.append(COLUMN_CHAR);
-    builder.append(GetCellText(""));
-    for (int iItem = 0; iItem < nbItems; iItem++)
-    {
-      builder.append(GetCellText(GetHexa(iItem + 1)));
-    }
-    builder.append("\n");
-    return builder.toString();
-  }
+    List<String> dsmFilepathes = new ArrayList<>();
+    dsmFilepathes.add(dsmFilepath);
+    // DSM dsm = new DSM(dsmFilepathes);
 
-  protected String GetRowSeparator(int nameMaxLength, int nbItems)
-  {
-    StringBuilder builder = new StringBuilder();
-    builder.append(TextUtility.PadText("", 1 + 1 + nameMaxLength + 1 + 1 + ID_LENGTH + 1 + GetCellText("").length()
-        * nbItems, ROW_CHAR));
-    builder.append("\n");
-    return builder.toString();
-  }
-
-  protected String GetRowEmpty(int nameMaxLength, int nbItems)
-  {
-    StringBuilder builder = new StringBuilder();
-    builder.append(TextUtility.PadText("", 1 + 1 + nameMaxLength + 1 + ID_LENGTH + 1, ' '));
-    builder.append(COLUMN_CHAR);
-    for (int iItem = 0; iItem < nbItems; iItem++)
-    {
-      builder.append(GetCellText(""));
-    }
-    builder.append("\n");
-    return builder.toString();
-  }
-
-  protected String GetCellText(String value)
-  {
-    StringBuilder builder = new StringBuilder();
-    builder.append(TextUtility.PadText(value, ID_LENGTH, ' '));
-    builder.append(COLUMN_CHAR);
-    return builder.toString();
-  }
-
-  protected String GetHexa(int value)
-  {
-    final StringBuilder builder = new StringBuilder();
-
-    int number = value - 1;
-    while (number >= 0)
-    {
-      int numChar = (number % 26) + 65;
-      builder.append((char) numChar);
-      number = (number / 26) - 1;
-    }
-    return builder.reverse().toString();
   }
 }
