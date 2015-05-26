@@ -1,0 +1,30 @@
+<project name="org.benhur.utility.dgml" default="dist.zip" basedir=".">
+
+	<property name="eclipse-utility.dir" value="../.."/>
+	<property name="org.benhur.utility.dgml.dir" value="${eclipse-utility.dir}/org.benhur.utility.dgml"/>
+	<property name="dist.dir" value="${org.benhur.utility.dgml.dir}/dist"/>
+	<property name="tmp.dist.dir" value="${dist.dir}/tmp"/>
+
+	<target name="clean.dist">
+		<delete dir="${dist.dir}" />
+	</target>
+
+	<target name="dist">
+		<mkdir dir="${tmp.dist.dir}" />
+		<ant antfile="${eclipse-utility.dir}/org.benhur.utility/scripts/build.ant" target="dist">
+			<property name="org.benhur.utility.dir" value="${eclipse-utility.dir}/org.benhur.utility"/>
+		</ant>
+		<jar destfile="${tmp.dist.dir}/org.benhur.utility.dgml.jar">
+			<fileset dir="${org.benhur.utility.dgml.dir}/bin" includes="**/*.class" />
+			<manifest>
+				<attribute name="Class-Path" value="./org.benhur.utility.jar" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="dist.zip" depends="clean.dist, dist">
+		<zip destfile="${dist.dir}/org.benhur.utility.dgml.zip">
+			<fileset dir="${tmp.dist.dir}" includes="**/*" />
+		</zip>
+	</target>
+</project>
