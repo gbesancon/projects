@@ -1,0 +1,40 @@
+<project name="org.benhur.utility.database.dependencies.dsm" default="dist.zip" basedir=".">
+
+	<property name="database.dir" value="../.."/>
+	<property name="org.benhur.utility.database.dependencies.dir" value="${database.dir}/org.benhur.utility.database.dependencies"/>
+	<property name="org.benhur.utility.database.dependencies.dsm.dir" value="${database.dir}/org.benhur.utility.database.dependencies.dsm"/>
+	<property name="dist.dir" value="${org.benhur.utility.database.dependencies.dsm.dir}/dist"/>
+	<property name="tmp.dist.dir" value="${dist.dir}/tmp"/>
+
+	<property name="eclipse-utility.dir" value="../../../eclipse-utility"/>
+
+	<target name="clean.dist">
+		<delete dir="${dist.dir}" />
+	</target>
+
+	<target name="dist">
+		<mkdir dir="${tmp.dist.dir}" />
+		<ant antfile="${eclipse-utility.dir}/org.benhur.utility.dsm/scripts/build.ant" target="dist">
+			<property name="org.benhur.utility.dsm.dir" value="${eclipse-utility.dir}/org.benhur.utility.dsm"/>
+		</ant>
+		<ant antfile="${database.dir}/org.benhur.utility.database.dependencies/scripts/build.ant" target="dist">
+			<property name="org.benhur.utility.database.dependencies.dir" value="${database.dir}/org.benhur.utility.database.dependencies"/>
+		</ant>
+		<jar destfile="${tmp.dist.dir}/org.benhur.utility.database.dependencies.dsm.jar">
+			<fileset dir="${org.benhur.utility.database.dependencies.dsm.dir}/bin" includes="**/*.class" />
+			<manifest>
+				<attribute name="Class-Path" value="./org.benhur.utility.database.dependencies.jar ./org.benhur.utility.dsm.jar" />
+			</manifest>
+		</jar>
+		<copy file="${org.benhur.utility.database.dependencies.dir}/config/projectdependencies_template.properties" tofile="${tmp.dist.dir}/config/projectdependencies.properties" />
+		<echo file="${tmp.dist.dir}/start.bat">
+java -jar org.benhur.utility.database.dependencies.dsm.jar
+		</echo>
+	</target>
+
+	<target name="dist.zip" depends="clean.dist, dist">
+		<zip destfile="${dist.dir}/org.benhur.utility.database.dependencies.dsm.zip">
+			<fileset dir="${tmp.dist.dir}" includes="**/*" />
+		</zip>
+	</target>
+</project>

@@ -1,10 +1,15 @@
-<project name="org.benhur.utility.database.depenencies" default="dist" basedir=".">
+<project name="org.benhur.utility.database.dependencies" default="dist.zip" basedir=".">
 
-	<property name="lib.dir" value="../lib"/>
-	<property name="dist.dir" value="../dist"/>
-	
+	<property name="database.dir" value="../.."/>
+	<property name="org.benhur.utility.database.dependencies.dir" value="${database.dir}/org.benhur.utility.database.dependencies"/>
+	<property name="org.benhur.utility.database.dependencies.lib.dir" value="${org.benhur.utility.database.dependencies.dir}/lib"/>
+	<property name="dist.dir" value="${org.benhur.utility.database.dependencies.dir}/dist"/>
+	<property name="tmp.dist.dir" value="${dist.dir}/tmp"/>
+
+	<property name="eclipse-utility.dir" value="../../../eclipse-utility"/>
+
 	<target name="clean.lib">
-		<delete dir="${lib.dir}" />
+		<delete dir="${org.benhur.utility.database.dependencies.lib.dir}" />
 	</target>
 
 	<target name="clean.dist">
@@ -15,26 +20,43 @@
 		<condition property="mysqlj.exists" value="true" else="false">
 			<and>
 				<resourceexists>
-					<file file="${lib.dir}/mysql-connector-java-5.1.35.zip" />
+					<file file="${org.benhur.utility.database.dependencies.lib.dir}/mysql-connector-java-5.1.35.zip" />
 				</resourceexists>
 			</and>
 		</condition>
 	</target>
 
 	<target name="download.lib.mysqlj" depends="clean.lib, mysqlj" if="mysqlj.exists">
-		<mkdir dir="${lib.dir}" />
-		<get dest="${lib.dir}">
+		<mkdir dir="${org.benhur.utility.database.dependencies.lib.dir}" />
+		<get dest="${org.benhur.utility.database.dependencies.lib.dir}">
 			<url url="http://cdn.mysql.com/Downloads/Connector-J/mysql-connector-java-5.1.35.zip" />
 		</get>
-		<unzip dest="${lib.dir}">
-			<fileset dir="${lib.dir}">
+		<unzip dest="${org.benhur.utility.database.dependencies.lib.dir}">
+			<fileset dir="${org.benhur.utility.database.dependencies.lib.dir}">
 				<include name="**/mysql-connector-java-*.zip" />
 			</fileset>
 		</unzip>
 	</target>
 
-	<target name="dist" depends="clean.dist">
-		<delete dir="${dist.dir}/dependencies" />
-		<mkdir dir="${dist.dir}/dependencies" />
+	<target name="dist">
+		<mkdir dir="${tmp.dist.dir}" />
+		<ant antfile="${eclipse-utility.dir}/org.benhur.utility/scripts/build.ant" target="dist">
+			<property name="org.benhur.utility.dir" value="${eclipse-utility.dir}/org.benhur.utility"/>
+		</ant>
+		<copy todir="${tmp.dist.dir}/lib">
+			<fileset dir="${org.benhur.utility.database.dependencies.lib.dir}/mysql-connector-java-5.1.35" includes="*.jar" />
+		</copy>
+		<jar destfile="${tmp.dist.dir}/org.benhur.utility.database.dependencies.jar">
+			<fileset dir="${org.benhur.utility.database.dependencies.dir}/bin" includes="**/*.class" />
+			<manifest>
+				<attribute name="Class-Path" value="./org.benhur.utility.jar ./lib/mysql-connector-java-5.1.35-bin.jar" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="dist.zip" depends="clean.dist, dist">
+		<zip destfile="${dist.dir}/org.benhur.utility.database.dependencies.zip">
+			<fileset dir="${tmp.dist.dir}" includes="**/*" />
+		</zip>
 	</target>
 </project>
