@@ -1,0 +1,24 @@
+<project name="org.benhur.utility" default="dist.zip" basedir=".">
+
+	<property name="eclipse-utility.dir" value="../.."/>
+	<property name="org.benhur.utility.dir" value="${eclipse-utility.dir}/org.benhur.utility"/>
+	<property name="dist.dir" value="${org.benhur.utility.dir}/dist"/>
+	<property name="tmp.dist.dir" value="${dist.dir}/tmp"/>
+
+	<target name="clean.dist">
+		<delete dir="${dist.dir}" />
+	</target>
+
+	<target name="dist">
+		<mkdir dir="${tmp.dist.dir}" />
+		<jar destfile="${tmp.dist.dir}/org.benhur.utility.jar">
+			<fileset dir="${org.benhur.utility.dir}/bin" includes="**/*.class" />
+		</jar>
+	</target>
+
+	<target name="dist.zip" depends="clean.dist, dist">
+		<zip destfile="${dist.dir}/org.benhur.utility.zip">
+			<fileset dir="${tmp.dist.dir}" includes="**/*" />
+		</zip>
+	</target>
+</project>
