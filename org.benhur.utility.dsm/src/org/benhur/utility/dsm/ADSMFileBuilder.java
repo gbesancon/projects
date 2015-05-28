@@ -7,18 +7,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class ADSMFileBuilder<TInput>
+public abstract class ADSMFileBuilder<TInput, TConfiguration>
 {
-  public void createDSMFile(TInput input, String dsmFilepath) throws IOException
+  public void createDSMFile(TInput input, TConfiguration configuration, String dsmFilepath) throws IOException
   {
     Map<String, Node> nodeByIds = new HashMap<>();
     List<Edge> edges = new ArrayList<>();
-    buildDSMFile(input, nodeByIds, edges);
+    buildDSMFile(input, configuration, nodeByIds, edges);
     createDSMFile(nodeByIds, edges, dsmFilepath);
     createDSMMatrix(dsmFilepath);
   }
 
-  protected abstract void buildDSMFile(TInput input, Map<String, Node> nodeByIds, List<Edge> edges);
+  protected abstract void buildDSMFile(TInput input, TConfiguration configuration, Map<String, Node> nodeByIds,
+      List<Edge> edges);
 
   protected void createNode(String id, String name, Map<String, Node> nodeByIds)
   {
