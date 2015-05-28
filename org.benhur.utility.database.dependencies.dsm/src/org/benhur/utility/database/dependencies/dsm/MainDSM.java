@@ -6,7 +6,7 @@ import javax.xml.bind.PropertyException;
 
 import org.benhur.utility.database.dependencies.IDatabase;
 import org.benhur.utility.database.dependencies.builder.DatabaseBuilder;
-import org.benhur.utility.io.PropertiesFileReader;
+import org.benhur.utility.database.dependencies.configuration.Configuration;
 
 public class MainDSM
 {
@@ -14,17 +14,14 @@ public class MainDSM
   {
     try
     {
-      String host = PropertiesFileReader.getStringProperty("config/projectdependencies.properties", "HOST");
-      int port = PropertiesFileReader.getIntProperty("config/projectdependencies.properties", "PORT");
-      String username = PropertiesFileReader.getStringProperty("config/projectdependencies.properties", "USERNAME");
-      String password = PropertiesFileReader.getStringProperty("config/projectdependencies.properties", "PASSWORD");
-      String databaseName = PropertiesFileReader.getStringProperty("config/projectdependencies.properties",
-                                                                   "DATABASE_NAME");
+      Configuration configuration = new Configuration("config/projectdependencies.properties");
       DatabaseBuilder databaseBuilder = new DatabaseBuilder();
-      IDatabase database = databaseBuilder.buildDatabase(host, port, username, password, databaseName);
+      IDatabase database = databaseBuilder.buildDatabase(configuration.getHost(), configuration.getPort(),
+                                                         configuration.getUsername(), configuration.getPassword(),
+                                                         configuration.getDatabaseName());
 
       DatabaseDSMFileBuilder databaseDSMFileBuilder = new DatabaseDSMFileBuilder();
-      databaseDSMFileBuilder.createDSMFile(database, database.getName() + ".dsm");
+      databaseDSMFileBuilder.createDSMFile(database, configuration, database.getName() + ".dsm");
     }
     catch (PropertyException e)
     {

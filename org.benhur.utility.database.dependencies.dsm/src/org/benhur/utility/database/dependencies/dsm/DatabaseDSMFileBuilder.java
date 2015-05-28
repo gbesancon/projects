@@ -6,14 +6,16 @@ import java.util.Map;
 import org.benhur.utility.database.dependencies.IColumn;
 import org.benhur.utility.database.dependencies.IDatabase;
 import org.benhur.utility.database.dependencies.ITable;
+import org.benhur.utility.database.dependencies.configuration.Configuration;
 import org.benhur.utility.dsm.ADSMFileBuilder;
 import org.benhur.utility.dsm.Edge;
 import org.benhur.utility.dsm.Node;
 
-public class DatabaseDSMFileBuilder extends ADSMFileBuilder<IDatabase>
+public class DatabaseDSMFileBuilder extends ADSMFileBuilder<IDatabase, Configuration>
 {
   @Override
-  protected void buildDSMFile(IDatabase input, Map<String, Node> nodeByIds, List<Edge> edges)
+  protected void buildDSMFile(IDatabase input, Configuration configuration, Map<String, Node> nodeByIds,
+      List<Edge> edges)
   {
     for (ITable table : input.getTables())
     {
