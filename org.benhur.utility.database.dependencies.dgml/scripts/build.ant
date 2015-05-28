@@ -35,7 +35,7 @@ echo ^&lt; -------------------- Executing %0 -------------------- ^&gt;
 
 set CONFIGURATION_FILEPATH=%~1
 if "%~1"=="" set CONFIGURATION_FILEPATH=config\configuration.properties
-echo CONFIGURATION_FILEPATH = %SOLUTION_DIR%
+echo CONFIGURATION_FILEPATH = %CONFIGURATION_FILEPATH%
 
 java -jar org.benhur.utility.database.dependencies.dgml.jar %CONFIGURATION_FILEPATH%
 		</echo>
