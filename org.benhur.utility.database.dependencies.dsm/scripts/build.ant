@@ -23,12 +23,21 @@
 		<jar destfile="${tmp.dist.dir}/org.benhur.utility.database.dependencies.dsm.jar">
 			<fileset dir="${org.benhur.utility.database.dependencies.dsm.dir}/bin" includes="**/*.class" />
 			<manifest>
+				<attribute name="Main-Class" value="org.benhur.utility.database.dependencies.dsm.MainDatabaseDependenciesDSM" />
 				<attribute name="Class-Path" value="./org.benhur.utility.database.dependencies.jar ./org.benhur.utility.dsm.jar" />
 			</manifest>
 		</jar>
-		<copy file="${org.benhur.utility.database.dependencies.dir}/config/projectdependencies_template.properties" tofile="${tmp.dist.dir}/config/projectdependencies.properties" />
+		<copy file="${org.benhur.utility.database.dependencies.dir}/config/configuration_template.properties" tofile="${tmp.dist.dir}/config/configuration.properties" />
 		<echo file="${tmp.dist.dir}/start.bat">
-java -jar org.benhur.utility.database.dependencies.dsm.jar
+@echo OFF
+
+echo ^&lt; -------------------- Executing %0 -------------------- ^&gt;
+
+set CONFIGURATION_FILEPATH=%~1
+if "%~1"=="" set CONFIGURATION_FILEPATH=config\configuration.properties
+echo CONFIGURATION_FILEPATH = %SOLUTION_DIR%
+
+java -jar org.benhur.utility.database.dependencies.dsm.jar %CONFIGURATION_FILEPATH%
 		</echo>
 	</target>
 
