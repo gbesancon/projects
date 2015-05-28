@@ -7,28 +7,28 @@ import javax.xml.bind.PropertyException;
 
 import org.benhur.utility.database.dependencies.IDatabase;
 import org.benhur.utility.database.dependencies.ITable;
-import org.benhur.utility.io.PropertiesFileReader;
+import org.benhur.utility.database.dependencies.configuration.Configuration;
 
 public class GroupBuilder
 {
-  public Group buildGroup(IDatabase database)
+  public Group buildGroup(IDatabase database, Configuration configuration)
   {
-    Group group = createGroup(database);
+    Group group = createGroup(database, configuration);
     populateGroupWithDatabase(group, database);
     return group;
   }
 
-  protected Group createGroup(IDatabase database)
+  protected Group createGroup(IDatabase database, Configuration configuration)
   {
     Group group = new Group(database.getName(), "", "");
-    for (Group subGroup : computeSubGroups(group, new int[0]))
+    for (Group subGroup : computeSubGroups(group, new int[0], configuration))
     {
       group.addSubGroup(subGroup);
     }
     return group;
   }
 
-  protected List<Group> computeSubGroups(Group group, int[] groupIds)
+  protected List<Group> computeSubGroups(Group group, int[] groupIds, Configuration configuration)
   {
     List<Group> subGroups = new ArrayList<>();
     int iSubGroup = 1;
@@ -41,11 +41,11 @@ public class GroupBuilder
       }
       subGroupIds[groupIds.length] = iSubGroup;
 
-      Group subGroup = getGroup(subGroupIds);
+      Group subGroup = getGroup(subGroupIds, configuration);
       if (subGroup != null)
       {
         subGroups.add(subGroup);
-        for (Group subSubGroup : computeSubGroups(subGroup, subGroupIds))
+        for (Group subSubGroup : computeSubGroups(subGroup, subGroupIds, configuration))
         {
           subGroup.addSubGroup(subSubGroup);
         }
@@ -59,24 +59,16 @@ public class GroupBuilder
     return subGroups;
   }
 
-  protected Group getGroup(int[] ids)
+  protected Group getGroup(int[] ids, Configuration configuration)
   {
     Group group = null;
     try
     {
-      String groupPrefix = "GROUP_";
-      for (int i = 0; i < ids.length; i++)
-      {
-        groupPrefix += ids[i] + "_";
-      }
-      String groupName = PropertiesFileReader.getStringProperty("config/projectdependencies.properties", groupPrefix
-          + "NAME");
+      String groupName = configuration.getGroupName(ids);
       if (!groupName.equalsIgnoreCase(""))
       {
-        String groupProjectNameIncludePatternString = PropertiesFileReader
-            .getStringProperty("config/projectdependencies.properties", groupPrefix + "TABLE_NAME_INCLUDE_PATTERN");
-        String groupProjectNameExcludePatternString = PropertiesFileReader
-            .getStringProperty("config/projectdependencies.properties", groupPrefix + "TABLE_NAME_EXCLUDE_PATTERN");
+        String groupProjectNameIncludePatternString = configuration.getGroupTableNameIncludePattern(ids);
+        String groupProjectNameExcludePatternString = configuration.getGroupTableNameExcludePattern(ids);
         group = new Group(groupName, groupProjectNameIncludePatternString, groupProjectNameExcludePatternString);
       }
     }

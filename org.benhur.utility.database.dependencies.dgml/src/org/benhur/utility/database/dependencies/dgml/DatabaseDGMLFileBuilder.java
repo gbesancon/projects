@@ -6,6 +6,7 @@ import java.util.Map;
 import org.benhur.utility.database.dependencies.IColumn;
 import org.benhur.utility.database.dependencies.IDatabase;
 import org.benhur.utility.database.dependencies.ITable;
+import org.benhur.utility.database.dependencies.configuration.Configuration;
 import org.benhur.utility.database.dependencies.group.Group;
 import org.benhur.utility.database.dependencies.group.GroupBuilder;
 import org.benhur.utility.database.dependencies.group.GroupUtility;
@@ -14,13 +15,14 @@ import org.benhur.utility.dgml.Category;
 import org.benhur.utility.dgml.DirectedGraph;
 import org.benhur.utility.dgml.Node;
 
-public class DatabaseDGMLFileBuilder extends ADGMLFileBuilder<IDatabase>
+public class DatabaseDGMLFileBuilder extends ADGMLFileBuilder<IDatabase, Configuration>
 {
   @Override
-  protected void buildDirectedGraph(IDatabase input, DirectedGraph directedGraph, Map<String, Node> nodeByIds)
+  protected void buildDirectedGraph(IDatabase input, Configuration configuration, DirectedGraph directedGraph,
+      Map<String, Node> nodeByIds)
   {
     GroupBuilder groupBuilder = new GroupBuilder();
-    Group group = groupBuilder.buildGroup(input);
+    Group group = groupBuilder.buildGroup(input, configuration);
     List<Group> allGroups = GroupUtility.getAllGroups(group);
 
     for (Group aGroup : allGroups)
