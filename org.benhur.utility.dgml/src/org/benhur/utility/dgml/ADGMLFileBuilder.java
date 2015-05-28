@@ -4,24 +4,25 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class ADGMLFileBuilder<TInput>
+public abstract class ADGMLFileBuilder<TInput, TConfiguration>
 {
-  public void createDGMLFile(TInput input, String dgmlFilepath) throws IOException
+  public void createDGMLFile(TInput input, TConfiguration configuration, String dgmlFilepath) throws IOException
   {
     DGMLFileWriter dgmlFileWriter = new DGMLFileWriter();
-    DirectedGraph directedGraph = createDirectedGraph(input);
+    DirectedGraph directedGraph = createDirectedGraph(input, configuration);
     dgmlFileWriter.writeToFile(directedGraph, dgmlFilepath);
   }
 
-  protected DirectedGraph createDirectedGraph(TInput input)
+  protected DirectedGraph createDirectedGraph(TInput input, TConfiguration configuration)
   {
     DirectedGraph directedGraph = new DirectedGraph();
     Map<String, Node> nodeByIds = new HashMap<>();
-    buildDirectedGraph(input, directedGraph, nodeByIds);
+    buildDirectedGraph(input, configuration, directedGraph, nodeByIds);
     return directedGraph;
   }
 
-  protected abstract void buildDirectedGraph(TInput input, DirectedGraph directedGraph, Map<String, Node> nodeByIds);
+  protected abstract void buildDirectedGraph(TInput input, TConfiguration configuration, DirectedGraph directedGraph,
+      Map<String, Node> nodeByIds);
 
   protected void createNode(String id, String name, boolean isGroup, boolean isExpanded, DirectedGraph directedGraph,
       Map<String, Node> nodeByIds)
