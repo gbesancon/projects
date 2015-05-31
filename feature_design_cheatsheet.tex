@@ -1,122 +1,202 @@
-\documentclass[10pt]{article}
+\documentclass[10pt,landscape]{article}
 
-\usepackage{hyperref}
+\usepackage{multicol}
 \usepackage{calc}
 \usepackage{url}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage[hidelinks]{hyperref}
 \usepackage[T1]{fontenc}
 \usepackage[utf8x]{inputenc}
 \usepackage[english]{babel}
-\usepackage{multicol}
 
+% To make this come out properly in landscape mode, do one of the following
+% 1.
+%  pdflatex latexsheet.tex
+%
+% 2.
+%  latex latexsheet.tex
+%  dvips -P pdf  -t landscape latexsheet.dvi
+%  ps2pdf latexsheet.ps
+
+% This sets page margins to .5 inch if using letter paper, and to 1cm
+% if using A4 paper. (This probably isn't strictly necessary.)
+% If using another size paper, use default 1cm margins.
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+	{ \geometry{top=.5in,left=.5in,right=.5in,bottom=.5in} }
+	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+	}
+
+% Turn off header and footer
 \pagestyle{empty}
 
-\addtolength{\oddsidemargin}{-1.4in}
-\addtolength{\evensidemargin}{-1.4in}
-\addtolength{\textwidth}{2.8in}
-\addtolength{\topmargin}{-1.5in}
-\addtolength{\bottommargin}{-1.5in}
-\addtolength{\textheight}{3.0in}
+% Redefine section commands to use less space
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\makeatother
+
+% Define BibTeX command
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+% Don't print section numbers
+\setcounter{secnumdepth}{0}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+% -----------------------------------------------------------------------
 
 \begin{document}
-  \begin{multicols}{2}[
+  \raggedright
+  \footnotesize
+  \begin{multicols}{4}[
     \begin{center}
-      \Huge{Feature}
+      \Huge{Feature name}
     \end{center}
-    ]
+  ]
   
+    % multicol parameters
+    % These lengths are set only within the two main columns
+    %\setlength{\columnseprule}{0.25pt}
+    \setlength{\premulticols}{1pt}
+    \setlength{\postmulticols}{1pt}
+    \setlength{\multicolsep}{1pt}
+    \setlength{\columnsep}{2pt}
+
     \section*{Description}
     \begin{itemize}
-      \item Goals / Objectives
+      \item Objectives
     \end{itemize}
-
+    
     \section*{Traceability}
     \begin{itemize}
       \item Requirements
+      \item User stories (\href{http://www.agilemodeling.com/artifacts/userStory.htm}{link})
       \item Technical documentation
       \item Contact
     \end{itemize}
   
-    \section*{User-interface}
+    \section*{User Interface}
     \begin{itemize}
-      \item GUI prototype
-      \item User interactions
+      \item Command Line Interface
+      \begin{itemize}
+        \item Arguments
+      \end{itemize}
+      \item Graphical User Interface
+      \begin{itemize}
+        \item Prototype
+        \item User interactions
+      \end{itemize}
     \end{itemize}
   
-    \section*{Functional}
+    \section*{Architecture}
     \begin{itemize}
-      \item Use-case diagram
-      \item Mock-up
-      \item Interaction with others features
-      \item Error management
+      \item Technologies
+      \begin{itemize}
+        \item Languages
+        \item Third parties
+      \end{itemize}
+      \item Component diagram
+      \begin{itemize}
+        \item Dependencies
+        \item Interface
+        \item Data formats
+        \item Interaction
+      \end{itemize}
+      \item Error/Exception management
     \end{itemize}
 
-    \section*{Technical}
-    \begin{itemize}
-      \item Evolutivity / Genericity
-      \item Limitations
-    \end{itemize}
-  
     \section*{Design}
     \begin{itemize}
+      \item Evolutivity
+      \item Genericity
+      \item Limitations
       \item Class diagram
       \begin{itemize}
         \item Role of classes
-        \item Use of design-patterns
+        \item Design-patterns
       \end{itemize}
       \item Sequence diagram
-      \item Dependencies diagram
+      \item Configuration
+      \begin{itemize}
+        \item Settings
+        \item Provider (file, database, ...)
+      \end{itemize}
     \end{itemize}
 
-    \section*{Processing}
+    \section*{Implementation}
     \begin{itemize}
-      \item Algorithms
-      \item List of cases to implement
-    \end{itemize}
-  
-    \section*{Data}
-    \begin{itemize}    
-      \item Data formats
-      \item Data size (min / average / max)
-    \end{itemize}
-  
-    \section*{Constraints}
-    \begin{itemize}
-      \item 
-    \end{itemize}
-
-    \section*{Performance}
-    \begin{itemize}
-      \item Execution time
-      \item Memory consumption
-    \end{itemize}    
-  
-    \section*{Configuration}
-    \begin{itemize}    
-      \item List of settings
-      \item Configuration providers (file, database, ...)
+      \item Processing
+      \begin{itemize}
+        \item State diagram
+        \item Algorithm
+        \begin{itemize}
+          \item Cases to implement
+        \end{itemize}
+      \end{itemize}
+      \item Data
+      \begin{itemize}   
+        \item Size (min / average / max)
+      \end{itemize}
+      \item Performance
+      \begin{itemize}
+        \item Execution time
+        \item Memory consumption
+      \end{itemize}
     \end{itemize}
   
     \section*{Testing}
     \begin{itemize}
-      \item Manual tests
-      \item Automatic tests
+      \item{Use-cases}
       \begin{itemize}
-        \item Types
-        \begin{itemize}
-          \item Unit tests
-          \begin{itemize}
-            \item Nominal cases
-            \item Off cases
-          \end{itemize}
-          \item Functional tests
-          \item Integration tests
-        \end{itemize}
-        \item Coverage
-        \begin{itemize}
-          \item Percentage expected
-        \end{itemize}
+        \item Given \dots When \dots Then \dots (\href{http://guide.agilealliance.org/guide/gwt.html}{link})
+        \item Use-case diagram
+      \end{itemize}    
+      \item Strategy
+      \begin{itemize}
+        \item Mock-up
+        \item Integrated
+      \end{itemize}              
+      \item Execution
+      \begin{itemize}
+        \item Manual tests
+        \item Automatic tests
+      \end{itemize}
+      \item Test types
+      \begin{itemize}
+        \item Unit tests (Nominal/Off cases)
+        \item Functional tests
+        \item Integration tests
+      \end{itemize}
+      \item Coverage
+      \begin{itemize}
+        \item Percentage expected
       \end{itemize}
     \end{itemize}
-  
+    
+    \section*{Deployment}
+    \begin{itemize}
+      \item 
+    \end{itemize}
+
+    \scriptsize
+    Source: (\href{https://github.com/gbesancon/cheatsheet}{link})\\
+    Generation date: \today\\
+    Author: Gilles Besan\c{c}on\\
+    \href{https://github.com/gbesancon/cheatsheet}{GitHub} \href{https://www.linkedin.com/in/gbesancon}{LinkedIn}\\
   \end{multicols}
 \end{document}
