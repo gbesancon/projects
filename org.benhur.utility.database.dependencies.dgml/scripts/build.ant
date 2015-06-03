@@ -5,6 +5,7 @@
 	<property name="org.benhur.utility.database.dependencies.dgml.dir" value="${database.dir}/org.benhur.utility.database.dependencies.dgml"/>
 	<property name="dist.dir" value="${org.benhur.utility.database.dependencies.dgml.dir}/dist"/>
 	<property name="tmp.dist.dir" value="${dist.dir}/tmp"/>
+	<property name="version" value="0.0.1"/>	
 
 	<property name="eclipse-utility.dir" value="../../../eclipse-utility"/>
 
@@ -42,7 +43,7 @@ java -jar org.benhur.utility.database.dependencies.dgml.jar %CONFIGURATION_FILEP
 	</target>
 
 	<target name="dist.zip" depends="clean.dist, dist">
-		<zip destfile="${dist.dir}/org.benhur.utility.database.dependencies.dgml.zip">
+		<zip destfile="${dist.dir}/org.benhur.utility.database.dependencies.dgml-v${version}.zip">
 			<fileset dir="${tmp.dist.dir}" includes="**/*" />
 		</zip>
 	</target>
