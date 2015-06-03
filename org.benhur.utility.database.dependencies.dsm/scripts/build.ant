@@ -28,14 +28,14 @@
 				<attribute name="Class-Path" value="./org.benhur.utility.database.dependencies.jar ./org.benhur.utility.dsm.jar" />
 			</manifest>
 		</jar>
-		<copy file="${org.benhur.utility.database.dependencies.dir}/config/configuration_template.properties" tofile="${tmp.dist.dir}/config/configuration.properties" />
+		<copy file="${org.benhur.utility.database.dependencies.dir}/config/configuration_template.properties" tofile="${tmp.dist.dir}/config/configuration_template.properties" />
 		<echo file="${tmp.dist.dir}/start.bat">
 @echo OFF
 
 echo ^&lt; -------------------- Executing %0 -------------------- ^&gt;
 
 set CONFIGURATION_FILEPATH=%~1
-if "%~1"=="" set CONFIGURATION_FILEPATH=config\configuration.properties
+if "%~1"=="" set CONFIGURATION_FILEPATH=configuration.properties
 echo CONFIGURATION_FILEPATH = %CONFIGURATION_FILEPATH%
 
 java -jar org.benhur.utility.database.dependencies.dsm.jar %CONFIGURATION_FILEPATH%
