@@ -5,7 +5,7 @@ MAINTAINER Gilles Besancon
 RUN apt-get update \
 && apt-get install -y wget fortunes cowsay lolcat gawk netcat
 
-ADD content /home
+ADD scripts /home
 
 EXPOSE 80
 
