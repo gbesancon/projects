@@ -5,7 +5,7 @@ MAINTAINER Gilles Besancon
 RUN apt-get update \
 && apt-get install -y wget fortunes cowsay lolcat gawk netcat
 
-ADD scripts /home
+ADD ansi2html.sh fortune-cowsay-lolcat-server.sh /home/
 
 EXPOSE 80
 
