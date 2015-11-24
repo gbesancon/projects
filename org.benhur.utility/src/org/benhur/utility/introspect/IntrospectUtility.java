@@ -1,6 +1,7 @@
 package org.benhur.utility.introspect;
 
 import java.lang.reflect.Field;
+import java.net.URL;
 
 public class IntrospectUtility
 {
@@ -31,5 +32,10 @@ public class IntrospectUtility
       e.printStackTrace();
     }
     return attribute;
+  }
+
+  public static <T> URL logJar(Class<T> aClass)
+  {
+    return aClass.getResource('/' + aClass.getName().replace('.', '/') + ".class");
   }
 }
