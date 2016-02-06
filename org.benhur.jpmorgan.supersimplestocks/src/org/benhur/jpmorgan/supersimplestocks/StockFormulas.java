@@ -1,4 +1,4 @@
-package org.benhur.jpmorgan.supersimplestocks.formula;
+package org.benhur.jpmorgan.supersimplestocks;
 
 import org.benhur.jpmorgan.supersimplestocks.data.Stock;
 import org.benhur.jpmorgan.supersimplestocks.data.Stock.Type;
