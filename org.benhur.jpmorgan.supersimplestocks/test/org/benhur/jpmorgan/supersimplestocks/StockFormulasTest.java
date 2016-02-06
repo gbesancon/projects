@@ -1,7 +1,8 @@
-package org.benhur.jpmorgan.supersimplestocks.formula;
+package org.benhur.jpmorgan.supersimplestocks;
 
 import static org.junit.Assert.assertEquals;
 
+import org.benhur.jpmorgan.supersimplestocks.StockFormulas;
 import org.benhur.jpmorgan.supersimplestocks.data.Stock;
 import org.benhur.jpmorgan.supersimplestocks.data.Stock.Type;
 import org.benhur.jpmorgan.supersimplestocks.data.Trade;
@@ -9,7 +10,7 @@ import org.benhur.jpmorgan.supersimplestocks.data.Trade.Indicator;
 import org.junit.Test;
 
 /**
- * Test for Dividend Yield computation.
+ * Test for Stocks formulas.
  *
  * @author GBesancon
  */
