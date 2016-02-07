@@ -1,5 +1,7 @@
 package org.benhur.jpmorgan.supersimplestocks;
 
+import java.util.List;
+
 import org.benhur.jpmorgan.supersimplestocks.data.Stock;
 import org.benhur.jpmorgan.supersimplestocks.data.Stock.Type;
 import org.benhur.jpmorgan.supersimplestocks.data.Trade;
@@ -104,13 +106,31 @@ public class StockFormulas
   }
 
   /**
+   * Compute Geometric Mean of Trades.
+   *
+   * @param trades
+   * @return
+   */
+  public static double ComputeGeometricMean(List<Trade> trades)
+  {
+    double[] prices = new double[trades.size()];
+    int iTrade = 0;
+    for (Trade trade : trades)
+    {
+      prices[iTrade] = trade.price;
+      iTrade++;
+    }
+    return ComputeGeometricMean(prices);
+  }
+
+  /**
    * Compute Geometric Mean of prices.
    *
    * @param prices
    *          (positive values)
    * @return
    */
-  public static double ComputeGeometricMean(double[] prices)
+  protected static double ComputeGeometricMean(double[] prices)
   {
     double productOfPrices = 1.0;
     for (double price : prices)
@@ -129,7 +149,7 @@ public class StockFormulas
    * @param trades
    * @return
    */
-  public static double ComputeVolumeWeightedStockPrice(Trade[] trades)
+  public static double ComputeVolumeWeightedStockPrice(List<Trade> trades)
   {
     double allTradesValue = 0.0;
     double totalQuantity = 0.0;

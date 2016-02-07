@@ -16,7 +16,7 @@ public class Trade
 
   public final Indicator indicator;
   public final double price;
-  public final double quantity;
+  public final int quantity;
   public final long timestamp;
 
   /**
@@ -27,7 +27,7 @@ public class Trade
    * @param price
    * @param quantity
    */
-  public Trade(Stock stock, Indicator indicator, double price, double quantity, long timestamp)
+  public Trade(Stock stock, Indicator indicator, double price, int quantity, long timestamp)
   {
     this.stock = stock;
     this.indicator = indicator;
