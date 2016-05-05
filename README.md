@@ -21,6 +21,7 @@ JavaScript:
  - MIDIJS
  - http://www.georgeandjonathan.com/#1
  - http://mohayonao.github.io/timbre.js/
+ - http://www.tutorialspoint.com/nodejs/nodejs_npm.htm
 
 Clojure:
 - Clojure: http://clojure.org/
