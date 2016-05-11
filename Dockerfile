@@ -8,4 +8,6 @@ RUN npm install midijs three
 
 ADD src/main.js /home/
 
-CMD ["/usr/bin/nodejs","main.js"]
+EXPOSE 80
+
+CMD ["/usr/bin/nodejs","/home/main.js"]
