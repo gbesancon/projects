@@ -12,6 +12,7 @@ import org.benhur.utility.database.dependencies.group.GroupBuilder;
 import org.benhur.utility.database.dependencies.group.GroupUtility;
 import org.benhur.utility.dgml.ADGMLFileBuilder;
 import org.benhur.utility.dgml.Category;
+import org.benhur.utility.dgml.DGMLException;
 import org.benhur.utility.dgml.DirectedGraph;
 import org.benhur.utility.dgml.Node;
 
@@ -19,7 +20,7 @@ public class DatabaseDGMLFileBuilder extends ADGMLFileBuilder<IDatabase, Configu
 {
   @Override
   protected void buildDirectedGraph(IDatabase input, Configuration configuration, DirectedGraph directedGraph,
-      Map<String, Node> nodeByIds)
+      Map<String, Node> nodeByIds) throws DGMLException
   {
     GroupBuilder groupBuilder = new GroupBuilder();
     Group group = groupBuilder.buildGroup(input, configuration);
