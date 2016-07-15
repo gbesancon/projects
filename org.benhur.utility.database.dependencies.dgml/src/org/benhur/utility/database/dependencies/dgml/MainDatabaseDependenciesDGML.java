@@ -7,6 +7,7 @@ import javax.xml.bind.PropertyException;
 import org.benhur.utility.database.dependencies.IDatabase;
 import org.benhur.utility.database.dependencies.builder.DatabaseBuilder;
 import org.benhur.utility.database.dependencies.configuration.Configuration;
+import org.benhur.utility.dgml.DGMLException;
 
 public class MainDatabaseDependenciesDGML
 {
@@ -30,6 +31,10 @@ public class MainDatabaseDependenciesDGML
         e.printStackTrace();
       }
       catch (IOException e)
+      {
+        e.printStackTrace();
+      }
+      catch (DGMLException e)
       {
         e.printStackTrace();
       }
