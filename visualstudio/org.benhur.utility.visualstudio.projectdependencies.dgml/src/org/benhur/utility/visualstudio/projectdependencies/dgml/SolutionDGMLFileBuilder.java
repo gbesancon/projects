@@ -7,6 +7,7 @@ import javax.xml.bind.PropertyException;
 
 import org.benhur.utility.dgml.ADGMLFileBuilder;
 import org.benhur.utility.dgml.Category;
+import org.benhur.utility.dgml.DGMLException;
 import org.benhur.utility.dgml.DirectedGraph;
 import org.benhur.utility.dgml.Node;
 import org.benhur.utility.visualstudio.projectdependencies.ISolution;
@@ -20,7 +21,7 @@ public class SolutionDGMLFileBuilder extends ADGMLFileBuilder<ISolution, Configu
 {
   @Override
   protected void buildDirectedGraph(ISolution input, Configuration configuration, DirectedGraph directedGraph,
-      Map<String, Node> nodeByIds)
+      Map<String, Node> nodeByIds) throws DGMLException
   {
     GroupBuilder groupBuilder = new GroupBuilder();
     Group group = groupBuilder.buildGroup(input, configuration);
@@ -31,7 +32,8 @@ public class SolutionDGMLFileBuilder extends ADGMLFileBuilder<ISolution, Configu
       createNode(getId(aGroup, configuration), aGroup.getName(), true, true, directedGraph, nodeByIds);
       for (ISolutionItem aSolutionItem : aGroup.getProjects())
       {
-        createNode(getId(aSolutionItem, configuration), aSolutionItem.getName(), false, false, directedGraph, nodeByIds);
+        createNode(getId(aSolutionItem, configuration), aSolutionItem.getName(), false, false, directedGraph,
+                   nodeByIds);
       }
     }
 
@@ -52,8 +54,8 @@ public class SolutionDGMLFileBuilder extends ADGMLFileBuilder<ISolution, Configu
                    nodeByIds);
         for (ISolutionItem aProjectDependency : aSolutionItem.getProjectDependencies())
         {
-          createLink(getId(aSolutionItem, configuration), getId(aProjectDependency, configuration), directedGraph,
-                     null, nodeByIds);
+          createLink(getId(aSolutionItem, configuration), getId(aProjectDependency, configuration), directedGraph, null,
+                     nodeByIds);
         }
       }
     }
@@ -93,6 +95,8 @@ public class SolutionDGMLFileBuilder extends ADGMLFileBuilder<ISolution, Configu
     dgmlId = dgmlId.replace(':', '-');
     dgmlId = dgmlId.replace('\\', '-');
     dgmlId = dgmlId.replace('/', '-');
+    dgmlId = dgmlId.replace('<', '-');
+    dgmlId = dgmlId.replace('>', '-');
     return dgmlId;
   }
 
