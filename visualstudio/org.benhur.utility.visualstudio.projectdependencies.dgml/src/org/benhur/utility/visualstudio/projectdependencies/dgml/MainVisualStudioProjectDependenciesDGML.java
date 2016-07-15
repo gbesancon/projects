@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import javax.xml.bind.PropertyException;
 
+import org.benhur.utility.dgml.DGMLException;
 import org.benhur.utility.visualstudio.projectdependencies.ISolution;
 import org.benhur.utility.visualstudio.projectdependencies.builder.SolutionBuilder;
 import org.benhur.utility.visualstudio.projectdependencies.dgml.configuration.Configuration;
@@ -33,6 +34,10 @@ public class MainVisualStudioProjectDependenciesDGML
         e.printStackTrace();
       }
       catch (IOException e)
+      {
+        e.printStackTrace();
+      }
+      catch (DGMLException e)
       {
         e.printStackTrace();
       }
