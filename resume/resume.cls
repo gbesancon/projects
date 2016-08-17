@@ -10,7 +10,7 @@
 
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{resume}
+\ProvidesClass{resume/resume}
 
 \LoadClassWithOptions{article}
 
@@ -23,7 +23,6 @@
 \RequirePackage{url}
 \RequirePackage{tabularx}
 \RequirePackage{pgf}
-\RequirePackage{pgfshade}
 \RequirePackage{xxcolor}
 \RequirePackage{graphicx}
 \RequirePackage{times}
