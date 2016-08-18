@@ -15,7 +15,7 @@ generate_pdf ()
 REFERENCE_FOLDER=`pwd`
 check_tools
 
-for FILE in resume_en.tex resume_fr.tex
+for FILE in *.tex
 do 
   generate_pdf $FILE 
 done
