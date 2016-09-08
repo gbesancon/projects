@@ -6,7 +6,7 @@
 	<property name="tmp.dist.dir" value="${dist.dir}/tmp"/>
 	<property name="version" value="0.0.1"/>	
 
-	<property name="eclipse-utility.dir" value="../../../eclipse-utility"/>
+	<property name="eclipse-utility.dir" value="../../../../eclipse-utility"/>
 
 	<target name="clean.dist">
 		<delete dir="${dist.dir}" />
@@ -45,5 +45,6 @@ java -jar org.benhur.utility.visualstudio.projectdependencies.dgml.jar %CONFIGUR
 		<zip destfile="${dist.dir}/org.benhur.utility.visualstudio.projectdependencies.dgml-v${version}.zip">
 			<fileset dir="${tmp.dist.dir}" includes="**/*" />
 		</zip>
+		<delete dir="${tmp.dist.dir}" />
 	</target>
 </project>

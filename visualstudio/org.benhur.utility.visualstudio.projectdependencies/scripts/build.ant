@@ -5,7 +5,7 @@
 	<property name="dist.dir" value="${org.benhur.utility.visualstudio.projectdependencies.dir}/dist"/>
 	<property name="tmp.dist.dir" value="${dist.dir}/tmp"/>
 
-	<property name="eclipse-utility.dir" value="../../../eclipse-utility"/>
+	<property name="eclipse-utility.dir" value="../../../../eclipse-utility"/>
 
 	<target name="clean.dist">
 		<delete dir="${dist.dir}" />
@@ -28,5 +28,6 @@
 		<zip destfile="${dist.dir}/org.benhur.utility.visualstudio.projectdependencies.zip">
 			<fileset dir="${tmp.dist.dir}" includes="**/*" />
 		</zip>
+		<delete dir="${tmp.dist.dir}" />
 	</target>
 </project>
