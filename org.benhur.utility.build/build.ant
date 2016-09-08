@@ -2,8 +2,8 @@
 
 	<property file="build.properties"/>
 	
-	<import file="../../eclipse-tips/eclipse-ant/git.ant"/>
-	<import file="../../eclipse-tips/eclipse-ant/p2.ant"/>
+	<import file="../../eclipse-tips/eclipse-ant/git/git.ant"/>
+	<import file="../../eclipse-tips/eclipse-ant/p2/p2.ant"/>
 
 	<property name="eclipse.dir" value="${eclipse.home}"/>
 	<property name="work.dir" value="${basedir}/work"/>
