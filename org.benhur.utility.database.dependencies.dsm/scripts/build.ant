@@ -46,5 +46,6 @@ java -jar org.benhur.utility.database.dependencies.dsm.jar %CONFIGURATION_FILEPA
 		<zip destfile="${dist.dir}/org.benhur.utility.database.dependencies.dsm-v${version}.zip">
 			<fileset dir="${tmp.dist.dir}" includes="**/*" />
 		</zip>
+		<delete dir="${tmp.dist.dir}" />
 	</target>
 </project>

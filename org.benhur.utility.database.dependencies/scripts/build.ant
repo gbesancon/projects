@@ -20,7 +20,7 @@
 		<condition property="mysqlj.exists" value="true" else="false">
 			<and>
 				<resourceexists>
-					<file file="${org.benhur.utility.database.dependencies.lib.dir}/mysql-connector-java-5.1.35.zip" />
+					<file file="${org.benhur.utility.database.dependencies.lib.dir}/mysql-connector-java-5.1.39.zip" />
 				</resourceexists>
 			</and>
 		</condition>
@@ -29,7 +29,7 @@
 	<target name="download.lib.mysqlj" depends="clean.lib, mysqlj" if="mysqlj.exists">
 		<mkdir dir="${org.benhur.utility.database.dependencies.lib.dir}" />
 		<get dest="${org.benhur.utility.database.dependencies.lib.dir}">
-			<url url="http://cdn.mysql.com/Downloads/Connector-J/mysql-connector-java-5.1.35.zip" />
+			<url url="http://cdn.mysql.com/Downloads/Connector-J/mysql-connector-java-5.1.39.zip" />
 		</get>
 		<unzip dest="${org.benhur.utility.database.dependencies.lib.dir}">
 			<fileset dir="${org.benhur.utility.database.dependencies.lib.dir}">
@@ -38,18 +38,18 @@
 		</unzip>
 	</target>
 
-	<target name="dist">
+	<target name="dist" depends="download.lib.mysqlj">
 		<mkdir dir="${tmp.dist.dir}" />
 		<ant antfile="${eclipse-utility.dir}/org.benhur.utility/scripts/build.ant" target="dist">
 			<property name="org.benhur.utility.dir" value="${eclipse-utility.dir}/org.benhur.utility"/>
 		</ant>
 		<copy todir="${tmp.dist.dir}/lib">
-			<fileset dir="${org.benhur.utility.database.dependencies.lib.dir}/mysql-connector-java-5.1.35" includes="*.jar" />
+			<fileset dir="${org.benhur.utility.database.dependencies.lib.dir}/mysql-connector-java-5.1.39" includes="*.jar" />
 		</copy>
 		<jar destfile="${tmp.dist.dir}/org.benhur.utility.database.dependencies.jar">
 			<fileset dir="${org.benhur.utility.database.dependencies.dir}/bin" includes="**/*.class" />
 			<manifest>
-				<attribute name="Class-Path" value="./org.benhur.utility.jar ./lib/mysql-connector-java-5.1.35-bin.jar" />
+				<attribute name="Class-Path" value="./org.benhur.utility.jar ./lib/mysql-connector-java-5.1.39-bin.jar" />
 			</manifest>
 		</jar>
 	</target>
@@ -58,5 +58,6 @@
 		<zip destfile="${dist.dir}/org.benhur.utility.database.dependencies.zip">
 			<fileset dir="${tmp.dist.dir}" includes="**/*" />
 		</zip>
+		<delete dir="${tmp.dist.dir}" />
 	</target>
 </project>
