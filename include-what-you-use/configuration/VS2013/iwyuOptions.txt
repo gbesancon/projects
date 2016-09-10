@@ -1,3 +1,0 @@
--DWIN32 -DNDEBUG -D_WINDOWS -D_USRDLL
--w -x c++ -std=c++11 -fcxx-exceptions -fexceptions -fms-compatibility -fms-extensions -fmsc-version=1600 -Wno-invalid-token-paste
--Xiwyu --verbose=1 -Xiwyu --transitive_includes_only
