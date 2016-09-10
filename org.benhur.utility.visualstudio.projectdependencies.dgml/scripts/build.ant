@@ -6,7 +6,7 @@
 	<property name="tmp.dist.dir" value="${dist.dir}/tmp"/>
 	<property name="version" value="0.0.1"/>	
 
-	<property name="eclipse-utility.dir" value="../../../../eclipse-utility"/>
+	<property name="eclipse-utility.dir" value="${visualstudio.dir}/../eclipse-utility"/>
 
 	<target name="clean.dist">
 		<delete dir="${dist.dir}" />
