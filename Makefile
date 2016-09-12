@@ -11,5 +11,5 @@ setup:
 	pdflatex -synctex=1 -interaction=nonstopmode $< > $<.log
 
 clean:
-	rm -f $(PDFS)
+	rm -f $(PDFS) $(TEXS:.tex=.aux) $(TEXS:.tex=.log) $(TEXS:.tex=.out) $(TEXS:.tex=.synctex.gz) $(TEXS:.tex=.tex.log)
 
