@@ -1,4 +1,4 @@
-TEXS=resume_en.tex resume_fr.tex
+TEXS=resume_en.tex resume_fr.tex resume_es.tex
 PDFS=$(TEXS:.tex=.pdf)
 
 all: $(PDFS)
