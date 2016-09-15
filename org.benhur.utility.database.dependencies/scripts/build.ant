@@ -38,7 +38,7 @@
 		</unzip>
 	</target>
 
-	<target name="dist" depends="download.lib.mysqlj">
+	<target name="dist" depends="clean.dist, download.lib.mysqlj">
 		<mkdir dir="${tmp.dist.dir}" />
 		<ant antfile="${eclipse-utility.dir}/org.benhur.utility/scripts/build.ant" target="dist">
 			<property name="org.benhur.utility.dir" value="${eclipse-utility.dir}/org.benhur.utility"/>
@@ -54,7 +54,7 @@
 		</jar>
 	</target>
 
-	<target name="dist.zip" depends="clean.dist, dist">
+	<target name="dist.zip" depends="dist">
 		<zip destfile="${dist.dir}/org.benhur.utility.database.dependencies.zip">
 			<fileset dir="${tmp.dist.dir}" includes="**/*" />
 		</zip>
