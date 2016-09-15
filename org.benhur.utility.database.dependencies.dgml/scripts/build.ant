@@ -13,7 +13,7 @@
 		<delete dir="${dist.dir}" />
 	</target>
 
-	<target name="dist">
+	<target name="dist" depends="clean.dist">
 		<mkdir dir="${tmp.dist.dir}" />
 		<ant antfile="${eclipse-utility.dir}/org.benhur.utility.dgml/scripts/build.ant" target="dist">
 			<property name="org.benhur.utility.dgml.dir" value="${eclipse-utility.dir}/org.benhur.utility.dgml"/>
@@ -42,7 +42,7 @@ java -jar org.benhur.utility.database.dependencies.dgml.jar %CONFIGURATION_FILEP
 		</echo>
 	</target>
 
-	<target name="dist.zip" depends="clean.dist, dist">
+	<target name="dist.zip" depends="dist">
 		<zip destfile="${dist.dir}/org.benhur.utility.database.dependencies.dgml-v${version}.zip">
 			<fileset dir="${tmp.dist.dir}" includes="**/*" />
 		</zip>
