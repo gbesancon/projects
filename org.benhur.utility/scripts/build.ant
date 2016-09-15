@@ -2,23 +2,44 @@
 
 	<property name="eclipse-utility.dir" value="../.."/>
 	<property name="org.benhur.utility.dir" value="${eclipse-utility.dir}/org.benhur.utility"/>
-	<property name="dist.dir" value="${org.benhur.utility.dir}/dist"/>
-	<property name="tmp.dist.dir" value="${dist.dir}/tmp"/>
+	<property name="org.benhur.utility.src.dir" value="${org.benhur.utility.dir}/src"/>
+	<property name="org.benhur.utility.bin.dir" value="${org.benhur.utility.dir}/bin"/>
+	<property name="org.benhur.utility.dist.dir" value="${org.benhur.utility.dir}/dist"/>
+	<property name="org.benhur.utility.dist.tmp.dir" value="${org.benhur.utility.dist.dir}/tmp"/>
 
 	<target name="clean.dist">
-		<delete dir="${dist.dir}" />
+		<delete dir="${org.benhur.utility.dist.dir}" />
 	</target>
 
-	<target name="dist">
-		<mkdir dir="${tmp.dist.dir}" />
-		<jar destfile="${tmp.dist.dir}/org.benhur.utility.jar">
-			<fileset dir="${org.benhur.utility.dir}/bin" includes="**/*.class" />
+	<target name="clean.bin">
+		<delete dir="${org.benhur.utility.bin.dir}" />
+		<mkdir dir="${org.benhur.utility.bin.dir}" />
+	</target>
+	
+	<path id="eclipse-classpath">
+		<fileset dir="${eclipse.home}/plugins">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+	
+	<target name="build.bin" depends="clean.bin">
+		  <javac destdir="${org.benhur.utility.bin.dir}">
+				<src path="${org.benhur.utility.src.dir}"/>
+				<classpath refid="eclipse-classpath"/>
+		  </javac>
+	</target>
+	
+	<target name="dist" depends="clean.dist, build.bin">
+		<mkdir dir="${org.benhur.utility.dist.tmp.dir}" />
+		<jar destfile="${org.benhur.utility.dist.tmp.dir}/org.benhur.utility.jar">
+			<fileset dir="${org.benhur.utility.bin.dir}" includes="**/*.class" />
 		</jar>
 	</target>
 
-	<target name="dist.zip" depends="clean.dist, dist">
-		<zip destfile="${dist.dir}/org.benhur.utility.zip">
-			<fileset dir="${tmp.dist.dir}" includes="**/*" />
+	<target name="dist.zip" depends="dist">
+		<zip destfile="${org.benhur.utility.dist.dir}/org.benhur.utility.zip">
+			<fileset dir="${org.benhur.utility.dist.tmp.dir}" includes="**/*" />
 		</zip>
+		<delete dir="${org.benhur.utility.dist.tmp.dir}" />
 	</target>
 </project>
