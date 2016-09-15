@@ -5,3 +5,8 @@
 *.war
 *.ear
 *.emtl
+
+org.benhur.utility/dist
+org.benhur.utility.dgml/dist
+org.benhur.utility.dsm/dist
+
