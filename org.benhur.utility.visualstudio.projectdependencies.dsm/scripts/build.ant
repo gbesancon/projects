@@ -13,7 +13,7 @@
 		<delete dir="${dist.dir}" />
 	</target>
 
-	<target name="dist">
+	<target name="dist" depends="clean.dist">
 		<mkdir dir="${tmp.dist.dir}" />
 		<ant antfile="${eclipse-utility.dir}/org.benhur.utility.dsm/scripts/build.ant" target="dist">
 			<property name="org.benhur.utility.dsm.dir" value="${eclipse-utility.dir}/org.benhur.utility.dsm"/>
@@ -42,7 +42,7 @@ java -jar org.benhur.utility.visualstudio.projectdependencies.dsm.jar %CONFIGURA
 		</echo>
 	</target>
 
-	<target name="dist.zip" depends="clean.dist, dist">
+	<target name="dist.zip" depends="dist">
 		<zip destfile="${dist.dir}/org.benhur.utility.visualstudio.projectdependencies.dsm-v${version}.zip">
 			<fileset dir="${tmp.dist.dir}" includes="**/*" />
 		</zip>
