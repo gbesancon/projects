@@ -1,11 +1,13 @@
 TEXS=development_process_cheatsheet.tex feature_design_cheatsheet.tex how_to_win_friends_and_influence_people_cheasheet.tex
 PDFS=$(TEXS:.tex=.pdf)
 
-all: $(PDFS)
+all: setup build
 
 setup:
 	sudo apt install texmaker texlive-full
 
+build: $(PDFS)
+	
 %.pdf: %.tex
 	echo Generate PDF for $<
 	pdflatex -synctex=1 -interaction=nonstopmode $< > $<.log
