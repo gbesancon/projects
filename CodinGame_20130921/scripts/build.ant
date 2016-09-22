@@ -1,4 +1,4 @@
-<project name="CodinGame_20150206" default="dist.zip" basedir=".">
+<project name="CodinGame_20130921" default="dist.zip" basedir=".">
 
 	<property name="src.dir" value="../src"/>
 	<property name="bin.dir" value="../bin"/>
