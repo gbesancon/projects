@@ -5,20 +5,20 @@ PACKAGES=texmaker texlive-full
 all: texmaker $(PDFS) 
 
 texmaker:
-	dpkg -s texmaker ; \
+	dpkg -s $@ ; \
  	if [ $$? != 0 ] ; \
 	then \
-		sudo apt install texmaker ; \
+		sudo apt install $@ ; \
 	fi
-	touch texmaker
+	touch $@
 
 texlive-full:
-	dpkg -s texlive-full ; \
+	dpkg -s $@ ; \
  	if [ $$? != 0 ] ; \
 	then \
-		sudo apt install texlive-full ; \
+		sudo apt install $@ ; \
 	fi
-	touch texlive-full
+	touch $@
 
 %.pdf: texlive %.tex
 	echo Generate PDF for $(word 2,$^)
