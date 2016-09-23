@@ -3,12 +3,12 @@ DOCKER_IMAGE=pi
 all: build
 
 docker.io:
-	dpkg -s docker.io ; \
+	dpkg -s $@ ; \
 	if [ $$? != 0 ] ; \
 	then \
-		sudo apt install docker.io ; \
+		sudo apt install $@ ; \
 	fi
-	touch docker.io 
+	touch $@ 
 
 build: docker.io Dockerfile
 	docker build -t $(DOCKER_IMAGE) .
