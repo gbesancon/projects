@@ -12,13 +12,13 @@ texmaker:
 	fi
 	touch texmaker
 
-texlive:
+texlive-full:
 	dpkg -s texlive-full ; \
  	if [ $$? != 0 ] ; \
 	then \
 		sudo apt install texlive-full ; \
 	fi
-	touch texlive
+	touch texlive-full
 
 %.pdf: texlive %.tex
 	echo Generate PDF for $(word 2,$^)
