@@ -1,17 +1,15 @@
-all: setup build
+all: youtube-dl
 
-setup:
-	if [ ! -d youtube-dl ] ; \
+youtube-dl:
+	if [ ! -d $@ ] ; \
 	then \
 		git clone https://github.com/rg3/youtube-dl.git ; \
 	fi
-	if [ ! -f youtube-dl/youtube-dl ] ; \
+	if [ ! -f $@/youtube-dl ] ; \
 	then \
-		cd youtube-dl && \
+		cd $@ && \
 		make ; \
 	fi 
-
-build:
 
 clean:
 	rm -rf youtube-dl
