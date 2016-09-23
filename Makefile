@@ -1,14 +1,19 @@
 DOCKER_IMAGE=fortune-cowsay-lolcat-server
 
-all: setup build
+all: build
 
-setup:
-	sudo apt install docker.io
-	echo fetch http://www.pixelbeat.org/scripts/ansi2html.sh
-	rm -f ansi2html.sh
-	wget http://www.pixelbeat.org/scripts/ansi2html.sh
+docker.io:
+	dpkg -s $@ ; \
+	if [ $$? != 0 ] ; \
+	then \
+		sudo apt install $@ ; \
+	fi
+	touch $@
 
-build:
+ansi2html.sh:
+        wget http://www.pixelbeat.org/scripts/ansi2html.sh
+
+build: docker.io ansi2html.sh Dockerfile
 	docker build -t $(DOCKER_IMAGE) .
 
 start:
