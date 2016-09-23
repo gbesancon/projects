@@ -12,15 +12,15 @@ texmaker:
 	fi
 	touch texmaker
 
-texlive:
+texlive-full:
 	dpkg -s texlive-full ; \
  	if [ $$? != 0 ] ; \
 	then \
 		sudo apt install texlive-full ; \
 	fi
-	touch texlive
+	touch texlive-full
 
-%.pdf: texlive %.tex
+%.pdf: texlive-full %.tex
 	echo Generate PDF for $(word 2,$^)
 	pdflatex -synctex=1 -interaction=nonstopmode $(word 2,$^) > $(word 2,$^).log
 
