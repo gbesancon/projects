@@ -1,8 +1,4 @@
-all: setup build
-
-setup:
-
-build:
+all: 
 
 clean:
 
