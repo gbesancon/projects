@@ -1,5 +1,5 @@
 texmaker
-texlive
+texlive-full
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
