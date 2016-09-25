@@ -2,22 +2,28 @@
 
 	<property name="visualstudio.dir" value="../.."/>
 	<property name="org.benhur.utility.visualstudio.projectdependencies.dir" value="${visualstudio.dir}/org.benhur.utility.visualstudio.projectdependencies"/>
+	<property name="org.benhur.utility.visualstudio.projectdependencies.bin.dir" value="${org.benhur.utility.visualstudio.projectdependencies.dir}/bin"/>
 	<property name="dist.dir" value="${org.benhur.utility.visualstudio.projectdependencies.dir}/dist"/>
 	<property name="tmp.dist.dir" value="${dist.dir}/tmp"/>
 
 	<property name="eclipse-utility.dir" value="${visualstudio.dir}/../eclipse-utility"/>
 
+	<target name="clean.bin">
+		<delete dir="${org.benhur.utility.visualstudio.projectdependencies.bin.dir}" />
+	</target>
+
 	<target name="clean.dist">
 		<delete dir="${dist.dir}" />
 	</target>
 
-	<target name="dist" depends="clean.dist">
+	<target name="dist" depends="clean.bin, clean.dist">
 		<mkdir dir="${tmp.dist.dir}" />
+		<mkdir dir="${org.benhur.utility.visualstudio.projectdependencies.bin.dir}" />
 		<ant antfile="${eclipse-utility.dir}/org.benhur.utility/scripts/build.ant" target="dist">
 			<property name="org.benhur.utility.dir" value="${eclipse-utility.dir}/org.benhur.utility"/>
 		</ant>
 		<jar destfile="${tmp.dist.dir}/org.benhur.utility.visualstudio.projectdependencies.jar">
-			<fileset dir="${org.benhur.utility.visualstudio.projectdependencies.dir}/bin" includes="**/*.class" />
+			<fileset dir="${org.benhur.utility.visualstudio.projectdependencies.bin.dir}" includes="**/*.class" />
 			<manifest>
 				<attribute name="Class-Path" value="./org.benhur.utility.jar" />
 			</manifest>
