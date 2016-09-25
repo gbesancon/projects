@@ -13,7 +13,6 @@
 
 	<target name="clean.bin">
 		<delete dir="${org.benhur.utility.bin.dir}" />
-		<mkdir dir="${org.benhur.utility.bin.dir}" />
 	</target>
 	
 	<path id="eclipse-classpath">
@@ -23,6 +22,7 @@
 	</path>
 	
 	<target name="build.bin" depends="clean.bin">
+		  <mkdir dir="${org.benhur.utility.bin.dir}" />
 		  <javac destdir="${org.benhur.utility.bin.dir}">
 				<src path="${org.benhur.utility.src.dir}"/>
 				<classpath refid="eclipse-classpath"/>
@@ -30,6 +30,7 @@
 	</target>
 	
 	<target name="dist" depends="clean.dist, build.bin">
+		<mkdir dir="${org.benhur.utility.dist.dir}" />
 		<mkdir dir="${org.benhur.utility.dist.tmp.dir}" />
 		<jar destfile="${org.benhur.utility.dist.tmp.dir}/org.benhur.utility.jar">
 			<fileset dir="${org.benhur.utility.bin.dir}" includes="**/*.class" />
