@@ -3,18 +3,24 @@
 	<property name="visualstudio.dir" value="../.."/>
 	<property name="org.benhur.utility.visualstudio.projectdependencies.dir" value="${visualstudio.dir}/org.benhur.utility.visualstudio.projectdependencies"/>
 	<property name="org.benhur.utility.visualstudio.projectdependencies.dsm.dir" value="${visualstudio.dir}/org.benhur.utility.visualstudio.projectdependencies.dsm"/>
+	<property name="org.benhur.utility.visualstudio.projectdependencies.dsm.bin.dir" value="${org.benhur.utility.visualstudio.projectdependencies.dsm.dir}/bin"/>
 	<property name="dist.dir" value="${org.benhur.utility.visualstudio.projectdependencies.dsm.dir}/dist"/>
 	<property name="tmp.dist.dir" value="${dist.dir}/tmp"/>
 	<property name="version" value="0.0.1"/>	
 
 	<property name="eclipse-utility.dir" value="${visualstudio.dir}/../eclipse-utility"/>
 
+	<target name="clean.bin">
+		<delete dir="${org.benhur.utility.visualstudio.projectdependencies.dsm.bin.dir}" />
+	</target>
+
 	<target name="clean.dist">
 		<delete dir="${dist.dir}" />
 	</target>
 
-	<target name="dist" depends="clean.dist">
+	<target name="dist" depends="clean.bin, clean.dist">
 		<mkdir dir="${tmp.dist.dir}" />
+		<mkdir dir="${org.benhur.utility.visualstudio.projectdependencies.dsm.bin.dir}" />
 		<ant antfile="${eclipse-utility.dir}/org.benhur.utility.dsm/scripts/build.ant" target="dist">
 			<property name="org.benhur.utility.dsm.dir" value="${eclipse-utility.dir}/org.benhur.utility.dsm"/>
 		</ant>
@@ -22,7 +28,7 @@
 			<property name="org.benhur.utility.visualstudio.projectdependencies.dir" value="${visualstudio.dir}/org.benhur.utility.visualstudio.projectdependencies"/>
 		</ant>
 		<jar destfile="${tmp.dist.dir}/org.benhur.utility.visualstudio.projectdependencies.dsm.jar">
-			<fileset dir="${org.benhur.utility.visualstudio.projectdependencies.dsm.dir}/bin" includes="**/*.class" />
+			<fileset dir="${org.benhur.utility.visualstudio.projectdependencies.dsm.bin.dir}" includes="**/*.class" />
 			<manifest>
 				<attribute name="Main-Class" value="org.benhur.utility.visualstudio.projectdependencies.dsm.MainVisualStudioProjectDependenciesDSM" />
 				<attribute name="Class-Path" value="./org.benhur.utility.visualstudio.projectdependencies.jar ./org.benhur.utility.dsm.jar" />
