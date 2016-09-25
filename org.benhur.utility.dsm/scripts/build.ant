@@ -13,7 +13,6 @@
 
 	<target name="clean.bin">
 		<delete dir="${org.benhur.utility.dsm.bin.dir}" />
-		<mkdir dir="${org.benhur.utility.dsm.bin.dir}" />
 	</target>
 	
 	<target name="build.bin" depends="clean.bin">
@@ -28,6 +27,7 @@
 			</fileset>
 		</path>
 		
+		<mkdir dir="${org.benhur.utility.dsm.bin.dir}" />
 		<javac destdir="${org.benhur.utility.dsm.bin.dir}">
 			<src path="${org.benhur.utility.dsm.src.dir}"/>
 			<classpath refid="eclipse-utility-dsm-classpath"/>
@@ -35,6 +35,7 @@
 	</target>
 
 	<target name="dist" depends="clean.dist, build.bin">
+		<mkdir dir="${org.benhur.utility.dsm.dist.dir}" />
 		<mkdir dir="${org.benhur.utility.dsm.dist.tmp.dir}" />
 		<jar destfile="${org.benhur.utility.dsm.dist.tmp.dir}/org.benhur.utility.dsm.jar">
 			<fileset dir="${org.benhur.utility.dsm.bin.dir}" includes="**/*.class" />
