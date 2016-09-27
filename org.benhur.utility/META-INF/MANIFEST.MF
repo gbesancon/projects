@@ -6,6 +6,7 @@ Bundle-Version: 1.0.0.qualifier
 Export-Package: 
  org.benhur.utility.application,
  org.benhur.utility.copy,
+ org.benhur.utility.date,
  org.benhur.utility.encoding,
  org.benhur.utility.environment,
  org.benhur.utility.file,
