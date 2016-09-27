@@ -20,5 +20,7 @@ Export-Package: org.benhur.utility.ui.action,
  org.benhur.utility.ui.font,
  org.benhur.utility.ui.plugin,
  org.benhur.utility.ui.service,
+ org.benhur.utility.ui.swt.widget.button,
+ org.benhur.utility.ui.swt.widget.time,
  org.benhur.utility.ui.workbench
 Bundle-ActivationPolicy: lazy
