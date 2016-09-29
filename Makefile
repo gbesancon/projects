@@ -1,4 +1,4 @@
-DOCKER_IMAGE=pi
+DOCKER_IMAGE=gbesancon/pi
 
 all: build
 
