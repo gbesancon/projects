@@ -1,4 +1,4 @@
-DOCKER_IMAGE=fortune-cowsay-lolcat-server
+DOCKER_IMAGE=gbesancon/fortune-cowsay-lolcat-server
 
 all: build
 
