@@ -7,10 +7,6 @@
 	<property name="org.benhur.utility.dist.dir" value="${org.benhur.utility.dir}/dist"/>
 	<property name="org.benhur.utility.dist.tmp.dir" value="${org.benhur.utility.dist.dir}/tmp"/>
 
-	<target name="clean.dist">
-		<delete dir="${org.benhur.utility.dist.dir}" />
-	</target>
-
 	<target name="clean.bin">
 		<delete dir="${org.benhur.utility.bin.dir}" />
 	</target>
@@ -29,7 +25,7 @@
 		  </javac>
 	</target>
 	
-	<target name="dist" depends="clean.dist, build.bin">
+	<target name="dist" depends="build.bin">
 		<mkdir dir="${org.benhur.utility.dist.dir}" />
 		<mkdir dir="${org.benhur.utility.dist.tmp.dir}" />
 		<jar destfile="${org.benhur.utility.dist.tmp.dir}/org.benhur.utility.jar">
@@ -37,7 +33,11 @@
 		</jar>
 	</target>
 
-	<target name="dist.zip" depends="dist">
+	<target name="clean.dist">
+		<delete dir="${org.benhur.utility.dist.dir}" />
+	</target>
+
+	<target name="dist.zip" depends="clean.dist, dist">
 		<zip destfile="${org.benhur.utility.dist.dir}/org.benhur.utility.zip">
 			<fileset dir="${org.benhur.utility.dist.tmp.dir}" includes="**/*" />
 		</zip>
