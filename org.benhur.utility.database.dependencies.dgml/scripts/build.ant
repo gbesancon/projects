@@ -4,38 +4,36 @@
 	<property name="org.benhur.utility.database.dependencies.dir" value="${database.dir}/org.benhur.utility.database.dependencies"/>
 	<property name="org.benhur.utility.database.dependencies.dgml.dir" value="${database.dir}/org.benhur.utility.database.dependencies.dgml"/>
 	<property name="org.benhur.utility.database.dependencies.dgml.bin.dir" value="${org.benhur.utility.database.dependencies.dgml.dir}/bin"/>
-	<property name="dist.dir" value="${org.benhur.utility.database.dependencies.dgml.dir}/dist"/>
-	<property name="tmp.dist.dir" value="${dist.dir}/tmp"/>
+	<property name="org.benhur.utility.database.dependencies.dgml.dist.dir" value="${org.benhur.utility.database.dependencies.dgml.dir}/dist"/>
+	<property name="org.benhur.utility.database.dependencies.dgml.dist.tmp.dir" value="${org.benhur.utility.database.dependencies.dgml.dist.dir}/tmp"/>
 	<property name="version" value="0.0.1"/>	
 
-	<property name="eclipse-utility.dir" value="../../../eclipse-utility"/>
+	<property name="eclipse-utility.dir" value="${database.dir}/../eclipse-utility"/>
 
 	<target name="clean.bin">
 		<delete dir="${org.benhur.utility.database.dependencies.dgml.bin.dir}" />
 	</target>
 
-	<target name="clean.dist">
-		<delete dir="${dist.dir}" />
-	</target>
-
-	<target name="dist" depends="clean.bin, clean.dist">
-		<mkdir dir="${tmp.dist.dir}" />
+	<target name="dist" depends="clean.bin">
+		<mkdir dir="${org.benhur.utility.database.dependencies.dgml.dist.tmp.dir}" />
 		<mkdir dir="${org.benhur.utility.database.dependencies.dgml.bin.dir}" />
 		<ant antfile="${eclipse-utility.dir}/org.benhur.utility.dgml/scripts/build.ant" target="dist">
 			<property name="org.benhur.utility.dgml.dir" value="${eclipse-utility.dir}/org.benhur.utility.dgml"/>
+			<property name="org.benhur.utility.dgml.dist.dir" value="${org.benhur.utility.database.dependencies.dgml.dist.dir}"/>
 		</ant>
 		<ant antfile="${database.dir}/org.benhur.utility.database.dependencies/scripts/build.ant" target="dist">
 			<property name="org.benhur.utility.database.dependencies.dir" value="${database.dir}/org.benhur.utility.database.dependencies"/>
+			<property name="org.benhur.utility.database.dependencies.dist.dir" value="${org.benhur.utility.database.dependencies.dgml.dist.dir}"/>
 		</ant>
-		<jar destfile="${tmp.dist.dir}/org.benhur.utility.database.dependencies.dgml.jar">
+		<jar destfile="${org.benhur.utility.database.dependencies.dgml.dist.tmp.dir}/org.benhur.utility.database.dependencies.dgml.jar">
 			<fileset dir="${org.benhur.utility.database.dependencies.dgml.bin.dir}" includes="**/*.class" />
 			<manifest>
 				<attribute name="Main-Class" value="org.benhur.utility.database.dependencies.dgml.MainDatabaseDependenciesDGML" />
 				<attribute name="Class-Path" value="./org.benhur.utility.database.dependencies.jar ./org.benhur.utility.dgml.jar" />
 			</manifest>
 		</jar>
-		<copy file="${org.benhur.utility.database.dependencies.dir}/config/configuration_template.properties" tofile="${tmp.dist.dir}/config/configuration_template.properties" />
-		<echo file="${tmp.dist.dir}/start.bat">
+		<copy file="${org.benhur.utility.database.dependencies.dir}/config/configuration_template.properties" tofile="${org.benhur.utility.database.dependencies.dgml.dist.tmp.dir}/config/configuration_template.properties" />
+		<echo file="${org.benhur.utility.database.dependencies.dgml.dist.tmp.dir}/start.bat">
 @echo OFF
 
 echo ^&lt; -------------------- Executing %0 -------------------- ^&gt;
@@ -48,10 +46,14 @@ java -jar org.benhur.utility.database.dependencies.dgml.jar %CONFIGURATION_FILEP
 		</echo>
 	</target>
 
-	<target name="dist.zip" depends="dist">
-		<zip destfile="${dist.dir}/org.benhur.utility.database.dependencies.dgml-v${version}.zip">
-			<fileset dir="${tmp.dist.dir}" includes="**/*" />
+	<target name="clean.dist">
+		<delete dir="${org.benhur.utility.database.dependencies.dgml.dist.dir}" />
+	</target>
+
+	<target name="dist.zip" depends="clean.dist, dist">
+		<zip destfile="${org.benhur.utility.database.dependencies.dgml.dist.dir}/org.benhur.utility.database.dependencies.dgml-v${version}.zip">
+			<fileset dir="${org.benhur.utility.database.dependencies.dgml.dist.tmp.dir}" includes="**/*" />
 		</zip>
-		<delete dir="${tmp.dist.dir}" />
+		<delete dir="${org.benhur.utility.database.dependencies.dgml.dist.tmp.dir}" />
 	</target>
 </project>
