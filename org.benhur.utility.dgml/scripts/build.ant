@@ -7,10 +7,6 @@
 	<property name="org.benhur.utility.dgml.dist.dir" value="${org.benhur.utility.dgml.dir}/dist"/>
 	<property name="org.benhur.utility.dgml.dist.tmp.dir" value="${org.benhur.utility.dgml.dist.dir}/tmp"/>
 
-	<target name="clean.dist">
-		<delete dir="${org.benhur.utility.dgml.dist.dir}" />
-	</target>
-
 	<target name="clean.bin">
 		<delete dir="${org.benhur.utility.dgml.bin.dir}" />
 	</target>
@@ -34,7 +30,7 @@
 		</javac>
 	</target>
 
-	<target name="dist" depends="clean.dist, build.bin">
+	<target name="dist" depends="build.bin">
 		<mkdir dir="${org.benhur.utility.dgml.dist.dir}" />
 		<mkdir dir="${org.benhur.utility.dgml.dist.tmp.dir}" />
 		<jar destfile="${org.benhur.utility.dgml.dist.tmp.dir}/org.benhur.utility.dgml.jar">
@@ -45,7 +41,11 @@
 		</jar>
 	</target>
 
-	<target name="dist.zip" depends="dist">
+	<target name="clean.dist">
+		<delete dir="${org.benhur.utility.dgml.dist.dir}" />
+	</target>
+
+	<target name="dist.zip" depends="clean.dist, dist">
 		<zip destfile="${org.benhur.utility.dgml.dist.dir}/org.benhur.utility.dgml.zip">
 			<fileset dir="${org.benhur.utility.dgml.dist.tmp.dir}" includes="**/*" />
 		</zip>
