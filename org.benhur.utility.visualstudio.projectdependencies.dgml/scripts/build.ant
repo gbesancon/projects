@@ -3,8 +3,8 @@
 	<property name="visualstudio.dir" value="../.."/>
 	<property name="org.benhur.utility.visualstudio.projectdependencies.dgml.dir" value="${visualstudio.dir}/org.benhur.utility.visualstudio.projectdependencies.dgml"/>
 	<property name="org.benhur.utility.visualstudio.projectdependencies.dgml.bin.dir" value="${org.benhur.utility.visualstudio.projectdependencies.dgml.dir}/bin"/>
-	<property name="dist.dir" value="${org.benhur.utility.visualstudio.projectdependencies.dgml.dir}/dist"/>
-	<property name="tmp.dist.dir" value="${dist.dir}/tmp"/>
+	<property name="org.benhur.utility.visualstudio.projectdependencies.dgml.dist.dir" value="${org.benhur.utility.visualstudio.projectdependencies.dgml.dir}/dist"/>
+	<property name="org.benhur.utility.visualstudio.projectdependencies.dgml.dist.tmp.dir" value="${org.benhur.utility.visualstudio.projectdependencies.dgml.dist.dir}/tmp"/>
 	<property name="version" value="0.0.1"/>	
 
 	<property name="eclipse-utility.dir" value="${visualstudio.dir}/../eclipse-utility"/>
@@ -13,28 +13,26 @@
 		<delete dir="${org.benhur.utility.visualstudio.projectdependencies.dgml.bin.dir}" />
 	</target>
 
-	<target name="clean.dist">
-		<delete dir="${dist.dir}" />
-	</target>
-
-	<target name="dist" depends="clean.bin, clean.dist">
-		<mkdir dir="${tmp.dist.dir}" />
+	<target name="dist" depends="clean.bin">
+		<mkdir dir="${org.benhur.utility.visualstudio.projectdependencies.dgml.dist.tmp.dir}" />
 		<mkdir dir="${org.benhur.utility.visualstudio.projectdependencies.dgml.bin.dir}" />
 		<ant antfile="${eclipse-utility.dir}/org.benhur.utility.dgml/scripts/build.ant" target="dist">
 			<property name="org.benhur.utility.dgml.dir" value="${eclipse-utility.dir}/org.benhur.utility.dgml"/>
+			<property name="org.benhur.utility.dgml.dist.dir" value="${org.benhur.utility.visualstudio.projectdependencies.dgml.dist.dir}"/>
 		</ant>
 		<ant antfile="${visualstudio.dir}/org.benhur.utility.visualstudio.projectdependencies/scripts/build.ant" target="dist">
 			<property name="org.benhur.utility.visualstudio.projectdependencies.dir" value="${visualstudio.dir}/org.benhur.utility.visualstudio.projectdependencies"/>
+			<property name="org.benhur.utility.visualstudio.projectdependencies.dist.dir" value="${org.benhur.utility.visualstudio.projectdependencies.dgml.dist.dir}"/>
 		</ant>
-		<jar destfile="${tmp.dist.dir}/org.benhur.utility.visualstudio.projectdependencies.dgml.jar">
+		<jar destfile="${org.benhur.utility.visualstudio.projectdependencies.dgml.dist.tmp.dir}/org.benhur.utility.visualstudio.projectdependencies.dgml.jar">
 			<fileset dir="${org.benhur.utility.visualstudio.projectdependencies.dgml.bin.dir}" includes="**/*.class" />
 			<manifest>
 				<attribute name="Main-Class" value="org.benhur.utility.visualstudio.projectdependencies.dgml.MainVisualStudioProjectDependenciesDGML" />
 				<attribute name="Class-Path" value="./org.benhur.utility.visualstudio.projectdependencies.jar ./org.benhur.utility.dgml.jar" />
 			</manifest>
 		</jar>
-		<copy file="${org.benhur.utility.visualstudio.projectdependencies.dgml.dir}/config/configuration_template.properties" tofile="${tmp.dist.dir}/config/configuration_template.properties" />
-		<echo file="${tmp.dist.dir}/start.bat">
+		<copy file="${org.benhur.utility.visualstudio.projectdependencies.dgml.dir}/config/configuration_template.properties" tofile="${org.benhur.utility.visualstudio.projectdependencies.dgml.dist.tmp.dir}/config/configuration_template.properties" />
+		<echo file="${org.benhur.utility.visualstudio.projectdependencies.dgml.dist.tmp.dir}/start.bat">
 @echo OFF
 
 echo ^&lt; -------------------- Executing %0 -------------------- ^&gt;
@@ -47,10 +45,14 @@ java -jar org.benhur.utility.visualstudio.projectdependencies.dgml.jar %CONFIGUR
 		</echo>
 	</target>
 
-	<target name="dist.zip" depends="dist">
-		<zip destfile="${dist.dir}/org.benhur.utility.visualstudio.projectdependencies.dgml-v${version}.zip">
-			<fileset dir="${tmp.dist.dir}" includes="**/*" />
+	<target name="clean.dist">
+		<delete dir="${org.benhur.utility.visualstudio.projectdependencies.dgml.dist.dir}" />
+	</target>
+
+	<target name="dist.zip" depends="clean.dist, dist">
+		<zip destfile="${org.benhur.utility.visualstudio.projectdependencies.dgml.dist.dir}/org.benhur.utility.visualstudio.projectdependencies.dgml-v${version}.zip">
+			<fileset dir="${org.benhur.utility.visualstudio.projectdependencies.dgml.dist.tmp.dir}" includes="**/*" />
 		</zip>
-		<delete dir="${tmp.dist.dir}" />
+		<delete dir="${org.benhur.utility.visualstudio.projectdependencies.dgml.dist.tmp.dir}" />
 	</target>
 </project>
