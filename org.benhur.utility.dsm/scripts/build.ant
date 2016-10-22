@@ -1,52 +1,29 @@
-<project name="org.benhur.utility.dsm" default="dist.zip" basedir=".">
+<project name="org.benhur.utility.dsm" default="dist.zip" basedir="..">
+	<import file="../../../ant/ant-java/build.ant"/>
 
-	<property name="eclipse-utility.dir" value="../.."/>
+	<property name="eclipse-utility.dir" value="${basedir}/.."/>
 	<property name="org.benhur.utility.dsm.dir" value="${eclipse-utility.dir}/org.benhur.utility.dsm"/>
-	<property name="org.benhur.utility.dsm.src.dir" value="${org.benhur.utility.dsm.dir}/src"/>
-	<property name="org.benhur.utility.dsm.bin.dir" value="${org.benhur.utility.dsm.dir}/bin"/>
 	<property name="org.benhur.utility.dsm.dist.dir" value="${org.benhur.utility.dsm.dir}/dist"/>
 	<property name="org.benhur.utility.dsm.dist.tmp.dir" value="${org.benhur.utility.dsm.dist.dir}/tmp"/>
-
-	<target name="clean.bin">
-		<delete dir="${org.benhur.utility.dsm.bin.dir}" />
-	</target>
 	
-	<target name="build.bin" depends="clean.bin">
-		<ant antfile="${eclipse-utility.dir}/org.benhur.utility/scripts/build.ant" target="dist">
-			<property name="org.benhur.utility.dir" value="${eclipse-utility.dir}/org.benhur.utility"/>
-			<property name="org.benhur.utility.dist.dir" value="${org.benhur.utility.dsm.dist.dir}"/>
-		</ant>
-		
-		<path id="eclipse-utility-dsm-classpath">
-			<fileset dir="${org.benhur.utility.dsm.dist.dir}">
-				<include name="org.benhur.utility.jar"/>
-			</fileset>
-		</path>
-		
-		<mkdir dir="${org.benhur.utility.dsm.bin.dir}" />
-		<javac destdir="${org.benhur.utility.dsm.bin.dir}">
-			<src path="${org.benhur.utility.dsm.src.dir}"/>
-			<classpath refid="eclipse-utility-dsm-classpath"/>
-		</javac>
-	</target>
-
-	<target name="dist" depends="build.bin">
-		<mkdir dir="${org.benhur.utility.dsm.dist.dir}" />
-		<mkdir dir="${org.benhur.utility.dsm.dist.tmp.dir}" />
-		<jar destfile="${org.benhur.utility.dsm.dist.tmp.dir}/org.benhur.utility.dsm.jar">
-			<fileset dir="${org.benhur.utility.dsm.bin.dir}" includes="**/*.class" />
-			<manifest>
-				<attribute name="Class-Path" value="./org.benhur.utility.jar" />
-			</manifest>
-		</jar>
-	</target>
-
 	<target name="clean.dist">
 		<delete dir="${org.benhur.utility.dsm.dist.dir}" />
 	</target>
-
+	
+	<target name="dist">
+		<mkdir dir="${org.benhur.utility.dsm.dist.tmp.dir}" />
+		<path id="org.benhur.utility.dsm.classpath">
+		</path>
+		<build.jar 
+			project.dir="${org.benhur.utility.dsm.dir}"
+			jar.dir="${org.benhur.utility.dsm.dist.tmp.dir}"
+			jar.name="${ant.project.name}.jar"
+			classpath.refid="org.benhur.utility.dsm.classpath"
+		/>
+	</target>
+	
 	<target name="dist.zip" depends="clean.dist, dist">
-		<zip destfile="${org.benhur.utility.dsm.dist.dir}/org.benhur.utility.dsm.zip">
+		<zip destfile="${org.benhur.utility.dsm.dist.dir}/${ant.project.name}.zip">
 			<fileset dir="${org.benhur.utility.dsm.dist.tmp.dir}" includes="**/*" />
 		</zip>
 		<delete dir="${org.benhur.utility.dsm.dist.tmp.dir}" />
