@@ -1,33 +1,18 @@
-<project name="CodinGame_20130727" default="dist.zip" basedir=".">
+<project name="CodinGame_20130727" default="dist.zip" basedir="..">
 
-	<property name="src.dir" value="../src"/>
-	<property name="bin.dir" value="../bin"/>
-	<property name="dist.dir" value="../dist"/>
-	<property name="dist.tmp.dir" value="${dist.dir}/tmp"/>
-
-	<target name="clean.dist">
+	<import file="../../../ant/ant-java/build.ant"/>
+		
+	<target name="dist.zip">
+		<property name="dist.dir" value="${basedir}/dist"/>
+		<property name="dist.tmp.dir" value="${dist.dir}/tmp"/>
+		
 		<delete dir="${dist.dir}" />
-	</target>
-
-	<target name="clean.bin">
-		<delete dir="${bin.dir}" />
-		<mkdir dir="${bin.dir}" />
-	</target>
-	
-	<target name="build.bin" depends="clean.bin">
-		  <javac destdir="${bin.dir}">
-				<src path="${src.dir}"/>
-		  </javac>
-	</target>
-	
-	<target name="dist" depends="clean.dist, build.bin">
 		<mkdir dir="${dist.tmp.dir}" />
-		<jar destfile="${dist.tmp.dir}/${ant.project.name}.jar">
-			<fileset dir="${bin.dir}" includes="**/*.class" />
-		</jar>
-	</target>
-
-	<target name="dist.zip" depends="dist">
+		<build.jar 
+			project.dir="${basedir}"
+			jar.dir="${dist.tmp.dir}"
+			jar.name="${ant.project.name}.jar"
+		/>
 		<zip destfile="${dist.dir}/${ant.project.name}.zip">
 			<fileset dir="${dist.tmp.dir}" includes="**/*" />
 		</zip>
