@@ -1,17 +1,13 @@
-<project name="org.benhur.utility.database.dependencies" default="dist.zip" basedir=".">
+<project name="org.benhur.utility.database.dependencies" default="dist.zip" basedir="..">
+	<import file="../../../ant/ant-java/build.ant"/>
 
-	<property name="database.dir" value="../.."/>
+	<property name="database.dir" value=".."/>
 	<property name="org.benhur.utility.database.dependencies.dir" value="${database.dir}/org.benhur.utility.database.dependencies"/>
-	<property name="org.benhur.utility.database.dependencies.bin.dir" value="${org.benhur.utility.database.dependencies.dir}/bin"/>
 	<property name="org.benhur.utility.database.dependencies.lib.dir" value="${org.benhur.utility.database.dependencies.dir}/lib"/>
 	<property name="org.benhur.utility.database.dependencies.dist.dir" value="${org.benhur.utility.database.dependencies.dir}/dist"/>
 	<property name="org.benhur.utility.database.dependencies.dist.tmp.dir" value="${org.benhur.utility.database.dependencies.dist.dir}/tmp"/>
 
 	<property name="eclipse-utility.dir" value="${database.dir}/../eclipse-utility"/>
-
-	<target name="clean.bin">
-		<delete dir="${org.benhur.utility.database.dependencies.bin.dir}" />
-	</target>
 
 	<target name="clean.lib">
 		<delete dir="${org.benhur.utility.database.dependencies.lib.dir}" />
@@ -39,22 +35,29 @@
 		</unzip>
 	</target>
 
-	<target name="dist" depends="clean.bin, download.lib.mysqlj">
+	<target name="dist" depends="download.lib.mysqlj">
 		<mkdir dir="${org.benhur.utility.database.dependencies.dist.tmp.dir}" />
-		<mkdir dir="${org.benhur.utility.database.dependencies.bin.dir}" />
 		<ant antfile="${eclipse-utility.dir}/org.benhur.utility/scripts/build.ant" target="dist">
-			<property name="org.benhur.utility.dir" value="${eclipse-utility.dir}/org.benhur.utility"/>
 			<property name="org.benhur.utility.dist.dir" value="${org.benhur.utility.database.dependencies.dist.dir}"/>
 		</ant>
 		<copy todir="${org.benhur.utility.database.dependencies.dist.tmp.dir}/lib">
 			<fileset dir="${org.benhur.utility.database.dependencies.lib.dir}/mysql-connector-java-5.1.39" includes="*.jar" />
 		</copy>
-		<jar destfile="${org.benhur.utility.database.dependencies.dist.tmp.dir}/org.benhur.utility.database.dependencies.jar">
-			<fileset dir="${org.benhur.utility.database.dependencies.bin.dir}" includes="**/*.class" />
-			<manifest>
-				<attribute name="Class-Path" value="./org.benhur.utility.jar ./lib/mysql-connector-java-5.1.39-bin.jar" />
-			</manifest>
-		</jar>
+		<path id="org.benhur.utility.database.dependencies.classpath">
+			<fileset dir="${org.benhur.utility.database.dependencies.dist.tmp.dir}">
+				<include name="*.jar"/>
+			</fileset>
+			<fileset dir="${org.benhur.utility.database.dependencies.dist.tmp.dir}/lib">
+				<include name="*.jar"/>
+			</fileset>
+		</path>
+		<build.jar 
+			project.dir="${org.benhur.utility.database.dependencies.dir}"
+			jar.dir="${org.benhur.utility.database.dependencies.dist.tmp.dir}"
+			jar.name="${ant.project.name}.jar"
+			classpath.refid="org.benhur.utility.database.dependencies.classpath"
+			jar.manifest.classpath="./org.benhur.utility.jar ./lib/mysql-connector-java-5.1.39-bin.jar"
+		/>
 	</target>
 
 	<target name="clean.dist">
@@ -68,3 +71,4 @@
 		<delete dir="${org.benhur.utility.database.dependencies.dist.tmp.dir}" />
 	</target>
 </project>
+
