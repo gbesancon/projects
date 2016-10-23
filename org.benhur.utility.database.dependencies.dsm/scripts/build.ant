@@ -1,38 +1,40 @@
-<project name="org.benhur.utility.database.dependencies.dsm" default="dist.zip" basedir=".">
+<project name="org.benhur.utility.database.dependencies.dsm" default="dist.zip" basedir="..">
+	<import file="../../../ant/ant-java/build.ant"/>
 
-	<property name="database.dir" value="../.."/>
+	<property name="database.dir" value=".."/>
 	<property name="org.benhur.utility.database.dependencies.dir" value="${database.dir}/org.benhur.utility.database.dependencies"/>
 	<property name="org.benhur.utility.database.dependencies.dsm.dir" value="${database.dir}/org.benhur.utility.database.dependencies.dsm"/>
-	<property name="org.benhur.utility.database.dependencies.dsm.bin.dir" value="${org.benhur.utility.database.dependencies.dsm.dir}/bin"/>
 	<property name="org.benhur.utility.database.dependencies.dsm.dist.dir" value="${org.benhur.utility.database.dependencies.dsm.dir}/dist"/>
 	<property name="org.benhur.utility.database.dependencies.dsm.dist.tmp.dir" value="${org.benhur.utility.database.dependencies.dsm.dist.dir}/tmp"/>
 	<property name="version" value="0.0.1"/>	
 
 	<property name="eclipse-utility.dir" value="${database.dir}/../eclipse-utility"/>
 
-	<target name="clean.bin">
-		<delete dir="${org.benhur.utility.database.dependencies.dsm.bin.dir}" />
-	</target>
-
-	<target name="dist" depends="clean.bin">
+	<target name="dist">
 		<mkdir dir="${org.benhur.utility.database.dependencies.dsm.dist.tmp.dir}" />
-		<mkdir dir="${org.benhur.utility.database.dependencies.dsm.bin.dir}" />
 		<ant antfile="${eclipse-utility.dir}/org.benhur.utility.dsm/scripts/build.ant" target="dist">
-			<property name="org.benhur.utility.dsm.dir" value="${eclipse-utility.dir}/org.benhur.utility.dsm"/>
 			<property name="org.benhur.utility.dsm.dist.dir" value="${org.benhur.utility.database.dependencies.dsm.dist.dir}"/>
 		</ant>
 		<ant antfile="${database.dir}/org.benhur.utility.database.dependencies/scripts/build.ant" target="dist">
-			<property name="org.benhur.utility.database.dependencies.dir" value="${database.dir}/org.benhur.utility.database.dependencies"/>
 			<property name="org.benhur.utility.database.dependencies.dist.dir" value="${org.benhur.utility.database.dependencies.dsm.dist.dir}"/>
 		</ant>
-		<jar destfile="${org.benhur.utility.database.dependencies.dsm.dist.tmp.dir}/org.benhur.utility.database.dependencies.dsm.jar">
-			<fileset dir="${org.benhur.utility.database.dependencies.dsm.bin.dir}" includes="**/*.class" />
-			<manifest>
-				<attribute name="Main-Class" value="org.benhur.utility.database.dependencies.dsm.MainDatabaseDependenciesDSM" />
-				<attribute name="Class-Path" value="./org.benhur.utility.database.dependencies.jar ./org.benhur.utility.dsm.jar" />
-			</manifest>
-		</jar>
-		<copy file="${org.benhur.utility.database.dependencies.dir}/config/configuration_template.properties" tofile="${org.benhur.utility.database.dependencies.dsm.dist.tmp.dir}/config/configuration_template.properties" />
+		<path id="org.benhur.utility.database.dependencies.dsm.classpath">
+			<fileset dir="${org.benhur.utility.database.dependencies.dsm.dist.tmp.dir}">
+				<include name="*.jar"/>
+			</fileset>
+		</path>
+		<build.jar 
+			project.dir="${org.benhur.utility.database.dependencies.dsm.dir}"
+			jar.dir="${org.benhur.utility.database.dependencies.dsm.dist.tmp.dir}"
+			jar.name="${ant.project.name}.jar"
+			classpath.refid="org.benhur.utility.database.dependencies.dsm.classpath"
+			jar.manifest.mainclass="org.benhur.utility.database.dependencies.dsm.MainDatabaseDependenciesDGMLs"
+			jar.manifest.classpath="./org.benhur.utility.database.dependencies.jar ./org.benhur.utility.dsm.jar"
+		/>
+		<copy 
+			file="${org.benhur.utility.database.dependencies.dir}/config/configuration_template.properties" 
+			tofile="${org.benhur.utility.database.dependencies.dsm.dist.tmp.dir}/config/configuration_template.properties"
+		/>
 		<echo file="${org.benhur.utility.database.dependencies.dsm.dist.tmp.dir}/start.bat">
 @echo OFF
 
