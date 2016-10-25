@@ -1,5 +1,5 @@
-RUN_ECLIPSE_ANT_RUNNER=../eclipse-tips/eclipse-ant/run_eclipse_ant_runner.sh
-ECLIPSE_DIR=../tools/eclipse
+RUN_ECLIPSE_ANT_RUNNER=../ant-eclipse/eclipse-ant/run_eclipse_ant_runner.sh
+ECLIPSE_DIR=../tools/eclipse_linux
 
 all: org.benhur.utility.visualstudio.projectdependencies/dist/org.benhur.utility.visualstudio.projectdependencies.zip org.benhur.utility.visualstudio.projectdependencies.dgml/dist/org.benhur.utility.visualstudio.projectdependencies.dgml-v*.zip org.benhur.utility.visualstudio.projectdependencies.dsm/dist/org.benhur.utility.visualstudio.projectdependencies.dsm-v*.zip
 
