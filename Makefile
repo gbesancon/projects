@@ -1,5 +1,5 @@
-RUN_ECLIPSE_ANT_RUNNER=../eclipse-tips/eclipse-ant/run_eclipse_ant_runner.sh
-ECLIPSE_DIR=../tools/eclipse
+RUN_ECLIPSE_ANT_RUNNER=../ant-eclipse/eclipse-ant/run_eclipse_ant_runner.sh
+ECLIPSE_DIR=../tools/eclipse_linux
 
 all: org.benhur.utility/dist/org.benhur.utility.zip org.benhur.utility.dgml/dist/org.benhur.utility.dgml.zip org.benhur.utility.dsm/dist/org.benhur.utility.dsm.zip org.benhur.utility.build/updatesite-org.benhur.utility.updatesite.feature-*.zip 
  
