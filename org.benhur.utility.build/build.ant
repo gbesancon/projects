@@ -1,4 +1,4 @@
-<project name="Build Utility" default="build">
+<project name="Build Utility" default="all">
 
 	<property file="build.properties"/>
 	
@@ -7,9 +7,11 @@
 	<property name="eclipse.dir" value="${eclipse.home}"/>
 	<property name="work.dir" value="${basedir}/work"/>
 	<property name="build.dir" value="${work.dir}/build"/>
+	
+	<target name="all" depends="updatesite"/>
 
-	<target name="build">
-		<build.feature.updatesite
+	<target name="updatesite">
+		<p2.build.feature.updatesite
 			eclipse.dir="${eclipse.dir}"
 			work.dir="${work.dir}"
 			build.feature.id="org.benhur.utility.updatesite.feature"
