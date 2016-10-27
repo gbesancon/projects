@@ -13,8 +13,8 @@ org.benhur.utility.dsm/dist/org.benhur.utility.dsm.zip:
 	$(RUN_ECLIPSE_ANT_RUNNER) $(ECLIPSE_DIR) org.benhur.utility.dsm/scripts/build.ant
 
 org.benhur.utility.build/updatesite-org.benhur.utility.updatesite.feature-*.zip:
-	cd org.benhur.utility.build && ../$(RUN_ECLIPSE_ANT_RUNNER) ../$(ECLIPSE_DIR) build.ant
+	cd org.benhur.utility.build && ../$(RUN_ECLIPSE_ANT_RUNNER) ../$(ECLIPSE_DIR) updatesite.ant
 
 clean:
-	rm -rf */dist */work 
+	rm -rf */dist */work org.benhur.utility.build/updatesite-org.benhur.utility.updatesite.feature-*.zip
 
