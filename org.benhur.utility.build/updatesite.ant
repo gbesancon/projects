@@ -1,14 +1,10 @@
-<project name="Build Utility" default="all">
-
-	<property file="build.properties"/>
+<project name="Build Utility" default="updatesite">
 	
 	<import file="../../ant-eclipse/eclipse-ant/p2/p2-updatesite.ant"/>
 
 	<property name="eclipse.dir" value="${eclipse.home}"/>
 	<property name="work.dir" value="${basedir}/work"/>
 	<property name="build.dir" value="${work.dir}/build"/>
-	
-	<target name="all" depends="updatesite"/>
 
 	<target name="updatesite">
 		<p2.build.feature.updatesite
@@ -22,7 +18,7 @@
 	<target name="get_sources">
 		<extract.source.git
 			build.dir="${build.dir}" 
-			repository.url="${eclipse-utility.repository.url}"
+			repository.url="git@github.com:gbesancon/eclipse-utility.git"
 			repository.name="eclipse-utility"
 			base.package.id="org.benhur.utility"
 		/>
