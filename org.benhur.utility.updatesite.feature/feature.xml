@@ -4,24 +4,39 @@
       label="Utility UpdateSite"
       version="1.0.0.qualifier">
 
-   <includes
-         id="org.benhur.utility.feature"
-         version="0.0.0"/>
+   <plugin
+         id="org.benhur.utility"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
 
-   <includes
-         id="org.benhur.utility.ui.feature"
-         version="0.0.0"/>
+   <plugin
+         id="org.benhur.utility.emf"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
 
-   <includes
-         id="org.benhur.utility.emf.feature"
-         version="0.0.0"/>
+   <plugin
+         id="org.benhur.utility.emf.acceleo"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
 
-   <includes
-         id="org.benhur.utility.emf.ui.feature"
-         version="0.0.0"/>
+   <plugin
+         id="org.benhur.utility.emf.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
 
-   <includes
-         id="org.benhur.utility.emf.acceleo.feature"
-         version="0.0.0"/>
+   <plugin
+         id="org.benhur.utility.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
 
 </feature>
