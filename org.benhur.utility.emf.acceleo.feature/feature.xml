@@ -5,7 +5,7 @@
       version="1.0.0.qualifier">
 
    <requires>
-      <import plugin="org.benhur.utility.emf"/>
+      <import feature="org.benhur.utility.emf.feature" version="1.0.0.qualifier"/>
    </requires>
 
    <plugin
