@@ -5,7 +5,11 @@
       version="1.0.0.qualifier">
 
    <includes
-         id="org.benhur.utility.emf.acceleo.feature"
+         id="org.benhur.utility.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.benhur.utility.ui.feature"
          version="0.0.0"/>
 
    <includes
@@ -17,11 +21,7 @@
          version="0.0.0"/>
 
    <includes
-         id="org.benhur.utility.feature"
-         version="0.0.0"/>
-
-   <includes
-         id="org.benhur.utility.ui.feature"
+         id="org.benhur.utility.emf.acceleo.feature"
          version="0.0.0"/>
 
 </feature>
