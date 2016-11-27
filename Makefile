@@ -1,5 +1,5 @@
-RUN_ECLIPSE_ANT_RUNNER=../eclipse-tips/eclipse-ant/run_eclipse_ant_runner.sh
-ECLIPSE_DIR=../tools/eclipse
+RUN_ECLIPSE_ANT_RUNNER=../ant-eclipse/eclipse-ant/run_eclipse_ant_runner.sh
+ECLIPSE_DIR=../tools/eclipse_linux
 
 all: CodinGame_20130727/dist/CodinGame_20130727.zip CodinGame_20130921/dist/CodinGame_20130921.zip CodinGame_20150206/dist/CodinGame_20150206.zip
 
