@@ -1,0 +1,3 @@
+<project name="Problem1_20170129" default="dist.zip" basedir="..">
+	<import file="../../../ant/ant-java/build.ant"/>
+</project>
