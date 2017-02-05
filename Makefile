@@ -15,6 +15,7 @@ ansi2html.sh:
 
 build: docker.io ansi2html.sh Dockerfile
 	sudo docker build -t $(DOCKER_IMAGE) .
+	touch build
 
 start:
 	sudo docker run -p 4242:80 -d $(DOCKER_IMAGE)
