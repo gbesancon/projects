@@ -25,7 +25,7 @@ Export-Package:
  org.benhur.utility.regex,
  org.benhur.utility.thread,
  org.benhur.utility.workspace
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Vendor: Ben-Hur
 Require-Bundle: org.eclipse.core.resources;visibility:=reexport,
  org.eclipse.core.runtime;visibility:=reexport
