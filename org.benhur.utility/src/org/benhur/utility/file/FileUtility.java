@@ -262,6 +262,7 @@ public class FileUtility
     return result;
   }
 
+  @SuppressWarnings("resource")
   public static boolean copyFile(File source, File destination)
   {
     FileChannel in = null;
