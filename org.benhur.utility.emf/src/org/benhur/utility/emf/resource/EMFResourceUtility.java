@@ -47,7 +47,6 @@ public class EMFResourceUtility
     return filePath;
   }
 
-  @SuppressWarnings("deprecation")
   public static IFile getWorkspaceIFile(URI uri)
   {
     IFile result = null;
@@ -71,6 +70,7 @@ public class EMFResourceUtility
         else
         {
           IPath location = Path.fromOSString(localPath);
+          @SuppressWarnings("deprecation")
           IFile[] files = workspaceRoot.findFilesForLocation(location);
           if (files == null || files.length == 0)
             return null;

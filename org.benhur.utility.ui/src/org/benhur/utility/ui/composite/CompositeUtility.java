@@ -26,10 +26,10 @@ import org.osgi.service.prefs.Preferences;
 
 public class CompositeUtility
 {
-  @SuppressWarnings("unused")
   public static Composite createTextBlock(Composite composite, int nbColumns, final String labelText,
       final String labelTooltipText, final String textPreference, final Preferences preferences)
   {
+    @SuppressWarnings("unused")
     final Label empty = new Label(composite, SWT.NONE);
     final Label label = new Label(composite, SWT.NONE);
     final Text text = new Text(composite, SWT.BORDER);
@@ -54,11 +54,11 @@ public class CompositeUtility
     return composite;
   }
 
-  @SuppressWarnings("unused")
   public static Composite createFileBlock(final Composite composite, int nbColumns, final String labelText,
       final String labelTooltipText, final String filePreference, final Preferences preferences,
       final String defaultFolder, final String[] filters)
   {
+    @SuppressWarnings("unused")
     final Label empty = new Label(composite, SWT.NONE);
     final Label label = new Label(composite, SWT.NONE);
     final Text text = new Text(composite, SWT.BORDER);
@@ -118,11 +118,11 @@ public class CompositeUtility
     return composite;
   }
 
-  @SuppressWarnings("unused")
   public static Composite createFolderBlock(final Composite composite, int nbColumns, final String labelText,
       final String labelTooltipText, final String folderPreference, final Preferences preferences,
       final String defaultFolder)
   {
+    @SuppressWarnings("unused")
     final Label empty = new Label(composite, SWT.NONE);
     final Label label = new Label(composite, SWT.NONE);
     final Text text = new Text(composite, SWT.BORDER);
@@ -350,14 +350,14 @@ public class CompositeUtility
     return parent;
   }
 
-  @SuppressWarnings("unused")
   public static Composite createDateTimeBlock(Composite composite, int nbColumns, final String labelText,
       final String labelTooltipText, final String dateTimePreference, final Preferences preferences)
   {
+    @SuppressWarnings("unused")
     final Label empty = new Label(composite, SWT.NONE);
     final Label label = new Label(composite, SWT.NONE);
-    final CDateTime dateTime = new CDateTime(composite, CDT.BORDER | CDT.TAB_FIELDS | CDT.DROP_DOWN | CDT.DATE_LONG
-        | CDT.TIME_MEDIUM);
+    final CDateTime dateTime = new CDateTime(composite,
+        CDT.BORDER | CDT.TAB_FIELDS | CDT.DROP_DOWN | CDT.DATE_LONG | CDT.TIME_MEDIUM);
     // Behaviour
     label.setText(labelText + " :");
     if (labelTooltipText != null)
