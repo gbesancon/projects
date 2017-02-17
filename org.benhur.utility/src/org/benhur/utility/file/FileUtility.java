@@ -148,17 +148,18 @@ public class FileUtility
     }
   }
 
-  @SuppressWarnings("resource")
   public static void removeBlanckLinesForFile(File file)
   {
     if (file.exists())
     {
       File tmpFile = new File(file.getPath() + ".tmp");
       file.renameTo(tmpFile);
+      BufferedReader br = null;
+      BufferedWriter bw = null;
       try
       {
-        BufferedReader br = new BufferedReader(new FileReader(tmpFile));
-        BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+        br = new BufferedReader(new FileReader(tmpFile));
+        bw = new BufferedWriter(new FileWriter(file));
         String line = null;
         while ((line = br.readLine()) != null)
         {
@@ -173,6 +174,7 @@ public class FileUtility
         bw.flush();
         br.close();
         deleteFile(tmpFile);
+        bw.close();
       }
       catch (FileNotFoundException e)
       {

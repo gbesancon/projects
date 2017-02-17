@@ -36,8 +36,8 @@ public abstract class AActionOnFile extends ActionDelegate implements IActionDel
         printWriter.flush();
         printWriter.close();
       }
-      printWriter = new PrintWriter(logPath + File.separator + "log_" + System.currentTimeMillis() + "_" + prefix
-          + ".log");
+      printWriter = new PrintWriter(
+          logPath + File.separator + "log_" + System.currentTimeMillis() + "_" + prefix + ".log");
     }
     catch (IOException e)
     {
