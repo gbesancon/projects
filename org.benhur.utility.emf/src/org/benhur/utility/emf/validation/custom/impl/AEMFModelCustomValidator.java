@@ -22,6 +22,7 @@ public abstract class AEMFModelCustomValidator implements IEMFModelCustomValidat
 
   protected abstract void declareModelElementValidator(List<IEMFModelElementCustomValidator<?>> modelElementValidators);
 
+  @SuppressWarnings("unchecked")
   public <T extends EObject> IStatus validate(T model, IProgressMonitor progressMonitor)
   {
     IStatus status = null;
@@ -40,8 +41,8 @@ public abstract class AEMFModelCustomValidator implements IEMFModelCustomValidat
     }
     else
     {
-      status = new Status(IStatus.INFO, UtilityEMFActivator.PLUGIN_ID, String.format("%s %s is valid", model.eClass()
-          .getName(), model.toString()));
+      status = new Status(IStatus.INFO, UtilityEMFActivator.PLUGIN_ID,
+          String.format("%s %s is valid", model.eClass().getName(), model.toString()));
     }
     return status;
   }
