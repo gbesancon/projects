@@ -32,7 +32,7 @@ rename_files ()
   for FILENAME in $1; do
     [ -f "$FILENAME" ] || continue # if not a file, skip
     EXTENSION=`echo "${FILENAME##*.}" | tr '[:upper:]' '[:lower:]'` # lowercase extension
-    NEW_FILENAME=`md5sum $FILENAME | cut -d ' ' -f 1`."$EXTENSION" # new filename
+    NEW_FILENAME=`md5sum "$FILENAME" | cut -d ' ' -f 1`."$EXTENSION" # new filename
     #echo Rename $FILENAME $NEW_FILENAME
     mv "$FILENAME" "$NEW_FILENAME" > /dev/null  2> /dev/null
   done
@@ -40,7 +40,7 @@ rename_files ()
 
 rename_files_folders () 
 {
-  echo Processing `pwd`/$1
+  echo Processing `pwd`
   rename_files "*.*"
 }
 
