@@ -11,11 +11,12 @@ docker.io:
 	touch $@ 
 
 build: docker.io Dockerfile
-	docker build -t $(DOCKER_IMAGE) .
+	sudo docker build -t $(DOCKER_IMAGE) .
+	touch $@
 
 start: build
-	docker run -p 4242:80 -d $(DOCKER_IMAGE)
+	sudo docker run -p 4242:80 -d $(DOCKER_IMAGE)
 
 clean:
-	docker rmi $(DOCKER_IMAGE)
-
+	sudo docker rmi $(DOCKER_IMAGE)
+	rm build
