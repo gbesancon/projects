@@ -31,8 +31,5 @@ COPY asound.conf /etc/asound.conf
 ## Uncomment if you want systemd
 ENV INITSYSTEM on
 
-RUN useradd -ms /bin/bash speakerphat
-USER speakerphat
-
 # Start app
 CMD ["bash", "/usr/src/app/start.sh"]
