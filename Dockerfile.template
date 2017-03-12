@@ -36,10 +36,13 @@ WORKDIR /usr/src/app
 COPY asound.conf /etc/asound.conf
 
 # Enable i2c
+# Require dtparam=i2c_arm=on
 RUN curl -sS https://get.pimoroni.com/i2c | bash -s - "-y"
+
+RUN git clone https://github.com/pimoroni/speaker-phat.git
 
 ## Uncomment if you want systemd
 ENV INITSYSTEM on
 
 # Start app
-CMD ["bash", "/usr/src/app/start.sh"]
+CMD ["bash", "/usr/src/app/speaker-phat/test/test.sh"]
