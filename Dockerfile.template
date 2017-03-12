@@ -3,6 +3,7 @@ FROM resin/%%RESIN_MACHINE_NAME%%-debian
 # Install apt deps
 RUN apt-get update \
   && apt-get install -y \
+    apt-utils \
     alsa-base \
     alsa-utils \
     python-alsaaudio \
@@ -15,7 +16,7 @@ RUN apt-get update \
     python3-pip \
     python3-sn3218 \
     python3-rpi.gpio \
-  && apt-get clean \ 
+  && apt-get clean 
   && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /usr/src/app/
