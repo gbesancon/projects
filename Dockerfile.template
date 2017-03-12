@@ -6,6 +6,7 @@ RUN apt-get update \
     apt-utils \
     alsa-base \
     alsa-utils \
+    git \
     python-alsaaudio \
     python-dev \
     python-imaging \
