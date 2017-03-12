@@ -1,4 +1,4 @@
-FROM resin/%%RESIN_MACHINE_NAME%%-node
+FROM resin/%%RESIN_MACHINE_NAME%%-debian
 
 # Install apt deps
 RUN apt-get update \
@@ -27,6 +27,9 @@ WORKDIR /usr/src/app
 
 # Configure DAC
 COPY asound.conf /etc/asound.conf
+
+# Enable i2c
+RUN raspi-config nonint do_i2c 0
 
 ## Uncomment if you want systemd
 ENV INITSYSTEM on
