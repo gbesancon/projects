@@ -5,11 +5,13 @@ RUN apt-get update \
   && apt-get install -y \
     alsa-base \
     alsa-utils \
+    python-alsaaudio \
     python-dev \
+    python-imaging \
     python-pip \
     python-smbus \
-    python-imaging \
-    python-alsaaudio \
+    python-sn3218 \
+    python3-sn3218 \
   && apt-get clean \ 
   && rm -rf /var/lib/apt/lists/*
 
