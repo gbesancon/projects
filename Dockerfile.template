@@ -1,4 +1,4 @@
-FROM resin/%%RESIN_MACHINE_NAME%%-node:6.9.2
+FROM resin/%%RESIN_MACHINE_NAME%%-node
 
 # Install apt deps
 RUN apt-get update \
@@ -11,8 +11,12 @@ RUN apt-get update \
     python-pip \
     python-smbus \
     python-sn3218 \
+    python-spidev \
+    python-rpi.gpio \
     python3-pip \
     python3-sn3218 \
+    python3-spidev \
+    python3-rpi.gpio \
   && apt-get clean \ 
   && rm -rf /var/lib/apt/lists/*
 
