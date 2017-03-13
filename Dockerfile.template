@@ -2,6 +2,8 @@ FROM resin/%%RESIN_MACHINE_NAME%%-debian
 
 # Install apt deps
 RUN apt-get update
+RUN apt-get uograde
+RUN apt-get dist-uograde
 RUN apt-get install -y \
     apt-utils
 RUN apt-get install -y \
@@ -25,6 +27,7 @@ RUN apt-get install -y \
     python3-sn3218 \
     python3-rpi.gpio
 RUN apt-get clean 
+RUN apt-get autoclean 
 RUN rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /usr/src/app/
@@ -37,7 +40,6 @@ COPY asound.conf /etc/asound.conf
 
 # Enable i2c
 # Require dtparam=i2c_arm=on
-#RUN curl -sS https://get.pimoroni.com/i2c | bash -s - "-y"
 
 RUN git clone https://github.com/pimoroni/speaker-phat.git
 
@@ -48,3 +50,4 @@ ENV INITSYSTEM on
 
 # Start app
 CMD ["bash", "/usr/src/app/start.sh"]
+
