@@ -41,13 +41,23 @@ COPY asound.conf /etc/asound.conf
 # Enable i2c
 # Require dtparam=i2c_arm=on
 
-RUN git clone https://github.com/pimoroni/speaker-phat.git
+# Copies the package.json first for better cache on later pushes
+COPY package.json /usr/src/app/package.json
 
+# This install npm dependencies on the resin.io build server,
+# making sure to clean up the artifacts it creates in order to reduce the image size.
+RUN JOBS=MAX npm install --production --unsafe-perm && npm cache clean && rm -rf /tmp/*
+
+COPY server.js /usr/src/app/server.js
+
+COPY starwars.wav /usr/src/app/starwars.wav
+
+RUN git clone https://github.com/pimoroni/speaker-phat.git
 COPY start.sh /usr/src/app/start.sh
 
 ## Uncomment if you want systemd
 ENV INITSYSTEM on
 
 # Start app
-CMD ["bash", "/usr/src/app/start.sh"]
+CMD ["npm", "start"]
 

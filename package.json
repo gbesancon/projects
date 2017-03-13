@@ -1,0 +1,29 @@
+{
+  "name": "speakerphat",
+  "version": "1.0.0",
+  "description": "Speaker-pHat",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "gilles_besancon@git.resin.io:gilles_besancon/speakerphat.git"
+  },
+  "keywords": [
+    "resin.io",
+    "webserver",
+    "speaker-phat",
+    "nodejs",
+    "expressjs"
+  ],
+  "author": "Gilles Besancon <gilles.besancon@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "*",
+    "node-aplay": "^1.0.3",
+    "request":"^2.81.0",
+    "my-ip":"^1.1.1"
+  }
+}
