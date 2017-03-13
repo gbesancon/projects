@@ -3,7 +3,7 @@ FROM resin/%%RESIN_MACHINE_NAME%%-debian
 # Install apt deps
 RUN apt-get update
 RUN apt-get upgrade
-RUN apt-get dist-uograde
+RUN apt-get dist-upgrade
 RUN apt-get install -y \
     apt-utils
 RUN apt-get install -y \
