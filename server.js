@@ -6,7 +6,7 @@ var myIP = require('my-ip');
 
 app.get('/play', function (req, res) {	 
 	// fire and forget: 
-	new Sound('/usr/src/app/starwars.wav').play();
+	new Sound('/usr/src/app/speaker-phat/test/test.wav).play();
 	res.send('Music!!!');
 });
 
