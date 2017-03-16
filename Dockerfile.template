@@ -41,8 +41,8 @@ RUN JOBS=MAX npm install --production --unsafe-perm && npm cache clean && rm -rf
 
 COPY server.js /usr/src/app/server.js
 
-RUN git clone https://github.com/pimoroni/speaker-phat.git
-    && cp speaker-phat/python/speakerphat.py .
+RUN git clone https://github.com/pimoroni/speaker-phat.git \
+    && cp speaker-phat/python/speakerphat.py . \
     && rm -rf speaker-phat
 
 COPY led.py /usr/src/app/led.py 
