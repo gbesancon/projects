@@ -16,7 +16,7 @@ RUN apt-get update \
          python-pip \
          python-smbus \
          python-sn3218 \
-         python-rpi.gpio
+         python-rpi.gpio \
     && apt-get clean \ 
     && apt-get autoclean \ 
     && rm -rf /var/lib/apt/lists/*
