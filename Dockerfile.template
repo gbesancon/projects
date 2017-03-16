@@ -3,7 +3,7 @@ FROM resin/%%RESIN_MACHINE_NAME%%-node:slim
 # Install apt deps
 RUN apt-get update \
     && apt-get upgrade \
-    && apt-get dist-upgrade
+    && apt-get dist-upgrade \
     && apt-get install -y \
          apt-utils \
          alsa-base \
@@ -42,6 +42,10 @@ RUN JOBS=MAX npm install --production --unsafe-perm && npm cache clean && rm -rf
 COPY server.js /usr/src/app/server.js
 
 RUN git clone https://github.com/pimoroni/speaker-phat.git
+    && cp speaker-phat/python/speakerphat.py .
+    && rm -rf speaker-phat
+
+COPY led.py /usr/src/app/led.py 
 COPY start.sh /usr/src/app/start.sh
 
 ## Uncomment if you want systemd
