@@ -23,7 +23,6 @@
   "dependencies": {
     "express": "*",
     "request":"^2.81.0",
-    "exec":"^0.2.1",
     "node-aplay": "^1.0.3"
   }
 }
