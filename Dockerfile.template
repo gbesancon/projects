@@ -19,6 +19,7 @@ RUN apt-get update \
          python-smbus \
          python-sn3218 \
          python-rpi.gpio \
+         vlc \
          zip \
     && apt-get clean \ 
     && apt-get autoclean \ 
@@ -47,8 +48,8 @@ COPY server.js /usr/src/app/server.js
 RUN git clone https://github.com/pimoroni/speaker-phat.git
 COPY led.py /usr/src/app/led.py 
 
-RUN git clone https://github.com/rg3/youtube-dl.git \
-    && cd youtube-dl \
+RUN git clone https://github.com/gbesancon/multimedia.git \
+    && cd multimedia \
     && make \
     && cd ..
 
