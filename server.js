@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var request = require('request');
 var sound = require('node-aplay');
-var exec = require('exec');
+var child_process = require('child_process');
 
 app.get('/', function (req, res) {	 
 	res.send('');
@@ -14,13 +14,13 @@ app.get('/music', function (req, res) {
 });
 
 app.get('/led', function (req, res) {	 
-	exec('python /usr/src/app/led.py',
-		function (error, stdout, stderr) {
+	child_process.execFile('python', ['/usr/src/app/led.py'],
+		(error, stdout, stderr) => {
+			if (error !== null) {
+				throw error;
+			}
 			console.log('stdout: ' + stdout);
 			console.log('stderr: ' + stderr);
-			if (error !== null) {
-				console.log('exec error: ' + error);
-			}
 		});
 	res.send('LED !!!');
 });
