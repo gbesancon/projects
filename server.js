@@ -1,7 +1,8 @@
 var express = require('express');
 var app = express();
-var sound = require('node-aplay');
 var request = require('request');
+var sound = require('node-aplay');
+var exec = require('exec');
 
 app.get('/', function (req, res) {	 
 	res.send('');
