@@ -10,6 +10,7 @@ RUN apt-get update \
          alsa-utils \
          curl \
          git \
+         make \
          python-alsaaudio \
          python-dev \
          python-imaging \
@@ -41,11 +42,14 @@ RUN JOBS=MAX npm install --production --unsafe-perm && npm cache clean && rm -rf
 
 COPY server.js /usr/src/app/server.js
 
-RUN git clone https://github.com/pimoroni/speaker-phat.git \
-    && cp speaker-phat/python/speakerphat.py . \
-    && rm -rf speaker-phat
-
+RUN git clone https://github.com/pimoroni/speaker-phat.git
 COPY led.py /usr/src/app/led.py 
+
+RUN git clone https://github.com/rg3/youtube-dl.git \
+    && cd youtube-dl \
+    && make \
+    && cd ..
+
 COPY start.sh /usr/src/app/start.sh
 
 ## Uncomment if you want systemd

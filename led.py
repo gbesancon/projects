@@ -3,6 +3,9 @@
 import math
 import time
 import sys
+
+sys.path.append('./speaker-phat/python/')
+
 import speakerphat
 
 speed = 4
