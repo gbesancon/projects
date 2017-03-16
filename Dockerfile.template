@@ -1,34 +1,25 @@
 FROM resin/%%RESIN_MACHINE_NAME%%-node:slim
 
 # Install apt deps
-RUN apt-get update
-RUN apt-get upgrade
-RUN apt-get dist-upgrade
-RUN apt-get install -y \
-    apt-utils
-RUN apt-get install -y \
-    alsa-base \
-    alsa-utils
-RUN apt-get install -y \
-    curl \
-    git
-RUN apt-get install -y \
-    python-alsaaudio \
-    python-dev \
-    python-imaging \
-    python-pip \
-    python-smbus \
-    python-sn3218 \
-    python-rpi.gpio
-RUN apt-get install -y \
-    python3-dev \
-    python3-pip \
-    python3-smbus \
-    python3-sn3218 \
-    python3-rpi.gpio
-RUN apt-get clean 
-RUN apt-get autoclean 
-RUN rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    && apt-get upgrade && \
+    && apt-get dist-upgrade
+    && apt-get install -y \
+         apt-utils \
+         alsa-base \
+         alsa-utils \
+         curl \
+         git \
+         python-alsaaudio \
+         python-dev \
+         python-imaging \
+         python-pip \
+         python-smbus \
+         python-sn3218 \
+         python-rpi.gpio
+    && apt-get clean \ 
+    && apt-get autoclean \ 
+    && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /usr/src/app/
 
@@ -57,6 +48,5 @@ COPY start.sh /usr/src/app/start.sh
 ENV INITSYSTEM on
 
 # Start app
-CMD ["npm", "start"]
 CMD ["bash", "/usr/src/app/start.sh"]
 
