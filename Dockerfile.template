@@ -48,16 +48,9 @@ COPY server.js /usr/src/app/server.js
 RUN git clone https://github.com/pimoroni/speaker-phat.git
 COPY led.py /usr/src/app/led.py 
 
-RUN git clone https://github.com/gbesancon/multimedia.git \
-    && cd multimedia \
-    && make \
-    && cd ..
-
-COPY start.sh /usr/src/app/start.sh
-
 ## Uncomment if you want systemd
 ENV INITSYSTEM on
 
 # Start app
-CMD ["bash", "/usr/src/app/start.sh"]
+CMD ["npm", "start"]
 
