@@ -9,7 +9,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/morse', function (req, res) {	 
-	child_process.execFile('python', ['/usr/src/app/displayMorse.py', 'abcde fghij klmno pqrst uvwxy z 12345 67890'],
+	child_process.execFile('python', ['/usr/src/app/playMorse.py', 'abcde fghij klmno pqrst uvwxy z 12345 67890'],
 		(error, stdout, stderr) => {
 			if (error !== null) {
 				throw error;

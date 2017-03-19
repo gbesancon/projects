@@ -19,9 +19,12 @@ def playMorseCode( morseCode ):
 		elif char == morse.DASH:
 			playDash()
 			time.sleep(morse.TIME_FOR_DASH)
-		elif char == morse.SPACE:
-			playSpace()
-			time.sleep(morse.TIME_FOR_SPACE)
+		elif char == morse.LETTER_SEPARATOR:
+			playLetterSeparator()
+			time.sleep(morse.TIME_FOR_LETTER_SEPARATOR)
+		elif char == morse.WORD_SEPARATOR:
+			playWordSeparator()
+			time.sleep(morse.TIME_FOR_WORD_SEPARATOR)
 	speakerphat.clear()
 
 def playDot():
@@ -34,7 +37,10 @@ def playDash():
 	speakerphat.set_leds([255,255,255,255,255,255,255,255,255,255])
 	speakerphat.show()
 
-def playSpace():
+def playLetterSeparator():
+	speakerphat.clear()
+
+def playWordSeparator():
 	speakerphat.clear()
 
 def main():
