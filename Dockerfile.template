@@ -45,6 +45,7 @@ RUN JOBS=MAX npm install --production --unsafe-perm && npm cache clean && rm -rf
 
 COPY server.js /usr/src/app/server.js
 
+COPY morse.py /usr/src/app/morse.py
 COPY speakerphat.py /usr/src/app/speakerphat.py
 COPY led.py /usr/src/app/led.py 
 
