@@ -8,7 +8,7 @@ import morse
 import speakerphat
 
 def displayText( text ):
-	morseCode = convertTextToMorseCode(text)
+	morseCode = morse.convertTextToMorseCode(text)
 	displayMorseCode( morseCode )
 
 def displayMorseCode( morseCode ):
@@ -19,16 +19,16 @@ def displayMorseCode( morseCode ):
 			displayDash()
 		else:
 			displaySpace()
-		time.sleep(5)
+		time.sleep(1)
 
 def displayDot():
 	speakerphat.clear()
-	speakerphat.set_led([0,0,0,0,255,255,0,0,0,0])
+	speakerphat.set_leds([0,0,0,0,255,255,0,0,0,0])
 	speakerphat.show()
 
 def displayDash():
 	speakerphat.clear()
-	speakerphat.set_led([255,255,255,255,255,255,255,255,255,255])
+	speakerphat.set_leds([255,255,255,255,255,255,255,255,255,255])
 	speakerphat.show()
 
 def displaySpace():
