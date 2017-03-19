@@ -44,7 +44,8 @@ RUN JOBS=MAX npm install --production --unsafe-perm && npm cache clean && rm -rf
 
 COPY server.js /usr/src/app/server.js
 
-COPY speakerphat.py /usr/src/app/speakerphat.py
+COPY speakerphat-audio.py /usr/src/app/speakerphat-audio.py
+COPY speakerphat-led.py /usr/src/app/speakerphat-led.py
 
 COPY dot.wav /usr/src/app/dot.wav
 COPY dash.wav /usr/src/app/dash.wav
