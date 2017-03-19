@@ -9,18 +9,16 @@ RUN apt-get update \
          alsa-base \
          alsa-utils \
          curl \
-         git \
-         make \
-         pandoc \
          python-alsaaudio \
          python-dev \
          python-imaging \
          python-pip \
+         python-piaudio \
+         python-rpi.gpio \
          python-smbus \
          python-sn3218 \
-         python-rpi.gpio \
-         vlc \
-         zip \
+         python-spidev \
+         wget \
     && apt-get clean \ 
     && apt-get autoclean \ 
     && rm -rf /var/lib/apt/lists/*
