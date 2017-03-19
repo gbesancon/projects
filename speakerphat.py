@@ -1,3 +1,4 @@
+# Updated from: 
 # git clone https://github.com/pimoroni/speaker-phat.git
 # speaker-phat/python/speakerphat.py
 
@@ -24,15 +25,19 @@ for x in stupid_led_mappings:
 sn3218.enable_leds(enable_leds)
 sn3218.enable()
 
-def set_led(index, value):
-    led_values[stupid_led_mappings[index]] = value
-
-def show():
-    sn3218.output(led_values)
-
 def clear():
     global led_values
     led_values = [0 for x in range(18)]
     show()
+
+def set_led(index, value):
+    led_values[stupid_led_mappings[index]] = value
+
+def set_leds(values):
+    for index in range(len(values)):
+    	set_led(index, values[index]) 
+
+def show():
+    sn3218.output(led_values)
 
 atexit.register(clear)
