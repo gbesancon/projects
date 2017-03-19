@@ -13,7 +13,7 @@ RUN apt-get update \
          python-dev \
          python-imaging \
          python-pip \
-         python-piaudio \
+         python-pyaudio \
          python-rpi.gpio \
          python-smbus \
          python-sn3218 \
