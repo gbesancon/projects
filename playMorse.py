@@ -7,64 +7,52 @@ import sys
 import pygame
 
 import morse
-import speakerphat-led
+import speakerphatled
 
 def outputText(text):
 	morseCode = morse.convertTextToMorseCode(text)
 	outputMorseCode( morseCode )
 
 def outputMorseCode(morseCode):
-	for char in morseCode:
-		if   char == morse.DOT:
-			playDot()
-			time.sleep(morse.TIME_FOR_DOT)
-		elif char == morse.DASH:
-			playDash()
-			time.sleep(morse.TIME_FOR_DASH)
-		elif char == morse.LETTER_SEPARATOR:
-			playLetterSeparator()
-			time.sleep(morse.TIME_FOR_LETTER_SEPARATOR)
-		elif char == morse.WORD_SEPARATOR:
-			playWordSeparator()
-			time.sleep(morse.TIME_FOR_WORD_SEPARATOR)
-	speakerphat-led.clear()
+	for morseCodeCharacter in morseCode:
+		print morseCodeCharacter
+		outputMorseCodeCharacter(morseCodeCharacter)
 
 def outputMorseCodeCharacter(character):
-	if   char == morse.DOT:
+	if   character == morse.DOT:
 		outputDot()
-		time.sleep(morse.TIME_FOR_DOT)
-	elif char == morse.DASH:
+	elif character == morse.DASH:
 		outputDash()
-		time.sleep(morse.TIME_FOR_DASH)
-	elif char == morse.LETTER_SEPARATOR:
+	elif character == morse.LETTER_SEPARATOR:
 		outputLetterSeparator()
-		time.sleep(morse.TIME_FOR_LETTER_SEPARATOR)
-	elif char == morse.WORD_SEPARATOR:
+	elif character == morse.WORD_SEPARATOR:
 		outputWordSeparator()
-		time.sleep(morse.TIME_FOR_WORD_SEPARATOR)
 
 def outputDot():
-	speakerphat-led.clear()
-	speakerphat-led.set_leds([0,0,0,0,255,255,0,0,0,0])
-	speakerphat-led.show()
+	speakerphatled.clear()
+	speakerphatled.set_leds([0,0,0,0,255,255,0,0,0,0])
+	speakerphatled.show()
 	pygame.mixer.music.load('dot.wav')
 	pygame.mixer.music.play()
 
 def outputDash():
-	speakerphat-led.clear()
-	speakerphat-led.set_leds([255,255,255,255,255,255,255,255,255,255])
-	speakerphat-led.show()
+	speakerphatled.clear()
+	speakerphatled.set_leds([255,255,255,255,255,255,255,255,255,255])
+	speakerphatled.show()
 	pygame.mixer.music.load('dash.wav')
 	pygame.mixer.music.play()
 
 def outputLetterSeparator():
-	speakerphat-led.clear()
+	speakerphatled.clear()
+	time.sleep(morse.TIME_FOR_LETTER_SEPARATOR)
 
 def outputWordSeparator():
-	speakerphat-led.clear()
+	speakerphatled.clear()
+	time.sleep(morse.TIME_FOR_WORD_SEPARATOR)
 
 def main():
 	text = sys.argv[1]
+	pygame.init()
 	outputText(text)
 
 if __name__ == "__main__":
