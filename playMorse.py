@@ -9,6 +9,8 @@ import pygame
 import morse
 import speakerphatled
 
+TIME_FOR_UNIT = 1.0 / 2.0
+
 def outputText(text):
 	morseCode = morse.convertTextToMorseCode(text)
 	outputMorseCode( morseCode )
@@ -44,11 +46,11 @@ def outputDash():
 
 def outputLetterSeparator():
 	speakerphatled.clear()
-	time.sleep(morse.TIME_FOR_LETTER_SEPARATOR)
+	time.sleep(morse.LETTER_SEPARATOR_UNIT_MULTIPLIER)
 
 def outputWordSeparator():
 	speakerphatled.clear()
-	time.sleep(morse.TIME_FOR_WORD_SEPARATOR)
+	time.sleep(morse.WORD_SEPARATOR_UNIT_MULTIPLIER)
 
 def main():
 	text = sys.argv[1]
