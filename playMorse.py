@@ -31,18 +31,18 @@ def outputMorseCodeCharacter(character):
 		outputWordSeparator()
 
 def outputDot():
+	pygame.mixer.music.load('dot.wav')
 	speakerphatled.clear()
 	speakerphatled.set_leds([0,0,0,0,255,255,0,0,0,0])
 	speakerphatled.show()
-	pygame.mixer.music.load('dot.wav')
 	pygame.mixer.music.play()
 	time.sleep(morse.DOT_UNIT_MULTIPLIER * TIME_FOR_UNIT)
 
 def outputDash():
+	pygame.mixer.music.load('dash.wav')
 	speakerphatled.clear()
 	speakerphatled.set_leds([255,255,255,255,255,255,255,255,255,255])
 	speakerphatled.show()
-	pygame.mixer.music.load('dash.wav')
 	pygame.mixer.music.play()
 	time.sleep(morse.DASH_UNIT_MULTIPLIER * TIME_FOR_UNIT)
 
