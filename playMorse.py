@@ -5,7 +5,8 @@ import time
 import sys
 
 import morse
-import speakerphat
+import speakerphat-audio
+import speakerphat-led
 
 def playText( text ):
 	morseCode = morse.convertTextToMorseCode(text)
@@ -25,23 +26,23 @@ def playMorseCode( morseCode ):
 		elif char == morse.WORD_SEPARATOR:
 			playWordSeparator()
 			time.sleep(morse.TIME_FOR_WORD_SEPARATOR)
-	speakerphat.clear()
+	speakerphat-led.clear()
 
 def playDot():
-	speakerphat.clear()
-	speakerphat.set_leds([0,0,0,0,255,255,0,0,0,0])
-	speakerphat.show()
+	speakerphat-led.clear()
+	speakerphat-led.set_leds([0,0,0,0,255,255,0,0,0,0])
+	speakerphat-led.show()
 
 def playDash():
-	speakerphat.clear()
-	speakerphat.set_leds([255,255,255,255,255,255,255,255,255,255])
-	speakerphat.show()
+	speakerphat-led.clear()
+	speakerphat-led.set_leds([255,255,255,255,255,255,255,255,255,255])
+	speakerphat-led.show()
 
 def playLetterSeparator():
-	speakerphat.clear()
+	speakerphat-led.clear()
 
 def playWordSeparator():
-	speakerphat.clear()
+	speakerphat-led.clear()
 
 def main():
 	text = sys.argv[1]
