@@ -9,11 +9,11 @@ import pygame
 import morse
 import speakerphatled
 
-TIME_FOR_UNIT = 1.0 / 2.0
+TIME_FOR_UNIT = 1.0 / 3.0
 
 def outputText(text):
 	morseCode = morse.convertTextToMorseCode(text)
-	outputMorseCode( morseCode )
+	outputMorseCode(morseCode)
 
 def outputMorseCode(morseCode):
 	for morseCodeCharacter in morseCode:
@@ -36,6 +36,7 @@ def outputDot():
 	speakerphatled.show()
 	pygame.mixer.music.load('dot.wav')
 	pygame.mixer.music.play()
+	time.sleep(morse.DOT_UNIT_MULTIPLIER * TIME_FOR_UNIT)
 
 def outputDash():
 	speakerphatled.clear()
@@ -43,14 +44,15 @@ def outputDash():
 	speakerphatled.show()
 	pygame.mixer.music.load('dash.wav')
 	pygame.mixer.music.play()
+	time.sleep(morse.DASH_UNIT_MULTIPLIER * TIME_FOR_UNIT)
 
 def outputLetterSeparator():
 	speakerphatled.clear()
-	time.sleep(morse.LETTER_SEPARATOR_UNIT_MULTIPLIER)
+	time.sleep(morse.LETTER_SEPARATOR_UNIT_MULTIPLIER * TIME_FOR_UNIT)
 
 def outputWordSeparator():
 	speakerphatled.clear()
-	time.sleep(morse.WORD_SEPARATOR_UNIT_MULTIPLIER)
+	time.sleep(morse.WORD_SEPARATOR_UNIT_MULTIPLIER * TIME_FOR_UNIT)
 
 def main():
 	text = sys.argv[1]
