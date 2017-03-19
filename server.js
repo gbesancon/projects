@@ -8,13 +8,8 @@ app.get('/', function (req, res) {
 	res.send('');
 });
 
-app.get('/music', function (req, res) {	 
-	new sound('/usr/src/app/speaker-phat/test/test.wav').play();
-	res.send('Music !!!');
-});
-
-app.get('/led', function (req, res) {	 
-	child_process.execFile('python', ['/usr/src/app/led.py'],
+app.get('/morse', function (req, res) {	 
+	child_process.execFile('python', ['/usr/src/app/led.py', 'abcdefghijklmnopqrstuvwxyz 1234567890'],
 		(error, stdout, stderr) => {
 			if (error !== null) {
 				throw error;
@@ -22,7 +17,7 @@ app.get('/led', function (req, res) {
 			console.log('stdout: ' + stdout);
 			console.log('stderr: ' + stderr);
 		});
-	res.send('LED !!!');
+	res.send('MORSE !!!');
 });
 
 // start a server on port 80 and log its start to our console
