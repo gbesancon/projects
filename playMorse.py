@@ -17,7 +17,6 @@ def outputText(text):
 
 def outputMorseCode(morseCode):
 	for morseCodeCharacter in morseCode:
-		print morseCodeCharacter
 		outputMorseCodeCharacter(morseCodeCharacter)
 
 def outputMorseCodeCharacter(character):
