@@ -7,11 +7,6 @@ import sys
 import morse
 import speakerphat
 
-TIME_FOR_UNIT = 0.1
-DOT = '.'
-DASH = '-'
-SPACE = ' '
-
 def displayText( text ):
 	morseCode = morse.convertTextToMorseCode(text)
 	displayMorseCode( morseCode )
