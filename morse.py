@@ -19,6 +19,15 @@ CODE = {
         '9': '----.' 
         }
 
+TIME_FOR_UNIT = 1.0 / 3.0
+
+DOT = '.'
+TIME_FOR_DOT = 1.0 * TIME_FOR_UNIT
+DASH = '-'
+TIME_FOR_DASH = 3.0 * TIME_FOR_UNIT
+SPACE = ' '
+TIME_FOR_SPACE = 7.0 * TIME_FOR_UNIT
+
 def convertTextToMorseCode( text ):
 	morseCode = ''
 	for char in text:
