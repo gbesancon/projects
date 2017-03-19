@@ -13,11 +13,11 @@ def displayText( text ):
 
 def displayMorseCode( morseCode ):
 	for char in morseCode:
-		if char == DOT:
+		if   char == morse.DOT:
 			displayDot()
-		elif char == DASH:
+		elif char == morse.DASH:
 			displayDash()
-		elif char == SPACE:
+		elif char == morse.SPACE:
 			displaySpace()
 	displaySpace()
 
@@ -25,17 +25,17 @@ def displayDot():
 	speakerphat.clear()
 	speakerphat.set_leds([0,0,0,0,255,255,0,0,0,0])
 	speakerphat.show()
-	time.sleep(TIME_FOR_UNIT)
+	time.sleep(morse.TIME_FOR_DOT)
 
 def displayDash():
 	speakerphat.clear()
 	speakerphat.set_leds([255,255,255,255,255,255,255,255,255,255])
 	speakerphat.show()
-	time.sleep(3*TIME_FOR_UNIT)
+	time.sleep(TIME_FOR_DASH)
 
 def displaySpace():
 	speakerphat.clear()
-	time.sleep(7*TIME_FOR_UNIT)
+	time.sleep(TIME_FOR_SPACE)
 
 def main():
 	text = sys.argv[1]
