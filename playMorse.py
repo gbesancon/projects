@@ -7,39 +7,39 @@ import sys
 import morse
 import speakerphat
 
-def displayText( text ):
+def playText( text ):
 	morseCode = morse.convertTextToMorseCode(text)
-	displayMorseCode( morseCode )
+	playMorseCode( morseCode )
 
-def displayMorseCode( morseCode ):
+def playMorseCode( morseCode ):
 	for char in morseCode:
 		if   char == morse.DOT:
-			displayDot()
+			playDot()
+			time.sleep(morse.TIME_FOR_DOT)
 		elif char == morse.DASH:
-			displayDash()
+			playDash()
+			time.sleep(morse.TIME_FOR_DASH)
 		elif char == morse.SPACE:
-			displaySpace()
-	displaySpace()
+			playSpace()
+			time.sleep(morse.TIME_FOR_SPACE)
+	speakerphat.clear()
 
-def displayDot():
+def playDot():
 	speakerphat.clear()
 	speakerphat.set_leds([0,0,0,0,255,255,0,0,0,0])
 	speakerphat.show()
-	time.sleep(morse.TIME_FOR_DOT)
 
-def displayDash():
+def playDash():
 	speakerphat.clear()
 	speakerphat.set_leds([255,255,255,255,255,255,255,255,255,255])
 	speakerphat.show()
-	time.sleep(TIME_FOR_DASH)
 
-def displaySpace():
+def playSpace():
 	speakerphat.clear()
-	time.sleep(TIME_FOR_SPACE)
 
 def main():
 	text = sys.argv[1]
-	displayText( text )
+	playText( text )
 
 if __name__ == "__main__":
 	main()
