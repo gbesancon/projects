@@ -12,6 +12,7 @@ RUN apt-get update \
          python-alsaaudio \
          python-dev \
          python-imaging \
+         python-numpy \
          python-pip \
          python-pyaudio \
          python-rpi.gpio \
