@@ -36,6 +36,8 @@ def outputDot():
 	speakerphatled.show()
 	pygame.mixer.music.play()
 	time.sleep(morse.DOT_UNIT_MULTIPLIER * TIME_FOR_UNIT)
+	while pygame.mixer.music.get_busy():
+		pass
 
 def outputDash():
 	pygame.mixer.music.load('dash.wav')
@@ -44,6 +46,8 @@ def outputDash():
 	speakerphatled.show()
 	pygame.mixer.music.play()
 	time.sleep(morse.DASH_UNIT_MULTIPLIER * TIME_FOR_UNIT)
+	while pygame.mixer.music.get_busy():
+		pass
 
 def outputLetterSeparator():
 	speakerphatled.clear()
