@@ -20,6 +20,18 @@ app.get('/morse', function (req, res) {
 	res.send('MORSE !!!');
 });
 
+app.get('/tts', function (req, res) {
+	child_process.execFile('python', ['/usr/src/app/ttsespeak.py', 'sos'],
+		(error, stdout, stderr) => {
+			if (error !== null) {
+				throw error;
+			}
+			console.log('stdout: ' + stdout);
+			console.log('stderr: ' + stderr);
+		});
+	res.send('TTS !!!');
+});
+
 // start a server on port 80 and log its start to our console
 var server = app.listen(80, function () {
   var port = server.address().port;

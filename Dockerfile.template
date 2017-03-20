@@ -50,6 +50,8 @@ COPY server.js /usr/src/app/server.js
 
 COPY speakerphatled.py /usr/src/app/speakerphatled.py
 
+COPY ttsespeak.py /usr/src/app/ttsespeak.py
+
 COPY dot.wav /usr/src/app/dot.wav
 COPY dash.wav /usr/src/app/dash.wav
 COPY morse.py /usr/src/app/morse.py
