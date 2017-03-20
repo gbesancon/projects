@@ -9,8 +9,10 @@ RUN apt-get update \
          alsa-base \
          alsa-utils \
          curl \
+         espeak \
          python-alsaaudio \
          python-dev \
+         python-espeak \
          python-imaging \
          python-numpy \
          python-pip \
@@ -22,8 +24,9 @@ RUN apt-get update \
          python-spidev \
          wget \
     && apt-get clean \ 
-    && apt-get autoclean \ 
-    && rm -rf /var/lib/apt/lists/*
+    && apt-get autoclean 
+
+#RUN rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /usr/src/app/
 
