@@ -11,7 +11,8 @@ import os
 #		pass
 
 def speak(text):
-	os.system("espeak 'text'")
+	command = 'espeak "' + text + '"'
+	os.system(command)
 
 def main():
         text = sys.argv[1]
