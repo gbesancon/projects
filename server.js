@@ -1,7 +1,6 @@
 var express = require('express');
 var app = express();
 var request = require('request');
-var sound = require('node-aplay');
 var child_process = require('child_process');
 
 app.get('/', function (req, res) {	 
@@ -9,8 +8,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/morse', function (req, res) {	
-	var text = req.param('text'); 
-	child_process.execFile('python', ['/usr/src/app/playMorse.py', text],
+	child_process.execFile('python', ['/usr/src/app/playMorse.py', req.params.text],
 		(error, stdout, stderr) => {
 			if (error !== null) {
 				throw error;
@@ -23,7 +21,7 @@ app.get('/morse', function (req, res) {
 
 app.get('/tts', function (req, res) {
 	var text = req.param('text'); 
-	child_process.execFile('python', ['/usr/src/app/ttsespeak.py', text],
+	child_process.execFile('python', ['/usr/src/app/ttsespeak.py', req.params.text],
 		(error, stdout, stderr) => {
 			if (error !== null) {
 				throw error;
