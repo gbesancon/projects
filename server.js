@@ -8,8 +8,9 @@ app.get('/', function (req, res) {
 	res.send('');
 });
 
-app.get('/morse', function (req, res) {	 
-	child_process.execFile('python', ['/usr/src/app/playMorse.py', 'sos'],
+app.get('/morse', function (req, res) {	
+	var text = req.param('text'); 
+	child_process.execFile('python', ['/usr/src/app/playMorse.py', text],
 		(error, stdout, stderr) => {
 			if (error !== null) {
 				throw error;
@@ -21,7 +22,8 @@ app.get('/morse', function (req, res) {
 });
 
 app.get('/tts', function (req, res) {
-	child_process.execFile('python', ['/usr/src/app/ttsespeak.py', 'sos'],
+	var text = req.param('text'); 
+	child_process.execFile('python', ['/usr/src/app/ttsespeak.py', text],
 		(error, stdout, stderr) => {
 			if (error !== null) {
 				throw error;
