@@ -8,4 +8,6 @@ public class Client {
   public Client(IServer server) {
     this.server = server;
   }
+
+  public void start() {}
 }
