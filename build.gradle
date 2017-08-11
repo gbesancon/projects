@@ -1,11 +1,10 @@
 description = 'Codurance'
+group = 'org.benhur.codurance'
+version = '0.0.1-SNAPSHOT'
 
 task wrapper(type: Wrapper) {
   description = 'Generate the wrapper.'
   gradleVersion = '4.0.2'
 }
 
-allprojects  {
-  group = 'org.benhur.codurances'
-  version = '0.0.1-SNAPSHOT'
-}
+apply plugin: 'java'
