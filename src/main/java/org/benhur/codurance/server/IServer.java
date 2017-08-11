@@ -1,7 +1,7 @@
 package org.benhur.codurance.server;
 
 import java.util.Collection;
-import org.benhur.codurance.model.IMessage;
+import org.benhur.codurance.data.IMessage;
 
 public interface IServer {
 
