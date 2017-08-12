@@ -28,4 +28,9 @@ public class Message implements IMessage {
   public String getText() {
     return text;
   }
+
+  @Override
+  public String toString() {
+    return timestamp.toString() + ": " + sender.getName() + " -> " + text;
+  }
 }

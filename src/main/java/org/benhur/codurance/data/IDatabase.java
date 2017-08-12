@@ -1,14 +1,16 @@
 package org.benhur.codurance.data;
 
-import java.util.Collection;
+import java.util.List;
 
 public interface IDatabase {
 
-  Collection<IUser> getUsers();
+  List<IUser> getUsers();
 
-  IUser getUser(String name);
+  IUser getOrCreateUser(String name);
 
-  Collection<IMessage> getMessages();
+  List<IMessage> getMessages();
 
-  Collection<IMessage> getMessages(IUser user);
+  List<IMessage> getMessages(String userName);
+
+  IMessage addMessage(String senderName, String text);
 }
