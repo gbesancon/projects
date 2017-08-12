@@ -41,7 +41,7 @@ public class Server implements IServer {
     }
     return messages
         .stream()
-        .sorted((o1, o2) -> o1.getTimestamp().compareTo(o2.getTimestamp()))
+        .sorted((o1, o2) -> Long.compare(o1.getId(), o2.getId()))
         .collect(Collectors.toList());
   }
 }
