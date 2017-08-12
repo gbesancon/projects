@@ -1,15 +1,15 @@
 package org.benhur.codurance.server;
 
-import java.util.Collection;
+import java.util.List;
 import org.benhur.codurance.data.IMessage;
 
 public interface IServer {
 
-  void postMessage(String user, String message);
+  IMessage postMessage(String senderName, String message);
 
-  void followUser(String user, String followedUser);
+  void followUser(String userName, String followedUserName);
 
-  Collection<IMessage> getTimeline(String user);
+  List<IMessage> getTimeline(String userName);
 
-  Collection<IMessage> getWall(String user);
+  List<IMessage> getWall(String userName);
 }
