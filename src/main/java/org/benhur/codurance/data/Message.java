@@ -4,14 +4,21 @@ import java.util.Date;
 
 public class Message implements IMessage {
 
+  private final long id;
   private final IUser sender;
   private final Date timestamp;
   private final String text;
 
-  public Message(IUser sender, String text) {
+  public Message(long id, IUser sender, Date timestamp, String text) {
+    this.id = id;
     this.sender = sender;
-    this.timestamp = new Date();
+    this.timestamp = timestamp;
     this.text = text;
+  }
+
+  @Override
+  public long getId() {
+    return id;
   }
 
   @Override

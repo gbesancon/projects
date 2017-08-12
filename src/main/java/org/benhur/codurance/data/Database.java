@@ -1,6 +1,7 @@
 package org.benhur.codurance.data;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,7 +45,7 @@ public class Database implements IDatabase {
   @Override
   public IMessage addMessage(String senderName, String text) {
     IUser sender = getOrCreateUser(senderName);
-    IMessage message = new Message(sender, text);
+    IMessage message = new Message(messages.size(), sender, new Date(), text);
     messages.add(message);
     messagesByUser.get(sender).add(message);
     return message;
