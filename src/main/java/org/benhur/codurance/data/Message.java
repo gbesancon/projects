@@ -8,9 +8,9 @@ public class Message implements IMessage {
   private final Date timestamp;
   private final String text;
 
-  public Message(IUser sender, Date timestamp, String text) {
+  public Message(IUser sender, String text) {
     this.sender = sender;
-    this.timestamp = timestamp;
+    this.timestamp = new Date();
     this.text = text;
   }
 
