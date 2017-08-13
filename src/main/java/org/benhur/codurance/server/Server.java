@@ -22,8 +22,10 @@ public class Server implements IServer {
   }
 
   @Override
-  public void followUser(String userName, String followedUserName) {
-    database.getOrCreateUser(userName).addFollowee(database.getOrCreateUser(followedUserName));
+  public IUser followUser(String userName, String followedUserName) {
+    IUser user = database.getOrCreateUser(userName);
+    user.addFollowee(database.getOrCreateUser(followedUserName));
+    return user;
   }
 
   @Override
