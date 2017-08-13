@@ -25,7 +25,9 @@ public class User implements IUser {
 
   @Override
   public void addFollowee(IUser followee) {
-    followees.add(followee);
+    if (!followees.contains(followee)) {
+      followees.add(followee);
+    }
   }
 
   @Override
