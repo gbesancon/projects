@@ -32,6 +32,13 @@ public class User implements IUser {
 
   @Override
   public String toString() {
-    return name;
+    StringBuilder stringBuilder = new StringBuilder();
+    stringBuilder.append(name);
+    if (!followees.isEmpty()) {
+      stringBuilder.append(" follows ");
+      followees.forEach(followee -> stringBuilder.append(followee.getName() + ","));
+      stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+    }
+    return stringBuilder.toString();
   }
 }
