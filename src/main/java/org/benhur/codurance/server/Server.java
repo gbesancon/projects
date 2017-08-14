@@ -30,20 +30,23 @@ public class Server implements IServer {
 
   @Override
   public List<IMessage> getTimeline(String userName) {
-    return database.getMessages(userName);
+    return database
+        .getMessages(userName)
+        .stream()
+        .sorted((o1, o2) -> -Long.compare(o1.getId(), o2.getId()))
+        .collect(Collectors.toList());
   }
 
   @Override
   public List<IMessage> getWall(String userName) {
-    List<IMessage> messages = new ArrayList<>();
+    List<IMessage> wall = new ArrayList<>();
     IUser user = database.getOrCreateUser(userName);
-    messages.addAll(database.getMessages(user.getName()));
+    wall.addAll(database.getMessages(user.getName()));
     for (IUser followee : user.getFollowees()) {
-      messages.addAll(database.getMessages(followee.getName()));
+      wall.addAll(database.getMessages(followee.getName()));
     }
-    return messages
-        .stream()
-        .sorted((o1, o2) -> Long.compare(o1.getId(), o2.getId()))
+    return wall.stream()
+        .sorted((o1, o2) -> -Long.compare(o1.getId(), o2.getId()))
         .collect(Collectors.toList());
   }
 }

@@ -2,6 +2,7 @@ package org.benhur.codurance.client;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import java.util.Collections;
 import java.util.List;
 import org.benhur.codurance.data.IMessage;
 import org.benhur.codurance.data.IUser;
@@ -105,7 +106,7 @@ public class CommandLineProcessorTest {
           @Override
           public List<IMessage> getTimeline(String userName) {
             assertThat(userName, IsEqual.equalTo("Alice"));
-            return null;
+            return Collections.emptyList();
           }
 
           @Override
@@ -132,7 +133,7 @@ public class CommandLineProcessorTest {
           @Override
           public List<IMessage> getWall(String userName) {
             assertThat(userName, IsEqual.equalTo("Alice"));
-            return null;
+            return Collections.emptyList();
           }
 
           @Override

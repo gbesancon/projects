@@ -2,6 +2,7 @@ package org.benhur.codurance.server;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import java.util.List;
 import org.benhur.codurance.data.IMessage;
 import org.hamcrest.collection.IsEmptyCollection;
 import org.hamcrest.core.IsEqual;
@@ -19,12 +20,21 @@ public class ServerTest {
   public void testPostMessage() {
     IServer server = new Server();
     assertThat(server.getTimeline("sender"), IsEmptyCollection.empty());
-    IMessage message = server.postMessage("sender", "message");
-    assertThat(server.getTimeline("sender").size(), IsEqual.equalTo(1));
-    assertThat(server.getTimeline("sender").get(0), IsEqual.equalTo(message));
-    assertThat(
-        server.getTimeline("sender").get(0).getSender().getName(), IsEqual.equalTo("sender"));
-    assertThat(server.getTimeline("sender").get(0).getText(), IsEqual.equalTo("message"));
+    IMessage message1 = server.postMessage("sender", "message1");
+    List<IMessage> timeline = server.getTimeline("sender");
+    assertThat(timeline.size(), IsEqual.equalTo(1));
+    assertThat(timeline.get(0), IsEqual.equalTo(message1));
+    assertThat(timeline.get(0).getSender().getName(), IsEqual.equalTo("sender"));
+    assertThat(timeline.get(0).getText(), IsEqual.equalTo("message1"));
+    IMessage message2 = server.postMessage("sender", "message2");
+    timeline = server.getTimeline("sender");
+    assertThat(timeline.size(), IsEqual.equalTo(2));
+    assertThat(timeline.get(0), IsEqual.equalTo(message2));
+    assertThat(timeline.get(0).getSender().getName(), IsEqual.equalTo("sender"));
+    assertThat(timeline.get(0).getText(), IsEqual.equalTo("message2"));
+    assertThat(timeline.get(1), IsEqual.equalTo(message1));
+    assertThat(timeline.get(1).getSender().getName(), IsEqual.equalTo("sender"));
+    assertThat(timeline.get(1).getText(), IsEqual.equalTo("message1"));
   }
 
   @Test
@@ -54,14 +64,14 @@ public class ServerTest {
     assertThat(server.getWall("sender1").size(), IsEqual.equalTo(3));
     assertThat(server.getWall("sender2").size(), IsEqual.equalTo(1));
 
-    assertThat(server.getWall("sender1").get(0), IsEqual.equalTo(message1));
+    assertThat(server.getWall("sender1").get(0), IsEqual.equalTo(message3));
     assertThat(server.getWall("sender1").get(0).getSender().getName(), IsEqual.equalTo("sender1"));
-    assertThat(server.getWall("sender1").get(0).getText(), IsEqual.equalTo("message1"));
+    assertThat(server.getWall("sender1").get(0).getText(), IsEqual.equalTo("message3"));
     assertThat(server.getWall("sender1").get(1), IsEqual.equalTo(message2));
     assertThat(server.getWall("sender1").get(1).getSender().getName(), IsEqual.equalTo("sender2"));
     assertThat(server.getWall("sender1").get(1).getText(), IsEqual.equalTo("message2"));
-    assertThat(server.getWall("sender1").get(2), IsEqual.equalTo(message3));
+    assertThat(server.getWall("sender1").get(2), IsEqual.equalTo(message1));
     assertThat(server.getWall("sender1").get(2).getSender().getName(), IsEqual.equalTo("sender1"));
-    assertThat(server.getWall("sender1").get(2).getText(), IsEqual.equalTo("message3"));
+    assertThat(server.getWall("sender1").get(2).getText(), IsEqual.equalTo("message1"));
   }
 }
