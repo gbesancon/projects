@@ -8,6 +8,15 @@ task wrapper(type: Wrapper) {
 }
 
 apply plugin: 'java'
+jar {
+  manifest {
+    attributes(
+    			"Implementation-Title": "Codurance",
+				"Implementation-Version": version,
+				"Main-Class": "org.benhur.codurance.Codurance"
+	)
+  }
+}
 
 apply plugin: 'findbugs'
 findbugs {
@@ -32,6 +41,9 @@ tasks.withType(Pmd) {
 }
 apply plugin: 'jacoco'
 build.dependsOn jacocoTestReport
+
+apply plugin: 'application'
+mainClassName = 'org.benhur.codurance.Codurance'
 
 repositories {
   mavenCentral()
