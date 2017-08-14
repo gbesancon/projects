@@ -63,12 +63,12 @@ public class CommandLineProcessor {
     stringBuilder.append(" - ");
     stringBuilder.append(message.getText());
     stringBuilder.append(" (");
-    stringBuilder.append(getAgeFromNow(reference, message.getTimestamp()));
+    stringBuilder.append(printAgeFromReference(reference, message.getTimestamp()));
     stringBuilder.append(")");
     System.out.println(stringBuilder.toString());
   }
 
-  private String getAgeFromNow(Date reference, Date date) {
+  private String printAgeFromReference(Date reference, Date date) {
     StringBuilder stringBuilder = new StringBuilder();
     long deltaInMilliseconds = reference.getTime() - date.getTime();
     long deltaInSeconds = deltaInMilliseconds / 1000;
