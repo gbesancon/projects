@@ -1,0 +1,29 @@
+// You're expected to create your own copy task named containerengineStage defining the content of the container
+// Exemple:
+// task containerengineStage(type: Copy) {
+//     group = 'container engine'
+//     description = 'Stage a Container Engine environment application for deployment.'
+//     dependsOn containerengineStageBase
+//     dependsOn jar
+//     from jat.outputs
+//     into { "$stagedContainerDir" }
+// }
+
+ext {
+  stagedContainerDir = "$buildDir/staged-container"
+}
+
+task containerengineStageBase(type: Copy) {
+    group = 'container engine'
+    description = 'Base for staging a Container Engine environment application for deployment.'
+    from 'src/main/containerengine'
+    into { "$stagedContainerDir" }
+}
+
+sourceSets {
+  containerengine {
+    resources {
+      srcDirs "src/main/containerengine"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+if(rootProject.checkFindBugsEnabled == 'true') {
+  apply plugin: 'findbugs'
+
+  findbugs{
+    ignoreFailures=true
+  }
+
+  tasks.withType(FindBugs) {
+    reports {
+      xml.enabled = false
+      html.enabled = true
+    }
+  }
+}
