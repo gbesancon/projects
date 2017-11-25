@@ -1,4 +1,15 @@
-description = 'CodinGame_20161126'
+buildscript {
+  apply from: "$rootDir/../gradle-scripts/google-java-format-buildscript.gradle", to:buildscript
+  apply from: "$rootDir/../gradle-scripts/license-buildscript.gradle", to:buildscript
+  apply from: "$rootDir/../gradle-scripts/owasp-buildscript.gradle", to:buildscript
+}
+
+ext {
+  gradleScriptsDir = "$rootDir/../gradle-scripts"
+}
+
+group = 'org.benhur'
 version = '0.0.1-SNAPSHOT'
 
+apply from: "$gradleScriptsDir/rootProject.gradle"
 apply from: "$gradleScriptsDir/java.gradle"
