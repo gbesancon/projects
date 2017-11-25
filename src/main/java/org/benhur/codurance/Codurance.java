@@ -1,3 +1,5 @@
+// Copyright (C) 2017 GBesancon
+
 package org.benhur.codurance;
 
 import org.benhur.codurance.client.Client;
