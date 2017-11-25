@@ -8,11 +8,6 @@ ext {
   gradleScriptsDir = "$rootDir/../gradle-scripts"
 }
 
-description = 'Codingame'
+name = 'CodinGame'
 
 apply from: "$gradleScriptsDir/rootProject.gradle"
-
-subprojects {
-  group = 'org.benhur'
-  apply from: "$gradleScriptsDir/maven-repositories.gradle"
-}
