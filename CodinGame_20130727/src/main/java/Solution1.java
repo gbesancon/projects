@@ -1,3 +1,5 @@
+// Copyright (C) 2017 GBesancon
+
 // Read inputs from System.in, Write outputs to System.out.
 // Your class name has to be Solution
 
