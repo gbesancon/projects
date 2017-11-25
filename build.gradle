@@ -8,7 +8,6 @@ ext {
   gradleScriptsDir = "$rootDir/../gradle-scripts"
 }
 
-description = 'Codurance'
 group = 'org.benhur'
 version = '0.0.1-SNAPSHOT'
 
