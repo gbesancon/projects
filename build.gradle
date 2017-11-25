@@ -12,10 +12,7 @@ description = 'Codurance'
 group = 'org.benhur.codurance'
 version = '0.0.1-SNAPSHOT'
 
-apply from: "$gradleScriptsDir/environment.gradle"
-apply from: "$gradleScriptsDir/gradle-wrapper.gradle"
-apply from: "$gradleScriptsDir/build-configuration-properties.gradle"
-apply from: "$gradleScriptsDir/maven-repositories.gradle"
+apply from: "$gradleScriptsDir/rootProject.gradle"
 apply from: "$gradleScriptsDir/java.gradle"
 
 jar {
