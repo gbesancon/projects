@@ -1,0 +1,10 @@
+if(rootProject.checkCheckstyleEnabled == 'true') {
+  apply plugin: 'checkstyle'
+
+  checkstyle {
+    toolVersion = "7.8.1"
+    configFile = rootProject.file("$gradleScriptsDir/config/checkstyle/gbesancon_google_checks.xml")
+    maxErrors = 0
+//    maxWarnings = 0
+  }
+}

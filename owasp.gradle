@@ -1,0 +1,10 @@
+// Include the following block in the build script of the root project to be able to use owasp
+//buildscript {
+//  apply from: 'gradle-scripts/owasp-buildscript.gradle', to:buildscript
+//}
+
+if(rootProject.generateOwaspReportEnabled == 'true') {
+  apply plugin: 'org.owasp.dependencycheck' // https://plugins.gradle.org/plugin/org.owasp.dependencycheck
+  
+  report.dependsOn dependencyCheckAnalyze
+}
