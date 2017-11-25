@@ -1,5 +1,8 @@
 apply from: "$gradleScriptsDir/environment.gradle"
 apply from: "$gradleScriptsDir/gradle-wrapper.gradle"
 apply from: "$gradleScriptsDir/build-configuration-properties.gradle"
-apply from: "$gradleScriptsDir/maven-repositories.gradle"
 apply from: "$gradleScriptsDir/report.gradle"
+
+allprojects {
+  apply from: "$gradleScriptsDir/maven-repositories.gradle"
+}
