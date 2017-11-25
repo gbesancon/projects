@@ -1,3 +1,5 @@
+// Copyright (C) 2017 GBesancon
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
