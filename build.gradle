@@ -9,7 +9,7 @@ ext {
 }
 
 description = 'Codurance'
-group = 'org.benhur.codurance'
+group = 'org.benhur'
 version = '0.0.1-SNAPSHOT'
 
 apply from: "$gradleScriptsDir/rootProject.gradle"
