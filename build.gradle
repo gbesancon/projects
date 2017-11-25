@@ -1,55 +1,28 @@
+buildscript {
+  apply from: "$rootDir/../gradle-scripts/google-java-format-buildscript.gradle", to:buildscript
+  apply from: "$rootDir/../gradle-scripts/license-buildscript.gradle", to:buildscript
+  apply from: "$rootDir/../gradle-scripts/owasp-buildscript.gradle", to:buildscript
+}
+
+ext {
+  gradleScriptsDir = "$rootDir/../gradle-scripts"
+}
+
 description = 'Codurance'
 group = 'org.benhur.codurance'
 version = '0.0.1-SNAPSHOT'
 
-task wrapper(type: Wrapper) {
-  description = 'Generate the wrapper.'
-  gradleVersion = '4.0.2'
-}
+apply from: "$gradleScriptsDir/environment.gradle"
+apply from: "$gradleScriptsDir/gradle-wrapper.gradle"
+apply from: "$gradleScriptsDir/build-configuration-properties.gradle"
+apply from: "$gradleScriptsDir/maven-repositories.gradle"
+apply from: "$gradleScriptsDir/java.gradle"
 
-apply plugin: 'java'
 jar {
   manifest {
-    attributes(
-    			"Implementation-Title": "Codurance",
-				"Implementation-Version": version,
-				"Main-Class": "org.benhur.codurance.Codurance"
-	)
+    attributes 'Main-Class': 'org.benhur.codurance.Codurance'
   }
 }
-
-apply plugin: 'findbugs'
-findbugs {
-  ignoreFailures = true
-}
-tasks.withType(FindBugs) {
-  reports {
-    xml.enabled = false
-    html.enabled = true
-  }
-}
-  
-apply plugin: 'pmd'
-pmd {
-  ignoreFailures = true
-}
-tasks.withType(Pmd) {
-  reports {
-    xml.enabled = false
-    html.enabled = true
-  }
-}
-apply plugin: 'jacoco'
-build.dependsOn jacocoTestReport
 
 apply plugin: 'application'
 mainClassName = 'org.benhur.codurance.Codurance'
-
-repositories {
-  mavenCentral()
-}
-
-dependencies {
-  testCompile "junit:junit:4.12"
-  testCompile "org.hamcrest:hamcrest-library:1.3"
-}
