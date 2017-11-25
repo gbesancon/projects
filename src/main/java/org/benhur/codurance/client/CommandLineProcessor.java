@@ -1,3 +1,5 @@
+// Copyright (C) 2017 GBesancon
+
 package org.benhur.codurance.client;
 
 import java.util.Date;

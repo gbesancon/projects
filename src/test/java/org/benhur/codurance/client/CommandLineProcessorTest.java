@@ -1,3 +1,5 @@
+// Copyright (C) 2017 GBesancon
+
 package org.benhur.codurance.client;
 
 import static org.hamcrest.MatcherAssert.assertThat;
