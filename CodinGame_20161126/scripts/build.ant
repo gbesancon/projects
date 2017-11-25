@@ -1,3 +1,0 @@
-<project name="CodinGame_20161126" default="dist.zip" basedir="..">
-	<import file="../../../ant/ant-java/build.ant"/>
-</project>

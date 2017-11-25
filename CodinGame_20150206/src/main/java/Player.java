@@ -6,10 +6,8 @@ import java.util.Scanner;
 
 /**
  * Auto-generated code below aims at helping you parse the standard input according to the problem statement.
- * 
- * @param <T>
  **/
-class Player
+public class Player
 {
   public World world = new World();
 

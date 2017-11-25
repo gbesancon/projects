@@ -1,0 +1,4 @@
+description = 'CodinGame_20161126'
+version = '0.0.1-SNAPSHOT'
+
+apply from: "$gradleScriptsDir/java.gradle"

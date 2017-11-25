@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-class Solution1
+/**
+ * Solution 1.
+ */
+public class Solution1
 {
   public enum Direction
   {
