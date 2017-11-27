@@ -13,6 +13,4 @@ branches:
 cache:
   directories:
   - $HOME/.gradle
-  
-script:
-  - pwd && ls -R && chmod u+x ./gradlew && ./gradlew clean build
+
