@@ -17,5 +17,8 @@ cache:
   directories:
   - $HOME/.gradle
 
+install:
+  - ./gradlew clean
+
 script:
-  - ./gradlew clean build
+  - ./gradlew build
