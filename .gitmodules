@@ -1,4 +1,4 @@
 [submodule "gradle-scripts"]
 	path = gradle-scripts
-	url = https://slb-swt.visualstudio.com/ai-planning/_git/ai-planning-build-gradle-scripts
+	url = https://github.com/gbesancon/gradle-scripts.git
 	branch = master
