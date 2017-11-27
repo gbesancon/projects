@@ -15,4 +15,4 @@ cache:
   - $HOME/.gradle
   
 script:
-  - pwd && ls -R && chmod u+x ./gradlew && ./gradlew clean build -i --continue
+  - pwd && ls -R && chmod u+x ./gradlew && ./gradlew clean build
