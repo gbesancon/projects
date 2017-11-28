@@ -45,7 +45,7 @@ artifacts {
   }
 }
 
-jar {
+/*jar {
   manifest {
     attributes 'Implementation-Title': project.name,
                'Implementation-Version': version,
@@ -54,4 +54,4 @@ jar {
                'Built-JDK': System.getProperty('java.version'),
                'Built-Gradle': gradle.gradleVersion
   }
-}
+}*/
