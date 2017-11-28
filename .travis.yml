@@ -1,0 +1,24 @@
+language: java
+
+jdk:
+  - oraclejdk8
+
+os:
+  - linux
+
+git:
+  submodules: true
+
+branches:
+  only:
+    - master
+  
+cache:
+  directories:
+  - $HOME/.gradle
+
+install:
+  - ./gradlew clean
+
+script:
+  - ./gradlew build
