@@ -1,14 +1,30 @@
+# Compiled class file
 *.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
 
 # Package Files #
 *.jar
 *.war
 *.ear
-*.emtl
+*.zip
+*.tar.gz
+*.rar
 
-org.benhur.utility/dist
-org.benhur.utility.dgml/dist
-org.benhur.utility.dsm/dist
-org.benhur.utility.build/updatesite-org.benhur.utility.updatesite.feature-*.zip
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+/.gradle/
 
-.sonar
+# eclipse
+.project
+.classpath
+.settings
+build/
+bin/
