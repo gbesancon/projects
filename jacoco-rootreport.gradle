@@ -1,8 +1,5 @@
 if(rootProject.generateJacocoReportEnabled == 'true') {
-  allprojects  {
-    apply plugin: 'java'
-    apply plugin: 'jacoco'
-  }
+  apply plugin: 'jacoco'
 
   task jacocoTestMerge(type: org.gradle.testing.jacoco.tasks.JacocoMerge) {
     group = 'reporting'
