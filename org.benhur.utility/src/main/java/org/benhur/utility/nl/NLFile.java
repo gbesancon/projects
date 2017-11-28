@@ -1,52 +1,42 @@
+// Copyright (C) 2017 GBesancon
+
 package org.benhur.utility.nl;
 
 import java.util.Locale;
-
 import org.benhur.utility.file.FileUtility;
 
-public class NLFile
-{
+public class NLFile {
   protected final String folderPath;
   protected final String baseFileName;
   protected final String fileExtension;
   protected final String localeLanguage;
   protected final String localeCountry;
 
-  public NLFile(String fileName)
-  {
+  public NLFile(String fileName) {
     folderPath = FileUtility.getFolder(fileName);
     baseFileName = FileUtility.getBaseFilename(fileName);
     fileExtension = FileUtility.getExtension(fileName);
-    if (!Locale.getDefault().getLanguage().isEmpty())
-    {
+    if (!Locale.getDefault().getLanguage().isEmpty()) {
       localeLanguage = "_" + Locale.getDefault().getLanguage();
-    }
-    else
-    {
+    } else {
       localeLanguage = "";
     }
-    if (!Locale.getDefault().getCountry().isEmpty())
-    {
+    if (!Locale.getDefault().getCountry().isEmpty()) {
       localeCountry = "_" + Locale.getDefault().getCountry();
-    }
-    else
-    {
+    } else {
       localeCountry = "";
     }
   }
 
-  public String getFilename()
-  {
+  public String getFilename() {
     return folderPath + baseFileName + fileExtension;
   }
 
-  public String getLanguageFilename()
-  {
+  public String getLanguageFilename() {
     return folderPath + baseFileName + localeLanguage + fileExtension;
   }
 
-  public String getCountryFilename()
-  {
+  public String getCountryFilename() {
     return folderPath + baseFileName + localeLanguage + localeCountry + fileExtension;
   }
 }

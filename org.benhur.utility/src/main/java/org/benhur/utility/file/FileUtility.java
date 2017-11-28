@@ -1,3 +1,5 @@
+// Copyright (C) 2017 GBesancon
+
 package org.benhur.utility.file;
 
 import java.io.BufferedReader;
@@ -17,156 +19,111 @@ import java.nio.channels.FileChannel;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class FileUtility
-{
-  public static String getUserHomeFilepath()
-  {
+public class FileUtility {
+  public static String getUserHomeFilepath() {
     return System.getProperty("user.home");
   }
 
-  public static URL getURL(File file)
-  {
+  public static URL getURL(File file) {
     URL result = null;
-    try
-    {
+    try {
       result = file.toURI().toURL();
-    }
-    catch (MalformedURLException e)
-    {
+    } catch (MalformedURLException e) {
       e.printStackTrace();
     }
     return result;
   }
 
-  public static File getFile(URL url)
-  {
+  public static File getFile(URL url) {
     File result = null;
-    if (url != null)
-    {
-      try
-      {
+    if (url != null) {
+      try {
         result = new File(url.toURI());
-      }
-      catch (URISyntaxException e)
-      {
+      } catch (URISyntaxException e) {
         e.printStackTrace();
       }
     }
     return result;
   }
 
-  public static String getFolder(String filename)
-  {
+  public static String getFolder(String filename) {
     String result = null;
     int lastSlash = filename.lastIndexOf(File.separator);
-    if (lastSlash != -1)
-    {
+    if (lastSlash != -1) {
       result = filename.substring(0, lastSlash + 1);
-    }
-    else
-    {
+    } else {
       result = "";
     }
     return result;
   }
 
-  public static String getBaseFilename(String filename)
-  {
+  public static String getBaseFilename(String filename) {
     String result = null;
     int lastDot = filename.lastIndexOf(".");
     int lastSlash = filename.lastIndexOf(File.separator);
-    if (lastDot != -1)
-    {
-      if (lastSlash != -1)
-      {
-        if (lastDot > lastSlash)
-        {
+    if (lastDot != -1) {
+      if (lastSlash != -1) {
+        if (lastDot > lastSlash) {
           result = filename.substring(lastSlash + 1, lastDot);
-        }
-        else
-        {
+        } else {
           result = filename.substring(lastSlash + 1);
         }
-      }
-      else
-      {
+      } else {
         result = filename.substring(0, lastDot);
       }
-    }
-    else
-    {
-      if (lastSlash != -1)
-      {
+    } else {
+      if (lastSlash != -1) {
         result = filename.substring(lastSlash + 1);
-      }
-      else
-      {
+      } else {
         result = filename;
       }
     }
     return result;
   }
 
-  public static String getExtension(String filename)
-  {
+  public static String getExtension(String filename) {
     String result = null;
     int lastDot = filename.lastIndexOf(".");
-    if (lastDot != -1)
-    {
+    if (lastDot != -1) {
       result = filename.substring(lastDot);
-    }
-    else
-    {
+    } else {
       result = "";
     }
     return result;
   }
 
-  public static void removeBlanckLines(File file)
-  {
-    if (file.exists())
-    {
-      if (file.isFile())
-      {
+  public static void removeBlanckLines(File file) {
+    if (file.exists()) {
+      if (file.isFile()) {
         removeBlanckLinesForFile(file);
-      }
-      else if (file.isDirectory())
-      {
+      } else if (file.isDirectory()) {
         removeBlanckLinesForDirectory(file);
       }
     }
   }
 
-  public static void removeBlanckLinesForDirectory(File file)
-  {
-    if (file.exists())
-    {
-      for (File inFile : file.listFiles())
-      {
+  public static void removeBlanckLinesForDirectory(File file) {
+    if (file.exists()) {
+      for (File inFile : file.listFiles()) {
         removeBlanckLines(inFile);
       }
     }
   }
 
-  public static void removeBlanckLinesForFile(File file)
-  {
-    if (file.exists())
-    {
+  public static void removeBlanckLinesForFile(File file) {
+    if (file.exists()) {
       File tmpFile = new File(file.getPath() + ".tmp");
       file.renameTo(tmpFile);
       BufferedReader br = null;
       BufferedWriter bw = null;
-      try
-      {
+      try {
         br = new BufferedReader(new FileReader(tmpFile));
         bw = new BufferedWriter(new FileWriter(file));
         String line = null;
-        while ((line = br.readLine()) != null)
-        {
+        while ((line = br.readLine()) != null) {
           Pattern pattern = Pattern.compile("\\s*");
           Matcher matcher = pattern.matcher(line);
-          if (!matcher.matches())
-          {
+          if (!matcher.matches()) {
             bw.append(line);
             bw.newLine();
           }
@@ -175,33 +132,22 @@ public class FileUtility
         br.close();
         deleteFile(tmpFile);
         bw.close();
-      }
-      catch (FileNotFoundException e)
-      {
+      } catch (FileNotFoundException e) {
         e.printStackTrace();
-      }
-      catch (IOException e)
-      {
+      } catch (IOException e) {
         e.printStackTrace();
       }
     }
   }
 
-  public static void cleanFolder(File folder, boolean keepHidden)
-  {
+  public static void cleanFolder(File folder, boolean keepHidden) {
     File[] files = folder.listFiles();
-    if (files != null)
-    {
-      for (File file : files)
-      {
-        if (!file.isHidden() || (!keepHidden && file.isHidden()))
-        {
-          if (file.isFile())
-          {
+    if (files != null) {
+      for (File file : files) {
+        if (!file.isHidden() || (!keepHidden && file.isHidden())) {
+          if (file.isFile()) {
             file.delete();
-          }
-          else if (file.isDirectory())
-          {
+          } else if (file.isDirectory()) {
             cleanFolder(file, keepHidden);
           }
         }
@@ -209,44 +155,31 @@ public class FileUtility
     }
   }
 
-  public static void closeFile(Closeable closeable)
-  {
-    if (closeable != null)
-    {
-      try
-      {
+  public static void closeFile(Closeable closeable) {
+    if (closeable != null) {
+      try {
         closeable.close();
-      }
-      catch (IOException e)
-      {
+      } catch (IOException e) {
         e.printStackTrace();
       }
     }
   }
 
-  public static void deleteFile(File file)
-  {
-    if (file.exists())
-    {
-      while (file.exists())
-      {
+  public static void deleteFile(File file) {
+    if (file.exists()) {
+      while (file.exists()) {
         file.delete();
       }
     }
   }
 
-  public static File createFile(String filepath)
-  {
+  public static File createFile(String filepath) {
     File result = null;
-    if (filepath != null)
-    {
+    if (filepath != null) {
       result = new File(filepath);
-      try
-      {
+      try {
         result.createNewFile();
-      }
-      catch (IOException e)
-      {
+      } catch (IOException e) {
         e.printStackTrace();
         result = null;
       }
@@ -254,42 +187,32 @@ public class FileUtility
     return result;
   }
 
-  public static boolean isEmptyFolder(final File folder)
-  {
+  public static boolean isEmptyFolder(final File folder) {
     boolean result = false;
-    if (folder == null || !folder.isDirectory() || folder.list().length == 0)
-    {
+    if (folder == null || !folder.isDirectory() || folder.list().length == 0) {
       result = true;
     }
     return result;
   }
 
   @SuppressWarnings("resource")
-  public static boolean copyFile(File source, File destination)
-  {
+  public static boolean copyFile(File source, File destination) {
     FileChannel in = null;
     FileChannel out = null;
     long size = 0;
 
-    try
-    {
+    try {
       in = new FileInputStream(source).getChannel();
       out = new FileOutputStream(destination).getChannel();
 
       size = in.transferTo(0, in.size(), out);
-    }
-    catch (Exception e)
-    {
+    } catch (Exception e) {
       e.printStackTrace();
-    }
-    finally
-    {
-      if (in != null)
-      {
+    } finally {
+      if (in != null) {
         closeFile(in);
       }
-      if (out != null)
-      {
+      if (out != null) {
         closeFile(out);
       }
     }
@@ -297,16 +220,12 @@ public class FileUtility
     return (size != 0);
   }
 
-  public static String changeExtension(String filename, String newExtension)
-  {
+  public static String changeExtension(String filename, String newExtension) {
     String result = null;
     int lastDot = filename.lastIndexOf(".");
-    if (lastDot != -1)
-    {
+    if (lastDot != -1) {
       result = filename.substring(0, lastDot) + newExtension;
-    }
-    else
-    {
+    } else {
       result = filename + newExtension;
     }
     return result;
