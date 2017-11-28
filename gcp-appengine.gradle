@@ -1,6 +1,6 @@
 // Include the following block in the build script of the root project to be able to use appengine
 //buildscript {
-//  apply from: 'gradle-scripts/appengine-buildscript.gradle', to:buildscript
+//  apply from: 'gradle-scripts/gcp-appengine-buildscript.gradle', to:buildscript
 //}
 
 apply plugin: 'com.google.cloud.tools.appengine'
