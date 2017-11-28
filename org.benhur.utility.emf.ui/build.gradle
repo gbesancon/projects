@@ -1,7 +1,0 @@
-sourceSets {
-  main {
-    java {
-      exclude '**/org/benhur/utility/emf/ui/**'
-    }
-  }
-}
