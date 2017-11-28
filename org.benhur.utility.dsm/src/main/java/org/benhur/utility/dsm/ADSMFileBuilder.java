@@ -1,3 +1,5 @@
+// Copyright (C) 2017 GBesancon
+
 package org.benhur.utility.dsm;
 
 import java.io.FileWriter;

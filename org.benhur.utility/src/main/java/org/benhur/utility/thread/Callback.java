@@ -1,6 +1,7 @@
+// Copyright (C) 2017 GBesancon
+
 package org.benhur.utility.thread;
 
-public interface ICallback
-{
+public interface Callback {
   void taskPerformed(Exception taskException);
 }
