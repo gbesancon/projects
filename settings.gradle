@@ -1,1 +1,1 @@
-include ':org.benhur.utility', ':org.benhur.utility.dgml', ':org.benhur.utility.dsm', ':org.benhur.utility.emf', ':org.benhur.utility.emf.ui', ':org.benhur.utility.ui'
+include ':org.benhur.utility', ':org.benhur.utility.dgml', ':org.benhur.utility.dsm'
