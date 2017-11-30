@@ -21,4 +21,4 @@ install:
   - ./gradlew clean
 
 script:
-  - ./gradlew build
+  - ./gradlew build report sonarqube
