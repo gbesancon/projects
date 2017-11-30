@@ -2,6 +2,7 @@ buildscript {
   apply from: "$rootDir/gradle-scripts/google-java-format-buildscript.gradle", to:buildscript
   apply from: "$rootDir/gradle-scripts/license-buildscript.gradle", to:buildscript
   apply from: "$rootDir/gradle-scripts/owasp-buildscript.gradle", to:buildscript
+  apply from: "$rootDir/gradle-scripts/sonarqube-buildscript.gradle", to:buildscript
 }
 
 ext {
@@ -9,10 +10,12 @@ ext {
 }
 
 group = 'org.benhur'
+description = 'Codurance'
 version = '0.0.1-SNAPSHOT'
 
 apply from: "$gradleScriptsDir/rootProject.gradle"
 apply from: "$gradleScriptsDir/java.gradle"
+apply from: "$gradleScriptsDir/sonarqube.gradle"
 
 jar {
   manifest {
