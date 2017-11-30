@@ -15,7 +15,3 @@ sonarqube {
     property "sonar.login", "$System.env.SONARQUBE_TOKEN"
   }
 }
-
-if(rootProject.publishSonarqubeReportEnabled == 'true') {
-  report.dependsOn sonarqube
-}

@@ -10,7 +10,6 @@
 //runIntegrationTestEnabled=false
 //generateJacocoReportEnabled=false
 //generateJDependReportEnabled=false
-//publishSonarqubeReportEnabled=false
 // You can override a property through the commandline by providing the argument -Dorg.gradle.project.<property-name>=<property-value> 
 // https://docs.gradle.org/3.5/userguide/build_environment.html#sec:gradle_properties_and_system_properties
 
@@ -29,6 +28,5 @@ task printBuildConfigurationProperties {
     println "Run Integration Test:" + rootProject.runIntegrationTestEnabled
     println "Generate Jacoco Report:" + rootProject.generateJacocoReportEnabled
     println "Generate JDepend Report:" + rootProject.generateJDependReportEnabled
-    println "Publish Sonarqube Report:" + rootProject.publishSonarqubeReportEnabled
   }
 }
