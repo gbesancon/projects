@@ -11,7 +11,11 @@ apply plugin: "org.sonarqube"
 
 sonarqube {
   properties {
-    property "sonar.host.url", "http://sonarqube.org"
+    property "sonar.host.url", "https://sonarcloud.io"
     property "sonar.login", "$System.env.SONARQUBE_TOKEN"
   }
+}
+
+if(rootProject.publishSonarqubeReportEnabled == 'true') {
+  report.dependsOn sonarqube
 }
