@@ -1,3 +1,5 @@
+// Copyright (C) 2017 GBesancon
+
 import org.junit.Assert;
 import org.junit.Test;
 
