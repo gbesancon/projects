@@ -12,6 +12,7 @@ apply plugin: "org.sonarqube"
 sonarqube {
   properties {
     property "sonar.host.url", "https://sonarcloud.io"
+    property "sonar.organization", "gbesancon-github"
     property "sonar.login", "$System.env.SONARQUBE_TOKEN"
   }
 }
