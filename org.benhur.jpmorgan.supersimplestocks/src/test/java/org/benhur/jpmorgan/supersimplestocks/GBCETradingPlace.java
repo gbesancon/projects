@@ -1,3 +1,5 @@
+// Copyright (C) 2017 GBesancon
+
 package org.benhur.jpmorgan.supersimplestocks;
 
 import java.util.ArrayList;
