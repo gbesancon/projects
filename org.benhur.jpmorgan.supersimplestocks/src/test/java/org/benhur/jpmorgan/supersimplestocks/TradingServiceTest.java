@@ -6,7 +6,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
-
 import org.benhur.jpmorgan.supersimplestocks.data.Stock;
 import org.benhur.jpmorgan.supersimplestocks.data.Stock.Type;
 import org.benhur.jpmorgan.supersimplestocks.data.Trade;
@@ -18,17 +17,12 @@ import org.junit.Test;
  *
  * @author gbesancon
  */
-public class TradingServiceTest
-{
+public class TradingServiceTest {
   private static final double DELTA = 0.001;
 
-  /**
-   * Would need better test data !!!
-   */
-
+  /** Would need better test data !!! */
   @Test
-  public void testBuyStock()
-  {
+  public void testBuyStock() {
     Stock stock = new Stock("GIN", Type.COMMON, 0.08, 0.02, 1.0);
     long timestamp = System.currentTimeMillis();
     Trade trade = TradingService.buyStock(stock, 0.1, 10, timestamp);
@@ -40,8 +34,7 @@ public class TradingServiceTest
   }
 
   @Test
-  public void testSellStock()
-  {
+  public void testSellStock() {
     Stock stock = new Stock("GIN", Type.COMMON, 0.08, 0.02, 1.0);
     long timestamp = System.currentTimeMillis();
     Trade trade = TradingService.sellStock(stock, 0.1, 10, timestamp);
@@ -53,33 +46,30 @@ public class TradingServiceTest
   }
 
   @Test
-  public void testFilterTradeByStock()
-  {
+  public void testFilterTradeByStock() {
     GBCETradingPlace gbceTradingPlace = new GBCETradingPlace(0);
     Stock stock = gbceTradingPlace.stocks.get(0);
     List<Trade> stockTrades = TradingService.filterTradesByStock(gbceTradingPlace.trades, stock);
     assertEquals(180, stockTrades.size());
-    for (Trade stockTrade : stockTrades)
-    {
+    for (Trade stockTrade : stockTrades) {
       assertEquals(stock, stockTrade.stock);
     }
   }
 
   @Test
-  public void testFilterTradeByTimestamp()
-  {
+  public void testFilterTradeByTimestamp() {
     GBCETradingPlace gbceTradingPlace = new GBCETradingPlace(0);
 
     testFilterTradeByTimestamp(gbceTradingPlace.trades, 15 * 60 * 1000, 15 * 60 * 1000, 455);
     testFilterTradeByTimestamp(gbceTradingPlace.trades, 30 * 60 * 1000, 15 * 60 * 1000, 450);
   }
 
-  protected void testFilterTradeByTimestamp(List<Trade> trades, long time, long deltaTimeInThePast, int expectedSize)
-  {
-    List<Trade> stockTrades = TradingService.filterTradesByTimestamp(trades, time, deltaTimeInThePast);
+  protected void testFilterTradeByTimestamp(
+      List<Trade> trades, long time, long deltaTimeInThePast, int expectedSize) {
+    List<Trade> stockTrades =
+        TradingService.filterTradesByTimestamp(trades, time, deltaTimeInThePast);
     assertEquals(expectedSize, stockTrades.size());
-    for (Trade stockTrade : stockTrades)
-    {
+    for (Trade stockTrade : stockTrades) {
       assertTrue(time - deltaTimeInThePast <= stockTrade.timestamp && stockTrade.timestamp <= time);
     }
   }

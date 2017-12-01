@@ -3,7 +3,6 @@
 package org.benhur.jpmorgan.supersimplestocks;
 
 import java.util.List;
-
 import org.benhur.jpmorgan.supersimplestocks.data.Stock;
 import org.benhur.jpmorgan.supersimplestocks.data.Stock.Type;
 import org.benhur.jpmorgan.supersimplestocks.data.Trade;
@@ -13,8 +12,7 @@ import org.benhur.jpmorgan.supersimplestocks.data.Trade;
  *
  * @author GBesancon
  */
-public class StockFormulas
-{
+public class StockFormulas {
 
   /**
    * Compute dividend from last dividend.
@@ -22,20 +20,18 @@ public class StockFormulas
    * @param lastDividend
    * @return
    */
-  protected static double ComputeDividendFromLastDividend(double lastDividend)
-  {
+  protected static double ComputeDividendFromLastDividend(double lastDividend) {
     return lastDividend;
   }
 
   /**
    * Compute dividend from fixed dividend.
-   * 
+   *
    * @param fixedDividend
    * @param parValue
    * @return
    */
-  protected static double ComputeDividendFromFixedDividend(double fixedDividend, double parValue)
-  {
+  protected static double ComputeDividendFromFixedDividend(double fixedDividend, double parValue) {
     return fixedDividend * parValue;
   }
 
@@ -45,15 +41,11 @@ public class StockFormulas
    * @param stock
    * @return
    */
-  protected static double CommputeDividend(Stock stock)
-  {
+  protected static double CommputeDividend(Stock stock) {
     final double dividend;
-    if (stock.type == Type.PREFERRED)
-    {
+    if (stock.type == Type.PREFERRED) {
       dividend = ComputeDividendFromFixedDividend(stock.fixedDividend, stock.parValue);
-    }
-    else
-    {
+    } else {
       dividend = ComputeDividendFromLastDividend(stock.lastDividend);
     }
     return dividend;
@@ -66,8 +58,7 @@ public class StockFormulas
    * @param marketPrice
    * @return
    */
-  protected static double ComputeDividendYieldFromDividend(double dividend, double marketPrice)
-  {
+  protected static double ComputeDividendYieldFromDividend(double dividend, double marketPrice) {
     return dividend / marketPrice;
   }
 
@@ -78,8 +69,7 @@ public class StockFormulas
    * @param marketPrice
    * @return
    */
-  public static double ComputeDividendYield(Stock stock, double marketPrice)
-  {
+  public static double ComputeDividendYield(Stock stock, double marketPrice) {
     return ComputeDividendYieldFromDividend(CommputeDividend(stock), marketPrice);
   }
 
@@ -90,8 +80,7 @@ public class StockFormulas
    * @param dividend
    * @return
    */
-  protected static double ComputePERatio(double marketPrice, double dividend)
-  {
+  protected static double ComputePERatio(double marketPrice, double dividend) {
     return marketPrice / dividend;
   }
 
@@ -102,8 +91,7 @@ public class StockFormulas
    * @param marketPrice
    * @return
    */
-  public static double ComputePERatio(Stock stock, double marketPrice)
-  {
+  public static double ComputePERatio(Stock stock, double marketPrice) {
     return ComputePERatio(marketPrice, CommputeDividend(stock));
   }
 
@@ -113,12 +101,10 @@ public class StockFormulas
    * @param trades
    * @return
    */
-  public static double ComputeGeometricMean(List<Trade> trades)
-  {
+  public static double ComputeGeometricMean(List<Trade> trades) {
     double[] prices = new double[trades.size()];
     int iTrade = 0;
-    for (Trade trade : trades)
-    {
+    for (Trade trade : trades) {
       prices[iTrade] = trade.price;
       iTrade++;
     }
@@ -128,15 +114,12 @@ public class StockFormulas
   /**
    * Compute Geometric Mean of prices.
    *
-   * @param prices
-   *          (positive values)
+   * @param prices (positive values)
    * @return
    */
-  protected static double ComputeGeometricMean(double[] prices)
-  {
+  protected static double ComputeGeometricMean(double[] prices) {
     double productOfPrices = 1.0;
-    for (double price : prices)
-    {
+    for (double price : prices) {
       productOfPrices *= price;
     }
     // Prices are positive values so we can use n-root(x) = pow(x, 1/n)
@@ -151,12 +134,10 @@ public class StockFormulas
    * @param trades
    * @return
    */
-  public static double ComputeVolumeWeightedStockPrice(List<Trade> trades)
-  {
+  public static double ComputeVolumeWeightedStockPrice(List<Trade> trades) {
     double allTradesValue = 0.0;
     double totalQuantity = 0.0;
-    for (Trade trade : trades)
-    {
+    for (Trade trade : trades) {
       allTradesValue += (trade.price * trade.quantity);
       totalQuantity += trade.quantity;
     }
