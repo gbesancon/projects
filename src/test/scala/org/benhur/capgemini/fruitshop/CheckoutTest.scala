@@ -32,12 +32,22 @@ class CheckoutTest extends FlatSpec with Matchers {
   }
     
   /**
-   * Verify 3 apples and 1 orange cost �2.05.
+   * Verify 3 apples and 1 orange cost £1.45.
    */
-  "3 apples and 1 orange" should "cost £2.05" in {
+  "3 apples and 1 orange" should "cost £1.45" in {
     val checkout = new Checkout();
     val cart = new Cart(List(Apple, Apple, Orange, Apple))
     val cost = checkout.computeCost(cart)
-    cost should be (2.05)
+    cost should be (1.45)
   }
+  
+/**
+ * Verify 4 apples cost £1.20.
+ */
+"3 apples and 1 orange" should "cost £1.20" in {
+  val checkout = new Checkout();
+  val cart = new Cart(List(Apple, Apple, Apple, Apple))
+  val cost = checkout.computeCost(cart)
+  cost should be (1.20)
+}
 }
