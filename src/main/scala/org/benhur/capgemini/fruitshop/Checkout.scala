@@ -10,9 +10,16 @@ class Checkout {
    */
   def computeCost(cart: Cart): Double = {
     var cost = 0.0
-    for( item <- cart.items ) {
-      cost += item.price
+    
+    def offer241(nbItems: Integer, priceItem: Double): Double = {
+      ((nbItems / 2) + (nbItems % 2)) * priceItem
     }
+    
+    var nbApples = cart.items.groupBy(identity).mapValues(_.size).getOrElse(Item.Apple, 0)
+    var nbOranges = cart.items.groupBy(identity).mapValues(_.size).getOrElse(Item.Orange, 0)
+    
+    cost = offer241(nbApples, Item.Apple.price) + nbOranges * Item.Orange.price
+    
     cost
   }
 }
