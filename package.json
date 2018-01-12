@@ -10,6 +10,7 @@
     "node": ">=9.0.0"
   },
   "scripts": {
+    "data": "del-cli -f ./data && make-dir ./data && download http://stuff.mit.edu/afs/sipb/contrib/pi/pi-billion.txt --out ./data && split-file -s data/pi-billion.txt 1000 && del-cli data/pi-billion.txt",
     "build": "npm run format && tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "tsfmt -r",
@@ -27,6 +28,10 @@
     "pi"
   ],
   "devDependencies": {
+    "del-cli": "^1.1.0",
+    "download-cli": "^1.0.5",
+    "make-dir": "^1.1.0",
+    "split-file": "^2.1.0",
     "typescript": "^2.6.2",
     "typescript-formatter": "^7.0.1"
   },
