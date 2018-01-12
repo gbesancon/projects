@@ -14,7 +14,7 @@
     "build": "npm run format && tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "tsfmt -r",
-    "start": "node js/build/server.js"
+    "start": "node build/js/server.js"
   },
   "homepage": "https://github.com/gbesancon/pi",
   "repository": {
