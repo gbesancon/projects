@@ -1,19 +1,18 @@
 {
-  "name": "pi",
+  "name": "piviz",
   "version": "0.0.1",
-  "description": "PI",
+  "description": "PI Vizualisation",
   "author": "Gilles Besancon",
   "license": "MIT",
-  "main": "index.js",
-  "private": true,
   "engines": {
     "node": ">=9.0.0"
   },
   "scripts": {
     "data": "del-cli -f ./data && make-dir ./data && download http://stuff.mit.edu/afs/sipb/contrib/pi/pi-billion.txt --out ./data && split-file -s data/pi-billion.txt 1000 && del-cli data/pi-billion.txt",
-    "build": "npm run format && tsc",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "format": "tsfmt -r",
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node build/js/server.js"
   },
   "homepage": "https://github.com/gbesancon/pi",
@@ -30,7 +29,7 @@
   "devDependencies": {
     "del-cli": "^1.1.0",
     "download-cli": "^1.0.5",
-    "make-dir": "^1.1.0",
+    "make-dir-cli": "^1.0.0",
     "split-file": "^2.1.0",
     "typescript": "^2.6.2",
     "typescript-formatter": "^7.0.1"
