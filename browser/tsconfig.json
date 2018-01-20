@@ -6,8 +6,7 @@
 		"noImplicitReturns": true,		
         "noEmitOnError": true,
 		"target": "es6",
-		"module": "commonjs",
-		"moduleResolution": "node",
+		"module": "amd",
         "rootDir": "./ts",
 		"outDir": "build/js",
 		"lib": [ "es2016", "dom" ],
@@ -18,6 +17,6 @@
 	  ".npm"
 	],
 	"include": [
-		  "ts/**/*.ts"
+		  "**/*.ts"
 	]
 }

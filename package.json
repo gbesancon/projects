@@ -4,16 +4,26 @@
   "description": "PI Vizualisation",
   "author": "Gilles Besancon",
   "license": "MIT",
-  "engines": {
-    "node": ">=9.0.0"
-  },
   "scripts": {
-    "data": "del-cli -f ./data && make-dir ./data && download http://stuff.mit.edu/afs/sipb/contrib/pi/pi-billion.txt --out ./data && split-file -s data/pi-billion.txt 1000 && del-cli data/pi-billion.txt",
-    "format": "tsfmt -r",
-    "build": "tsc",
-    "watch": "tsc -w",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node build/js/server.js"
+    "install": "npm run install:server && npm run install:browser",
+    "install:server": "cd server && npm install && cd ..",
+    "install:browser": "cd browser && npm install && cd ..",
+    "prune": "npm run prune:server && npm run prune:browser",
+    "prune:server": "cd server && npm prune && cd ..",
+    "prune:browser": "cd browser && npm prune && cd ..",
+    "format": "npm run format:server && npm run format:browser",
+    "format:server": "cd server && npm run format && cd ..",
+    "format:browser": "cd browser && npm run format && cd ..",
+    "clean": "npm run clean:server && npm run clean:browser",
+    "clean:server": "cd server && npm run clean && cd ..",
+    "clean:browser": "cd browser && npm run clean && cd ..",
+    "build": "npm run build:server && npm run build:browser",
+    "build:server": "cd server && npm run build && cd ..",
+    "build:browser": "cd browser && npm run build && cd ..",
+    "start": "npm run start:server",
+    "start:server": "cd server && npm run start && cd ..",
+    "start-dev": "npm run start-dev:server",
+    "start-dev:server": "cd server && npm run start-dev && cd .."
   },
   "homepage": "https://github.com/gbesancon/pi",
   "repository": {
@@ -25,22 +35,5 @@
   },
   "keywords": [
     "pi"
-  ],
-  "devDependencies": {
-    "del-cli": "^1.1.0",
-    "download-cli": "^1.0.5",
-    "make-dir-cli": "^1.0.0",
-    "split-file": "^2.1.0",
-    "typescript": "^2.6.2",
-    "typescript-formatter": "^7.0.1"
-  },
-  "dependencies": {
-    "@types/errorhandler": "0.0.32",
-    "@types/express": "^4.11.0",
-    "babylonjs": "^3.2.0-alpha2",
-    "errorhandler": "^1.5.0",
-    "express": "^4.16.2",
-    "http": "0.0.0",
-    "path": "^0.12.7"
-  }
+  ]
 }
