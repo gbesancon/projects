@@ -17,5 +17,5 @@ if (app.get('env') === 'development') {
 }
 const server = http.createServer(app);
 server.listen(app.get('port'), function() {
-    console.log('Server listening on port ' + app.get('port'));
+    console.log('Server listening on port ' + app.get('port') + ' (http://localhost:' + app.get('port') + ')');
 });
