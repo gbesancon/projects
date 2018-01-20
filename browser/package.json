@@ -1,0 +1,22 @@
+{
+  "name": "browser",
+  "scripts": {
+    "data": "del-cli -f ./data && make-dir ./data && download http://stuff.mit.edu/afs/sipb/contrib/pi/pi-billion.txt --out ./data && split-file -s data/pi-billion.txt 1000 && del-cli data/pi-billion.txt",
+    "format": "tsfmt -r",
+    "clean": "del-cli -f ./build && del-cli -f ./node_modules",
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "del-cli": "^1.1.0",
+    "download-cli": "^1.0.5",
+    "make-dir-cli": "^1.0.0",
+    "split-file": "^2.1.0",
+    "typescript": "^2.6.2",
+    "typescript-formatter": "^7.0.1"
+  },
+  "dependencies": {
+    "requirejs": "^2.3.5"
+  }
+}
