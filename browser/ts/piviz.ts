@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-import pi = require('./data/pi');
+import pi = require("./data/pi");
 
 class PiViz {
     private pi: pi.Pi;
@@ -9,10 +9,10 @@ class PiViz {
         this.pi = new pi.Pi();
     }
 
-    run() {
+    public run() {
         this.pi.load();
     }
 }
 
-let piviz = new PiViz();
+const piviz = new PiViz();
 piviz.run();
