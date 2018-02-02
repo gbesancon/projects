@@ -6,6 +6,7 @@ import * as path from "path";
 const app = express();
 app.use("/node_modules", express.static(path.join(__dirname, "../../../browser/node_modules")));
 app.use("/js", express.static(path.join(__dirname, "../../../browser/build/js")));
+app.use("/ts", express.static(path.join(__dirname, "../../../browser/build/ts")));
 app.set("port", process.env.PORT || "80");
 app.get("/",
     (req, res, next) => {
