@@ -16,4 +16,7 @@ description = 'CodinGame'
 subprojects {
   apply from: "$gradleScriptsDir/maven-repositories.gradle"
   apply from: "$gradleScriptsDir/java.gradle"
+  
+  group = rootProject.group
+  version = rootProject.version
 }
