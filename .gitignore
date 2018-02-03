@@ -26,8 +26,14 @@ hs_err_pid*
 .project
 .classpath
 .settings
-/build/
-/bin/
+build/
+bin/
 
-.cache-main
-.cache-tests
+.cache-*
+
+SHORT_VERSION
+DATE_TIME
+TYPE
+FULL_VERSION
+TAG
+MAVEN_VERSION
