@@ -28,3 +28,10 @@ hs_err_pid*
 .settings
 build/
 bin/
+
+SHORT_VERSION
+DATE_TIME
+TYPE
+FULL_VERSION
+TAG
+MAVEN_VERSION
