@@ -11,7 +11,7 @@ apply from: "$gradleScriptsDir/project.gradle"
 
 apply from: "$gradleScriptsDir/build-configuration-properties.gradle"
 
-apply from: "$gradleScriptsDir/java.gradle"
+apply from: "$gradleScriptsDir/scala.gradle"
 
 clean.dependsOn 'cleanBuildDescriptionFiles'
 report.dependsOn 'generateBuildDescriptionFiles'
