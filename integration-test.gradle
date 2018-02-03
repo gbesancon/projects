@@ -16,6 +16,21 @@ configurations {
     integrationTestRuntime.extendsFrom testRuntime
 }
 
+if( !sourceSets.integrationTest.allSource.empty ) {
+  task integrationTestJar(type: Jar) {
+    group = 'build'
+    description = 'Assembles a jar archive containing the integration tests.'
+    classifier = 'integration-tests'
+    from sourceSets.integrationTest.output
+  }
+
+  artifacts {
+    if(rootProject.packageTestsEnabled == 'true') {
+      archives integrationTestJar
+    }
+  }
+}
+
 task integrationTest(type: Test) {
     group = 'verification'
     description = 'Runs the integration tests.'

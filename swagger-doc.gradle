@@ -1,6 +1,6 @@
 // Include the following block in the build script of the root project to be able to use swagger2markup and asciidoctor
 //buildscript {
-//  apply from: 'gradle-scripts/swagger-doc-buildscript.gradle', to:buildscript
+//  apply from: "$gradleScriptsDir/swagger-doc-buildscript.gradle", to:buildscript
 //}
 
 if(rootProject.generateDocumentationEnabled == 'true') {

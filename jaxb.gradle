@@ -1,6 +1,6 @@
 // Include the following block in the build script of the root project to be able to use jaxb
 //buildscript {
-//  apply from: 'gradle-scripts/jaxb-buildscript.gradle', to:buildscript
+//  apply from: "$gradleScriptsDir/jaxb-buildscript.gradle", to:buildscript
 //}
 
 // https://github.com/rackerlabs/gradle-jaxb-plugin

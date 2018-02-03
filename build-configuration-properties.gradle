@@ -22,11 +22,14 @@ task printBuildConfigurationProperties {
     println "Check CheckStyle:" + rootProject.checkCheckstyleEnabled
     println "Check FindBugs:" + rootProject.checkFindBugsEnabled
     println "Check PMD:" + rootProject.checkPmdEnabled
+    println "Package sources:" + rootProject.packageSourcesEnabled
+    println "Package tests:" + rootProject.packageTestsEnabled
     println "Generate Documentation:" + rootProject.generateDocumentationEnabled
+    println "Run Integration Test:" + rootProject.runIntegrationTestEnabled
     println "Generate License Report:" + rootProject.generateLicenseReportEnabled
     println "Generate OWASP Report:" + rootProject.generateOwaspReportEnabled
-    println "Run Integration Test:" + rootProject.runIntegrationTestEnabled
     println "Generate Jacoco Report:" + rootProject.generateJacocoReportEnabled
     println "Generate JDepend Report:" + rootProject.generateJDependReportEnabled
+    println "Publish Sonarqube Report:" + rootProject.publishSonarqubeReportEnabled
   }
 }

@@ -1,0 +1,11 @@
+// Include the following block in the build script of the root project to be able to use springboot
+//buildscript {
+//  apply from: "$gradleScriptsDir/task-tree-buildscript.gradle", to:buildscript
+//}
+
+// https://github.com/dorongold/gradle-task-tree
+
+apply plugin: 'com.dorongold.task-tree'
+
+// Usage: gradlew clean build report taskTree --no-repeat
+// Will display task dependencies as a tree for the three tasks clean, build and report

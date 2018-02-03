@@ -33,3 +33,5 @@ task zipAllReports(type: Zip) {
   includeEmptyDirs = false
   destinationDir file("$buildDir/reports")
 }
+
+report.finalizedBy zipAllReports

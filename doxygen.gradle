@@ -1,6 +1,6 @@
 // Include the following block in the build script of the root project to be able to use doxygen
 //buildscript {
-//  apply from: 'gradle-scripts/doxygen-buildscript.gradle', to:buildscript
+//  apply from: "$gradleScriptsDir/doxygen-buildscript.gradle", to:buildscript
 //}
 
 if(rootProject.generateDocumentationEnabled == 'true') {
