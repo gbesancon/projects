@@ -1,5 +1,5 @@
 task wrapper(type: Wrapper) {
   description = 'Generate the wrapper.'
-  group = 'build setup'
-  gradleVersion = '4.3.1'
+  group = 'gradle'
+  gradleVersion = rootProject.gradleVersion
 }

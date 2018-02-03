@@ -1,0 +1,8 @@
+allprojects  {
+  task distribute {
+    group = 'distribution'
+    description = 'Generate distribution packages.'
+  }
+}
+
+distribute.dependsOn = subprojects.distribute
