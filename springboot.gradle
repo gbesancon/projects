@@ -1,6 +1,6 @@
 // Include the following block in the build script of the root project to be able to use springboot
 //buildscript {
-//  apply from: 'gradle-scripts/springboot-buildscript.gradle', to:buildscript
+//  apply from: "$gradleScriptsDir/springboot-buildscript.gradle", to:buildscript
 //}
 
 apply plugin: 'org.springframework.boot'
