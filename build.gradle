@@ -1,0 +1,40 @@
+buildscript {
+  ext.gradleScriptsDir = "$rootDir/gradle-scripts"
+  
+  apply from: "$gradleScriptsDir/google-java-format-buildscript.gradle", to:buildscript
+  apply from: "$gradleScriptsDir/license-buildscript.gradle", to:buildscript
+  apply from: "$gradleScriptsDir/owasp-buildscript.gradle", to:buildscript
+  apply from: "$gradleScriptsDir/task-tree-buildscript.gradle", to:buildscript
+  apply from: "$gradleScriptsDir/sonarqube-buildscript.gradle", to:buildscript
+}
+
+apply from: "$gradleScriptsDir/project-java.gradle"
+
+group = 'org.benhur'
+description = 'Database Dependencies'
+
+subprojects {
+  apply from: "$gradleScriptsDir/maven-repositories.gradle"
+  apply from: "$gradleScriptsDir/maven-repository-vsts.gradle"
+  apply from: "$gradleScriptsDir/java.gradle"
+  
+  group = rootProject.group
+  version = rootProject.version
+  
+  apply from: "$gradleScriptsDir/maven-publish-vsts.gradle"
+  publishing {
+    publications {
+      project(MavenPublication) {
+        version = mavenVersion
+        from components.java
+        if(rootProject.packageSourcesEnabled == 'true') {
+          artifact sourcesJar
+        }
+        if(rootProject.generateDocumentationEnabled == 'true') {
+          artifact javadocJar
+        }
+      }
+    }
+  }
+  distribute.dependsOn publish
+}
