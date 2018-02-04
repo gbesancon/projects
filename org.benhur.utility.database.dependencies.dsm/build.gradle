@@ -1,0 +1,4 @@
+dependencies {
+  compile project(':org.benhur.utility.database.dependencies') 
+  compile 'eclipse-utility:org.benhur.utility.dsm:0.0.1-SNAPSHOT'
+}
