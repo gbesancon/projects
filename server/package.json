@@ -4,17 +4,26 @@
     "node": ">=9.0.0"
   },
   "scripts": {
+    "data": "del-cli -f ./data && make-dir ./data && download http://stuff.mit.edu/afs/sipb/contrib/pi/pi-billion.txt --out ./data && split-file -s data/pi-billion.txt 1000 && del-cli data/pi-billion.txt",
     "format": "tsfmt -r",
     "lint": "tslint --project tsconfig.json --format stylish",
     "clean": "del-cli -f ./build && del-cli -f ./node_modules",
     "build": "tsc",
     "watch": "tsc -w",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha -r ts-node/register ts/**/*.spec.ts",
     "start": "node build/js/server.js",
     "start-dev": "node --debug build/js/server.js"
   },
   "devDependencies": {
+    "@types/chai": "^4.1.2",
+    "@types/mocha": "^2.2.48",
+    "chai": "^4.1.2",
     "del-cli": "^1.1.0",
+    "download-cli": "^1.0.5",
+    "make-dir-cli": "^1.0.0",
+    "mocha": "^5.0.0",
+    "split-file": "^2.1.0",
+    "ts-node": "^4.1.0",
     "tslint": "^5.9.1",
     "typescript": "^2.6.2",
     "typescript-formatter": "^7.0.1"
