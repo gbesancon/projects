@@ -12,3 +12,5 @@ Workflow OOSD
 -Implementation
 -Testing
 -Deployment
+
+https://docs.gitlab.com/ee/workflow/

@@ -33,3 +33,6 @@ Agile software development:principles patterns and practices
 
 https://zeroturnaround.com/rebellabs/docker-commands-and-best-practices-cheat-sheet/
 https://curiosity.com/nativo/?prx_t=QcQDA61QjAYRIQA&&ntv_gscat=15
+
+https://www.openshift.com/
+http://opentracing.io/
