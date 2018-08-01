@@ -3,9 +3,9 @@
 import java.util.List;
 
 public interface Movie {
-	int getId();
+  int getId();
 
-	float getRating();
+  float getRating();
 
-	List<Movie> getSimilarMovies();
+  List<Movie> getSimilarMovies();
 }
