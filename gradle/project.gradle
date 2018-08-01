@@ -4,6 +4,8 @@ apply from: "$gradleScriptsDir/gradle-wrapper.gradle"
 
 apply from: "$gradleScriptsDir/maven-repositories.gradle"
 
+apply from: "$gradleScriptsDir/gradle-update.gradle"
+
 apply from: "$gradleScriptsDir/task-tree.gradle"
 
 apply from: "$gradleScriptsDir/distribute.gradle"
