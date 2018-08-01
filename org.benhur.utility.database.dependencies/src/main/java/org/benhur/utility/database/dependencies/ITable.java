@@ -4,8 +4,7 @@ package org.benhur.utility.database.dependencies;
 
 import java.util.List;
 
-public interface ITable
-{
+public interface ITable {
   IDatabase getDatabasse();
 
   String getId();

@@ -2,8 +2,7 @@
 
 package org.benhur.utility.database.dependencies;
 
-public interface IColumn
-{
+public interface IColumn {
   ITable getTable();
 
   String getId();
