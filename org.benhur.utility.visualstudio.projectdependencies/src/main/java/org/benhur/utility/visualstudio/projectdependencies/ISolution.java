@@ -5,8 +5,7 @@ package org.benhur.utility.visualstudio.projectdependencies;
 import java.io.File;
 import java.util.List;
 
-public interface ISolution
-{
+public interface ISolution {
   File getFile();
 
   String getName();
