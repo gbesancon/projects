@@ -4,12 +4,15 @@
 //checkCheckstyleEnabled=false
 //checkFindBugsEnabled=false
 //checkPmdEnabled=false
+//packageSourcesEnabled=false
+//packageTestsEnabled=false
 //generateDocumentationEnabled=false
-//generateOwaspReportEnabled=false
-//generateLicenseReportEnabled=false
 //runIntegrationTestEnabled=false
+//generateLicenseReportEnabled=false
+//generateOwaspReportEnabled=false
 //generateJacocoReportEnabled=false
 //generateJDependReportEnabled=false
+//publishSonarqubeReportEnabled=false
 // You can override a property through the commandline by providing the argument -Dorg.gradle.project.<property-name>=<property-value> 
 // https://docs.gradle.org/3.5/userguide/build_environment.html#sec:gradle_properties_and_system_properties
 
