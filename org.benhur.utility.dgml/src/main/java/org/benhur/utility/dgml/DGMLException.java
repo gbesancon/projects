@@ -7,15 +7,11 @@ package org.benhur.utility.dgml;
  *
  * @author GBesancon
  */
-public class DGMLException extends Exception
-{
+public class DGMLException extends Exception {
   private static final long serialVersionUID = -4170835162581429348L;
 
-  /**
-   * Constructor.
-   */
-  public DGMLException(String message)
-  {
+  /** Constructor. */
+  public DGMLException(String message) {
     super(message);
   }
 }

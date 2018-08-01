@@ -2,24 +2,20 @@
 
 package org.benhur.utility.dsm;
 
-public class Edge
-{
+public class Edge {
   protected final Node source;
   protected final Node target;
 
-  public Edge(Node source, Node target)
-  {
+  public Edge(Node source, Node target) {
     this.source = source;
     this.target = target;
   }
 
-  public Node getSource()
-  {
+  public Node getSource() {
     return source;
   }
 
-  public Node getTarget()
-  {
+  public Node getTarget() {
     return target;
   }
 }
