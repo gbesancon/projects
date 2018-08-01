@@ -4,8 +4,7 @@ package org.benhur.utility.visualstudio.projectdependencies;
 
 import java.util.List;
 
-public interface ISolutionItem
-{
+public interface ISolutionItem {
   ISolution getSolution();
 
   String getId();
