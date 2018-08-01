@@ -8,5 +8,5 @@ repositories {
 }
 
 dependencies {
-  classpath 'org.owasp:dependency-check-gradle:3.0.2'
+  classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.5.12.RELEASE'
 }
