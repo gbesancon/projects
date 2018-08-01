@@ -1,17 +1,16 @@
 // Copyright (C) 2017 GBesancon
 
-package org.benhur.utility.visualstudio.projectdependencies.dgml;
+package org.benhur.utility.visualstudio.projectdependencies.dsm;
 
 import java.io.File;
 import java.io.IOException;
 import javax.xml.bind.PropertyException;
-import org.benhur.utility.dgml.DGMLException;
 import org.benhur.utility.visualstudio.projectdependencies.ISolution;
 import org.benhur.utility.visualstudio.projectdependencies.builder.SolutionBuilder;
-import org.benhur.utility.visualstudio.projectdependencies.dgml.configuration.Configuration;
+import org.benhur.utility.visualstudio.projectdependencies.configuration.Configuration;
 import org.benhur.utility.visualstudio.projectdependencies.filter.SolutionFilterer;
 
-public class MainVisualStudioProjectDependenciesDGML {
+public class VisualStudioProjectDependenciesDSM {
   public static void main(String[] args) {
     if (args.length == 1) {
       try {
@@ -22,14 +21,12 @@ public class MainVisualStudioProjectDependenciesDGML {
         SolutionFilterer solutionFilterer = new SolutionFilterer();
         ISolution filteredSolution = solutionFilterer.filterSolution(solution, configuration);
 
-        SolutionDGMLFileBuilder solutionDGMLFileBuilder = new SolutionDGMLFileBuilder();
-        solutionDGMLFileBuilder.createDGMLFile(
-            filteredSolution, configuration, solution.getName() + ".dgml");
+        SolutionDSMFileBuilder solutionDSMFileBuilder = new SolutionDSMFileBuilder();
+        solutionDSMFileBuilder.createDSMFile(
+            filteredSolution, configuration, solution.getName() + ".dsm");
       } catch (PropertyException e) {
         e.printStackTrace();
       } catch (IOException e) {
-        e.printStackTrace();
-      } catch (DGMLException e) {
         e.printStackTrace();
       }
     } else {
