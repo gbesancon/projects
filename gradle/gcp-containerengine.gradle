@@ -1,6 +1,6 @@
 // You're expected to create your own copy task named containerengineStage defining the content of the container
 // Exemple:
-// task containerengineStage(type: Copy) {
+// task containerEngineStage(type: Copy) {
 //     group = 'container engine'
 //     description = 'Stage a Container Engine environment application for deployment.'
 //     dependsOn containerengineStageBase
@@ -13,9 +13,15 @@ ext {
   stagedContainerDir = "$buildDir/staged-container"
 }
 
-task containerengineStageBase(type: Copy) {
+task cleanContainerEngineStage(type: Delete) {
+  group = 'container engine'
+  delete "$stagedContainerDir"
+}
+
+task containerEngineStageBase(type: Copy) {
     group = 'container engine'
     description = 'Base for staging a Container Engine environment application for deployment.'
+    dependsOn "cleanContainerEngineStage"
     from 'src/main/containerengine'
     into { "$stagedContainerDir" }
 }
