@@ -24,3 +24,4 @@ The hero with a thousand faces - Campbell
 https://www.ca.com/gb/collateral/ebook/building-software-into-your-business-dna.register.html?mrm=599866&cid=EMEA-SMM-CBU-ABM-000001-00001363
 The hacking of the American Mind - Robert H Lustig
 Fat Chance - Robert H Lustig
+Inside Out, The practice of resilience - Dr Sven Hansen 
