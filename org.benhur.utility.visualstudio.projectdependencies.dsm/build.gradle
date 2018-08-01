@@ -1,4 +1,38 @@
 dependencies {
   compile project(':org.benhur.utility.visualstudio.projectdependencies') 
   compile 'org.benhur:org.benhur.utility.dsm:0.0.1-SNAPSHOT'
+} 
+
+def myMainClassName = "org.benhur.utility.visualstudio.projectdependencies.dsm.VisualStudioProjectDependenciesDSM"
+def myDefaultJavaArgs = "-XX:+UseG1GC"
+
+jar {
+  manifest {
+    attributes 'Main-Class': myMainClassName
+  }
 }
+
+task standaloneJar(type: Jar) {
+  group = 'build'
+  description = 'Assembles a jar archive containing the main classes and its dependencies.'
+  manifest {
+    attributes 'Main-Class': myMainClassName
+  }
+  classifier = 'standalone'
+  from { configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) } }
+  with jar
+}
+
+ext.getExecutableJarTask = {
+  project.standaloneJar
+}
+ext.getExecutableAppName = {
+  project.name
+}
+ext.getExecutableMainClassName = {
+  myMainClassName
+}
+ext.getExecutableDefaultJavaArgs = {
+  myDefaultJavaArgs
+}
+apply from: "$gradleScriptsDir/java-distribution.gradle"
