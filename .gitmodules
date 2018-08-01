@@ -1,4 +1,3 @@
-[submodule "gradle-scripts"]
-	path = gradle-scripts
-	url = https://github.com/gbesancon/gradle-scripts.git
-	branch = master
+[submodule "scripts/build-gradle-scripts"]
+	path = scripts/build-gradle-scripts
+	url = https://github.com/gbesancon/build-gradle-scripts.git
