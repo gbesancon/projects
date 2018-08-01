@@ -7,7 +7,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.benhur.utility.database.dependencies.Column;
 import org.benhur.utility.database.dependencies.Database;
 import org.benhur.utility.database.dependencies.IColumn;
@@ -15,10 +14,9 @@ import org.benhur.utility.database.dependencies.IDatabase;
 import org.benhur.utility.database.dependencies.ITable;
 import org.benhur.utility.database.dependencies.Table;
 
-public class DatabaseBuilder
-{
-  public IDatabase buildDatabase(String host, int port, String username, String password, String databaseName)
-  {
+public class DatabaseBuilder {
+  public IDatabase buildDatabase(
+      String host, int port, String username, String password, String databaseName) {
     IDatabase database = null;
 
     Connection connection = null;
@@ -26,11 +24,21 @@ public class DatabaseBuilder
     ResultSet columnResultSet = null;
     ResultSet foreignColumnResultSet = null;
 
-    try
-    {
+    try {
       Class.forName("com.mysql.jdbc.Driver");
-      connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + databaseName + "?" + "user="
-          + username + "&password=" + password);
+      connection =
+          DriverManager.getConnection(
+              "jdbc:mysql://"
+                  + host
+                  + ":"
+                  + port
+                  + "/"
+                  + databaseName
+                  + "?"
+                  + "user="
+                  + username
+                  + "&password="
+                  + password);
 
       database = new Database(databaseName, databaseName);
 
@@ -38,13 +46,11 @@ public class DatabaseBuilder
       Map<String, IColumn> columnByIds = new HashMap<>();
 
       tableResultSet = connection.getMetaData().getTables(null, null, "%", null);
-      while (tableResultSet.next())
-      {
+      while (tableResultSet.next()) {
         String tableName = tableResultSet.getString(3);
         ITable table = getTable(database, tableName, tableByIds);
         columnResultSet = connection.getMetaData().getColumns(null, null, tableName, "%");
-        while (columnResultSet.next())
-        {
+        while (columnResultSet.next()) {
           String columnName = columnResultSet.getString(4);
           IColumn column = getColumn(table, columnName, columnByIds);
           table.addColumn(column);
@@ -52,11 +58,10 @@ public class DatabaseBuilder
         database.addTable(table);
       }
 
-      for (ITable table : tableByIds.values())
-      {
-        foreignColumnResultSet = connection.getMetaData().getImportedKeys(null, null, table.getName());
-        while (foreignColumnResultSet.next())
-        {
+      for (ITable table : tableByIds.values()) {
+        foreignColumnResultSet =
+            connection.getMetaData().getImportedKeys(null, null, table.getName());
+        while (foreignColumnResultSet.next()) {
           String foreignKeyTableName = foreignColumnResultSet.getString(7);
           ITable foreignKeyTable = getTable(database, foreignKeyTableName, tableByIds);
           String foreignKeyColumnName = foreignColumnResultSet.getString(8);
@@ -68,62 +73,45 @@ public class DatabaseBuilder
           foreignKeyColumn.setForeignColumn(primaryKeyColumn);
         }
       }
-    }
-    catch (Exception e)
-    {}
-    finally
-    {
-      try
-      {
-        if (tableResultSet != null)
-        {
+    } catch (Exception e) {
+    } finally {
+      try {
+        if (tableResultSet != null) {
           tableResultSet.close();
         }
-        if (columnResultSet != null)
-        {
+        if (columnResultSet != null) {
           columnResultSet.close();
         }
-        if (foreignColumnResultSet != null)
-        {
+        if (foreignColumnResultSet != null) {
           foreignColumnResultSet.close();
         }
-        if (connection != null)
-        {
+        if (connection != null) {
           connection.close();
         }
+      } catch (Exception e) {
       }
-      catch (Exception e)
-      {}
     }
     return database;
   }
 
-  protected ITable getTable(IDatabase database, String tableName, Map<String, ITable> tableByIds)
-  {
+  protected ITable getTable(IDatabase database, String tableName, Map<String, ITable> tableByIds) {
     ITable table = null;
     String id = database.getId() + "_" + tableName;
-    if (tableByIds.containsKey(id))
-    {
+    if (tableByIds.containsKey(id)) {
       table = tableByIds.get(id);
-    }
-    else
-    {
+    } else {
       table = new Table(database, id, tableName);
       tableByIds.put(table.getId(), table);
     }
     return table;
   }
 
-  protected IColumn getColumn(ITable table, String columnName, Map<String, IColumn> columnByIds)
-  {
+  protected IColumn getColumn(ITable table, String columnName, Map<String, IColumn> columnByIds) {
     IColumn column = null;
     String id = table.getId() + "_" + columnName;
-    if (columnByIds.containsKey(id))
-    {
+    if (columnByIds.containsKey(id)) {
       column = columnByIds.get(id);
-    }
-    else
-    {
+    } else {
       column = new Column(table, id, columnName);
       columnByIds.put(column.getId(), column);
     }
