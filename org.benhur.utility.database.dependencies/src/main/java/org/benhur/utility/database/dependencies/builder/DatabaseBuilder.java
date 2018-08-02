@@ -29,7 +29,7 @@ public class DatabaseBuilder {
     ResultSet tableResultSet = null;
     ResultSet columnResultSet = null;
     ResultSet foreignColumnResultSet = null;
-    
+
     try {
       switch (type) {
         case "mysql":
