@@ -5,6 +5,7 @@ package org.benhur.utility.database.dependencies.group;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.PropertyException;
+import org.benhur.utility.database.dependencies.DatabaseUtility;
 import org.benhur.utility.database.dependencies.IDatabase;
 import org.benhur.utility.database.dependencies.ITable;
 import org.benhur.utility.database.dependencies.configuration.Configuration;
@@ -70,7 +71,7 @@ public class GroupBuilder {
   }
 
   protected void populateGroupWithDatabase(Group group, IDatabase database) {
-    for (ITable table : database.getTables()) {
+    for (ITable table : DatabaseUtility.getAllTables(database)) {
       populateGroupWithTable(group, table);
     }
   }

@@ -14,6 +14,7 @@ public class DatabaseDependenciesDGML {
     if (args.length == 1) {
       try {
         Configuration configuration = new Configuration(args[0]);
+        System.out.println("Building a memory representation of the database.");
         DatabaseBuilder databaseBuilder = new DatabaseBuilder();
         IDatabase database =
             databaseBuilder.buildDatabase(
@@ -23,10 +24,13 @@ public class DatabaseDependenciesDGML {
                 configuration.getUsername(),
                 configuration.getPassword(),
                 configuration.getDatabaseName());
+        System.out.println("Memory representation of the database built.");
 
+        System.out.println("Creating a DGML file representation of the database.");
         DatabaseDGMLFileBuilder databaseDGMLFileBuilder = new DatabaseDGMLFileBuilder();
         databaseDGMLFileBuilder.createDGMLFile(
             database, configuration, database.getName() + ".dgml");
+        System.out.println("DGML file representation of the database created.");
       } catch (PropertyException e) {
         e.printStackTrace();
       } catch (IOException e) {
