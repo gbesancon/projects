@@ -6,26 +6,6 @@ dependencies {
 def myMainClassName = "org.benhur.utility.database.dependencies.dsm.DatabaseDependenciesDSM"
 def myDefaultJavaArgs = "-XX:+UseG1GC"
 
-jar {
-  manifest {
-    attributes 'Main-Class': myMainClassName
-  }
-}
-
-task standaloneJar(type: Jar) {
-  group = 'build'
-  description = 'Assembles a jar archive containing the main classes and its dependencies.'
-  manifest {
-    attributes 'Main-Class': myMainClassName
-  }
-  classifier = 'standalone'
-  from { configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) } }
-  with jar
-}
-
-ext.getExecutableJarTask = {
-  project.standaloneJar
-}
 ext.getExecutableAppName = {
   project.name
 }
