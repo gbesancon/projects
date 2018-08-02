@@ -6,21 +6,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Table implements ITable {
-  protected final IDatabase database;
+  protected final ISchema schema;
   protected final String id;
   protected final String name;
+  protected final String type;
+  protected final String remarks;
   protected final List<IColumn> columns;
 
-  public Table(IDatabase database, String id, String name) {
-    this.database = database;
+  public Table(ISchema schema, String id, String name, String type, String remarks) {
+    this.schema = schema;
     this.id = id;
     this.name = name;
+    this.type = type;
+    this.remarks = remarks;
     this.columns = new ArrayList<>();
   }
 
   @Override
-  public IDatabase getDatabasse() {
-    return database;
+  public ISchema getSchema() {
+    return schema;
   }
 
   @Override
@@ -31,6 +35,16 @@ public class Table implements ITable {
   @Override
   public String getName() {
     return name;
+  }
+
+  @Override
+  public String getType() {
+    return type;
+  }
+
+  @Override
+  public String getRemarks() {
+    return remarks;
   }
 
   @Override

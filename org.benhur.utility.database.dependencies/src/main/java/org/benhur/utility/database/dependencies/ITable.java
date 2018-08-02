@@ -5,11 +5,15 @@ package org.benhur.utility.database.dependencies;
 import java.util.List;
 
 public interface ITable {
-  IDatabase getDatabasse();
+  ISchema getSchema();
 
   String getId();
 
   String getName();
+
+  String getType();
+
+  String getRemarks();
 
   void addColumn(IColumn column);
 

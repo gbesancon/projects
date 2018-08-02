@@ -17,6 +17,7 @@ public class DatabaseDependenciesDGML {
         DatabaseBuilder databaseBuilder = new DatabaseBuilder();
         IDatabase database =
             databaseBuilder.buildDatabase(
+                configuration.getDatabaseType(),
                 configuration.getHost(),
                 configuration.getPort(),
                 configuration.getUsername(),
@@ -31,6 +32,8 @@ public class DatabaseDependenciesDGML {
       } catch (IOException e) {
         e.printStackTrace();
       } catch (DGMLException e) {
+        e.printStackTrace();
+      } catch (Exception e) {
         e.printStackTrace();
       }
     } else {

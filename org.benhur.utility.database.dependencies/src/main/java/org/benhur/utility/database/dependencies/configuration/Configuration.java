@@ -12,6 +12,10 @@ public class Configuration {
     this.configurationFile = configurationFile;
   }
 
+  public String getDatabaseType() throws PropertyException {
+    return PropertiesFileReader.getStringProperty(configurationFile, "DATABASE_TYPE");
+  }
+
   public String getHost() throws PropertyException {
     return PropertiesFileReader.getStringProperty(configurationFile, "HOST");
   }
