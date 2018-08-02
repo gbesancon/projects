@@ -1,0 +1,103 @@
+// This gradle script help create distribution from a java application jar.
+// Exemple: 
+// ext.getExecutableJarTask = {
+//   project.jar
+// }
+// ext.getExecutableAppName = {
+//   project.name
+// }
+// ext.getExecutableMainClassName = {
+//   "<CLASS_NAME>"
+// }
+// ext.getExecutableDefaultJavaArgs = {
+//   "<DEFAULT_JAVA_ARGS>" ("-XX:+UseG1GC")
+// }
+// apply from: "$gradleScriptsDir/java-executable.gradle"
+
+task cleanDevelopmentScripts(type: Delete) {
+  group = 'development'
+  delete "$buildDir/scripts"
+}
+
+task prepareDevelopmentScripts(type: Copy) {
+  group = 'development'
+  dependsOn cleanDevelopmentScripts
+  dependsOn getExecutableJarTask()
+  def tokens = [
+    "APP_NAME": getExecutableAppName(),
+    "RELATIVE_APP_HOME": "..",
+    "APP_VARIABLE_PREFIX": getExecutableAppName().toUpperCase().replace("-", "_"),
+    "DEFAULT_JVM_ARGS": getExecutableDefaultJavaArgs(),
+    "MAIN_CLASSNAME": getExecutableMainClassName()
+    ]
+  from("$gradleScriptsDir/scripts/run") {
+    filter(org.apache.tools.ant.filters.ReplaceTokens, tokens: tokens)
+    def unixTokens = [
+      "JAR_PATH": "libs/" + getExecutableJarTask().archiveName
+      ]
+    filter(org.apache.tools.ant.filters.ReplaceTokens, tokens: unixTokens)
+    rename ("run", getExecutableAppName())
+  }
+  from("$gradleScriptsDir/scripts/run.bat") {
+    filter(org.apache.tools.ant.filters.ReplaceTokens, tokens: tokens)
+    def windowsTokens = [
+      "JAR_PATH": "libs/" + getExecutableJarTask().archiveName
+      ]
+    filter(org.apache.tools.ant.filters.ReplaceTokens, tokens: windowsTokens)
+    rename ("run.bat", getExecutableAppName() + ".bat")
+  }
+  inputs.properties(tokens)
+  into "$buildDir/scripts"
+}
+build.dependsOn prepareDevelopmentScripts
+
+apply plugin: 'distribution'
+task cleanStandaloneScripts(type: Delete) {
+  group = 'distribution'
+  delete "$buildDir/tmp/scripts"
+}
+task prepareStandaloneScripts(type: Copy) {
+  group = 'distribution'
+  dependsOn cleanStandaloneScripts
+  dependsOn getExecutableJarTask()
+  def tokens = [
+    "APP_NAME": getExecutableAppName(),
+    "RELATIVE_APP_HOME": ".",
+    "APP_VARIABLE_PREFIX": getExecutableAppName().toUpperCase().replace("-", "_"),
+    "DEFAULT_JVM_ARGS": getExecutableDefaultJavaArgs(),
+    "MAIN_CLASSNAME": getExecutableMainClassName()
+    ]
+  from("$gradleScriptsDir/scripts/run") {
+    filter(org.apache.tools.ant.filters.ReplaceTokens, tokens: tokens)
+    def unixTokens = [
+      "JAR_PATH": "lib/" + getExecutableJarTask().archiveName
+      ]
+    filter(org.apache.tools.ant.filters.ReplaceTokens, tokens: unixTokens)
+    rename ("run", getExecutableAppName())
+  }
+  from("$gradleScriptsDir/scripts/run.bat") {
+    filter(org.apache.tools.ant.filters.ReplaceTokens, tokens: tokens)
+    def windowsTokens = [
+      "JAR_PATH": "lib/" + getExecutableJarTask().archiveName
+      ]
+    filter(org.apache.tools.ant.filters.ReplaceTokens, tokens: windowsTokens)
+    rename ("run.bat", getExecutableAppName() + ".bat")
+  }
+  inputs.properties(tokens)
+  into "$buildDir/tmp/scripts"
+}
+distributions {
+  main {
+    baseName = getExecutableAppName()
+    contents {
+      from(prepareStandaloneScripts) {
+        into ''
+      }
+      from(getExecutableJarTask()) {
+        into 'lib'
+      }
+    }
+  }
+}
+distZip.dependsOn getExecutableJarTask()
+distribute.dependsOn distZip
