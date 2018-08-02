@@ -16,6 +16,7 @@ public class DatabaseDependenciesDSM {
         DatabaseBuilder databaseBuilder = new DatabaseBuilder();
         IDatabase database =
             databaseBuilder.buildDatabase(
+                configuration.getDatabaseType(),
                 configuration.getHost(),
                 configuration.getPort(),
                 configuration.getUsername(),
