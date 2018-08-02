@@ -9,7 +9,7 @@ public interface IDatabase {
 
   String getName();
 
-  void addTable(ITable table);
+  void addCatalog(ICatalog catalog);
 
-  List<ITable> getTables();
+  List<ICatalog> getCatalogs();
 }
