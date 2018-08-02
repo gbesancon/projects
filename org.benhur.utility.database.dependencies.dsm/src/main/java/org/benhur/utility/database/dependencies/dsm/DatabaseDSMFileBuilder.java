@@ -4,6 +4,7 @@ package org.benhur.utility.database.dependencies.dsm;
 
 import java.util.List;
 import java.util.Map;
+import org.benhur.utility.database.dependencies.DatabaseUtility;
 import org.benhur.utility.database.dependencies.IColumn;
 import org.benhur.utility.database.dependencies.IDatabase;
 import org.benhur.utility.database.dependencies.ITable;
@@ -16,10 +17,11 @@ public class DatabaseDSMFileBuilder extends ADSMFileBuilder<IDatabase, Configura
   @Override
   protected void buildDSMFile(
       IDatabase input, Configuration configuration, Map<String, Node> nodeByIds, List<Edge> edges) {
-    for (ITable table : input.getTables()) {
+    List<ITable> tables = DatabaseUtility.getAllTables(input);
+    for (ITable table : tables) {
       createNode(table.getId(), table.getName(), nodeByIds);
     }
-    for (ITable table : input.getTables()) {
+    for (ITable table : tables) {
       for (IColumn column : table.getColumns()) {
         if (column.getForeignColumn() != null) {
           createEdge(

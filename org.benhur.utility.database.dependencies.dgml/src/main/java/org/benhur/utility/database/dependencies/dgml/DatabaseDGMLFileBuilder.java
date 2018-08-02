@@ -25,20 +25,6 @@ public class DatabaseDGMLFileBuilder extends ADGMLFileBuilder<IDatabase, Configu
       DirectedGraph directedGraph,
       Map<String, Node> nodeByIds)
       throws DGMLException {
-    GroupBuilder groupBuilder = new GroupBuilder();
-    Group group = groupBuilder.buildGroup(input, configuration);
-    List<Group> allGroups = GroupUtility.getAllGroups(group);
-
-    for (Group aGroup : allGroups) {
-      createNode(aGroup.getId(), aGroup.getName(), true, true, directedGraph, nodeByIds);
-      for (ITable aTable : aGroup.getTables()) {
-        createNode(aTable.getId(), aTable.getName(), true, true, directedGraph, nodeByIds);
-        for (IColumn aColumn : aTable.getColumns()) {
-          createNode(aColumn.getId(), aColumn.getName(), false, false, directedGraph, nodeByIds);
-        }
-      }
-    }
-
     Category containsCategory =
         new Category(
             "Contains",
@@ -51,6 +37,23 @@ public class DatabaseDGMLFileBuilder extends ADGMLFileBuilder<IDatabase, Configu
             "Contains");
     directedGraph.categories.add(containsCategory);
 
+    GroupBuilder groupBuilder = new GroupBuilder();
+    Group group = groupBuilder.buildGroup(input, configuration);
+    List<Group> allGroups = GroupUtility.getAllGroups(group);
+
+    // Display table in groups defined
+    // Create nodes
+    for (Group aGroup : allGroups) {
+      createNode(aGroup.getId(), aGroup.getName(), true, true, directedGraph, nodeByIds);
+      for (ITable aTable : aGroup.getTables()) {
+        createNode(aTable.getId(), aTable.getName(), true, true, directedGraph, nodeByIds);
+        for (IColumn aColumn : aTable.getColumns()) {
+          createNode(aColumn.getId(), aColumn.getName(), false, false, directedGraph, nodeByIds);
+        }
+      }
+    }
+
+    // Create links
     for (Group aGroup : allGroups) {
       for (Group aSubGroup : aGroup.getSubGroups()) {
         createLink(aGroup.getId(), aSubGroup.getId(), directedGraph, containsCategory, nodeByIds);
