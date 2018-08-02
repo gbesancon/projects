@@ -8,12 +8,12 @@ import java.util.List;
 public class Database implements IDatabase {
   protected final String id;
   protected final String name;
-  protected final List<ITable> tables;
+  protected final List<ICatalog> catalogs;
 
   public Database(String id, String name) {
     this.id = id;
     this.name = name;
-    this.tables = new ArrayList<>();
+    this.catalogs = new ArrayList<>();
   }
 
   @Override
@@ -27,12 +27,12 @@ public class Database implements IDatabase {
   }
 
   @Override
-  public void addTable(ITable table) {
-    tables.add(table);
+  public void addCatalog(ICatalog catalog) {
+    catalogs.add(catalog);
   }
 
   @Override
-  public List<ITable> getTables() {
-    return tables;
+  public List<ICatalog> getCatalogs() {
+    return catalogs;
   }
 }

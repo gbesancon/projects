@@ -2,7 +2,6 @@
 
 package org.benhur.utility.database.dependencies.builder;
 
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -30,7 +29,7 @@ public class DatabaseBuilder {
     ResultSet tableResultSet = null;
     ResultSet columnResultSet = null;
     ResultSet foreignColumnResultSet = null;
-
+    
     try {
       switch (type) {
         case "mysql":
@@ -71,8 +70,8 @@ public class DatabaseBuilder {
           throw new Exception("Unknown database type.");
       }
 
-      System.out.println(connectionURL);
-      DriverManager.setLogWriter(new PrintWriter(System.out));
+      //System.out.println(connectionURL);
+      //DriverManager.setLogWriter(new PrintWriter(System.out));
       connection = DriverManager.getConnection(connectionURL);
       if (connection != null) {
         DatabaseMetaData databaseMetaData = connection.getMetaData();
@@ -80,59 +79,59 @@ public class DatabaseBuilder {
         System.out.println("Driver version: " + databaseMetaData.getDriverVersion());
         System.out.println("Product name: " + databaseMetaData.getDatabaseProductName());
         System.out.println("Product version: " + databaseMetaData.getDatabaseProductVersion());
-      }
 
-      database = new Database(databaseName, databaseName);
+        database = new Database(databaseName, databaseName);
 
-      Map<String, ICatalog> catalogByIds = new HashMap<>();
-      Map<String, ISchema> schemaByIds = new HashMap<>();
-      Map<String, ITable> tableByIds = new HashMap<>();
-      Map<String, IColumn> columnByIds = new HashMap<>();
+        Map<String, ICatalog> catalogByIds = new HashMap<>();
+        Map<String, ISchema> schemaByIds = new HashMap<>();
+        Map<String, ITable> tableByIds = new HashMap<>();
+        Map<String, IColumn> columnByIds = new HashMap<>();
 
-      tableResultSet = connection.getMetaData().getTables(null, null, "%", null);
-      while (tableResultSet.next()) {
-        String tableCatalog = tableResultSet.getString(1);
-        ICatalog catalog = getCatalog(database, tableCatalog, catalogByIds);
-        String tableSchema = tableResultSet.getString(2);
-        ISchema schema = getSchema(catalog, tableSchema, schemaByIds);
-        String tableName = tableResultSet.getString(3);
-        String tableType = tableResultSet.getString(4);
-        String remarks = tableResultSet.getString(5);
-        ITable table = getTable(schema, tableName, tableType, remarks, tableByIds);
-        columnResultSet = connection.getMetaData().getColumns(null, null, tableName, "%");
-        while (columnResultSet.next()) {
-          String columnName = columnResultSet.getString(4);
-          IColumn column = getColumn(table, columnName, columnByIds);
-          table.addColumn(column);
+        tableResultSet = connection.getMetaData().getTables(null, null, "%", null);
+        while (tableResultSet.next()) {
+          String tableCatalog = tableResultSet.getString(1);
+          ICatalog catalog = getCatalog(database, tableCatalog, catalogByIds);
+          String tableSchema = tableResultSet.getString(2);
+          ISchema schema = getSchema(catalog, tableSchema, schemaByIds);
+          String tableName = tableResultSet.getString(3);
+          String tableType = tableResultSet.getString(4);
+          String remarks = tableResultSet.getString(5);
+          ITable table = getTable(schema, tableName, tableType, remarks, tableByIds);
+          columnResultSet = connection.getMetaData().getColumns(null, null, tableName, "%");
+          while (columnResultSet.next()) {
+            String columnName = columnResultSet.getString(4);
+            IColumn column = getColumn(table, columnName, columnByIds);
+          }
         }
-        database.addTable(table);
-      }
 
-      for (ITable table : tableByIds.values()) {
-        foreignColumnResultSet =
-            connection.getMetaData().getImportedKeys(null, null, table.getName());
-        while (foreignColumnResultSet.next()) {
-          String foreignKeyCatalogName = foreignColumnResultSet.getString(5);
-          ICatalog foreignKeyCatalog = getCatalog(database, foreignKeyCatalogName, catalogByIds);
-          String foreignKeySchemaName = foreignColumnResultSet.getString(6);
-          ISchema foreignKeySchema =
-              getSchema(foreignKeyCatalog, foreignKeySchemaName, schemaByIds);
-          String foreignKeyTableName = foreignColumnResultSet.getString(7);
-          ITable foreignKeyTable =
-              getTable(foreignKeySchema, foreignKeyTableName, null, null, tableByIds);
-          String foreignKeyColumnName = foreignColumnResultSet.getString(8);
-          IColumn foreignKeyColumn = getColumn(foreignKeyTable, foreignKeyColumnName, columnByIds);
-          String primaryKeyCatalogName = foreignColumnResultSet.getString(1);
-          ICatalog primaryKeyCatalog = getCatalog(database, primaryKeyCatalogName, catalogByIds);
-          String primaryKeySchemaName = foreignColumnResultSet.getString(2);
-          ISchema primaryKeySchema =
-              getSchema(primaryKeyCatalog, primaryKeySchemaName, schemaByIds);
-          String primaryKeyTableName = foreignColumnResultSet.getString(3);
-          ITable primaryKeyTable =
-              getTable(primaryKeySchema, primaryKeyTableName, null, null, tableByIds);
-          String primaryKeyColumnName = foreignColumnResultSet.getString(4);
-          IColumn primaryKeyColumn = getColumn(primaryKeyTable, primaryKeyColumnName, columnByIds);
-          foreignKeyColumn.setForeignColumn(primaryKeyColumn);
+        for (ITable table : tableByIds.values()) {
+          foreignColumnResultSet =
+              connection.getMetaData().getImportedKeys(null, null, table.getName());
+          while (foreignColumnResultSet.next()) {
+            String foreignKeyCatalogName = foreignColumnResultSet.getString(5);
+            ICatalog foreignKeyCatalog = getCatalog(database, foreignKeyCatalogName, catalogByIds);
+            String foreignKeySchemaName = foreignColumnResultSet.getString(6);
+            ISchema foreignKeySchema =
+                getSchema(foreignKeyCatalog, foreignKeySchemaName, schemaByIds);
+            String foreignKeyTableName = foreignColumnResultSet.getString(7);
+            ITable foreignKeyTable =
+                getTable(foreignKeySchema, foreignKeyTableName, null, null, tableByIds);
+            String foreignKeyColumnName = foreignColumnResultSet.getString(8);
+            IColumn foreignKeyColumn =
+                getColumn(foreignKeyTable, foreignKeyColumnName, columnByIds);
+            String primaryKeyCatalogName = foreignColumnResultSet.getString(1);
+            ICatalog primaryKeyCatalog = getCatalog(database, primaryKeyCatalogName, catalogByIds);
+            String primaryKeySchemaName = foreignColumnResultSet.getString(2);
+            ISchema primaryKeySchema =
+                getSchema(primaryKeyCatalog, primaryKeySchemaName, schemaByIds);
+            String primaryKeyTableName = foreignColumnResultSet.getString(3);
+            ITable primaryKeyTable =
+                getTable(primaryKeySchema, primaryKeyTableName, null, null, tableByIds);
+            String primaryKeyColumnName = foreignColumnResultSet.getString(4);
+            IColumn primaryKeyColumn =
+                getColumn(primaryKeyTable, primaryKeyColumnName, columnByIds);
+            foreignKeyColumn.setForeignColumn(primaryKeyColumn);
+          }
         }
       }
     } catch (Exception e) {
@@ -164,6 +163,7 @@ public class DatabaseBuilder {
       catalog = catalogByIds.get(id);
     } else {
       catalog = new Catalog(database, id, name);
+      database.addCatalog(catalog);
       catalogByIds.put(catalog.getId(), catalog);
     }
     return catalog;
@@ -176,6 +176,7 @@ public class DatabaseBuilder {
       schema = schemaById.get(id);
     } else {
       schema = new Schema(catalog, id, name);
+      catalog.addSchema(schema);
       schemaById.put(schema.getId(), schema);
     }
     return schema;
@@ -189,6 +190,7 @@ public class DatabaseBuilder {
       table = tableByIds.get(id);
     } else {
       table = new Table(schema, id, name, type, remarks);
+      schema.addTable(table);
       tableByIds.put(table.getId(), table);
     }
     return table;
@@ -201,6 +203,7 @@ public class DatabaseBuilder {
       column = columnByIds.get(id);
     } else {
       column = new Column(table, id, name);
+      table.addColumn(column);
       columnByIds.put(column.getId(), column);
     }
     return column;
