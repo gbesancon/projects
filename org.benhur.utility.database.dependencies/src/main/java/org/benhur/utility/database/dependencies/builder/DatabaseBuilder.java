@@ -89,17 +89,17 @@ public class DatabaseBuilder {
 
         tableResultSet = connection.getMetaData().getTables(null, null, "%", null);
         while (tableResultSet.next()) {
-          String tableCatalog = tableResultSet.getString(1);
+          String tableCatalog = tableResultSet.getString("TABLE_CAT");
           ICatalog catalog = getCatalog(database, tableCatalog, catalogByIds);
-          String tableSchema = tableResultSet.getString(2);
+          String tableSchema = tableResultSet.getString("TABLE_SCHEM");
           ISchema schema = getSchema(catalog, tableSchema, schemaByIds);
-          String tableName = tableResultSet.getString(3);
-          String tableType = tableResultSet.getString(4);
-          String remarks = tableResultSet.getString(5);
+          String tableName = tableResultSet.getString("TABLE_NAME");
+          String tableType = tableResultSet.getString("TABLE_TYPE");
+          String remarks = tableResultSet.getString("REMARKS");
           ITable table = getTable(schema, tableName, tableType, remarks, tableByIds);
           columnResultSet = connection.getMetaData().getColumns(null, null, tableName, "%");
           while (columnResultSet.next()) {
-            String columnName = columnResultSet.getString(4);
+            String columnName = columnResultSet.getString("COLUMN_NAME");
             IColumn column = getColumn(table, columnName, columnByIds);
           }
         }
@@ -108,26 +108,26 @@ public class DatabaseBuilder {
           foreignColumnResultSet =
               connection.getMetaData().getImportedKeys(null, null, table.getName());
           while (foreignColumnResultSet.next()) {
-            String foreignKeyCatalogName = foreignColumnResultSet.getString(5);
+            String foreignKeyCatalogName = foreignColumnResultSet.getString("FKTABLE_CAT");
             ICatalog foreignKeyCatalog = getCatalog(database, foreignKeyCatalogName, catalogByIds);
-            String foreignKeySchemaName = foreignColumnResultSet.getString(6);
+            String foreignKeySchemaName = foreignColumnResultSet.getString("FKTABLE_SCHEM");
             ISchema foreignKeySchema =
                 getSchema(foreignKeyCatalog, foreignKeySchemaName, schemaByIds);
-            String foreignKeyTableName = foreignColumnResultSet.getString(7);
+            String foreignKeyTableName = foreignColumnResultSet.getString("FKTABLE_NAME");
             ITable foreignKeyTable =
                 getTable(foreignKeySchema, foreignKeyTableName, null, null, tableByIds);
-            String foreignKeyColumnName = foreignColumnResultSet.getString(8);
+            String foreignKeyColumnName = foreignColumnResultSet.getString("FKCOLUMN_NAME");
             IColumn foreignKeyColumn =
                 getColumn(foreignKeyTable, foreignKeyColumnName, columnByIds);
-            String primaryKeyCatalogName = foreignColumnResultSet.getString(1);
+            String primaryKeyCatalogName = foreignColumnResultSet.getString("PKTABLE_CAT");
             ICatalog primaryKeyCatalog = getCatalog(database, primaryKeyCatalogName, catalogByIds);
-            String primaryKeySchemaName = foreignColumnResultSet.getString(2);
+            String primaryKeySchemaName = foreignColumnResultSet.getString("PKTABLE_SCHEM");
             ISchema primaryKeySchema =
                 getSchema(primaryKeyCatalog, primaryKeySchemaName, schemaByIds);
-            String primaryKeyTableName = foreignColumnResultSet.getString(3);
+            String primaryKeyTableName = foreignColumnResultSet.getString("PKTABLE_NAME");
             ITable primaryKeyTable =
                 getTable(primaryKeySchema, primaryKeyTableName, null, null, tableByIds);
-            String primaryKeyColumnName = foreignColumnResultSet.getString(4);
+            String primaryKeyColumnName = foreignColumnResultSet.getString("PKCOLUMN_NAME");
             IColumn primaryKeyColumn =
                 getColumn(primaryKeyTable, primaryKeyColumnName, columnByIds);
             foreignKeyColumn.setForeignColumn(primaryKeyColumn);
