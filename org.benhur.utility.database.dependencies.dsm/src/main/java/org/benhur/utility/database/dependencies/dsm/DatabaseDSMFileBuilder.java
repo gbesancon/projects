@@ -23,12 +23,8 @@ public class DatabaseDSMFileBuilder extends ADSMFileBuilder<IDatabase, Configura
     }
     for (ITable table : tables) {
       for (IColumn column : table.getColumns()) {
-        if (column.getForeignColumn() != null) {
-          createEdge(
-              column.getTable().getId(),
-              column.getForeignColumn().getTable().getId(),
-              nodeByIds,
-              edges);
+        for (IColumn referedColumn : column.getReferedColumns()) {
+          createEdge(column.getTable().getId(), referedColumn.getTable().getId(), nodeByIds, edges);
         }
       }
     }
