@@ -62,13 +62,8 @@ public class DatabaseDGMLFileBuilder extends ADGMLFileBuilder<IDatabase, Configu
         createLink(aGroup.getId(), aTable.getId(), directedGraph, containsCategory, nodeByIds);
         for (IColumn aColumn : aTable.getColumns()) {
           createLink(aTable.getId(), aColumn.getId(), directedGraph, containsCategory, nodeByIds);
-          if (aColumn.getForeignColumn() != null) {
-            createLink(
-                aColumn.getId(),
-                aColumn.getForeignColumn().getId(),
-                directedGraph,
-                null,
-                nodeByIds);
+          for (IColumn referedColumn : aColumn.getReferedColumns()) {
+            createLink(aColumn.getId(), referedColumn.getId(), directedGraph, null, nodeByIds);
           }
         }
       }
