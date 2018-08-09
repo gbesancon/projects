@@ -2,6 +2,8 @@
 
 package org.benhur.utility.database.dependencies;
 
+import java.util.Collection;
+
 public interface IColumn {
   ITable getTable();
 
@@ -9,7 +11,7 @@ public interface IColumn {
 
   String getName();
 
-  void setForeignColumn(IColumn foreignColumn);
+  void refersTo(IColumn referedColumn);
 
-  IColumn getForeignColumn();
+  Collection<IColumn> getReferedColumns();
 }

@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 import org.benhur.utility.database.dependencies.Catalog;
@@ -22,13 +23,16 @@ import org.benhur.utility.database.dependencies.Table;
 public class DatabaseBuilder {
   public IDatabase buildDatabase(
       String type, String host, int port, String username, String password, String databaseName) {
+
     IDatabase database = null;
 
     String connectionURL = null;
     Connection connection = null;
+    Statement statement = null;
     ResultSet tableResultSet = null;
     ResultSet columnResultSet = null;
     ResultSet foreignColumnResultSet = null;
+    ResultSet viewColumnUsageResultSet = null;
 
     try {
       switch (type) {
@@ -108,17 +112,6 @@ public class DatabaseBuilder {
           foreignColumnResultSet =
               connection.getMetaData().getImportedKeys(null, null, table.getName());
           while (foreignColumnResultSet.next()) {
-            String foreignKeyCatalogName = foreignColumnResultSet.getString("FKTABLE_CAT");
-            ICatalog foreignKeyCatalog = getCatalog(database, foreignKeyCatalogName, catalogByIds);
-            String foreignKeySchemaName = foreignColumnResultSet.getString("FKTABLE_SCHEM");
-            ISchema foreignKeySchema =
-                getSchema(foreignKeyCatalog, foreignKeySchemaName, schemaByIds);
-            String foreignKeyTableName = foreignColumnResultSet.getString("FKTABLE_NAME");
-            ITable foreignKeyTable =
-                getTable(foreignKeySchema, foreignKeyTableName, null, null, tableByIds);
-            String foreignKeyColumnName = foreignColumnResultSet.getString("FKCOLUMN_NAME");
-            IColumn foreignKeyColumn =
-                getColumn(foreignKeyTable, foreignKeyColumnName, columnByIds);
             String primaryKeyCatalogName = foreignColumnResultSet.getString("PKTABLE_CAT");
             ICatalog primaryKeyCatalog = getCatalog(database, primaryKeyCatalogName, catalogByIds);
             String primaryKeySchemaName = foreignColumnResultSet.getString("PKTABLE_SCHEM");
@@ -130,13 +123,50 @@ public class DatabaseBuilder {
             String primaryKeyColumnName = foreignColumnResultSet.getString("PKCOLUMN_NAME");
             IColumn primaryKeyColumn =
                 getColumn(primaryKeyTable, primaryKeyColumnName, columnByIds);
-            foreignKeyColumn.setForeignColumn(primaryKeyColumn);
+            String foreignKeyCatalogName = foreignColumnResultSet.getString("FKTABLE_CAT");
+            ICatalog foreignKeyCatalog = getCatalog(database, foreignKeyCatalogName, catalogByIds);
+            String foreignKeySchemaName = foreignColumnResultSet.getString("FKTABLE_SCHEM");
+            ISchema foreignKeySchema =
+                getSchema(foreignKeyCatalog, foreignKeySchemaName, schemaByIds);
+            String foreignKeyTableName = foreignColumnResultSet.getString("FKTABLE_NAME");
+            ITable foreignKeyTable =
+                getTable(foreignKeySchema, foreignKeyTableName, null, null, tableByIds);
+            String foreignKeyColumnName = foreignColumnResultSet.getString("FKCOLUMN_NAME");
+            IColumn foreignKeyColumn =
+                getColumn(foreignKeyTable, foreignKeyColumnName, columnByIds);
+            foreignKeyColumn.refersTo(primaryKeyColumn);
           }
+        }
+
+        statement = connection.createStatement();
+        viewColumnUsageResultSet =
+            statement.executeQuery("SELECT * FROM INFORMATION_SCHEMA.VIEW_COLUMN_USAGE");
+
+        while (viewColumnUsageResultSet.next()) {
+          String viewCatalogName = viewColumnUsageResultSet.getString("VIEW_CATALOG");
+          ICatalog viewCatalog = getCatalog(database, viewCatalogName, catalogByIds);
+          String viewSchemaName = viewColumnUsageResultSet.getString("VIEW_SCHEMA");
+          ISchema viewSchema = getSchema(viewCatalog, viewSchemaName, schemaByIds);
+          String viewName = viewColumnUsageResultSet.getString("VIEW_NAME");
+          ITable view = getTable(viewSchema, viewName, null, null, tableByIds);
+          String tableCatalogName = viewColumnUsageResultSet.getString("TABLE_CATALOG");
+          ICatalog tableCatalog = getCatalog(database, tableCatalogName, catalogByIds);
+          String tableSchemaName = viewColumnUsageResultSet.getString("TABLE_SCHEMA");
+          ISchema tableSchema = getSchema(tableCatalog, tableSchemaName, schemaByIds);
+          String tableName = viewColumnUsageResultSet.getString("TABLE_NAME");
+          ITable table = getTable(tableSchema, tableName, null, null, tableByIds);
+          String columnName = viewColumnUsageResultSet.getString("COLUMN_NAME");
+          IColumn viewColumn = getColumn(view, columnName, columnByIds);
+          IColumn tableColumn = getColumn(table, columnName, columnByIds);
+          viewColumn.refersTo(tableColumn);
         }
       }
     } catch (Exception e) {
     } finally {
       try {
+        if (viewColumnUsageResultSet != null) {
+          viewColumnUsageResultSet.close();
+        }
         if (tableResultSet != null) {
           tableResultSet.close();
         }
@@ -145,6 +175,9 @@ public class DatabaseBuilder {
         }
         if (foreignColumnResultSet != null) {
           foreignColumnResultSet.close();
+        }
+        if (statement != null) {
+          statement.close();
         }
         if (connection != null) {
           connection.close();

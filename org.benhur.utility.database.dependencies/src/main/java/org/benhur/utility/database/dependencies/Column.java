@@ -2,17 +2,21 @@
 
 package org.benhur.utility.database.dependencies;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 public class Column implements IColumn {
   protected final ITable table;
   protected final String id;
   protected final String name;
-  protected IColumn foreignColumn;
+  protected final Set<IColumn> referedColumns;
 
   public Column(ITable table, String id, String name) {
     this.table = table;
     this.id = id;
     this.name = name;
-    this.foreignColumn = null;
+    this.referedColumns = new HashSet<>();
   }
 
   @Override
@@ -31,12 +35,12 @@ public class Column implements IColumn {
   }
 
   @Override
-  public void setForeignColumn(IColumn foreignColumn) {
-    this.foreignColumn = foreignColumn;
+  public void refersTo(IColumn referedColumn) {
+    this.referedColumns.add(referedColumn);
   }
 
   @Override
-  public IColumn getForeignColumn() {
-    return foreignColumn;
+  public Collection<IColumn> getReferedColumns() {
+    return referedColumns;
   }
 }
