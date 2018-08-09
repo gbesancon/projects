@@ -4,24 +4,24 @@ package org.benhur.utility.database.dependencies.group;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import org.benhur.utility.database.dependencies.ITable;
-import org.benhur.utility.regex.RegExUtility;
 
 public class Group {
+  protected final String id;
   protected final String name;
-  protected final String includePatternString;
-  protected final String excludePatternString;
+  protected final Function<ITable, Boolean> acceptTable;
   protected final List<ITable> tables = new ArrayList<>();
   protected final List<Group> subGroups = new ArrayList<>();
 
-  public Group(String name, String includePatternString, String excludePatternString) {
+  public Group(String id, String name, Function<ITable, Boolean> acceptTable) {
+    this.id = id;
     this.name = name;
-    this.includePatternString = includePatternString;
-    this.excludePatternString = excludePatternString;
+    this.acceptTable = acceptTable;
   }
 
   public String getId() {
-    return name;
+    return id;
   }
 
   public String getName() {
@@ -29,7 +29,7 @@ public class Group {
   }
 
   public boolean acceptTable(ITable table) {
-    return RegExUtility.checkValue(table.getName(), includePatternString, excludePatternString);
+    return this.acceptTable.apply(table);
   }
 
   public void addTable(ITable table) {
