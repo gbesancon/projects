@@ -28,3 +28,6 @@ Java 9 varhandle
 Strangler methodology
 https://github.com/DiUS/pact-jvm
 https://cloud.spring.io/spring-cloud-contract/spring-cloud-contract.html
+
+
+https://kafka.apache.org/
