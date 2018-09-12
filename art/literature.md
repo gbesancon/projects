@@ -27,3 +27,4 @@ Fat Chance - Robert H Lustig
 Inside Out, The practice of resilience - Dr Sven Hansen
 Terry Pratchett
 Survival of the Fattest - Jens Galschiot
+Adam Grant - how non-conformists move the world
