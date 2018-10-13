@@ -55,7 +55,7 @@ rename_files_folders ()
 {
   echo Processing `pwd`
   rename_files "*.bmp *.BMP *.jpg *.JPG *.jpeg *.JPEG *.gif *.GIF *.png *.PNG *.tiff *.TIFF *.orf *.ORF" "p"
-  rename_files "*.avi *.AVI *.mp4 *.MP4 *.mov *.MOV *.mpg *.MPG *.mpeg *.MPEG *.wmv *.WMV *.3gp *.3GP *.flv *.FLV" "v"
+  rename_files "*.avi *.AVI *.mp4 *.MP4 *.mov *.MOV *.mpg *.MPG *.mpeg *.MPEG *.wmv *.WMV *.3gp *.3GP *.flv *.FLV *.mts *.MTS" "v"
   rename_files "*.mp3 *.MP3 *.wav *.WAV" "a"
   rename_folders
 }
