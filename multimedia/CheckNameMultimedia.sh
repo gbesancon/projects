@@ -50,7 +50,7 @@ check_folders ()
 check_files_folders () 
 {
   #echo Processing `pwd`/$1
-  check_files "^p[0-9][0-9][0-9][0-9][0-9]\.((bmp)|(jpg)|(jpeg)|(gif)|(png)|(tiff)|(orf))" "^v[0-9][0-9][0-9][0-9][0-9]\.((avi)|(mp4)|(mov)|(mpg)|(mpeg)|(wmv)|(3gp)|(flv))" "^a[0-9][0-9][0-9][0-9][0-9]\.((mp3)|(wav))"
+  check_files "^p[0-9][0-9][0-9][0-9][0-9]\.((bmp)|(jpg)|(jpeg)|(gif)|(png)|(tiff)|(orf))" "^v[0-9][0-9][0-9][0-9][0-9]\.((avi)|(mp4)|(mov)|(mpg)|(mpeg)|(wmv)|(3gp)|(flv)|(mts))" "^a[0-9][0-9][0-9][0-9][0-9]\.((mp3)|(wav))"
   check_folders
 }
 
