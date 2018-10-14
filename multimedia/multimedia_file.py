@@ -7,41 +7,42 @@ import sys
 import re
 import piexif
 
+AUDIO_PREFIX = "a"
 AUDIO_EXTENSION_PREFIX = {    
-    ".mp3" : "a",
-    ".wav" : "a",
-    ".ogg" : "a",
+    ".mp3" : AUDIO_PREFIX,
+    ".wav" : AUDIO_PREFIX,
+    ".ogg" : AUDIO_PREFIX,
 }
 
+PICTURE_PREFIX = "p"
 EXIF_PICTURE_EXTENSION_PREFIX = {
-    ".jpg" : "p",
-    ".jpeg": "p",
-    ".png" : "p",
-    ".tif" : "p",
-    ".tiff": "p",
+    ".jpg" : PICTURE_PREFIX,
+    ".jpeg": PICTURE_PREFIX,
+    ".png" : PICTURE_PREFIX,
+    ".tif" : PICTURE_PREFIX,
+    ".tiff": PICTURE_PREFIX,
 }
-
 NON_EXIF_PICTURE_EXTENSION_PREFIX = {    
-    ".bmp" : "p",
-    ".gif" : "p",
-    ".orf" : "p",
+    ".bmp" : PICTURE_PREFIX,
+    ".gif" : PICTURE_PREFIX,
+    ".orf" : PICTURE_PREFIX,
 }
-
 PICTURE_EXTENSION_PREFIX = {}
 for d in [EXIF_PICTURE_EXTENSION_PREFIX, NON_EXIF_PICTURE_EXTENSION_PREFIX]:
     PICTURE_EXTENSION_PREFIX.update(d)
 
+VIDEO_PREFIX = "v"
 VIDEO_EXTENSION_PREFIX = {    
-    ".avi" : "v",
-    ".mp4" : "v",
-    ".mov" : "v",
-    ".mpg" : "v",
-    ".mpeg": "v",
-    ".mts" : "v",
-    ".wmv" : "v",
-    ".3gp" : "v",
-    ".flv" : "v",
-    ".ogv" : "a",
+    ".avi" : VIDEO_PREFIX,
+    ".mp4" : VIDEO_PREFIX,
+    ".mov" : VIDEO_PREFIX,
+    ".mpg" : VIDEO_PREFIX,
+    ".mpeg": VIDEO_PREFIX,
+    ".mts" : VIDEO_PREFIX,
+    ".wmv" : VIDEO_PREFIX,
+    ".3gp" : VIDEO_PREFIX,
+    ".flv" : VIDEO_PREFIX,
+    ".ogv" : VIDEO_PREFIX,
 }
 
 EXTENSION_PREFIX = {}
@@ -59,6 +60,10 @@ def print_file_error_message(file_path, error_message):
 
 def get_folder_path(file_path):
     return os.path.dirname(file_path)
+
+def get_folder_name(file_path):    
+    folder_path = get_folder_path(file_path)
+    return os.path.basename(folder_path)
 
 def get_file_name(file_path):
     return os.path.basename(file_path)
@@ -78,7 +83,7 @@ def check_and_process_files_in_folder(folder_path, process, verbose):
             folder_invalid_files += subfolder_invalid_files
         for file_name in files:
             file_path = os.path.join(path,file_name)
-            (file_name_valid, file_name_error_message) = check_and_process_file_name(file_path, verbose)
+            (file_name_valid, file_name_error_message) = check_file_name(file_path, verbose)
             folder_valid &= file_name_valid
             if not file_name_valid:
                 folder_invalid_files += [(file_path, file_name_error_message)]
@@ -167,26 +172,49 @@ def check_file_date(file_path):
 def is_panorama_folder(folder_name):
     return folder_name == PANORAMA_FOLDER_NAME
 
-def check_and_process_file_name(file_path, verbose):
-    valid = False
-    error_message = None
-    folder_path = get_folder_path(file_path)
-    folder_name = os.path.basename(folder_path)
+def has_valid_extension(file_path):
+    file_extension = get_file_extension(file_path)
+    return file_extension in EXTENSION_PREFIX
+
+def is_valid_file_name(file_path):
+    valid = True
     file_name = get_file_name(file_path)
     file_name_no_extension = os.path.splitext(file_name)[0]
     file_extension = get_file_extension(file_path)
-    if file_extension in EXTENSION_PREFIX:
-        prefix = EXTENSION_PREFIX[file_extension]
-        match = re.match("^" + prefix + "\d\d\d\d\d$", file_name_no_extension)
-        if match:
+    prefix = EXTENSION_PREFIX[file_extension]
+    match = re.match("^" + prefix + "\d\d\d\d\d$", file_name_no_extension)
+    if match:
+        valid = True
+    else:
+        valid = False
+    return valid
+
+def is_valid_panorama_file_name(file_path):
+    valid = True
+    file_name = get_file_name(file_path)
+    file_name_no_extension = os.path.splitext(file_name)[0]
+    file_extension = get_file_extension(file_path)
+    prefix = EXTENSION_PREFIX[file_extension]
+    match = re.match("^" + prefix + "\d\d\d\d\d" + " - " + prefix + "\d\d\d\d\d" + "$", file_name_no_extension)
+    if match:
+        valid = True
+    else:
+        valid = False
+    return valid
+
+def check_file_name(file_path, verbose):
+    valid = False
+    error_message = None
+    folder_name = get_folder_name(file_path)
+    if has_valid_extension(file_path):
+        if is_valid_file_name(file_path):
             if not is_panorama_folder(folder_name):
                 valid = True
             else:
                 valid = False
                 error_message = "File should not be stored in a Panorama folder"
         else:
-            match = re.match("^" + prefix + "\d\d\d\d\d" + " - " + prefix + "\d\d\d\d\d" + "$", file_name_no_extension)
-            if match:
+            if is_valid_panorama_file_name(file_path):
                 if is_panorama_folder(folder_name):
                     valid = True
                 else:
@@ -201,7 +229,7 @@ def check_and_process_file_name(file_path, verbose):
                     error_message = "Filename incorrect"
     else:
         valid = False
-        error_message = "Extension " + file_extension + " not supported"
+        error_message = "Extension " + get_file_extension(file_path) + " not supported"
     if verbose:
         print_file_error_message(file_path, error_message)
     return (valid, error_message)
