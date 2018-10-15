@@ -3,7 +3,7 @@ import multimedia_file
 
 class Test_CheckMultimediaFile(unittest.TestCase):
     def test_check_and_process_files_in_folders(self):
-        (valid, errors) = multimedia_file.check_and_process_files_in_folders(["H:\\02-Photos\\01-Personal\\2018"], False, False)
+        (valid, _) = multimedia_file.check_and_process_files_in_folders(["H:\\02-Photos\\01-Personal\\2014"], False, False)
         self.assertFalse(valid)
 
     def test_get_date_from_file_or_folder(self):
