@@ -2,6 +2,7 @@ from __future__ import print_function
 import argparse
 import os
 import platform
+import time
 import datetime
 import sys
 import re
@@ -54,15 +55,28 @@ PANORAMA_FOLDER_NAME = "Panorama"
 def is_panorama_folder(folder_name):
     return folder_name == PANORAMA_FOLDER_NAME
 
-def print_file_process_comment(file_path, process_comment):
-    print(file_path + ": " + process_comment)
+def print_file_message(file_path, message):
+    print(file_path + ": " + message)
 
-OK_MESSAGE = "OK"
+def print_messages(messages):
+    for file_path in messages:
+        for message in messages[file_path]:
+            print_file_message(file_path, message)
 
-def print_file_error_message(file_path, error_message):
-    if not error_message:
-        error_message = OK_MESSAGE
-    print(file_path + ": " + error_message)
+def add_messages(messages, messages_to_add):
+    for file_path in messages_to_add:
+        for message_to_add in messages_to_add[file_path]:
+            add_message(messages, file_path, message_to_add)
+
+def add_message(messages, file_path, message_to_add):
+    if not file_path in messages:
+        messages[file_path] = []
+    if not message_to_add in messages[file_path]:
+        messages[file_path] += [message_to_add]
+    
+def delete_message(messages, file_path):
+    if file_path in messages:
+        del messages[file_path]
 
 def get_folder_path(file_path):
     return os.path.dirname(file_path)
@@ -90,7 +104,7 @@ def is_year_folder_name(folder_name):
 def is_valid_dated_folder_name(folder_name):
     valid = True
     date = None
-    match = re.match("^(\d\d\d\d-\d\d-\d\d)[a-z]?.*$", folder_name)
+    match = re.match("^(\d\d\d\d-\d\d-\d\d)[a-z]?\s-\s.*$", folder_name)
     if match:
         valid = True
         date = datetime.datetime.strptime(match.group(1), '%Y-%m-%d')
@@ -148,6 +162,9 @@ def get_exif(file_path):
         pass
     return exif_dict
 
+UTF8 = "utf-8"
+EXIF_DATE_FORMAT = '%Y:%m:%d %H:%M:%S'
+
 def has_exif_date_time_original(file_path):
     return get_exif_date_time_original(file_path) is not None
 
@@ -161,9 +178,19 @@ def get_exif_date_time_original(file_path):
                 if piexif.ExifIFD.DateTimeOriginal in exif:
                     date_time_original_binary = exif[piexif.ExifIFD.DateTimeOriginal]
                     if date_time_original_binary:
-                        date_time_original = date_time_original_binary.decode("utf-8")
-                        exif_date_time_original = datetime.datetime.strptime(date_time_original, '%Y:%m:%d %H:%M:%S')
+                        date_time_original = date_time_original_binary.decode(UTF8)
+                        exif_date_time_original = datetime.datetime.strptime(date_time_original, EXIF_DATE_FORMAT)
     return exif_date_time_original
+
+def set_exif_date_time_original(file_path, file_date):
+    try:
+        if has_exif(file_path):
+            exif_dict = get_exif(file_path)
+            exif_dict["Exif"][piexif.ExifIFD.DateTimeOriginal] = file_date.strftime(EXIF_DATE_FORMAT).encode(UTF8)
+            exif_bytes = piexif.dump(exif_dict)
+            piexif.insert(exif_bytes, file_path)
+    except:
+        pass
 
 def has_exif_date_time_digitized(file_path):
     return get_exif_date_time_digitized(file_path) is not None
@@ -178,9 +205,19 @@ def get_exif_date_time_digitized(file_path):
                 if piexif.ExifIFD.DateTimeDigitized in exif:
                     date_time_digitized_binary = exif[piexif.ExifIFD.DateTimeDigitized]
                     if date_time_digitized_binary:
-                        date_time_digitized = date_time_digitized_binary.decode("utf-8")
-                        exif_date_time_digitized = datetime.datetime.strptime(date_time_digitized, '%Y:%m:%d %H:%M:%S')
+                        date_time_digitized = date_time_digitized_binary.decode(UTF8)
+                        exif_date_time_digitized = datetime.datetime.strptime(date_time_digitized, EXIF_DATE_FORMAT)
     return exif_date_time_digitized
+
+def set_exif_date_time_digitized(file_path, file_date):
+    try:
+        if has_exif(file_path):
+            exif_dict = get_exif(file_path)
+            exif_dict["Exif"][piexif.ExifIFD.DateTimeDigitized] = file_date.strftime(EXIF_DATE_FORMAT).encode(UTF8)
+            exif_bytes = piexif.dump(exif_dict)
+            piexif.insert(exif_bytes, file_path)
+    except:
+        pass
 
 def get_creation_date(file_path):
     creation_date = None
@@ -201,24 +238,70 @@ def get_creation_date(file_path):
             creation_date = stat.st_mtime
     return datetime.datetime.fromtimestamp(creation_date)
 
+def set_creation_date(file_path, file_date):
+    try:
+        if platform.system() == "Windows":
+            import pywintypes, win32file, win32con
+            wintime = pywintypes.Time(file_date)
+            winfile = win32file.CreateFile(
+                file_path, win32con.GENERIC_WRITE,
+                win32con.FILE_SHARE_READ | win32con.FILE_SHARE_WRITE | win32con.FILE_SHARE_DELETE,
+                None, win32con.OPEN_EXISTING,
+                win32con.FILE_ATTRIBUTE_NORMAL, None)
+            win32file.SetFileTime(winfile, wintime, None, None)
+            winfile.close()
+        elif platform.system() == "Linux":
+            pass
+    except:
+        pass
+
 def get_modification_date(file_path):
     modification_date = os.path.getmtime(file_path) 
-    return datetime.datetime.fromtimestamp(modification_date)        
+    return datetime.datetime.fromtimestamp(modification_date)
+
+def set_modification_date(file_path, file_date):
+    try:
+        file_time = time.mktime(file_date.timetuple())
+        os.utime(file_path, (file_time, file_time))
+    except:
+        pass
 
 def get_file_date(file_path):
     file_date = None
+    file_valid1 = False
+    file_date1 = None
     if has_exif_date_time_original(file_path):
-        file_date = get_exif_date_time_original(file_path)
+        file_valid1 = True
+        file_date1 = get_exif_date_time_original(file_path)
     elif has_exif_date_time_digitized(file_path):
-        file_date = get_exif_date_time_digitized(file_path)
+        file_valid1 = True
+        file_date1 = get_exif_date_time_digitized(file_path)
     else:
-        (valid, file_date) = is_valid_dated_file_name(file_path)
-        if not valid:
+        (file_valid1, file_date1) = is_valid_dated_file_name(file_path)
+        if not file_valid1:
+            file_date1 = None
+    # Check period folder in order to be able to move files.
+    (file_valid2, file_date2) = has_valid_dated_folder_name(file_path)
+    if file_valid1:
+        if file_valid2:
+            if file_date1.year == file_date2.year and file_date1.month == file_date2.month and file_date1.day == file_date2.day:
+                file_date = file_date1
+            else:
+                file_date = None
+        else:
+            file_date = None
+    else:
+        if file_valid2:
+            file_date = file_date2
+        else:
             file_date = None
     return file_date
 
 def set_file_date(file_path, file_date):
-    pass
+    set_exif_date_time_original(file_path, file_date)
+    set_exif_date_time_digitized(file_path, file_date)
+    set_creation_date(file_path, file_date)
+    set_modification_date(file_path, file_date)
 
 def isclose(a, b, rel_tol=1e-09, abs_tol=0.0):
     return abs(a-b) <= max(rel_tol * max(abs(a), abs(b)), abs_tol)
@@ -335,30 +418,41 @@ def check_file(file_path, verbose):
 
 def check_and_process_sub_folders_in_folder(folder_path, sub_folder_names, process, verbose):
     sub_folders_valid = True
-    sub_folders_check_errors = []
-    sub_folders_process_comments = []
+    sub_folders_check_errors = {}
+    sub_folders_process_comments = {}
     for sub_folder_name in sub_folder_names:
         sub_folder_path = os.path.join(folder_path, sub_folder_name)
         (sub_folder_valid, sub_folder_check_errors, sub_folder_process_comments) = check_and_process_files_and_sub_folders_in_folder(sub_folder_path, process, verbose)
         sub_folders_valid &= sub_folder_valid
-        sub_folders_check_errors += sub_folder_check_errors
-        sub_folders_process_comments += sub_folder_process_comments
+        add_messages(sub_folders_check_errors, sub_folder_check_errors)
+        add_messages(sub_folders_process_comments, sub_folder_process_comments)
     return (sub_folders_valid, sub_folders_check_errors, sub_folders_process_comments)
 
 def check_files_in_folder(folder_path, file_names, verbose):
     files_valid = True
-    files_errors = []
+    files_errors = {}
     for file_name in file_names:
         file_path = os.path.join(folder_path, file_name)
         (file_valid, file_error_message) = check_file(file_path, verbose)
         files_valid &= file_valid
         if not file_valid or verbose:
-            files_errors += [(file_path, file_error_message)]
+            add_message(files_errors, file_path, file_error_message)
     return (files_valid, files_errors)
+
+def move_file_to_folder(file_path, target_folder_path):
+    try:
+        file_name = get_file_name(file_path)
+        target_file_path = os.path.join(target_folder_path, file_name)
+        if os.path.exists(file_path) and not os.path.exists(target_file_path):
+            if not os.path.exists(target_folder_path):
+                os.makedirs(target_folder_path)
+            os.rename(file_path, target_file_path)
+    except:
+        pass
 
 def process_files_in_folder(folder_path, file_names, process, verbose):
     files_processed = False
-    files_process_comments = []
+    files_process_comments = {}
 
     # Change file dates
     for file_name in file_names:
@@ -368,14 +462,15 @@ def process_files_in_folder(folder_path, file_names, process, verbose):
             (valid, folder_date) = has_valid_dated_folder_name(file_path)
             if valid:
                 if file_date.year == folder_date.year and file_date.month == folder_date.month and file_date.day == folder_date.day:
-                    set_file_date(file_path, file_date)
-                    files_process_comments += [(file_path, "Set File date (" + str(file_date) + ")")]
+                    if process:
+                        set_file_date(file_path, file_date)
+                    add_message(files_process_comments, file_path, "Set File date (" + str(file_date) + ")")
                 else:
-                    files_process_comments += [(file_path, "File date (" + str(file_date) + ") not matching dated folder (" + folder_path + ")")]
+                    add_message(files_process_comments, file_path, "File date (" + str(file_date) + ") not matching dated folder (" + folder_path + ")")
             else:
-                files_process_comments += [(file_path, "File date (" + str(file_date) + ") not stored in a dated folder (" + folder_path + ")")]
+                add_message(files_process_comments, file_path, "File date (" + str(file_date) + ") not stored in a dated folder (" + folder_path + ")")
         else:
-            files_process_comments += [(file_path, "No date identified for file")]
+            add_message(files_process_comments, file_path, "No date identified for file")
 
     # Move files
     regular_file_names = [f for f in file_names if is_valid_file_name(os.path.join(folder_path, f))]
@@ -385,12 +480,20 @@ def process_files_in_folder(folder_path, file_names, process, verbose):
         if len(panorama_file_names) > 0:
             # Move panorama files to Panorama folder
             panorama_folder_path = os.path.join(folder_path, PANORAMA_FOLDER_NAME)
-            files_process_comments += [(folder_path, "Move " + str(panorama_file_names) + " to " + panorama_folder_path)]
+            for file_name in panorama_file_names:
+                panorama_file_path = os.path.join(folder_path, file_name)
+                if process:
+                    move_file_to_folder(panorama_file_path, panorama_folder_path)
+                add_message(files_process_comments, panorama_file_path, "Move to " + panorama_folder_path)
     else:
         if len(panorama_file_names) > 0:
             # Move regular files and other files to parent folder
             parent_folder_path = get_folder_path(folder_path)
-            files_process_comments += [(folder_path, "Move " + str(regular_file_names + other_file_names) + " to " + parent_folder_path)]
+            for file_name in (regular_file_names + other_file_names):
+                file_path = os.path.join(folder_path, file_name)
+                if process:
+                    move_file_to_folder(file_path, parent_folder_path)
+                add_message(files_process_comments, file_path, "Move to " + parent_folder_path)
     
     # Create daily folders
     for file_name in (regular_file_names + other_file_names):
@@ -404,62 +507,62 @@ def process_files_in_folder(folder_path, file_names, process, verbose):
                 else:
                     dated_folder_name = "{:0>4d}-{:0>2d}-{:0>2d} - ".format(file_date.year, file_date.month, file_date.day)
                     dated_folder_path = os.path.join(folder_path, dated_folder_name)
-                    files_process_comments += [(file_path, "Move to " + dated_folder_path)]
+                    if process:
+                        move_file_to_folder(file_path, dated_folder_path)
+                    add_message(files_process_comments, file_path, "Move to " + dated_folder_path)
             else:
                 dated_folder_name = "{:0>4d}-{:0>2d}-{:0>2d} - ".format(file_date.year, file_date.month, file_date.day)
                 dated_folder_path = os.path.join(folder_path, dated_folder_name)
-                files_process_comments += [(file_path, "Move to " + dated_folder_path)]
+                if process:
+                    move_file_to_folder(file_path, dated_folder_path)
+                add_message(files_process_comments, file_path, "Move to " + dated_folder_path)
         else:
-            files_process_comments += [(file_path, "No date identified for file")]
+            add_message(files_process_comments, file_path, "No date identified for file")
 
     # Rename files
-
-
+    
     files_processed = process
-
-    if not files_processed:
-        for files_process_comment in files_process_comments:
-            print_file_process_comment(files_process_comment[0], files_process_comment[1])
     return (files_processed, files_process_comments)
 
 def check_and_process_files_and_sub_folders_in_folder(folder_path, process, verbose):
     folder_valid = True
-    folder_check_errors = []
-    folder_process_comments = []
+    folder_check_errors = {}
+    folder_process_comments = {}
     if os.path.exists(folder_path):
         for path, dirs, files in os.walk(folder_path):
             if len(dirs) > 0:
                 (sub_folders_valid, sub_folders_check_errors, sub_folders_process_comments) = check_and_process_sub_folders_in_folder(path, dirs, process, verbose)
                 folder_valid &= sub_folders_valid
-                folder_check_errors += sub_folders_check_errors
-                folder_process_comments += sub_folders_process_comments
+                add_messages(folder_check_errors, sub_folders_check_errors)
+                add_messages(folder_process_comments, sub_folders_process_comments)
             if len(files):
-                (files_valid, files_check_errors) = check_files_in_folder(path, files, verbose)
+                (files_valid, _) = check_files_in_folder(path, files, verbose)
                 folder_valid &= files_valid
                 if not files_valid:
                     (files_processed, files_process_comments) = process_files_in_folder(path, files, process, verbose)
                     folder_valid &= files_processed
-                    folder_process_comments += files_process_comments
+                    add_messages(folder_process_comments, files_process_comments)
+                    if not files_processed:
+                        print_messages(files_process_comments)
                     (files_valid, files_check_errors) = check_files_in_folder(path, files, verbose)
                     folder_valid &= files_valid
-                    folder_check_errors += files_check_errors
-                    if not files_valid :
-                        for check_error in files_check_errors:
-                            print_file_error_message(check_error[0], check_error[1])
+                    add_messages(folder_check_errors, files_check_errors)
+                    if not files_valid:
+                        print_messages(files_check_errors)
     else:
         folder_valid = False
-        folder_check_errors += [ folder_path + " doesn't exist."]
+        add_message(folder_check_errors, folder_path, "Folder doesn't exist.")
     return (folder_valid, folder_check_errors, folder_process_comments)
 
 def check_and_process_files_in_folders(folder_pathes, process, verbose):
     valid = True
-    check_errors = []
-    process_comments = []
+    check_errors = {}
+    process_comments = {}
     for folder_path in folder_pathes:
         (folder_valid, folder_check_errors, folder_process_comments) = check_and_process_files_and_sub_folders_in_folder(folder_path, process, verbose)
         valid &= folder_valid
-        check_errors += folder_check_errors
-        process_comments += folder_process_comments
+        add_messages(check_errors, folder_check_errors)
+        add_messages(process_comments, folder_process_comments)
     return (valid, check_errors, process_comments)
 
 def main(argv):
