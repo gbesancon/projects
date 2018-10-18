@@ -126,6 +126,34 @@ def get_date_from_folder_name(file_path):
     (_, date) = has_valid_dated_folder_name(file_path)
     return date
 
+def is_valid_period_dated_folder_name(folder_name):
+    valid = True
+    beginning_date = None
+    end_date = None
+    match = re.match("^(\d\d\d\d-\d\d-\d\d)[a-z]?_(\d\d\d\d-\d\d-\d\d)[a-z]?\s-\s.*$", folder_name)
+    if match:
+        valid = True
+        beginning_date = datetime.datetime.strptime(match.group(1), '%Y-%m-%d')
+        end_date = datetime.datetime.strptime(match.group(2), '%Y-%m-%d') + datetime.timedelta(days=1) - datetime.timedelta(microseconds=1)
+    else:
+        valid = False
+    return (valid, beginning_date, end_date)
+
+def has_valid_period_dated_folder_name(file_path):
+    valid = False
+    folder_name = ""
+    while not valid and not is_year_folder_name(folder_name):
+        folder_path = get_folder_path(file_path)
+        folder_name = get_folder_name(file_path)
+        (valid, date) = is_valid_dated_folder_name(folder_name)
+        if valid:
+            beginning_date = date
+            end_date = date + datetime.timedelta(days=1) - datetime.timedelta(microseconds=1)
+        else:
+            (valid, beginning_date, end_date) = is_valid_period_dated_folder_name(folder_name)
+        file_path = folder_path
+    return (valid, beginning_date, end_date)
+
 def is_valid_dated_file_name(file_path):
     valid = True
     date = None
@@ -267,34 +295,43 @@ def set_modification_date(file_path, file_date):
         pass
 
 def get_file_date(file_path):
+    file_date_valid = False
     file_date = None
-    file_valid1 = False
-    file_date1 = None
     if has_exif_date_time_original(file_path):
-        file_valid1 = True
-        file_date1 = get_exif_date_time_original(file_path)
+        file_date_valid = True
+        file_date = get_exif_date_time_original(file_path)
     elif has_exif_date_time_digitized(file_path):
-        file_valid1 = True
-        file_date1 = get_exif_date_time_digitized(file_path)
+        file_date_valid = True
+        file_date = get_exif_date_time_digitized(file_path)
     else:
-        (file_valid1, file_date1) = is_valid_dated_file_name(file_path)
-        if not file_valid1:
-            file_date1 = None
-    # Check period folder in order to be able to move files.
-    (file_valid2, file_date2) = has_valid_dated_folder_name(file_path)
-    if file_valid1:
-        if file_valid2:
-            if file_date1.year == file_date2.year and file_date1.month == file_date2.month and file_date1.day == file_date2.day:
-                file_date = file_date1
+        (file_date_valid, file_date) = is_valid_dated_file_name(file_path)
+        if not file_date_valid:
+            file_date = None
+    
+    (folder_date_valid, folder_date) = has_valid_dated_folder_name(file_path)
+    if folder_date_valid:
+        if file_date_valid:
+            if file_date.year == folder_date.year and file_date.month == folder_date.month and file_date.day == folder_date.day:
+                file_date = file_date
             else:
                 file_date = None
         else:
             file_date = None
     else:
-        if file_valid2:
-            file_date = file_date2
+        (folder_period_date_valid, folder_period_beginning_date, folder_period_end_date) = has_valid_period_dated_folder_name(file_path)
+        if folder_period_date_valid:
+            if file_date_valid:
+                if file_date >= folder_period_beginning_date and file_date <= folder_period_end_date:
+                    file_date = file_date
+                else:
+                    file_date = None
+            else:
+                file_date = None
         else:
-            file_date = None
+            if file_date_valid:
+                file_date = None
+            else:
+                file_date = None
     return file_date
 
 def set_file_date(file_path, file_date):
@@ -446,7 +483,8 @@ def move_file_to_folder(file_path, target_folder_path):
         if os.path.exists(file_path) and not os.path.exists(target_file_path):
             if not os.path.exists(target_folder_path):
                 os.makedirs(target_folder_path)
-            os.rename(file_path, target_file_path)
+            import shutil
+            shutil.move(file_path, target_file_path)
     except:
         pass
 
@@ -459,8 +497,8 @@ def process_files_in_folder(folder_path, file_names, process, verbose):
         file_path = os.path.join(folder_path, file_name)
         file_date = get_file_date(file_path)
         if file_date:
-            (valid, folder_date) = has_valid_dated_folder_name(file_path)
-            if valid:
+            (folder_date_valid, folder_date) = has_valid_dated_folder_name(file_path)
+            if folder_date_valid:
                 if file_date.year == folder_date.year and file_date.month == folder_date.month and file_date.day == folder_date.day:
                     if process:
                         set_file_date(file_path, file_date)
@@ -468,7 +506,14 @@ def process_files_in_folder(folder_path, file_names, process, verbose):
                 else:
                     add_message(files_process_comments, file_path, "File date (" + str(file_date) + ") not matching dated folder (" + folder_path + ")")
             else:
-                add_message(files_process_comments, file_path, "File date (" + str(file_date) + ") not stored in a dated folder (" + folder_path + ")")
+                (folder_period_date_valid, folder_period_beginning_date, folder_period_end_date) = has_valid_period_dated_folder_name(file_path)
+                if folder_period_date_valid:
+                    if folder_period_beginning_date <= file_date and file_date <= folder_period_end_date:
+                        if process:
+                            set_file_date(file_path, file_date)
+                        add_message(files_process_comments, file_path, "Set File date (" + str(file_date) + ")")
+                    else:
+                        add_message(files_process_comments, file_path, "File date (" + str(file_date) + ") not matching dated folder (" + folder_path + ")")
         else:
             add_message(files_process_comments, file_path, "No date identified for file")
 
@@ -500,22 +545,23 @@ def process_files_in_folder(folder_path, file_names, process, verbose):
         file_path = os.path.join(folder_path, file_name)
         file_date = get_file_date(file_path)
         if file_date:
-            (valid, folder_date) = has_valid_dated_folder_name(file_path)
-            if valid:
-                if file_date.year == folder_date.year and file_date.month == folder_date.month and file_date.day == folder_date.day:
-                    pass
-                else:
-                    dated_folder_name = "{:0>4d}-{:0>2d}-{:0>2d} - ".format(file_date.year, file_date.month, file_date.day)
+            (folder_date_valid, folder_date) = has_valid_dated_folder_name(file_path)
+            if folder_date_valid:
+                if not (file_date.year == folder_date.year and file_date.month == folder_date.month and file_date.day == folder_date.day):
+                    dated_folder_name = "{:0>4d}-{:0>2d}-{:0>2d} - XXX".format(file_date.year, file_date.month, file_date.day)
                     dated_folder_path = os.path.join(folder_path, dated_folder_name)
                     if process:
                         move_file_to_folder(file_path, dated_folder_path)
                     add_message(files_process_comments, file_path, "Move to " + dated_folder_path)
             else:
-                dated_folder_name = "{:0>4d}-{:0>2d}-{:0>2d} - ".format(file_date.year, file_date.month, file_date.day)
-                dated_folder_path = os.path.join(folder_path, dated_folder_name)
-                if process:
-                    move_file_to_folder(file_path, dated_folder_path)
-                add_message(files_process_comments, file_path, "Move to " + dated_folder_path)
+                (folder_period_date_valid, folder_period_beginning_date, folder_period_end_date) = has_valid_period_dated_folder_name(file_path)
+                if folder_period_date_valid:
+                    if folder_period_beginning_date <= file_date and file_date <= folder_period_end_date:
+                        dated_folder_name = "{:0>4d}-{:0>2d}-{:0>2d} - XXX".format(file_date.year, file_date.month, file_date.day)
+                        dated_folder_path = os.path.join(folder_path, dated_folder_name)
+                        if process:
+                            move_file_to_folder(file_path, dated_folder_path)
+                        add_message(files_process_comments, file_path, "Move to " + dated_folder_path)
         else:
             add_message(files_process_comments, file_path, "No date identified for file")
 
