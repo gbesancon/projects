@@ -77,7 +77,7 @@ def process_video_files_in_folder(folder_path, file_names, process, verbose):
     files_processed = False
     files_process_comments = {}
     
-    video_file_names = [f for f in file_names if file.get_file_extension(os.path.join(folder_path, f)) in video_file.VIDEO_EXTENSION_PREFIX]
+    video_file_names = [f for f in file_names if file.get_file_extension(os.path.join(folder_path, f)) in VIDEO_EXTENSION_PREFIX]
     if len(video_file_names) > 0:
         # Change file dates
         (video_file_dates_processed, video_file_dates_process_comments) = set_video_file_dates(folder_path, video_file_names, process, verbose)
@@ -94,3 +94,6 @@ def process_video_files_in_folder(folder_path, file_names, process, verbose):
     
     files_processed = process
     return (files_processed, files_process_comments)
+    
+def check_video_file_name(file_path):
+    return multimedia_file.check_multimedia_file_name(file_path, VIDEO_EXTENSION_PREFIX)

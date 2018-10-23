@@ -76,3 +76,6 @@ def process_audio_files_in_folder(folder_path, file_names, process, verbose):
     
     files_processed = process
     return (files_processed, files_process_comments)
+
+def check_audio_file_name(file_path):
+    return multimedia_file.check_multimedia_file_name(file_path, AUDIO_EXTENSION_PREFIX)

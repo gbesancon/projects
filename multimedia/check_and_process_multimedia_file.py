@@ -31,34 +31,18 @@ def check_file_date(file_path):
     return (file_date_valid, file_date, file_error_message)
 
 def check_file_name(file_path):
-    valid = False
-    error_message = None
-    folder_name = file.get_folder_name(file_path)
-    if multimedia_file.has_valid_extension(file_path, EXTENSION_PREFIX):
-        if multimedia_file.is_valid_file_name(file_path, EXTENSION_PREFIX):
-            if not picture_file.is_panorama_folder_name(folder_name):
-                valid = True
-            else:
-                valid = False
-                error_message = "File should not be stored in a Panorama folder"
-        else:
-            if picture_file.is_valid_panorama_file_name(file_path):
-                if picture_file.is_panorama_folder_name(folder_name):
-                    valid = True
-                else:
-                    valid = False
-                    error_message = "Panorama file not stored in a Panorama folder"
-            else:
-                if picture_file.is_panorama_folder_name(folder_name):
-                    valid = False
-                    error_message = "Panorama filename incorrect"
-                else:
-                    valid = False
-                    error_message = "Filename incorrect"
+    file_name_valid = False
+    file_name_error_message = None
+    if audio_file.is_audio_file(file_path):
+        (file_name_valid, file_name_error_message) = audio_file.check_audio_file_name(file_path)
+    elif picture_file.is_picture_file(file_path):
+        (file_name_valid, file_name_error_message) = picture_file.check_picture_file_name(file_path)
+    elif video_file.is_video_file(file_path):
+        (file_name_valid, file_name_error_message) = video_file.check_video_file_name(file_path)
     else:
-        valid = False
-        error_message = "Extension " + file.get_file_extension(file_path) + " not supported"
-    return (valid, error_message)
+        file_name_valid = False
+        file_name_error_message = "Extension " + file.get_file_extension(file_path) + " not supported"
+    return (file_name_valid, file_name_error_message)
 
 def check_file(file_path, verbose):
     (file_valid, file_error_message) = check_file_name(file_path)
