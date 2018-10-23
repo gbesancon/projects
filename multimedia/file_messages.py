@@ -1,4 +1,3 @@
-
 def print_file_message(file_path, message):
     print(file_path + ": " + message)
 
