@@ -59,18 +59,20 @@ def rename_audio_files(folder_path, audio_file_names, process, verbose):
     files_processed = process
     return (files_processed, files_process_comments)
 
-def process_audio_files_in_folder(folder_path, audio_file_names, process, verbose):
+def process_audio_files_in_folder(folder_path, file_names, process, verbose):
     files_processed = False
     files_process_comments = {}
 
-    # Change file dates
-    (audio_file_dates_processed, audio_file_dates_process_comments) = set_audio_file_dates(folder_path, audio_file_names, process, verbose)
-    files_processed &= audio_file_dates_processed
-    file_messages.add_file_messages(files_process_comments, audio_file_dates_process_comments)
-    # Rename files
-    (rename_audio_files_processed, rename_audio_files_process_comments) = rename_audio_files(folder_path, audio_file_names, process, verbose)
-    files_processed &= rename_audio_files_processed
-    file_messages.add_file_messages(files_process_comments, rename_audio_files_process_comments)
+    audio_file_names = [f for f in file_names if file.get_file_extension(os.path.join(folder_path, f)) in AUDIO_EXTENSION_PREFIX]
+    if len(audio_file_names) > 0:
+        # Change file dates
+        (audio_file_dates_processed, audio_file_dates_process_comments) = set_audio_file_dates(folder_path, audio_file_names, process, verbose)
+        files_processed &= audio_file_dates_processed
+        file_messages.add_file_messages(files_process_comments, audio_file_dates_process_comments)
+        # Rename files
+        (rename_audio_files_processed, rename_audio_files_process_comments) = rename_audio_files(folder_path, audio_file_names, process, verbose)
+        files_processed &= rename_audio_files_processed
+        file_messages.add_file_messages(files_process_comments, rename_audio_files_process_comments)
     
     files_processed = process
     return (files_processed, files_process_comments)
