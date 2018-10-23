@@ -66,18 +66,6 @@ def check_file(file_path, verbose):
         (file_valid, _, file_error_message) = check_file_date(file_path)
     return (file_valid, file_error_message)
 
-def check_and_process_sub_folders_in_folder(folder_path, sub_folder_names, process, verbose):
-    sub_folders_valid = True
-    sub_folders_check_errors = {}
-    sub_folders_process_comments = {}
-    for sub_folder_name in sub_folder_names:
-        sub_folder_path = os.path.join(folder_path, sub_folder_name)
-        (sub_folder_valid, sub_folder_check_errors, sub_folder_process_comments) = check_and_process_files_and_sub_folders_in_folder(sub_folder_path, process, verbose)
-        sub_folders_valid &= sub_folder_valid
-        file_messages.add_file_messages(sub_folders_check_errors, sub_folder_check_errors)
-        file_messages.add_file_messages(sub_folders_process_comments, sub_folder_process_comments)
-    return (sub_folders_valid, sub_folders_check_errors, sub_folders_process_comments)
-
 def check_files_in_folder(folder_path, file_names, verbose):
     files_valid = True
     files_errors = {}
@@ -95,64 +83,61 @@ def process_files_in_folder(folder_path, file_names, process, verbose):
     files_processed = False
     files_process_comments = {}
 
-    audio_file_names = [f for f in file_names if file.get_file_extension(os.path.join(folder_path, f)) in audio_file.AUDIO_EXTENSION_PREFIX]
-    if len(audio_file_names) > 0:
-        (audio_files_processed, audio_files_process_comments) = audio_file.process_audio_files_in_folder(folder_path, audio_file_names, process, verbose)
-        files_processed &= audio_files_processed
-        file_messages.add_file_messages(files_process_comments, audio_files_process_comments)
+    (audio_files_processed, audio_files_process_comments) = audio_file.process_audio_files_in_folder(folder_path, file_names, process, verbose)
+    files_processed &= audio_files_processed
+    file_messages.add_file_messages(files_process_comments, audio_files_process_comments)
 
-    picture_file_names = [f for f in file_names if file.get_file_extension(os.path.join(folder_path, f)) in picture_file.PICTURE_EXTENSION_PREFIX]
-    if len(picture_file_names) > 0:
-        (picture_files_processed, picture_files_process_comments) = picture_file.process_picture_files_in_folder(folder_path, picture_file_names, process, verbose)
-        files_processed &= picture_files_processed
-        file_messages.add_file_messages(files_process_comments, picture_files_process_comments)
+    (picture_files_processed, picture_files_process_comments) = picture_file.process_picture_files_in_folder(folder_path, file_names, process, verbose)
+    files_processed &= picture_files_processed
+    file_messages.add_file_messages(files_process_comments, picture_files_process_comments)
     
-    video_file_names = [f for f in file_names if file.get_file_extension(os.path.join(folder_path, f)) in video_file.VIDEO_EXTENSION_PREFIX]
-    if len(video_file_names) > 0:
-        (video_files_processed, video_files_process_comments) = video_file.process_video_files_in_folder(folder_path, video_file_names, process, verbose)
-        files_processed &= video_files_processed
-        file_messages.add_file_messages(files_process_comments, video_files_process_comments)
+    (video_files_processed, video_files_process_comments) = video_file.process_video_files_in_folder(folder_path, file_names, process, verbose)
+    files_processed &= video_files_processed
+    file_messages.add_file_messages(files_process_comments, video_files_process_comments)
             
     files_processed = process
     return (files_processed, files_process_comments)
 
-def check_and_process_files_and_sub_folders_in_folder(folder_path, process, verbose):
+def check_and_process_files_in_folder(folder_path, process, verbose):
     folder_valid = True
     folder_check_errors = {}
     folder_process_comments = {}
-    if os.path.exists(folder_path):
-        for path, dirs, files in os.walk(folder_path):
-            if len(dirs) > 0:
-                (sub_folders_valid, sub_folders_check_errors, sub_folders_process_comments) = check_and_process_sub_folders_in_folder(path, dirs, process, verbose)
-                folder_valid &= sub_folders_valid
-                file_messages.add_file_messages(folder_check_errors, sub_folders_check_errors)
-                file_messages.add_file_messages(folder_process_comments, sub_folders_process_comments)
-            if len(files):
-                (files_valid, _) = check_files_in_folder(path, files, verbose)
+    for path, _, files in os.walk(folder_path):
+        if len(files):
+            (files_valid, _) = check_files_in_folder(path, files, verbose)
+            folder_valid &= files_valid
+            if not files_valid:
+                (files_processed, files_process_comments) = process_files_in_folder(path, files, process, verbose)
+                folder_valid &= files_processed
+                file_messages.add_file_messages(folder_process_comments, files_process_comments)
+                (files_valid, files_check_errors) = check_files_in_folder(path, files, verbose)
                 folder_valid &= files_valid
-                if not files_valid:
-                    (files_processed, files_process_comments) = process_files_in_folder(path, files, process, verbose)
-                    folder_valid &= files_processed
-                    file_messages.add_file_messages(folder_process_comments, files_process_comments)
-                    if not files_processed or verbose:
-                        file_messages.print_file_messages(files_process_comments)
-                    (files_valid, files_check_errors) = check_files_in_folder(path, files, verbose)
-                    folder_valid &= files_valid
-                    file_messages.add_file_messages(folder_check_errors, files_check_errors)
-                    if not files_valid or verbose:
-                        file_messages.print_file_messages(files_check_errors)        
-    else:
-        folder_valid = False
-        file_messages.add_file_message(folder_check_errors, folder_path, "Folder doesn't exist.")
+                file_messages.add_file_messages(folder_check_errors, files_check_errors)
     return (folder_valid, folder_check_errors, folder_process_comments)
+
+def get_sub_folders_with_files(folder_path):
+    sub_folder_pathes = []
+    if os.path.exists(folder_path):
+        for path, _, files in os.walk(folder_path):
+            if len(files) > 0:
+                sub_folder_pathes += [path]
+    return sub_folder_pathes
 
 def check_and_process_files_in_folders(folder_pathes, process, verbose):
     valid = True
     check_errors = {}
     process_comments = {}
+    multimedia_folder_pathes = []
+    # Generate a flat list of all folders to process
     for folder_path in folder_pathes:
-        (folder_valid, folder_check_errors, folder_process_comments) = check_and_process_files_and_sub_folders_in_folder(folder_path, process, verbose)
+        multimedia_folder_pathes += get_sub_folders_with_files(folder_path)
+    for multimedia_folder_path in multimedia_folder_pathes:
+        (folder_valid, folder_check_errors, folder_process_comments) = check_and_process_files_in_folder(multimedia_folder_path, process, verbose)
         valid &= folder_valid
+        if not folder_valid or verbose:
+            file_messages.print_file_messages(folder_check_errors)
+        if process or verbose:
+            file_messages.print_file_messages(folder_process_comments)
         file_messages.add_file_messages(check_errors, folder_check_errors)
         file_messages.add_file_messages(process_comments, folder_process_comments)
     return (valid, check_errors, process_comments)
