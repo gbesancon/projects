@@ -80,3 +80,32 @@ def set_modification_date(file_path, file_date):
 def set_file_date(file_path, file_date):
     set_creation_date(file_path, file_date)
     set_modification_date(file_path, file_date)
+
+
+def isclose(a, b, rel_tol=1e-09, abs_tol=0.0):
+    return abs(a-b) <= max(rel_tol * max(abs(a), abs(b)), abs_tol)
+
+def check_file_dates(file_path, label_date1, get_date1, label_date2, get_date2, rel_tol=1e-09, abs_tol=0.0):
+    valid = False
+    date = None
+    error_message = None
+    date1 = get_date1(file_path)
+    date2 = get_date2(file_path)
+    if date1:
+        if date2:
+            if date1.year == date2.year and date1.month == date2.month and date1.day == date2.day:
+                if isclose(date1.timestamp(), date2.timestamp(), rel_tol, abs_tol):
+                    valid = True
+                    date = date1
+                else:
+                    date = date1
+                    error_message = label_date1 + " (" + str(date1) + ")" + " and " +  label_date2 + " (" + str(date2) + ")" + " not matching."
+            else:
+                date = date1
+                error_message = label_date1 + " (" + str(date1) + ")" + " and " +  label_date2 + " (" + str(date2) + ")" + " not matching."
+        else:
+            date = date1
+            error_message = label_date2 + " is undefined."
+    else:
+        error_message = label_date1 + " is undefined."
+    return (valid, date, error_message)
