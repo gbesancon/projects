@@ -271,22 +271,24 @@ def rename_picture_files(folder_path, file_names, process, verbose):
     files_processed = process
     return (files_processed, files_process_comments)
 
-def process_picture_files_in_folder(folder_path, picture_file_names, process, verbose):
+def process_picture_files_in_folder(folder_path, file_names, process, verbose):
     files_processed = False
     files_process_comments = {}
 
-    # Change file dates
-    (picture_file_dates_processed, picture_file_dates_process_comments) = set_picture_file_dates(folder_path, picture_file_names, process, verbose)
-    files_processed &= picture_file_dates_processed
-    file_messages.add_file_messages(files_process_comments, picture_file_dates_process_comments)
-    # Move files
-    (move_picture_files_processed, move_picture_files_process_comments) = move_picture_files(folder_path, picture_file_names, process, verbose)
-    files_processed &= move_picture_files_processed
-    file_messages.add_file_messages(files_process_comments, move_picture_files_process_comments)
-    # Rename files
-    (rename_picture_files_processed, rename_picture_files_process_comments) = rename_picture_files(folder_path, picture_file_names, process, verbose)
-    files_processed &= rename_picture_files_processed
-    file_messages.add_file_messages(files_process_comments, rename_picture_files_process_comments)
+    picture_file_names = [f for f in file_names if file.get_file_extension(os.path.join(folder_path, f)) in PICTURE_EXTENSION_PREFIX]
+    if len(picture_file_names) > 0:
+        # Change file dates
+        (picture_file_dates_processed, picture_file_dates_process_comments) = set_picture_file_dates(folder_path, picture_file_names, process, verbose)
+        files_processed &= picture_file_dates_processed
+        file_messages.add_file_messages(files_process_comments, picture_file_dates_process_comments)
+        # Move files
+        (move_picture_files_processed, move_picture_files_process_comments) = move_picture_files(folder_path, picture_file_names, process, verbose)
+        files_processed &= move_picture_files_processed
+        file_messages.add_file_messages(files_process_comments, move_picture_files_process_comments)
+        # Rename files
+        (rename_picture_files_processed, rename_picture_files_process_comments) = rename_picture_files(folder_path, picture_file_names, process, verbose)
+        files_processed &= rename_picture_files_processed
+        file_messages.add_file_messages(files_process_comments, rename_picture_files_process_comments)
     
     files_processed = process
     return (files_processed, files_process_comments)
