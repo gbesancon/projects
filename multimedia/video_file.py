@@ -73,22 +73,24 @@ def rename_video_files(folder_path, video_file_names, process, verbose):
     files_processed = process
     return (files_processed, files_process_comments)
 
-def process_video_files_in_folder(folder_path, video_file_names, process, verbose):
+def process_video_files_in_folder(folder_path, file_names, process, verbose):
     files_processed = False
     files_process_comments = {}
     
-    # Change file dates
-    (video_file_dates_processed, video_file_dates_process_comments) = set_video_file_dates(folder_path, video_file_names, process, verbose)
-    files_processed &= video_file_dates_processed
-    file_messages.add_file_messages(files_process_comments, video_file_dates_process_comments)
-    # Move files
-    (move_video_files_processed, move_video_files_process_comments) = move_video_files(folder_path, video_file_names, process, verbose)
-    files_processed &= move_video_files_processed
-    file_messages.add_file_messages(files_process_comments, move_video_files_process_comments)
-    # Rename files
-    (rename_video_files_processed, rename_video_files_process_comments) = rename_video_files(folder_path, video_file_names, process, verbose)
-    files_processed &= rename_video_files_processed
-    file_messages.add_file_messages(files_process_comments, rename_video_files_process_comments)
+    video_file_names = [f for f in file_names if file.get_file_extension(os.path.join(folder_path, f)) in video_file.VIDEO_EXTENSION_PREFIX]
+    if len(video_file_names) > 0:
+        # Change file dates
+        (video_file_dates_processed, video_file_dates_process_comments) = set_video_file_dates(folder_path, video_file_names, process, verbose)
+        files_processed &= video_file_dates_processed
+        file_messages.add_file_messages(files_process_comments, video_file_dates_process_comments)
+        # Move files
+        (move_video_files_processed, move_video_files_process_comments) = move_video_files(folder_path, video_file_names, process, verbose)
+        files_processed &= move_video_files_processed
+        file_messages.add_file_messages(files_process_comments, move_video_files_process_comments)
+        # Rename files
+        (rename_video_files_processed, rename_video_files_process_comments) = rename_video_files(folder_path, video_file_names, process, verbose)
+        files_processed &= rename_video_files_processed
+        file_messages.add_file_messages(files_process_comments, rename_video_files_process_comments)
     
     files_processed = process
     return (files_processed, files_process_comments)
