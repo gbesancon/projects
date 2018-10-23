@@ -76,3 +76,7 @@ def set_modification_date(file_path, file_date):
         os.utime(file_path, (file_time, file_time))
     except:
         pass
+        
+def set_file_date(file_path, file_date):
+    set_creation_date(file_path, file_date)
+    set_modification_date(file_path, file_date)
