@@ -3,6 +3,8 @@ import re
 import os
 import piexif
 import datetime
+import file_messages
+import multimedia_file
 
 PICTURE_PREFIX = "p"
 EXIF_PICTURE_EXTENSION_PREFIX = {
@@ -156,3 +158,135 @@ def set_picture_file_date(file_path, file_date):
     set_exif_date_time_original(file_path, file_date)
     set_exif_date_time_digitized(file_path, file_date)
     file.set_file_date(file_path, file_date)
+
+def check_picture_file_date(file_path):
+    (file_date_valid, file_date) = multimedia_file.get_multimedia_file_date(file_path, get_picture_file_date)
+    file_error_message = None
+    if file_date_valid:
+        if has_exif_date_time_original(file_path):
+            if file_date_valid:
+                (file_date_valid, file_date, file_error_message) = file.check_file_dates(file_path, "File date", lambda f : file_date, "EXIF Date Time Original", get_exif_date_time_original)
+        if has_exif_date_time_digitized(file_path):
+            if file_date_valid:
+                (file_date_valid, file_date, file_error_message) = file.check_file_dates(file_path, "File date", lambda f : file_date, "EXIF Date Time Digitized", get_exif_date_time_digitized)
+        if file_date_valid:
+            (file_date_valid, file_date, file_error_message) = multimedia_file.check_multimedia_file_date(file_path, file_date)
+    else:
+        file_error_message = "No date identified for file"
+    return (file_date_valid, file_date, file_error_message)
+    
+def set_picture_file_dates(folder_path, picture_file_names, process, verbose):
+    files_processed = False
+    files_process_comments = {}
+
+    for picture_file_name in picture_file_names:
+        picture_file_path = os.path.join(folder_path, picture_file_name)
+        (file_date_valid, file_date) = multimedia_file.get_multimedia_file_date(picture_file_path, get_picture_file_date)
+        if file_date_valid:
+            (folder_date_valid, folder_date) = multimedia_file.has_valid_dated_folder_name(picture_file_path)
+            if folder_date_valid:
+                if file_date.year == folder_date.year and file_date.month == folder_date.month and file_date.day == folder_date.day:
+                    if process:
+                        set_picture_file_date(picture_file_path, file_date)
+                    if not process or verbose:
+                        file_messages.add_file_message(files_process_comments, picture_file_path, "Set File date (" + str(file_date) + ")")
+                else:
+                    file_messages.add_file_message(files_process_comments, picture_file_path, "File date (" + str(file_date) + ") not matching dated folder (" + folder_path + ")")
+            else:
+                (folder_period_date_valid, folder_period_beginning_date, folder_period_end_date) = multimedia_file.has_valid_period_dated_folder_name(picture_file_path)
+                if folder_period_date_valid:
+                    if folder_period_beginning_date <= file_date and file_date <= folder_period_end_date:
+                        if process:
+                            set_picture_file_date(picture_file_path, file_date)
+                        if not process or verbose:
+                            file_messages.add_file_message(files_process_comments, picture_file_path, "Set File date (" + str(file_date) + ")")
+                    else:
+                        file_messages.add_file_message(files_process_comments, picture_file_path, "File date (" + str(file_date) + ") not matching dated folder (" + folder_path + ")")
+        else:
+            file_messages.add_file_message(files_process_comments, picture_file_path, "No date identified for file")
+
+    files_processed = process
+    return (files_processed, files_process_comments)
+
+def move_picture_files(folder_path, picture_file_names, process, verbose):
+    files_processed = False
+    files_process_comments = {}
+    regular_file_names = [f for f in picture_file_names if multimedia_file.is_valid_file_name(os.path.join(folder_path, f), PICTURE_EXTENSION_PREFIX)]
+    panorama_file_names = [f for f in picture_file_names if is_valid_panorama_file_name(os.path.join(folder_path, f))]
+    other_file_names = [f for f in picture_file_names if f not in regular_file_names and f not in panorama_file_names]
+    if not is_panorama_folder_name(os.path.basename(folder_path)):
+        if len(panorama_file_names) > 0:
+            # Move panorama files to Panorama folder
+            panorama_folder_path = os.path.join(folder_path, PANORAMA_FOLDER_NAME)
+            for panorama_file_name in panorama_file_names:
+                panorama_file_path = os.path.join(folder_path, panorama_file_name)
+                if process:
+                    file.move_file_to_folder(panorama_file_path, panorama_folder_path)
+                if not process or verbose:
+                    file_messages.add_file_message(files_process_comments, panorama_file_path, "Move to " + panorama_folder_path)
+    else:
+        if len(panorama_file_names) > 0:
+            # Move regular files and other files to parent folder
+            parent_folder_path = file.get_folder_path(folder_path)
+            for panorama_file_name in (regular_file_names + other_file_names):
+                panorama_file_path = os.path.join(folder_path, panorama_file_name)
+                if process:
+                    file.move_file_to_folder(panorama_file_path, parent_folder_path)
+                if not process or verbose:
+                    file_messages.add_file_message(files_process_comments, panorama_file_path, "Move to " + parent_folder_path)
+    
+    # Create daily folders
+    for picture_file_name in (regular_file_names + other_file_names):
+        picture_file_path = os.path.join(folder_path, picture_file_name)
+        (file_date_valid, file_date) = multimedia_file.get_multimedia_file_date(picture_file_path, get_picture_file_date)
+        if file_date_valid:
+            (folder_date_valid, folder_date) = multimedia_file.has_valid_dated_folder_name(picture_file_path)
+            if folder_date_valid:
+                if not (file_date.year == folder_date.year and file_date.month == folder_date.month and file_date.day == folder_date.day):
+                    dated_folder_name = "{:0>4d}-{:0>2d}-{:0>2d} - XXX".format(file_date.year, file_date.month, file_date.day)
+                    dated_folder_path = os.path.join(folder_path, dated_folder_name)
+                    if process:
+                        file.move_file_to_folder(picture_file_path, dated_folder_path)
+                    if not process or verbose:
+                        file_messages.add_file_message(files_process_comments, picture_file_path, "Move to " + dated_folder_path)
+            else:
+                (folder_period_date_valid, folder_period_beginning_date, folder_period_end_date) = multimedia_file.has_valid_period_dated_folder_name(picture_file_path)
+                if folder_period_date_valid:
+                    if folder_period_beginning_date <= file_date and file_date <= folder_period_end_date:
+                        dated_folder_name = "{:0>4d}-{:0>2d}-{:0>2d} - XXX".format(file_date.year, file_date.month, file_date.day)
+                        dated_folder_path = os.path.join(folder_path, dated_folder_name)
+                        if process:
+                            file.move_file_to_folder(picture_file_path, dated_folder_path)
+                        if not process or verbose:
+                            file_messages.add_file_message(files_process_comments, picture_file_path, "Move to " + dated_folder_path)
+        else:
+            file_messages.add_file_message(files_process_comments, picture_file_path, "No date identified for file")
+    files_processed = process
+    return (files_processed, files_process_comments)
+
+def rename_picture_files(folder_path, file_names, process, verbose):
+    files_processed = False
+    files_process_comments = {}
+    
+    files_processed = process
+    return (files_processed, files_process_comments)
+
+def process_picture_files_in_folder(folder_path, picture_file_names, process, verbose):
+    files_processed = False
+    files_process_comments = {}
+
+    # Change file dates
+    (picture_file_dates_processed, picture_file_dates_process_comments) = set_picture_file_dates(folder_path, picture_file_names, process, verbose)
+    files_processed &= picture_file_dates_processed
+    file_messages.add_file_messages(files_process_comments, picture_file_dates_process_comments)
+    # Move files
+    (move_picture_files_processed, move_picture_files_process_comments) = move_picture_files(folder_path, picture_file_names, process, verbose)
+    files_processed &= move_picture_files_processed
+    file_messages.add_file_messages(files_process_comments, move_picture_files_process_comments)
+    # Rename files
+    (rename_picture_files_processed, rename_picture_files_process_comments) = rename_picture_files(folder_path, picture_file_names, process, verbose)
+    files_processed &= rename_picture_files_processed
+    file_messages.add_file_messages(files_process_comments, rename_picture_files_process_comments)
+    
+    files_processed = process
+    return (files_processed, files_process_comments)
