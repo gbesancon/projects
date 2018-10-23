@@ -292,3 +292,30 @@ def process_picture_files_in_folder(folder_path, file_names, process, verbose):
     
     files_processed = process
     return (files_processed, files_process_comments)
+    
+def check_picture_file_name(file_path):
+    valid = False
+    error_message = None
+    folder_name = file.get_folder_name(file_path)
+    (valid, error_message) = multimedia_file.check_multimedia_file_name(file_path, PICTURE_EXTENSION_PREFIX)
+    if valid:
+        if not is_panorama_folder_name(folder_name):
+            valid = True
+        else:
+            valid = False
+            error_message = "File should not be stored in a Panorama folder"
+    else:
+        if is_valid_panorama_file_name(file_path):
+            if is_panorama_folder_name(folder_name):
+                valid = True
+            else:
+                valid = False
+                error_message = "Panorama file not stored in a Panorama folder"
+        else:
+            if is_panorama_folder_name(folder_name):
+                valid = False
+                error_message = "Panorama filename incorrect"
+            else:
+                valid = False
+                error_message = "Filename incorrect"
+    return (valid, error_message)

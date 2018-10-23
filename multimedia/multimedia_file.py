@@ -109,15 +109,23 @@ def has_valid_extension(file_path, file_extensions):
     file_extension = file.get_file_extension(file_path)
     return file_extension in file_extensions
 
-def is_valid_file_name(file_path, file_extensions):
+def is_valid_file_name(file_path, file_extension_prefix):
     valid = True
     file_name = file.get_file_name(file_path)
     file_name_no_extension = os.path.splitext(file_name)[0]
     file_extension = file.get_file_extension(file_path)
-    prefix = file_extensions[file_extension]
+    prefix = file_extension_prefix[file_extension]
     match = re.match(r"^" + prefix + r"\d\d\d\d\d$", file_name_no_extension)
     if match:
         valid = True
     else:
         valid = False
     return valid
+    
+def check_multimedia_file_name(file_path, file_extension_prefix):
+    valid = False
+    error_message = None
+    valid = is_valid_file_name(file_path, file_extension_prefix)
+    if not valid:
+        error_message = "Filename incorrect"
+    return (valid, error_message)
