@@ -64,20 +64,6 @@ def has_valid_period_dated_folder_name(file_path):
             (valid, beginning_date, end_date) = is_valid_period_dated_folder_name(folder_name)
         file_path = folder_path
     return (valid, beginning_date, end_date)
-    
-def get_multimedia_file_date(file_path, get_file_date):    
-    file_date_valid = False
-    file_date = None
-    if get_file_date:
-        (file_date_valid, file_date) = get_file_date(file_path)
-    if not file_date_valid:
-        (folder_date_valid, folder_date) = has_valid_dated_folder_name(file_path)
-        if folder_date_valid:
-            file_date_valid = True
-            file_date = folder_date
-        else:
-            file_date = None
-    return (file_date_valid, file_date)
 
 def validate_file_location(file_date, file_path):
     file_location_valid = False
@@ -105,10 +91,6 @@ def check_multimedia_file_date(file_path, file_date):
         (file_date_valid, file_date, file_error_message) = file.check_file_dates(file_path, "File date", lambda f : file_date, "Modification date", file.get_modification_date)
     return (file_date_valid, file_date, file_error_message)
     
-def has_valid_extension(file_path, file_extensions):
-    file_extension = file.get_file_extension(file_path)
-    return file_extension in file_extensions
-
 def is_valid_file_name(file_path, file_extension_prefix):
     valid = True
     file_name = file.get_file_name(file_path)
