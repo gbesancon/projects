@@ -139,7 +139,7 @@ def get_date_from_picture_file_name(file_path):
     (_, date) = is_valid_dated_picture_file_name(file_path)
     return date
 
-def get_picture_file_date(file_path):
+def get_picture_file_date(file_path, use_folder_date):
     file_date_valid = False
     file_date = None
     if has_exif_date_time_original(file_path):
@@ -150,8 +150,11 @@ def get_picture_file_date(file_path):
         file_date = get_exif_date_time_digitized(file_path)
     else:
         (file_date_valid, file_date) = is_valid_dated_picture_file_name(file_path)
-        if not file_date_valid:
-            file_date = None
+        if not file_date_valid and use_folder_date:
+            (folder_date_valid, folder_date) = multimedia_file.has_valid_dated_folder_name(file_path)
+            if folder_date_valid:
+                file_date_valid = True
+                file_date = folder_date
     return (file_date_valid, file_date)
 
 def set_picture_file_date(file_path, file_date):
@@ -159,8 +162,8 @@ def set_picture_file_date(file_path, file_date):
     set_exif_date_time_digitized(file_path, file_date)
     file.set_file_date(file_path, file_date)
 
-def check_picture_file_date(file_path):
-    (file_date_valid, file_date) = multimedia_file.get_multimedia_file_date(file_path, get_picture_file_date)
+def check_picture_file_date(file_path, use_folder_date):
+    (file_date_valid, file_date) = get_picture_file_date(file_path, use_folder_date)
     file_error_message = None
     if file_date_valid:
         if has_exif_date_time_original(file_path):
@@ -175,13 +178,13 @@ def check_picture_file_date(file_path):
         file_error_message = "No date identified for file"
     return (file_date_valid, file_date, file_error_message)
     
-def set_picture_file_dates(folder_path, picture_file_names, process, verbose):
+def set_picture_file_dates(folder_path, picture_file_names, use_folder_date, process, verbose):
     files_processed = False
     files_process_comments = {}
 
     for picture_file_name in picture_file_names:
         picture_file_path = os.path.join(folder_path, picture_file_name)
-        (file_date_valid, file_date) = multimedia_file.get_multimedia_file_date(picture_file_path, get_picture_file_date)
+        (file_date_valid, file_date) = get_picture_file_date(picture_file_path, use_folder_date)
         if file_date_valid:
             (folder_date_valid, folder_date) = multimedia_file.has_valid_dated_folder_name(picture_file_path)
             if folder_date_valid:
@@ -208,7 +211,7 @@ def set_picture_file_dates(folder_path, picture_file_names, process, verbose):
     files_processed = process
     return (files_processed, files_process_comments)
 
-def move_picture_files(folder_path, picture_file_names, process, verbose):
+def move_picture_files(folder_path, picture_file_names, use_folder_date, process, verbose):
     files_processed = False
     files_process_comments = {}
     regular_file_names = [f for f in picture_file_names if multimedia_file.is_valid_file_name(os.path.join(folder_path, f), PICTURE_EXTENSION_PREFIX)]
@@ -238,7 +241,7 @@ def move_picture_files(folder_path, picture_file_names, process, verbose):
     # Create daily folders
     for picture_file_name in (regular_file_names + other_file_names):
         picture_file_path = os.path.join(folder_path, picture_file_name)
-        (file_date_valid, file_date) = multimedia_file.get_multimedia_file_date(picture_file_path, get_picture_file_date)
+        (file_date_valid, file_date) = get_picture_file_date(picture_file_path, use_folder_date)
         if file_date_valid:
             (folder_date_valid, folder_date) = multimedia_file.has_valid_dated_folder_name(picture_file_path)
             if folder_date_valid:
@@ -264,33 +267,61 @@ def move_picture_files(folder_path, picture_file_names, process, verbose):
     files_processed = process
     return (files_processed, files_process_comments)
 
-def rename_picture_files(folder_path, file_names, process, verbose):
+def rename_picture_files(folder_path, file_names, use_folder_date, process, verbose):
     files_processed = False
     files_process_comments = {}
-    
+
+    def get_timestamp(file_name):
+        timestamp = None
+        file_path = os.path.join(folder_path, file_name)
+        (file_date_valid, file_date) = get_picture_file_date(file_path, use_folder_date)
+        if file_date_valid:
+            timestamp = file_date.timestamp()
+        else:
+            timestamp = 0
+        return timestamp
+
+    file_names.sort(key=get_timestamp)
+
+    for index, file_name in enumerate(file_names):
+        file_path = os.path.join(folder_path, file_name)
+        file_extension = file.get_file_extension(file_path)
+        new_file_name = PICTURE_PREFIX + "{:0>5d}".format(index + 1) + file_extension
+        if not os.path.exists(file_path):
+            file_path += ".tmp"
+        if not file_name == new_file_name:
+            new_file_path = os.path.join(folder_path, new_file_name)
+            if not os.path.exists(new_file_path):
+                file_messages.add_file_message(files_process_comments, file_path, "Renamed " + new_file_name)
+            else:
+                file_messages.add_file_message(files_process_comments, new_file_path, "Renamed " + file_name + ".tmp")
+                file_messages.add_file_message(files_process_comments, file_path, "Renamed " + new_file_path)
+
     files_processed = process
     return (files_processed, files_process_comments)
 
-def process_picture_files_in_folder(folder_path, file_names, process, verbose):
+def process_picture_files_in_folder(folder_path, file_names, use_folder_date, set_dates, move_files, rename_files, process, verbose):
     files_processed = False
     files_process_comments = {}
 
     picture_file_names = [f for f in file_names if file.get_file_extension(os.path.join(folder_path, f)) in PICTURE_EXTENSION_PREFIX]
     if len(picture_file_names) > 0:
-        # Change file dates
-        (picture_file_dates_processed, picture_file_dates_process_comments) = set_picture_file_dates(folder_path, picture_file_names, process, verbose)
-        files_processed &= picture_file_dates_processed
-        file_messages.add_file_messages(files_process_comments, picture_file_dates_process_comments)
-        # Move files
-        (move_picture_files_processed, move_picture_files_process_comments) = move_picture_files(folder_path, picture_file_names, process, verbose)
-        files_processed &= move_picture_files_processed
-        file_messages.add_file_messages(files_process_comments, move_picture_files_process_comments)
-        # Rename files
-        (rename_picture_files_processed, rename_picture_files_process_comments) = rename_picture_files(folder_path, picture_file_names, process, verbose)
-        files_processed &= rename_picture_files_processed
-        file_messages.add_file_messages(files_process_comments, rename_picture_files_process_comments)
+        if set_dates:
+            # Change file dates
+            (picture_file_dates_processed, picture_file_dates_process_comments) = set_picture_file_dates(folder_path, picture_file_names, use_folder_date, process, verbose)
+            files_processed &= picture_file_dates_processed
+            file_messages.add_file_messages(files_process_comments, picture_file_dates_process_comments)
+        if move_files:
+            # Move files
+            (move_picture_files_processed, move_picture_files_process_comments) = move_picture_files(folder_path, picture_file_names, use_folder_date, process, verbose)
+            files_processed &= move_picture_files_processed
+            file_messages.add_file_messages(files_process_comments, move_picture_files_process_comments)
+        if rename_files:
+            # Rename files
+            (rename_picture_files_processed, rename_picture_files_process_comments) = rename_picture_files(folder_path, picture_file_names, use_folder_date, process, verbose)
+            files_processed &= rename_picture_files_processed
+            file_messages.add_file_messages(files_process_comments, rename_picture_files_process_comments)
     
-    files_processed = process
     return (files_processed, files_process_comments)
     
 def check_picture_file_name(file_path):
