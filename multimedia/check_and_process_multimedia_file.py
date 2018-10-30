@@ -43,7 +43,10 @@ def check_file_location(file_path, use_folder_date):
         return file_date
     (file_location_valid, file_date, file_location_error_message) = file.check_file_dates(file_path, "File date", get_file_date, "Folder date", multimedia_file.get_date_from_folder_name, 24*60*60)
     if not file_location_valid:
-        file_location_error_message = "File date (" + str(file_date) + ") shouldn't be stored in folder " + file.get_folder_path(file_path)
+        if file_date:
+            file_location_error_message = "File date (" + str(file_date) + ") shouldn't be stored in folder " + file.get_folder_path(file_path)
+        else:
+            file_location_error_message = "File date (undefined) shouldn't be stored in folder " + file.get_folder_path(file_path)
     return (file_location_valid, file_location_error_message)
 
 def check_file(file_path, use_folder_date, verbose):
@@ -101,17 +104,22 @@ def check_and_process_files_in_folder(folder_path, use_folder_date, set_dates, m
     folder_valid = True
     folder_check_errors = {}
     folder_process_comments = {}
-    for path, _, files in os.walk(folder_path):
-        if len(files):
-            (files_valid, _) = check_files_in_folder(path, files, use_folder_date, verbose)
-            folder_valid &= files_valid
-            if not files_valid:
-                (files_processed, files_process_comments) = process_files_in_folder(path, files, use_folder_date, set_dates, move_files, rename_files, process, verbose)
-                folder_valid &= files_processed
-                file_messages.add_file_messages(folder_process_comments, files_process_comments)
-                (files_valid, files_check_errors) = check_files_in_folder(path, files, use_folder_date, verbose)
+    (folder_date_valid, _) = multimedia_file.has_valid_dated_folder_name(os.path.join(folder_path, ".tmp"))
+    if folder_date_valid:
+        for path, _, files in os.walk(folder_path):
+            if len(files):
+                (files_valid, _) = check_files_in_folder(path, files, use_folder_date, verbose)
                 folder_valid &= files_valid
-                file_messages.add_file_messages(folder_check_errors, files_check_errors)
+                if not files_valid:
+                    (files_processed, files_process_comments) = process_files_in_folder(path, files, use_folder_date, set_dates, move_files, rename_files, process, verbose)
+                    folder_valid &= files_processed
+                    file_messages.add_file_messages(folder_process_comments, files_process_comments)
+                    (files_valid, files_check_errors) = check_files_in_folder(path, files, use_folder_date, verbose)
+                    folder_valid &= files_valid
+                    file_messages.add_file_messages(folder_check_errors, files_check_errors)
+    else:
+        folder_valid &= folder_date_valid
+        file_messages.add_file_message(folder_check_errors, folder_path, "Folder date undefined")
     return (folder_valid, folder_check_errors, folder_process_comments)
 
 def get_sub_folders_with_files(folder_path):
