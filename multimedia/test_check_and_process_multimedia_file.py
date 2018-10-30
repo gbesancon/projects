@@ -2,7 +2,7 @@ import unittest
 import check_and_process_multimedia_file
 
 class Test_CheckAndProcessMultimediaFile(unittest.TestCase):
-    TEST_FOLDER_PATH = "D:\\gbesancon\\00-temp\\2007"
+    TEST_FOLDER_PATH = "D:\\gbesancon\\00-temp\\Photos"
 
     def test_main(self):
         valid = check_and_process_multimedia_file.main(["-d", self.TEST_FOLDER_PATH])

@@ -4,15 +4,21 @@ import multimedia_file
 import os
 
 AUDIO_PREFIX = "a"
-AUDIO_EXTENSION_PREFIX = {    
-    ".mp3" : AUDIO_PREFIX,
-    ".wav" : AUDIO_PREFIX,
-    ".ogg" : AUDIO_PREFIX,
-}
+AUDIO_EXTENSION = [    
+    ".mp3",
+    ".ogg",
+    ".wav"
+]
+AUDIO_EXTENSION_PREFIX = {}
+for file_extension in AUDIO_EXTENSION:
+    AUDIO_EXTENSION_PREFIX[file_extension] = AUDIO_PREFIX
 
 def is_audio_file(file_path):
     file_extension = file.get_file_extension(file_path)
     return file_extension in AUDIO_EXTENSION_PREFIX
+
+def check_audio_file_name(file_path):
+    return multimedia_file.check_multimedia_file_name(file_path, AUDIO_EXTENSION_PREFIX)
 
 def set_audio_file_date(file_path, file_date):
     file.set_file_date(file_path, file_date)
@@ -84,6 +90,3 @@ def process_audio_files_in_folder(folder_path, file_names, use_folder_date, set_
             file_messages.add_file_messages(files_process_comments, rename_audio_files_process_comments)
     
     return (files_processed, files_process_comments)
-
-def check_audio_file_name(file_path):
-    return multimedia_file.check_multimedia_file_name(file_path, AUDIO_EXTENSION_PREFIX)
