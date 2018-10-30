@@ -18,7 +18,11 @@ def is_valid_dated_folder_name(folder_name):
     match = re.match(r"^(\d\d\d\d-\d\d-\d\d)[a-z]?\s-\s.*$", folder_name)
     if match:
         valid = True
-        date = datetime.datetime.strptime(match.group(1), r'%Y-%m-%d')
+        try:
+            date = datetime.datetime.strptime(match.group(1), r'%Y-%m-%d')
+        except:
+            valid = False
+            date = None
     else:
         valid = False
     return (valid, date)
@@ -44,8 +48,13 @@ def is_valid_period_dated_folder_name(folder_name):
     match = re.match(r"^(\d\d\d\d-\d\d-\d\d)[a-z]?_(\d\d\d\d-\d\d-\d\d)[a-z]?\s-\s.*$", folder_name)
     if match:
         valid = True
-        beginning_date = datetime.datetime.strptime(match.group(1), r'%Y-%m-%d')
-        end_date = datetime.datetime.strptime(match.group(2), r'%Y-%m-%d') + datetime.timedelta(days=1) - datetime.timedelta(microseconds=1)
+        try:
+            beginning_date = datetime.datetime.strptime(match.group(1), r'%Y-%m-%d')
+            end_date = datetime.datetime.strptime(match.group(2), r'%Y-%m-%d') + datetime.timedelta(days=1) - datetime.timedelta(microseconds=1)
+        except:
+            valid = False
+            beginning_date = None
+            end_date = None
     else:
         valid = False
     return (valid, beginning_date, end_date)
