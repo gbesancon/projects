@@ -5,27 +5,48 @@ import piexif
 import datetime
 import file_messages
 import multimedia_file
+import exif_picture_file
 
 PICTURE_PREFIX = "p"
-EXIF_PICTURE_EXTENSION_PREFIX = {
-    ".jpg" : PICTURE_PREFIX,
-    ".jpeg": PICTURE_PREFIX,
-    ".png" : PICTURE_PREFIX,
-    ".tif" : PICTURE_PREFIX,
-    ".tiff": PICTURE_PREFIX,
-}
-NON_EXIF_PICTURE_EXTENSION_PREFIX = {    
-    ".bmp" : PICTURE_PREFIX,
-    ".gif" : PICTURE_PREFIX,
-    ".orf" : PICTURE_PREFIX,
-}
+NON_EXIF_PICTURE_EXTENSION = [    
+    ".bmp",
+    ".gif",
+    ".orf",
+]
 PICTURE_EXTENSION_PREFIX = {}
-for d in [EXIF_PICTURE_EXTENSION_PREFIX, NON_EXIF_PICTURE_EXTENSION_PREFIX]:
-    PICTURE_EXTENSION_PREFIX.update(d)
+for file_extension in exif_picture_file.EXIF_PICTURE_EXTENSION + NON_EXIF_PICTURE_EXTENSION:
+    PICTURE_EXTENSION_PREFIX[file_extension] = PICTURE_PREFIX
 
 def is_picture_file(file_path):
     file_extension = file.get_file_extension(file_path)
     return file_extension in PICTURE_EXTENSION_PREFIX
+    
+def check_picture_file_name(file_path):
+    valid = False
+    error_message = None
+    folder_name = file.get_folder_name(file_path)
+    (valid, error_message) = multimedia_file.check_multimedia_file_name(file_path, PICTURE_EXTENSION_PREFIX)
+    if valid:
+        if not is_panorama_folder_name(folder_name):
+            valid = True
+        else:
+            valid = False
+            error_message = "File should not be stored in a Panorama folder"
+    else:
+        if is_valid_panorama_file_name(file_path):
+            if is_panorama_folder_name(folder_name):
+                valid = True
+            else:
+                valid = False
+                error_message = "Panorama file not stored in a Panorama folder"
+        else:
+            if is_panorama_folder_name(folder_name):
+                valid = False
+                error_message = "Panorama filename incorrect"
+            else:
+                valid = False
+                error_message = "Filename incorrect"
+    return (valid, error_message)
 
 PANORAMA_FOLDER_NAME = "Panorama"
 
@@ -52,77 +73,6 @@ def is_valid_panorama_file_name(file_path):
         valid = False
     return valid
 
-def has_exif(file_path):
-    has = False
-    if file.get_file_extension(file_path) in EXIF_PICTURE_EXTENSION_PREFIX:
-        has = get_exif(file_path) is not None
-    return has
-
-def get_exif(file_path):
-    exif_dict = None
-    try:
-        exif_dict = piexif.load(file_path)
-    except:
-        pass
-    return exif_dict
-
-UTF8 = "utf-8"
-EXIF_DATE_FORMAT = r'%Y:%m:%d %H:%M:%S'
-
-def has_exif_date_time_original(file_path):
-    return get_exif_date_time_original(file_path) is not None
-
-def get_exif_date_time_original(file_path):
-    exif_date_time_original = None
-    if has_exif(file_path):
-        exif_dict = get_exif(file_path)
-        if "Exif" in exif_dict:
-            exif = exif_dict["Exif"]
-            if exif:
-                if piexif.ExifIFD.DateTimeOriginal in exif:
-                    date_time_original_binary = exif[piexif.ExifIFD.DateTimeOriginal]
-                    if date_time_original_binary:
-                        date_time_original = date_time_original_binary.decode(UTF8)
-                        exif_date_time_original = datetime.datetime.strptime(date_time_original, EXIF_DATE_FORMAT)
-    return exif_date_time_original
-
-def set_exif_date_time_original(file_path, file_date):
-    try:
-        if has_exif(file_path):
-            exif_dict = get_exif(file_path)
-            exif_dict["Exif"][piexif.ExifIFD.DateTimeOriginal] = file_date.strftime(EXIF_DATE_FORMAT).encode(UTF8)
-            exif_bytes = piexif.dump(exif_dict)
-            piexif.insert(exif_bytes, file_path)
-    except:
-        pass
-
-def has_exif_date_time_digitized(file_path):
-    return get_exif_date_time_digitized(file_path) is not None
-
-def get_exif_date_time_digitized(file_path):
-    exif_date_time_digitized = None
-    if has_exif(file_path):
-        exif_dict = get_exif(file_path)
-        if "Exif" in exif_dict:
-            exif = exif_dict["Exif"]
-            if exif:
-                if piexif.ExifIFD.DateTimeDigitized in exif:
-                    date_time_digitized_binary = exif[piexif.ExifIFD.DateTimeDigitized]
-                    if date_time_digitized_binary:
-                        date_time_digitized = date_time_digitized_binary.decode(UTF8)
-                        exif_date_time_digitized = datetime.datetime.strptime(date_time_digitized, EXIF_DATE_FORMAT)
-    return exif_date_time_digitized
-
-def set_exif_date_time_digitized(file_path, file_date):
-    try:
-        if has_exif(file_path):
-            exif_dict = get_exif(file_path)
-            exif_dict["Exif"][piexif.ExifIFD.DateTimeDigitized] = file_date.strftime(EXIF_DATE_FORMAT).encode(UTF8)
-            exif_bytes = piexif.dump(exif_dict)
-            piexif.insert(exif_bytes, file_path)
-    except:
-        pass
-
 def is_valid_dated_picture_file_name(file_path):
     valid = True
     date = None
@@ -142,12 +92,12 @@ def get_date_from_picture_file_name(file_path):
 def get_picture_file_date(file_path, use_folder_date):
     file_date_valid = False
     file_date = None
-    if has_exif_date_time_original(file_path):
+    if exif_picture_file.has_exif_date_time_original(file_path):
         file_date_valid = True
-        file_date = get_exif_date_time_original(file_path)
-    elif has_exif_date_time_digitized(file_path):
+        file_date = exif_picture_file.get_exif_date_time_original(file_path)
+    elif exif_picture_file.has_exif_date_time_digitized(file_path):
         file_date_valid = True
-        file_date = get_exif_date_time_digitized(file_path)
+        file_date = exif_picture_file.get_exif_date_time_digitized(file_path)
     else:
         (file_date_valid, file_date) = is_valid_dated_picture_file_name(file_path)
         if not file_date_valid and use_folder_date:
@@ -158,20 +108,20 @@ def get_picture_file_date(file_path, use_folder_date):
     return (file_date_valid, file_date)
 
 def set_picture_file_date(file_path, file_date):
-    set_exif_date_time_original(file_path, file_date)
-    set_exif_date_time_digitized(file_path, file_date)
+    exif_picture_file.set_exif_date_time_original(file_path, file_date)
+    exif_picture_file.set_exif_date_time_digitized(file_path, file_date)
     file.set_file_date(file_path, file_date)
 
 def check_picture_file_date(file_path, use_folder_date):
     (file_date_valid, file_date) = get_picture_file_date(file_path, use_folder_date)
     file_error_message = None
     if file_date_valid:
-        if has_exif_date_time_original(file_path):
+        if exif_picture_file.has_exif_date_time_original(file_path):
             if file_date_valid:
-                (file_date_valid, file_date, file_error_message) = file.check_file_dates(file_path, "File date", lambda f : file_date, "EXIF Date Time Original", get_exif_date_time_original)
-        if has_exif_date_time_digitized(file_path):
+                (file_date_valid, file_date, file_error_message) = file.check_file_dates(file_path, "File date", lambda f : file_date, "EXIF Date Time Original", exif_picture_file.get_exif_date_time_original)
+        if exif_picture_file.has_exif_date_time_digitized(file_path):
             if file_date_valid:
-                (file_date_valid, file_date, file_error_message) = file.check_file_dates(file_path, "File date", lambda f : file_date, "EXIF Date Time Digitized", get_exif_date_time_digitized)
+                (file_date_valid, file_date, file_error_message) = file.check_file_dates(file_path, "File date", lambda f : file_date, "EXIF Date Time Digitized", exif_picture_file.get_exif_date_time_digitized)
         if file_date_valid:
             (file_date_valid, file_date, file_error_message) = multimedia_file.check_multimedia_file_date(file_path, file_date)
     else:
@@ -323,30 +273,3 @@ def process_picture_files_in_folder(folder_path, file_names, use_folder_date, se
             file_messages.add_file_messages(files_process_comments, rename_picture_files_process_comments)
     
     return (files_processed, files_process_comments)
-    
-def check_picture_file_name(file_path):
-    valid = False
-    error_message = None
-    folder_name = file.get_folder_name(file_path)
-    (valid, error_message) = multimedia_file.check_multimedia_file_name(file_path, PICTURE_EXTENSION_PREFIX)
-    if valid:
-        if not is_panorama_folder_name(folder_name):
-            valid = True
-        else:
-            valid = False
-            error_message = "File should not be stored in a Panorama folder"
-    else:
-        if is_valid_panorama_file_name(file_path):
-            if is_panorama_folder_name(folder_name):
-                valid = True
-            else:
-                valid = False
-                error_message = "Panorama file not stored in a Panorama folder"
-        else:
-            if is_panorama_folder_name(folder_name):
-                valid = False
-                error_message = "Panorama filename incorrect"
-            else:
-                valid = False
-                error_message = "Filename incorrect"
-    return (valid, error_message)
