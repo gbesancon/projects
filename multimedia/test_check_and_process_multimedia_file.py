@@ -9,7 +9,7 @@ class Test_CheckAndProcessMultimediaFile(unittest.TestCase):
         self.assertFalse(valid)
 
     def test_check_and_process_files_in_folders(self):
-        (valid, _, _) = check_and_process_multimedia_file.check_and_process_files_in_folders(folder_pathes=[self.TEST_FOLDER_PATH], set_dates=True, use_folder_date=True, move_files=True, rename_files=True, process=True, verbose=True)
+        (valid, _, _) = check_and_process_multimedia_file.check_and_process_files_in_folders(folder_pathes=[self.TEST_FOLDER_PATH], set_dates=True, use_folder_date=False, move_files=False, rename_files=True, process=True, verbose=True)
         self.assertFalse(valid)
 
 if __name__ == '__main__':
