@@ -30,6 +30,17 @@ def move_file_to_folder(file_path, target_folder_path):
     except:
         pass
 
+def rename_file(file_path, target_file_path):
+    try:
+        target_folder_path = file.get_folder_path(target_file_path)
+        if os.path.exists(file_path) and not os.path.exists(target_file_path):
+            if not os.path.exists(target_folder_path):
+                os.makedirs(target_folder_path)
+            import shutil
+            shutil.move(file_path, target_file_path)
+    except:
+        pass
+
 def get_creation_date(file_path):
     creation_date = None
     """
