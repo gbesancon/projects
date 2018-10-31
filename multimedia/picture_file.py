@@ -7,87 +7,83 @@ import file_messages
 import multimedia_file
 import exif_picture_file
 
-PICTURE_PREFIX = "p"
+OLD_PICTURE_PREFIX = "p"
+REGULAR_PICTURE_PREFIX = "IMG"
+PANORAMA_PICTURE_PREFIX = "PAN"
 NON_EXIF_PICTURE_EXTENSION = [    
     ".bmp",
     ".gif",
     ".orf",
 ]
-PICTURE_EXTENSION_PREFIX = {}
-for file_extension in exif_picture_file.EXIF_PICTURE_EXTENSION + NON_EXIF_PICTURE_EXTENSION:
-    PICTURE_EXTENSION_PREFIX[file_extension] = PICTURE_PREFIX
-
-def is_picture_file(file_path):
-    file_extension = file.get_file_extension(file_path)
-    return file_extension in PICTURE_EXTENSION_PREFIX
-    
-def check_picture_file_name(file_path):
-    valid = False
-    error_message = None
-    folder_name = file.get_folder_name(file_path)
-    (valid, error_message) = multimedia_file.check_multimedia_file_name(file_path, PICTURE_EXTENSION_PREFIX)
-    if valid:
-        if not is_panorama_folder_name(folder_name):
-            valid = True
-        else:
-            valid = False
-            error_message = "File should not be stored in a Panorama folder"
-    else:
-        if is_valid_panorama_file_name(file_path):
-            if is_panorama_folder_name(folder_name):
-                valid = True
-            else:
-                valid = False
-                error_message = "Panorama file not stored in a Panorama folder"
-        else:
-            if is_panorama_folder_name(folder_name):
-                valid = False
-                error_message = "Panorama filename incorrect"
-            else:
-                valid = False
-                error_message = "Filename incorrect"
-    return (valid, error_message)
+PICTURE_EXTENSION = NON_EXIF_PICTURE_EXTENSION + exif_picture_file.EXIF_PICTURE_EXTENSION
 
 PANORAMA_FOLDER_NAME = "Panorama"
 
-def is_panorama_folder_name(folder_name):
+def is_panorama_picture_folder_name(folder_name):
     return folder_name == PANORAMA_FOLDER_NAME
 
 def is_panorama_folder_path(folder_path):
     folder_name = os.path.basename(folder_path)
-    return is_panorama_folder_name(folder_name)
-    
-def is_valid_panorama_file_name(file_path):
-    valid = True
-    file_name = file.get_file_name(file_path)
-    file_name_no_extension = os.path.splitext(file_name)[0]
+    return is_panorama_picture_folder_name(folder_name)
+
+def is_picture_file(file_path):
     file_extension = file.get_file_extension(file_path)
-    if file_extension in PICTURE_EXTENSION_PREFIX:
-        prefix = PICTURE_EXTENSION_PREFIX[file_extension]
-        match = re.match(r"^" + prefix + r"\d\d\d\d\d" + " - " + prefix + r"\d\d\d\d\d" + r"$", file_name_no_extension)
-        if match:
-            valid = True
-        else:
-            valid = False
-    else:
-        valid = False
+    return file_extension in PICTURE_EXTENSION
+
+def generate_picture_file_name(file_path, use_folder_date):
+    file_name = None
+    (file_date_valid, file_date) = get_picture_file_date(file_path, use_folder_date)
+    if file_date_valid:
+        folder_path = file.get_folder_path(file_path)
+        prefix = PANORAMA_PICTURE_PREFIX if is_panorama_folder_path(folder_path) else REGULAR_PICTURE_PREFIX
+        file_extension = file.get_file_extension(file_path)
+        file_name = file_date.strftime(prefix + "_%Y%m%d_%H%M%S" + file_extension)
+    return file_name
+
+def check_regular_picture_file_name(file_path):
+    return multimedia_file.check_multimedia_file_name(file_path, REGULAR_PICTURE_PREFIX)
+
+def is_valid_regular_picture_file_name(file_path):
+    (valid, _, _) = check_regular_picture_file_name(file_path)
     return valid
 
-def is_valid_dated_picture_file_name(file_path):
-    valid = True
-    date = None
-    file_name = file.get_file_name(file_path)
-    match = re.match(r"^IMG_(\d\d\d\d\d\d\d\d_\d\d\d\d\d\d).*$", file_name)
-    if match:
-        valid = True
-        date = datetime.datetime.strptime(match.group(1), r'%Y%m%d_%H%M%S')
-    else:
-        valid = False
-    return (valid, date)
+def check_panorama_picture_file_name(file_path):
+    return multimedia_file.check_multimedia_file_name(file_path, PANORAMA_PICTURE_PREFIX)
 
-def get_date_from_picture_file_name(file_path):
-    (_, date) = is_valid_dated_picture_file_name(file_path)
-    return date
+def is_valid_panorama_picture_file_name(file_path):
+    (valid, _, _) = check_panorama_picture_file_name(file_path)
+    return valid
+    
+def check_picture_file_name(file_path):
+    valid = False
+    file_date = None
+    error_message = None
+    folder_name = file.get_folder_name(file_path)
+    if not is_panorama_picture_folder_name(folder_name):
+        (valid, file_date, error_message) = check_regular_picture_file_name(file_path)
+        if not valid:
+            (valid, file_date, error_message) = check_panorama_picture_file_name(file_path)
+            if valid:
+                valid = False
+                file_date = None
+                error_message = "Panorama file not stored in a Panorama folder"
+            else:
+                valid = False
+                file_date = None
+                error_message = "Filename incorrect"
+    else:
+        (valid, file_date, error_message) = check_panorama_picture_file_name(file_path)
+        if not valid:
+            (valid, file_date, error_message) = check_regular_picture_file_name(file_path)
+            if valid:
+                valid = False
+                file_date = None
+                error_message = "File should not be stored in a Panorama folder"
+            else:
+                valid = False
+                file_date = None
+                error_message = "Filename incorrect"
+    return (valid, file_date, error_message)
 
 def get_picture_file_date(file_path, use_folder_date):
     file_date_valid = False
@@ -99,7 +95,7 @@ def get_picture_file_date(file_path, use_folder_date):
         file_date_valid = True
         file_date = exif_picture_file.get_exif_date_time_digitized(file_path)
     else:
-        (file_date_valid, file_date) = is_valid_dated_picture_file_name(file_path)
+        (file_date_valid, file_date, _) = check_picture_file_name(file_path)
         if not file_date_valid and use_folder_date:
             (folder_date_valid, folder_date) = multimedia_file.has_valid_dated_folder_name(file_path)
             if folder_date_valid:
@@ -164,32 +160,32 @@ def set_picture_file_dates(folder_path, picture_file_names, use_folder_date, pro
 def move_picture_files(folder_path, picture_file_names, use_folder_date, process, verbose):
     files_processed = False
     files_process_comments = {}
-    regular_file_names = [f for f in picture_file_names if multimedia_file.is_valid_file_name(os.path.join(folder_path, f), PICTURE_EXTENSION_PREFIX)]
-    panorama_file_names = [f for f in picture_file_names if is_valid_panorama_file_name(os.path.join(folder_path, f))]
-    other_file_names = [f for f in picture_file_names if f not in regular_file_names and f not in panorama_file_names]
-    if not is_panorama_folder_name(os.path.basename(folder_path)):
-        if len(panorama_file_names) > 0:
+    regular_picture_file_names = [f for f in picture_file_names if is_valid_regular_picture_file_name(os.path.join(folder_path, f))]
+    panorama_picture_file_names = [f for f in picture_file_names if is_valid_panorama_picture_file_name(os.path.join(folder_path, f))]
+    other_picture_file_names = [f for f in picture_file_names if f not in regular_picture_file_names and f not in panorama_picture_file_names]
+    if not is_panorama_picture_folder_name(os.path.basename(folder_path)):
+        if len(panorama_picture_file_names) > 0:
             # Move panorama files to Panorama folder
-            panorama_folder_path = os.path.join(folder_path, PANORAMA_FOLDER_NAME)
-            for panorama_file_name in panorama_file_names:
-                panorama_file_path = os.path.join(folder_path, panorama_file_name)
+            panorama_picture_folder_path = os.path.join(folder_path, PANORAMA_FOLDER_NAME)
+            for panorama_picture_file_name in panorama_picture_file_names:
+                panorama_picture_file_path = os.path.join(folder_path, panorama_picture_file_name)
                 if process:
-                    file.move_file_to_folder(panorama_file_path, panorama_folder_path)
+                    file.move_file_to_folder(panorama_picture_file_path, panorama_picture_folder_path)
                 if not process or verbose:
-                    file_messages.add_file_message(files_process_comments, panorama_file_path, "Move to " + panorama_folder_path)
+                    file_messages.add_file_message(files_process_comments, panorama_picture_file_path, "Move to " + panorama_picture_folder_path)
     else:
-        if len(panorama_file_names) > 0:
+        if len(panorama_picture_file_names) > 0:
             # Move regular files and other files to parent folder
             parent_folder_path = file.get_folder_path(folder_path)
-            for panorama_file_name in (regular_file_names + other_file_names):
-                panorama_file_path = os.path.join(folder_path, panorama_file_name)
+            for panorama_picture_file_name in (regular_picture_file_names + other_picture_file_names):
+                panorama_picture_file_path = os.path.join(folder_path, panorama_picture_file_name)
                 if process:
-                    file.move_file_to_folder(panorama_file_path, parent_folder_path)
+                    file.move_file_to_folder(panorama_picture_file_path, parent_folder_path)
                 if not process or verbose:
-                    file_messages.add_file_message(files_process_comments, panorama_file_path, "Move to " + parent_folder_path)
+                    file_messages.add_file_message(files_process_comments, panorama_picture_file_path, "Move to " + parent_folder_path)
     
     # Create daily folders
-    for picture_file_name in (regular_file_names + other_file_names):
+    for picture_file_name in (regular_picture_file_names + other_picture_file_names):
         picture_file_path = os.path.join(folder_path, picture_file_name)
         (file_date_valid, file_date) = get_picture_file_date(picture_file_path, use_folder_date)
         if file_date_valid:
@@ -197,7 +193,8 @@ def move_picture_files(folder_path, picture_file_names, use_folder_date, process
             if folder_date_valid:
                 if not (file_date.year == folder_date.year and file_date.month == folder_date.month and file_date.day == folder_date.day):
                     dated_folder_name = "{:0>4d}-{:0>2d}-{:0>2d} - XXX".format(file_date.year, file_date.month, file_date.day)
-                    dated_folder_path = os.path.join(folder_path, dated_folder_name)
+                    parent_folder_path = file.get_folder_path(folder_path)
+                    dated_folder_path = os.path.join(parent_folder_path, dated_folder_name)
                     if process:
                         file.move_file_to_folder(picture_file_path, dated_folder_path)
                     if not process or verbose:
@@ -217,7 +214,7 @@ def move_picture_files(folder_path, picture_file_names, use_folder_date, process
     files_processed = process
     return (files_processed, files_process_comments)
 
-def rename_picture_files(folder_path, file_names, use_folder_date, process, verbose):
+def rename_picture_files(folder_path, picture_file_names, use_folder_date, process, verbose):
     files_processed = False
     files_process_comments = {}
 
@@ -231,21 +228,35 @@ def rename_picture_files(folder_path, file_names, use_folder_date, process, verb
             timestamp = 0
         return timestamp
 
-    file_names.sort(key=get_timestamp)
+    picture_file_names.sort(key=get_timestamp)
 
-    for index, file_name in enumerate(file_names):
+    for index, file_name in enumerate(picture_file_names):
+        file_name_without_extension = os.path.splitext(file_name)[0]
         file_path = os.path.join(folder_path, file_name)
-        file_extension = file.get_file_extension(file_path)
-        new_file_name = PICTURE_PREFIX + "{:0>5d}".format(index + 1) + file_extension
-        if not os.path.exists(file_path):
-            file_path += ".tmp"
-        if not file_name == new_file_name:
-            new_file_path = os.path.join(folder_path, new_file_name)
-            if not os.path.exists(new_file_path):
-                file_messages.add_file_message(files_process_comments, file_path, "Renamed " + new_file_name)
-            else:
-                file_messages.add_file_message(files_process_comments, new_file_path, "Renamed " + file_name + ".tmp")
-                file_messages.add_file_message(files_process_comments, file_path, "Renamed " + new_file_path)
+        new_file_name = generate_picture_file_name(file_path, use_folder_date)
+        if not new_file_name:
+            file_extension = file.get_file_extension(file_path)
+            new_file_name = OLD_PICTURE_PREFIX + "{:0>5d}".format(index + 1) + file_extension
+        new_file_name_without_extension = os.path.splitext(new_file_name)[0]
+        if not new_file_name_without_extension.startswith(file_name_without_extension):
+            if not os.path.exists(file_path):
+                file_path += ".tmp"
+            if os.path.exists(file_path):
+                def get_new_available_file_name(folder_path, new_file_name):
+                    new_file_name_without_extension = os.path.splitext(new_file_name)[0]
+                    new_file_extension = file.get_file_extension(new_file_name)
+                    available_file_name = new_file_name
+                    index = 0
+                    while(os.path.exists(os.path.join(folder_path, available_file_name))):
+                        available_file_name = new_file_name_without_extension + "_" + str(index) + new_file_extension
+                        index += 1
+                    return available_file_name
+                new_file_name = get_new_available_file_name(folder_path, new_file_name)
+                new_file_path = os.path.join(folder_path, new_file_name)
+                if not os.path.exists(new_file_path):
+                    if process:
+                        file.rename_file(file_path, new_file_path)
+                    file_messages.add_file_message(files_process_comments, file_path, "Renamed " + new_file_name)
 
     files_processed = process
     return (files_processed, files_process_comments)
@@ -254,7 +265,7 @@ def process_picture_files_in_folder(folder_path, file_names, use_folder_date, se
     files_processed = False
     files_process_comments = {}
 
-    picture_file_names = [f for f in file_names if file.get_file_extension(os.path.join(folder_path, f)) in PICTURE_EXTENSION_PREFIX]
+    picture_file_names = [f for f in file_names if file.get_file_extension(os.path.join(folder_path, f)) in PICTURE_EXTENSION]
     if len(picture_file_names) > 0:
         if set_dates:
             # Change file dates
