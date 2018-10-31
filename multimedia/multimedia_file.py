@@ -3,6 +3,38 @@ import datetime
 import file
 import os
 
+def is_valid_multimedia_file_name(file_path, file_name_prefix):
+    valid = False
+    date = None
+    file_name = file.get_file_name(file_path)
+    file_name_no_extension = os.path.splitext(file_name)[0]
+    match = re.match(r"^" + file_name_prefix + r"_" + r"(\d\d\d\d\d\d\d\d_\d\d\d\d\d\d)" + r".*$", file_name_no_extension)
+    if match:
+        valid = True
+        date = datetime.datetime.strptime(match.group(1), r'%Y%m%d_%H%M%S')
+    else:
+        valid = False
+    return (valid, date)
+    
+def check_multimedia_file_name(file_path, file_name_prefix):
+    valid = False
+    error_message = None
+    (valid, date) = is_valid_multimedia_file_name(file_path, file_name_prefix)
+    if not valid:
+        error_message = "Filename incorrect"
+    return (valid, date, error_message)
+    
+def check_multimedia_file_date(file_path, file_date):
+    file_date_valid = True
+    file_error_message = None
+    if file_date_valid:
+        (file_date_valid, file_date, file_error_message) = file.check_file_dates(file_path, "File date", lambda f : file_date, "Folder date", get_date_from_folder_name, 24*60*60)
+    if file_date_valid:
+        (file_date_valid, file_date, file_error_message) = file.check_file_dates(file_path, "File date", lambda f : file_date, "Creation date", file.get_creation_date)
+    if file_date_valid:
+        (file_date_valid, file_date, file_error_message) = file.check_file_dates(file_path, "File date", lambda f : file_date, "Modification date", file.get_modification_date)
+    return (file_date_valid, file_date, file_error_message)
+    
 def is_year_folder_name(folder_name):
     valid = True
     match = re.match(r"^\d\d\d\d$", folder_name)
@@ -88,35 +120,3 @@ def validate_file_location(file_date, file_path):
                 if file_date >= folder_period_beginning_date and file_date <= folder_period_end_date:
                     file_location_valid = True
     return file_location_valid
-    
-def check_multimedia_file_date(file_path, file_date):
-    file_date_valid = True
-    file_error_message = None
-    if file_date_valid:
-        (file_date_valid, file_date, file_error_message) = file.check_file_dates(file_path, "File date", lambda f : file_date, "Folder date", get_date_from_folder_name, 24*60*60)
-    if file_date_valid:
-        (file_date_valid, file_date, file_error_message) = file.check_file_dates(file_path, "File date", lambda f : file_date, "Creation date", file.get_creation_date)
-    if file_date_valid:
-        (file_date_valid, file_date, file_error_message) = file.check_file_dates(file_path, "File date", lambda f : file_date, "Modification date", file.get_modification_date)
-    return (file_date_valid, file_date, file_error_message)
-    
-def is_valid_file_name(file_path, file_extension_prefix):
-    valid = True
-    file_name = file.get_file_name(file_path)
-    file_name_no_extension = os.path.splitext(file_name)[0]
-    file_extension = file.get_file_extension(file_path)
-    prefix = file_extension_prefix[file_extension]
-    match = re.match(r"^" + prefix + r"\d\d\d\d\d$", file_name_no_extension)
-    if match:
-        valid = True
-    else:
-        valid = False
-    return valid
-    
-def check_multimedia_file_name(file_path, file_extension_prefix):
-    valid = False
-    error_message = None
-    valid = is_valid_file_name(file_path, file_extension_prefix)
-    if not valid:
-        error_message = "Filename incorrect"
-    return (valid, error_message)
