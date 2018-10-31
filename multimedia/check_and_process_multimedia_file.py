@@ -14,15 +14,13 @@ import video_file
 import file
 import multimedia_file
 
-EXTENSION_PREFIX = {}
-for d in [audio_file.AUDIO_EXTENSION_PREFIX, picture_file.PICTURE_EXTENSION_PREFIX, video_file.VIDEO_EXTENSION_PREFIX]:
-    EXTENSION_PREFIX.update(d)
+EXTENSION = audio_file.AUDIO_EXTENSION + picture_file.PICTURE_EXTENSION + video_file.VIDEO_EXTENSION
 
 def check_file_extension(file_path):
     file_extension_valid = True
     file_extension_error_message = None
     file_extension = file.get_file_extension(file_path)
-    if not file_extension in EXTENSION_PREFIX:
+    if not file_extension in EXTENSION:
         file_extension_valid = False
         file_extension_error_message = "Extension " + file.get_file_extension(file_path) + " not supported"
     return (file_extension_valid, file_extension, file_extension_error_message)
@@ -63,7 +61,7 @@ def check_file(file_path, use_folder_date, verbose):
             elif video_file.is_video_file(file_path):
                 check_file_name = video_file.check_video_file_name
                 check_file_date = video_file.check_video_file_date
-            (file_valid, file_error_message) = check_file_name(file_path)
+            (file_valid, _, file_error_message) = check_file_name(file_path)
             if file_valid:
                 (file_valid, _, file_error_message) = check_file_date(file_path, use_folder_date)
     return (file_valid, file_error_message)
@@ -106,15 +104,19 @@ def check_and_process_files_in_folder(folder_path, use_folder_date, set_dates, m
     folder_process_comments = {}
     (folder_date_valid, _) = multimedia_file.has_valid_dated_folder_name(os.path.join(folder_path, ".tmp"))
     if folder_date_valid:
-        for path, _, files in os.walk(folder_path):
-            if len(files):
-                (files_valid, _) = check_files_in_folder(path, files, use_folder_date, verbose)
+        files_processed = False
+        for sub_folder_name, _, file_names in os.walk(folder_path):
+            if len(file_names):
+                (files_valid, _) = check_files_in_folder(sub_folder_name, file_names, use_folder_date, verbose)
                 folder_valid &= files_valid
                 if not files_valid:
-                    (files_processed, files_process_comments) = process_files_in_folder(path, files, use_folder_date, set_dates, move_files, rename_files, process, verbose)
+                    (files_processed, files_process_comments) = process_files_in_folder(sub_folder_name, file_names, use_folder_date, set_dates, move_files, rename_files, process, verbose)
                     folder_valid &= files_processed
                     file_messages.add_file_messages(folder_process_comments, files_process_comments)
-                    (files_valid, files_check_errors) = check_files_in_folder(path, files, use_folder_date, verbose)
+        if files_processed:
+            for sub_folder_name, _, file_names in os.walk(folder_path):
+                if len(file_names):
+                    (files_valid, files_check_errors) = check_files_in_folder(sub_folder_name, file_names, use_folder_date, verbose)
                     folder_valid &= files_valid
                     file_messages.add_file_messages(folder_check_errors, files_check_errors)
     else:
@@ -141,11 +143,11 @@ def check_and_process_files_in_folders(folder_pathes, use_folder_date, set_dates
     for multimedia_folder_path in multimedia_folder_pathes:
         (folder_valid, folder_check_errors, folder_process_comments) = check_and_process_files_in_folder(multimedia_folder_path, use_folder_date, set_dates, move_files, rename_files, process, verbose)
         valid &= folder_valid
+        file_messages.print_file_messages(folder_process_comments)
         if not folder_valid or verbose:
             file_messages.print_file_messages(folder_check_errors)
-        file_messages.print_file_messages(folder_process_comments)
-        file_messages.add_file_messages(check_errors, folder_check_errors)
         file_messages.add_file_messages(process_comments, folder_process_comments)
+        file_messages.add_file_messages(check_errors, folder_check_errors)
     return (valid, check_errors, process_comments)
 
 def main(argv):
