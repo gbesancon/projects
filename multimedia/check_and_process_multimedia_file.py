@@ -75,9 +75,9 @@ def check_files_in_folder(folder_path, file_names, use_folder_date, verbose):
         files_valid &= file_valid
         if file_valid:
             if verbose:
-                file_messages.add_file_message(files_errors, file_path, "Checked")
+                file_messages.add_file_message(files_errors, folder_path, file_name, "Checked")
         else:
-            file_messages.add_file_message(files_errors, file_path, file_error_message)
+            file_messages.add_file_message(files_errors, folder_path, file_name, file_error_message)
     return (files_valid, files_errors)
 
 def process_files_in_folder(folder_path, file_names, use_folder_date, set_dates, move_files, rename_files, process, verbose):
@@ -121,7 +121,7 @@ def check_and_process_files_in_folder(folder_path, use_folder_date, set_dates, m
                     file_messages.add_file_messages(folder_check_errors, files_check_errors)
     else:
         folder_valid &= folder_date_valid
-        file_messages.add_file_message(folder_check_errors, folder_path, "Folder date undefined")
+        file_messages.add_file_message(folder_check_errors, folder_path, "", "Folder date undefined")
     return (folder_valid, folder_check_errors, folder_process_comments)
 
 def get_sub_folders_with_files(folder_path):
