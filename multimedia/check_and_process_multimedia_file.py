@@ -103,6 +103,8 @@ def check_and_process_files_in_folder(folder_path, use_folder_date, set_dates, m
     folder_check_errors = {}
     folder_process_comments = {}
     (folder_date_valid, _) = multimedia_file.has_valid_dated_folder_name(os.path.join(folder_path, ".tmp"))
+    if not folder_date_valid:
+        (folder_date_valid, _, _) = multimedia_file.has_valid_period_dated_folder_name(os.path.join(folder_path, ".tmp"))
     if folder_date_valid:
         files_processed = False
         for sub_folder_name, _, file_names in os.walk(folder_path):

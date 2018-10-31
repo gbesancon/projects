@@ -74,21 +74,42 @@ def get_date_from_folder_name(file_path):
     return date
 
 def is_valid_period_dated_folder_name(folder_name):
-    valid = True
+    valid = False
     beginning_date = None
     end_date = None
-    match = re.match(r"^(\d\d\d\d-\d\d-\d\d)[a-z]?_(\d\d\d\d-\d\d-\d\d)[a-z]?\s-\s.*$", folder_name)
-    if match:
-        valid = True
-        try:
-            beginning_date = datetime.datetime.strptime(match.group(1), r'%Y-%m-%d')
-            end_date = datetime.datetime.strptime(match.group(2), r'%Y-%m-%d') + datetime.timedelta(days=1) - datetime.timedelta(microseconds=1)
-        except:
-            valid = False
-            beginning_date = None
-            end_date = None
-    else:
-        valid = False
+    if not valid:
+        match = re.match(r"^(\d\d\d\d-\d\d-\d\d)[a-z]?_(\d\d\d\d-\d\d-\d\d)[a-z]?\s-\s.*$", folder_name)
+        if match:
+            valid = True
+            try:
+                beginning_date = datetime.datetime.strptime(match.group(1), r'%Y-%m-%d')
+                end_date = datetime.datetime.strptime(match.group(2), r'%Y-%m-%d') + datetime.timedelta(days=1) - datetime.timedelta(microseconds=1)
+            except:
+                valid = False
+                beginning_date = None
+                end_date = None
+    if not valid:
+        match = re.match(r"^(\d\d\d\d-\d\d-\d\d)[a-z]?_(\d\d-\d\d)[a-z]?\s-\s.*$", folder_name)
+        if match:
+            valid = True
+            try:
+                beginning_date = datetime.datetime.strptime(match.group(1), r'%Y-%m-%d')
+                end_date = datetime.datetime.strptime(str(beginning_date.year) + "-" + match.group(2), r'%Y-%m-%d') + datetime.timedelta(days=1) - datetime.timedelta(microseconds=1)
+            except:
+                valid = False
+                beginning_date = None
+                end_date = None
+    if not valid:
+        match = re.match(r"^(\d\d\d\d-\d\d-\d\d)[a-z]?_(\d\d)[a-z]?\s-\s.*$", folder_name)
+        if match:
+            valid = True
+            try:
+                beginning_date = datetime.datetime.strptime(match.group(1), r'%Y-%m-%d')
+                end_date = datetime.datetime.strptime(str(beginning_date.year) + "-" + str(beginning_date.month) + "-" + match.group(2), r'%Y-%m-%d') + datetime.timedelta(days=1) - datetime.timedelta(microseconds=1)
+            except:
+                valid = False
+                beginning_date = None
+                end_date = None
     return (valid, beginning_date, end_date)
 
 def has_valid_period_dated_folder_name(file_path):
