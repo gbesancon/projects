@@ -32,16 +32,19 @@ def has_exif_date_time_original(file_path):
 
 def get_exif_date_time_original(file_path):
     exif_date_time_original = None
-    if has_exif(file_path):
-        exif_dict = get_exif(file_path)
-        if "Exif" in exif_dict:
-            exif = exif_dict["Exif"]
-            if exif:
-                if piexif.ExifIFD.DateTimeOriginal in exif:
-                    date_time_original_binary = exif[piexif.ExifIFD.DateTimeOriginal]
-                    if date_time_original_binary:
-                        date_time_original = date_time_original_binary.decode(UTF8)
-                        exif_date_time_original = datetime.datetime.strptime(date_time_original, EXIF_DATE_FORMAT)
+    try:
+        if has_exif(file_path):
+            exif_dict = get_exif(file_path)
+            if "Exif" in exif_dict:
+                exif = exif_dict["Exif"]
+                if exif:
+                    if piexif.ExifIFD.DateTimeOriginal in exif:
+                        date_time_original_binary = exif[piexif.ExifIFD.DateTimeOriginal]
+                        if date_time_original_binary:
+                            date_time_original = date_time_original_binary.decode(UTF8)
+                            exif_date_time_original = datetime.datetime.strptime(date_time_original, EXIF_DATE_FORMAT)
+    except:
+        pass
     return exif_date_time_original
 
 def set_exif_date_time_original(file_path, file_date):
@@ -59,16 +62,19 @@ def has_exif_date_time_digitized(file_path):
 
 def get_exif_date_time_digitized(file_path):
     exif_date_time_digitized = None
-    if has_exif(file_path):
-        exif_dict = get_exif(file_path)
-        if "Exif" in exif_dict:
-            exif = exif_dict["Exif"]
-            if exif:
-                if piexif.ExifIFD.DateTimeDigitized in exif:
-                    date_time_digitized_binary = exif[piexif.ExifIFD.DateTimeDigitized]
-                    if date_time_digitized_binary:
-                        date_time_digitized = date_time_digitized_binary.decode(UTF8)
-                        exif_date_time_digitized = datetime.datetime.strptime(date_time_digitized, EXIF_DATE_FORMAT)
+    try:
+        if has_exif(file_path):
+            exif_dict = get_exif(file_path)
+            if "Exif" in exif_dict:
+                exif = exif_dict["Exif"]
+                if exif:
+                    if piexif.ExifIFD.DateTimeDigitized in exif:
+                        date_time_digitized_binary = exif[piexif.ExifIFD.DateTimeDigitized]
+                        if date_time_digitized_binary:
+                            date_time_digitized = date_time_digitized_binary.decode(UTF8)
+                            exif_date_time_digitized = datetime.datetime.strptime(date_time_digitized, EXIF_DATE_FORMAT)
+    except:
+        pass
     return exif_date_time_digitized
 
 def set_exif_date_time_digitized(file_path, file_date):
