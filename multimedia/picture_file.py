@@ -37,7 +37,7 @@ def generate_picture_file_name(file_path, use_folder_date):
         folder_path = file.get_folder_path(file_path)
         prefix = PANORAMA_PICTURE_PREFIX if is_panorama_folder_path(folder_path) else REGULAR_PICTURE_PREFIX
         file_extension = file.get_file_extension(file_path)
-        file_name = file_date.strftime(prefix + "_%Y%m%d_%H%M%S" + file_extension)
+        file_name = file_date.strftime(prefix + "_" + "%Y%m%d_%H%M%S" + file_extension)
     return file_name
 
 def check_regular_picture_file_name(file_path):
@@ -138,9 +138,9 @@ def set_picture_file_dates(folder_path, picture_file_names, use_folder_date, pro
                     if process:
                         set_picture_file_date(picture_file_path, file_date)
                     if not process or verbose:
-                        file_messages.add_file_message(files_process_comments, picture_file_path, "Set File date (" + str(file_date) + ")")
+                        file_messages.add_file_message(files_process_comments, folder_path, picture_file_name, "Set File date (" + str(file_date) + ")")
                 else:
-                    file_messages.add_file_message(files_process_comments, picture_file_path, "File date (" + str(file_date) + ") not matching dated folder (" + folder_path + ")")
+                    file_messages.add_file_message(files_process_comments, folder_path, picture_file_name, "File date (" + str(file_date) + ") not matching dated folder (" + folder_path + ")")
             else:
                 (folder_period_date_valid, folder_period_beginning_date, folder_period_end_date) = multimedia_file.has_valid_period_dated_folder_name(picture_file_path)
                 if folder_period_date_valid:
@@ -148,11 +148,11 @@ def set_picture_file_dates(folder_path, picture_file_names, use_folder_date, pro
                         if process:
                             set_picture_file_date(picture_file_path, file_date)
                         if not process or verbose:
-                            file_messages.add_file_message(files_process_comments, picture_file_path, "Set File date (" + str(file_date) + ")")
+                            file_messages.add_file_message(files_process_comments, folder_path, picture_file_name, "Set File date (" + str(file_date) + ")")
                     else:
-                        file_messages.add_file_message(files_process_comments, picture_file_path, "File date (" + str(file_date) + ") not matching dated folder (" + folder_path + ")")
+                        file_messages.add_file_message(files_process_comments, folder_path, picture_file_name, "File date (" + str(file_date) + ") not matching dated folder (" + folder_path + ")")
         else:
-            file_messages.add_file_message(files_process_comments, picture_file_path, "No date identified for file")
+            file_messages.add_file_message(files_process_comments, folder_path, picture_file_name, "No date identified for file")
 
     files_processed = process
     return (files_processed, files_process_comments)
@@ -172,7 +172,7 @@ def move_picture_files(folder_path, picture_file_names, use_folder_date, process
                 if process:
                     file.move_file_to_folder(panorama_picture_file_path, panorama_picture_folder_path)
                 if not process or verbose:
-                    file_messages.add_file_message(files_process_comments, panorama_picture_file_path, "Move to " + panorama_picture_folder_path)
+                    file_messages.add_file_message(files_process_comments, folder_path, panorama_picture_file_name, "Move to " + panorama_picture_folder_path)
     else:
         if len(panorama_picture_file_names) > 0:
             # Move regular files and other files to parent folder
@@ -182,7 +182,7 @@ def move_picture_files(folder_path, picture_file_names, use_folder_date, process
                 if process:
                     file.move_file_to_folder(panorama_picture_file_path, parent_folder_path)
                 if not process or verbose:
-                    file_messages.add_file_message(files_process_comments, panorama_picture_file_path, "Move to " + parent_folder_path)
+                    file_messages.add_file_message(files_process_comments, folder_path, panorama_picture_file_name, "Move to " + parent_folder_path)
     
     # Create daily folders
     for picture_file_name in (regular_picture_file_names + other_picture_file_names):
@@ -198,7 +198,7 @@ def move_picture_files(folder_path, picture_file_names, use_folder_date, process
                     if process:
                         file.move_file_to_folder(picture_file_path, dated_folder_path)
                     if not process or verbose:
-                        file_messages.add_file_message(files_process_comments, picture_file_path, "Move to " + dated_folder_path)
+                        file_messages.add_file_message(files_process_comments, folder_path, picture_file_name, "Move to " + dated_folder_path)
             else:
                 (folder_period_date_valid, folder_period_beginning_date, folder_period_end_date) = multimedia_file.has_valid_period_dated_folder_name(picture_file_path)
                 if folder_period_date_valid:
@@ -208,9 +208,9 @@ def move_picture_files(folder_path, picture_file_names, use_folder_date, process
                         if process:
                             file.move_file_to_folder(picture_file_path, dated_folder_path)
                         if not process or verbose:
-                            file_messages.add_file_message(files_process_comments, picture_file_path, "Move to " + dated_folder_path)
+                            file_messages.add_file_message(files_process_comments, folder_path, picture_file_name, "Move to " + dated_folder_path)
         else:
-            file_messages.add_file_message(files_process_comments, picture_file_path, "No date identified for file")
+            file_messages.add_file_message(files_process_comments, folder_path, picture_file_name, "No date identified for file")
     files_processed = process
     return (files_processed, files_process_comments)
 
@@ -256,7 +256,7 @@ def rename_picture_files(folder_path, picture_file_names, use_folder_date, proce
                 if not os.path.exists(new_file_path):
                     if process:
                         file.rename_file(file_path, new_file_path)
-                    file_messages.add_file_message(files_process_comments, file_path, "Renamed " + new_file_name)
+                    file_messages.add_file_message(files_process_comments, folder_path, file_name, "Renamed " + new_file_name)
 
     files_processed = process
     return (files_processed, files_process_comments)

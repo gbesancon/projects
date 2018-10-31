@@ -29,7 +29,7 @@ def generate_video_file_name(file_path, use_folder_date):
     (file_date_valid, file_date) = get_video_file_date(file_path, use_folder_date)
     if file_date_valid:
         file_extension = file.get_file_extension(file_path)
-        file_name = file_date.strftime(VIDEO_PREFIX + "_%Y%m%d_%H%M%S" + file_extension)
+        file_name = file_date.strftime(VIDEO_PREFIX + "_" + "%Y%m%d_%H%M%S" + file_extension)
     return file_name
     
 def check_video_file_name(file_path):
@@ -65,19 +65,19 @@ def set_video_file_dates(folder_path, video_file_names, use_folder_date, process
                     if process:
                         set_video_file_date(video_file_path, file_date)
                     if not process or verbose:
-                        file_messages.add_file_message(files_process_comments, video_file_path, "Set File date (" + str(file_date) + ")")
+                        file_messages.add_file_message(files_process_comments, folder_path, video_file_name, "Set File date (" + str(file_date) + ")")
                 else:
-                    file_messages.add_file_message(files_process_comments, video_file_path, "File date (" + str(file_date) + ") not matching dated folder (" + folder_path + ")")
+                    file_messages.add_file_message(files_process_comments, folder_path, video_file_name, "File date (" + str(file_date) + ") not matching dated folder (" + folder_path + ")")
             else:
                 pass
         else:
-            if folder_date_valid:
+            if folder_date_valid and use_folder_date:
                 if process:
                     set_video_file_date(video_file_path, folder_date)
                 if not process or verbose:
-                    file_messages.add_file_message(files_process_comments, video_file_path, "Set File date (" + str(folder_date) + ")")
+                    file_messages.add_file_message(files_process_comments, folder_path, video_file_name, "Set File date (" + str(folder_date) + ")")
             else:
-                file_messages.add_file_message(files_process_comments, video_file_path, "No date identified for file")
+                file_messages.add_file_message(files_process_comments, folder_path, video_file_name, "No date identified for file")
                 
     files_processed = process
     return (files_processed, files_process_comments)
@@ -86,32 +86,32 @@ def move_video_files(folder_path, video_file_names, use_folder_date, process, ve
     files_processed = False
     files_process_comments = {}
     # Create daily folders
-    for picture_file_name in video_file_names:
-        picture_file_path = os.path.join(folder_path, picture_file_name)
-        (file_date_valid, file_date) = get_video_file_date(picture_file_path, use_folder_date)
+    for video_file_name in video_file_names:
+        video_file_path = os.path.join(folder_path, video_file_name)
+        (file_date_valid, file_date) = get_video_file_date(video_file_path, use_folder_date)
         if file_date_valid:
-            (folder_date_valid, folder_date) = multimedia_file.has_valid_dated_folder_name(picture_file_path)
+            (folder_date_valid, folder_date) = multimedia_file.has_valid_dated_folder_name(video_file_path)
             if folder_date_valid:
                 if not (file_date.year == folder_date.year and file_date.month == folder_date.month and file_date.day == folder_date.day):
                     dated_folder_name = "{:0>4d}-{:0>2d}-{:0>2d} - XXX".format(file_date.year, file_date.month, file_date.day)
                     parent_folder_path = file.get_folder_path(folder_path)
                     dated_folder_path = os.path.join(parent_folder_path, dated_folder_name)
                     if process:
-                        file.move_file_to_folder(picture_file_path, dated_folder_path)
+                        file.move_file_to_folder(video_file_path, dated_folder_path)
                     if not process or verbose:
-                        file_messages.add_file_message(files_process_comments, picture_file_path, "Move to " + dated_folder_path)
+                        file_messages.add_file_message(files_process_comments, folder_path, video_file_name, "Move to " + dated_folder_path)
             else:
-                (folder_period_date_valid, folder_period_beginning_date, folder_period_end_date) = multimedia_file.has_valid_period_dated_folder_name(picture_file_path)
+                (folder_period_date_valid, folder_period_beginning_date, folder_period_end_date) = multimedia_file.has_valid_period_dated_folder_name(video_file_path)
                 if folder_period_date_valid:
                     if folder_period_beginning_date <= file_date and file_date <= folder_period_end_date:
                         dated_folder_name = "{:0>4d}-{:0>2d}-{:0>2d} - XXX".format(file_date.year, file_date.month, file_date.day)
                         dated_folder_path = os.path.join(folder_path, dated_folder_name)
                         if process:
-                            file.move_file_to_folder(picture_file_path, dated_folder_path)
+                            file.move_file_to_folder(video_file_path, dated_folder_path)
                         if not process or verbose:
-                            file_messages.add_file_message(files_process_comments, picture_file_path, "Move to " + dated_folder_path)
+                            file_messages.add_file_message(files_process_comments, folder_path, video_file_name, "Move to " + dated_folder_path)
         else:
-            file_messages.add_file_message(files_process_comments, picture_file_path, "No date identified for file")
+            file_messages.add_file_message(files_process_comments, folder_path, video_file_name, "No date identified for file")
     files_processed = process
     return (files_processed, files_process_comments)
 
@@ -157,7 +157,7 @@ def rename_video_files(folder_path, video_file_names, use_folder_date, process, 
                 if not os.path.exists(new_file_path):
                     if process:
                         file.rename_file(file_path, new_file_path)
-                    file_messages.add_file_message(files_process_comments, file_path, "Renamed " + new_file_name)
+                    file_messages.add_file_message(files_process_comments, folder_path, file_name, "Renamed " + new_file_name)
 
     files_processed = process
     return (files_processed, files_process_comments)

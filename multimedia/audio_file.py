@@ -58,9 +58,9 @@ def set_audio_file_dates(folder_path, audio_file_names, use_folder_date, process
                     if process:
                         set_audio_file_date(audio_file_path, file_date)
                     if not process or verbose:
-                        file_messages.add_file_message(files_process_comments, audio_file_path, "Set File date (" + str(file_date) + ")")
+                        file_messages.add_file_message(files_process_comments, folder_path, audio_file_name, "Set File date (" + str(file_date) + ")")
                 else:
-                    file_messages.add_file_message(files_process_comments, audio_file_path, "File date (" + str(file_date) + ") not matching dated folder (" + folder_path + ")")
+                    file_messages.add_file_message(files_process_comments, folder_path, audio_file_name, "File date (" + str(file_date) + ") not matching dated folder (" + folder_path + ")")
             else:
                 pass
         else:
@@ -68,9 +68,9 @@ def set_audio_file_dates(folder_path, audio_file_names, use_folder_date, process
                 if process:
                     set_audio_file_date(audio_file_path, folder_date)
                 if not process or verbose:
-                    file_messages.add_file_message(files_process_comments, audio_file_path, "Set File date (" + str(folder_date) + ")")
+                    file_messages.add_file_message(files_process_comments, folder_path, audio_file_name, "Set File date (" + str(folder_date) + ")")
             else:
-                file_messages.add_file_message(files_process_comments, audio_file_path, "No date identified for file")
+                file_messages.add_file_message(files_process_comments, folder_path, audio_file_name, "No date identified for file")
             
     files_processed = process
     return (files_processed, files_process_comments)
@@ -117,7 +117,7 @@ def rename_audio_files(folder_path, audio_file_names, use_folder_date, process, 
                 if not os.path.exists(new_file_path):
                     if process:
                         file.rename_file(file_path, new_file_path)
-                    file_messages.add_file_message(files_process_comments, file_path, "Renamed " + new_file_name)
+                    file_messages.add_file_message(files_process_comments, folder_path, file_name, "Renamed " + new_file_name)
 
     files_processed = process
     return (files_processed, files_process_comments)
