@@ -2,7 +2,7 @@ import file
 import datetime
 import piexif
 
-EXIF_PICTURE_EXTENSION = [
+EXIF_EXTENSIONS = [
     ".jpeg",
     ".jpg",
     ".png",
@@ -12,7 +12,7 @@ EXIF_PICTURE_EXTENSION = [
 
 def has_exif(file_path):
     has = False
-    if file.get_file_extension(file_path) in EXIF_PICTURE_EXTENSION:
+    if file.get_file_extension(file_path) in EXIF_EXTENSIONS:
         has = get_exif(file_path) is not None
     return has
 
