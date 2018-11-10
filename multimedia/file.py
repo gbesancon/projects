@@ -103,13 +103,9 @@ def check_file_dates(file_path, label_date1, get_date1, label_date2, get_date2, 
     date2 = get_date2(file_path)
     if date1:
         if date2:
-            if date1.year == date2.year and date1.month == date2.month and date1.day == date2.day:
-                if isclose(date1.timestamp(), date2.timestamp(), rel_tol, abs_tol):
-                    valid = True
-                    date = date1
-                else:
-                    date = date1
-                    error_message = label_date1 + " (" + str(date1) + ")" + " and " +  label_date2 + " (" + str(date2) + ")" + " not matching."
+            if isclose(date1.timestamp(), date2.timestamp(), rel_tol, abs_tol):
+                valid = True
+                date = date1
             else:
                 date = date1
                 error_message = label_date1 + " (" + str(date1) + ")" + " and " +  label_date2 + " (" + str(date2) + ")" + " not matching."
