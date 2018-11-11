@@ -18,8 +18,9 @@ class MultimediaFile(file.File):
             from hachoir.parser import createParser
             parser = createParser(self.file_path)
             if parser:
-                from hachoir.metadata import extractMetadata
-                metadata = extractMetadata(parser)
+                with parser:
+                    from hachoir.metadata import extractMetadata
+                    metadata = extractMetadata(parser)
         except:
             pass
         return metadata
@@ -47,16 +48,6 @@ class MultimediaFile(file.File):
         if len(values) > index:
             value = values[index]
         return value
-
-    def _set_hachoir_metadata_value(self, key: str, value: any):
-        try:
-            from hachoir.parser import createParser
-            parser = createParser(self.file_path)
-            if parser:
-                from hachoir.editor import createEditor
-                editor = createEditor(parser)
-        except:
-            pass
 
     def _has_exif(self) -> bool:
         return self._get_exif() is not None
@@ -136,23 +127,27 @@ class MultimediaFile(file.File):
     def _is_valid_file_name(self, file_name_prefix: str):
         valid = False
         date = None
-        file_name = self.get_file_name()
-        file_name_no_extension = os.path.splitext(file_name)[0]
-        match = re.match(r"^" + file_name_prefix + r"_" + r"(\d\d\d\d\d\d\d\d_\d\d\d\d\d\d)" + r".*$", file_name_no_extension)
-        if match:
-            valid = True
-            date = datetime.datetime.strptime(match.group(1), r'%Y%m%d_%H%M%S')
-        else:
+        try:
+            file_name = self.get_file_name()
+            file_name_no_extension = os.path.splitext(file_name)[0]
+            match = re.match(r"^" + file_name_prefix + r"_" + r"(\d\d\d\d\d\d\d\d_\d\d\d\d\d\d)" + r".*$", file_name_no_extension)
+            if match:
+                valid = True
+                date = datetime.datetime.strptime(match.group(1), r'%Y%m%d_%H%M%S')
+            else:
+                valid = False
+        except:
             valid = False
         return (valid, date)
     
     def _check_file_name(self, file_name_prefix: str, file_date: datetime.datetime):
         valid = False
         error_message = None
-        (valid, date) = self._is_valid_file_name(file_name_prefix)
-        if valid:
-            (valid, _, error_message) = file.check_file_dates(self.file_path, "File date", date, "Creation date", file_date)
+        (file_name_valid, file_name_date) = self._is_valid_file_name(file_name_prefix)
+        if file_name_valid:
+            (valid, _, error_message) = file.check_file_dates(self.file_path, "File name date", file_name_date, "File date", file_date)
         else:
+            valid = file_name_valid
             error_message = "Filename incorrect"
         return (valid, error_message)
 
@@ -221,9 +216,6 @@ class MultimediaFile(file.File):
     def _set_file_date_in_metadata(self, file_date: datetime.datetime):
         self._set_exif_date_time_original(file_date)
         self._set_exif_date_time_digitized(file_date)
-        self._set_hachoir_metadata_value(MultimediaFile.CREATION_DATE, file_date)
-        self._set_hachoir_metadata_value(MultimediaFile.DATE_TIME_ORIGINAL, file_date)
-        self._set_hachoir_metadata_value(MultimediaFile.DATE_TIME_DIGITIZED, file_date)
 
     def set_file_date(self, file_date: datetime.datetime):
         super().set_file_date(file_date)
@@ -232,10 +224,18 @@ class MultimediaFile(file.File):
     def _check_file_date_with_metadata(self, file_date: datetime.datetime) -> Tuple[bool, str]:
         file_date_valid = True
         file_error_message = None
-        if file_date_valid and self._has_exif_date_time_original():
-            (file_date_valid, _, file_error_message) = file.check_file_dates(self.file_path, "File date", file_date, "EXIF Date Time Original", self._get_exif_date_time_original())
-        if file_date_valid and self._has_exif_date_time_digitized():
-            (file_date_valid, _, file_error_message) = file.check_file_dates(self.file_path, "File date", file_date, "EXIF Date Time Digitized", self._get_exif_date_time_digitized())
+        if file_date_valid and self._has_exif():
+            if file_date_valid and self._has_exif_date_time_original():
+                (file_date_valid, _, file_error_message) = file.check_file_dates(self.file_path, "File date", file_date, "EXIF Date Time Original", self._get_exif_date_time_original())
+            if file_date_valid and self._has_exif_date_time_digitized():
+                (file_date_valid, _, file_error_message) = file.check_file_dates(self.file_path, "File date", file_date, "EXIF Date Time Digitized", self._get_exif_date_time_digitized())
+        if file_date_valid and self._has_hachoir_metadata():
+            if file_date_valid and self._has_hachoir_metadata_key(MultimediaFile.CREATION_DATE):
+                (file_date_valid, _, file_error_message) = file.check_file_dates(self.file_path, "File date", file_date, "Hachoir Creation Date", self._get_hachoir_metadata_value(MultimediaFile.CREATION_DATE))
+            if file_date_valid and self._has_hachoir_metadata_key(MultimediaFile.DATE_TIME_ORIGINAL):
+                (file_date_valid, _, file_error_message) = file.check_file_dates(self.file_path, "File date", file_date, "Hachoir Date Time Original", self._get_hachoir_metadata_value(MultimediaFile.DATE_TIME_ORIGINAL))
+            if file_date_valid and self._has_hachoir_metadata_key(MultimediaFile.DATE_TIME_DIGITIZED):
+                (file_date_valid, _, file_error_message) = file.check_file_dates(self.file_path, "File date", file_date, "Hachoir Date Time Digitized", self._get_hachoir_metadata_value(MultimediaFile.DATE_TIME_DIGITIZED))
         return (file_date_valid, file_error_message)
 
     def _check_file_date_with_file_creation_modification(self, file_date: datetime.datetime) -> Tuple[bool, str]:

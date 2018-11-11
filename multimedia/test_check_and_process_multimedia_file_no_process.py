@@ -30,7 +30,7 @@ class Test_CheckAndProcessMultimediaFile(unittest.TestCase):
 
     def test_main_set_dates_use_folder_date_move_files_rename_files(self):
         valid = check_and_process_multimedia_file.main(["-d", self.TEST_FOLDER_PATH, "--set-dates", "--use-folder-date", "--move-files", "--rename-files"])
-        self.assertFalse(valid)
+        self.assertTrue(valid)
 
 if __name__ == '__main__':
     unittest.main()
