@@ -1,1 +1,1 @@
-"C:\Python36\python.exe" -m py_compile file_messages.py file.py multimedia_file.py audio_file.py picture_file.py exif_picture_file.py video_file.py check_and_process_multimedia_file.py
+"C:\Python36\python.exe" -m py_compile audio_file.py check_and_process_multimedia_file.py file_messages.py file.py folder.py multimedia_file.py picture_file.py video_file.py
