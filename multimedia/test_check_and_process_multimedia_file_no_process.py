@@ -17,7 +17,7 @@ class Test_CheckAndProcessMultimediaFile(unittest.TestCase):
         self.assertTrue(valid)
 
     def test_main_set_dates_rename_files(self):
-        valid = check_and_process_multimedia_file.main(["-d", self.TEST_FOLDER_PATH, "--set-dates", "--rename-files", "-v"])
+        valid = check_and_process_multimedia_file.main(["-d", self.TEST_FOLDER_PATH, "--set-dates", "--rename-files"])
         self.assertTrue(valid)
 
     def test_main_set_dates_use_folder_date_rename_files(self):
