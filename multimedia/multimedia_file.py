@@ -11,7 +11,7 @@ class MultimediaFile(file.File):
 
     def get_prefix(self) -> str:
         raise NotImplementedError
-
+    
     def _get_hachoir_metadata(self):
         metadata = None
         try:
@@ -55,10 +55,24 @@ class MultimediaFile(file.File):
     def _get_exif(self):
         exif_dict = None
         try:
-            import piexif
             exif_dict = piexif.load(self.file_path)
         except:
             pass
+        return exif_dict
+    
+    def _create_exif(self):
+        exif_dict = None
+        try:
+            zeroth_ifd = {}
+            exif_ifd = {}
+            gps_ifd = {}
+            first_ifd = {}
+            exif_dict = {"0th":zeroth_ifd, "Exif":exif_ifd, "GPS":gps_ifd, "1st":first_ifd}
+            exif_bytes = piexif.dump(exif_dict)
+            piexif.insert(exif_bytes, self.file_path)
+        except:
+            pass
+        exif_dict = self._get_exif()
         return exif_dict
 
     UTF8: str = "utf-8"
@@ -86,6 +100,8 @@ class MultimediaFile(file.File):
 
     def _set_exif_date_time_original(self, file_date: datetime.datetime):
         try:
+            if not self._has_exif():
+                self._create_exif()
             if self._has_exif():
                 exif_dict = self._get_exif()
                 exif_dict["Exif"][piexif.ExifIFD.DateTimeOriginal] = file_date.strftime(MultimediaFile.EXIF_DATE_FORMAT).encode(MultimediaFile.UTF8)
@@ -116,6 +132,8 @@ class MultimediaFile(file.File):
 
     def _set_exif_date_time_digitized(self, file_date: datetime.datetime):
         try:
+            if not self._has_exif():
+                self._create_exif()
             if self._has_exif():
                 exif_dict = self._get_exif()
                 exif_dict["Exif"][piexif.ExifIFD.DateTimeDigitized] = file_date.strftime(MultimediaFile.EXIF_DATE_FORMAT).encode(MultimediaFile.UTF8)
@@ -178,23 +196,25 @@ class MultimediaFile(file.File):
     def _get_file_date_from_metadata(self) -> Tuple[bool, datetime.datetime]:
         file_date_valid = False
         file_date = None
-        if not file_date_valid and self._has_exif():
-            if not file_date_valid and self._has_exif_date_time_original():
-                file_date_valid = True
-                file_date = self._get_exif_date_time_original()
-            elif not file_date_valid and self._has_exif_date_time_digitized():
-                file_date_valid = True
-                file_date = self._get_exif_date_time_digitized()
-        if not file_date_valid and self._has_hachoir_metadata():
-            if not file_date_valid and self._has_hachoir_metadata_key(MultimediaFile.CREATION_DATE):
-                file_date_valid = True
-                file_date = self._get_hachoir_metadata_value(MultimediaFile.CREATION_DATE)
-            if not file_date_valid and self._has_hachoir_metadata_key(MultimediaFile.DATE_TIME_ORIGINAL):
-                file_date_valid = True
-                file_date = self._get_hachoir_metadata_value(MultimediaFile.DATE_TIME_ORIGINAL)
-            if not file_date_valid and self._has_hachoir_metadata_key(MultimediaFile.DATE_TIME_DIGITIZED):
-                file_date_valid = True
-                file_date = self._get_hachoir_metadata_value(MultimediaFile.DATE_TIME_DIGITIZED)
+        if not file_date_valid:
+            if self._has_exif():
+                if not file_date_valid and self._has_exif_date_time_original():
+                    file_date_valid = True
+                    file_date = self._get_exif_date_time_original()
+                elif not file_date_valid and self._has_exif_date_time_digitized():
+                    file_date_valid = True
+                    file_date = self._get_exif_date_time_digitized()
+        if not file_date_valid:
+            if self._has_hachoir_metadata():
+                #if not file_date_valid and self._has_hachoir_metadata_key(MultimediaFile.DATE_TIME_ORIGINAL):
+                #    file_date_valid = True
+                #    file_date = self._get_hachoir_metadata_value(MultimediaFile.DATE_TIME_ORIGINAL)
+                #if not file_date_valid and self._has_hachoir_metadata_key(MultimediaFile.DATE_TIME_DIGITIZED):
+                #    file_date_valid = True
+                #    file_date = self._get_hachoir_metadata_value(MultimediaFile.DATE_TIME_DIGITIZED)
+                if not file_date_valid and self._has_hachoir_metadata_key(MultimediaFile.CREATION_DATE):
+                    file_date_valid = True
+                    file_date = self._get_hachoir_metadata_value(MultimediaFile.CREATION_DATE)
         return (file_date_valid, file_date)
 
     def _get_file_date_from_location(self) -> Tuple[bool, datetime.datetime]:
@@ -206,9 +226,9 @@ class MultimediaFile(file.File):
     def get_file_date(self, use_folder_date: bool) -> Tuple[bool, datetime.datetime]:
         file_date_valid = False
         file_date = None
-        (file_date_valid, file_date) = self._get_file_date_from_metadata()
+        (file_date_valid, file_date) = self._get_file_date_from_file_name()
         if not file_date_valid:
-            (file_date_valid, file_date) = self._get_file_date_from_file_name()
+            (file_date_valid, file_date) = self._get_file_date_from_metadata()
             if not file_date_valid and use_folder_date:
                 (file_date_valid, file_date) = self._get_file_date_from_location()
         return (file_date_valid, file_date)
@@ -229,13 +249,6 @@ class MultimediaFile(file.File):
                 (file_date_valid, _, file_error_message) = file.check_file_dates(self.file_path, "File date", file_date, "EXIF Date Time Original", self._get_exif_date_time_original())
             if file_date_valid and self._has_exif_date_time_digitized():
                 (file_date_valid, _, file_error_message) = file.check_file_dates(self.file_path, "File date", file_date, "EXIF Date Time Digitized", self._get_exif_date_time_digitized())
-        if file_date_valid and self._has_hachoir_metadata():
-            if file_date_valid and self._has_hachoir_metadata_key(MultimediaFile.CREATION_DATE):
-                (file_date_valid, _, file_error_message) = file.check_file_dates(self.file_path, "File date", file_date, "Hachoir Creation Date", self._get_hachoir_metadata_value(MultimediaFile.CREATION_DATE))
-            if file_date_valid and self._has_hachoir_metadata_key(MultimediaFile.DATE_TIME_ORIGINAL):
-                (file_date_valid, _, file_error_message) = file.check_file_dates(self.file_path, "File date", file_date, "Hachoir Date Time Original", self._get_hachoir_metadata_value(MultimediaFile.DATE_TIME_ORIGINAL))
-            if file_date_valid and self._has_hachoir_metadata_key(MultimediaFile.DATE_TIME_DIGITIZED):
-                (file_date_valid, _, file_error_message) = file.check_file_dates(self.file_path, "File date", file_date, "Hachoir Date Time Digitized", self._get_hachoir_metadata_value(MultimediaFile.DATE_TIME_DIGITIZED))
         return (file_date_valid, file_error_message)
 
     def _check_file_date_with_file_creation_modification(self, file_date: datetime.datetime) -> Tuple[bool, str]:
@@ -334,18 +347,18 @@ class MultimediaFile(file.File):
             # Change file dates
             (file_date_processed, file_date_process_comment) = self._process_set_file_date(use_folder_date, process, verbose)
             file_processed &= file_date_processed
-            if not file_date_processed and file_date_process_comment:
+            if (not file_date_processed or verbose) and file_date_process_comment:
                 file_process_comments.append(file_date_process_comment)
         if move_files:
             # Move files
             (move_file_processed, move_file_process_comment) = self._process_move_file(use_folder_date, process, verbose)
             file_processed &= move_file_processed
-            if not move_file_processed and move_file_process_comment:
+            if (not move_file_processed or verbose) and move_file_process_comment:
                 file_process_comments.append(file_date_process_comment)
         if rename_files:
             # Rename files
             (rename_file_processed, rename_file_process_comment) = self._process_rename_file(use_folder_date, process, verbose)
             file_processed &= rename_file_processed
-            if not rename_file_processed and rename_file_process_comment:
+            if (not rename_file_processed or verbose) and rename_file_process_comment:
                 file_process_comments.append(file_date_process_comment)
         return (file_processed, file_process_comments)
