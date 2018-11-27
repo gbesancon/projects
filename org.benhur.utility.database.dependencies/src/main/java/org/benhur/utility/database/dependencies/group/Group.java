@@ -33,7 +33,9 @@ public class Group {
   }
 
   public void addTable(ITable table) {
+	  if(!tables.contains(table )) {
     tables.add(table);
+	  }
   }
 
   public List<ITable> getTables() {
