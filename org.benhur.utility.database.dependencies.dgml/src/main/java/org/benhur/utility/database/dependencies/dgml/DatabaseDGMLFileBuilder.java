@@ -8,8 +8,8 @@ import org.benhur.utility.database.dependencies.IColumn;
 import org.benhur.utility.database.dependencies.IDatabase;
 import org.benhur.utility.database.dependencies.ITable;
 import org.benhur.utility.database.dependencies.configuration.Configuration;
-import org.benhur.utility.database.dependencies.group.Group;
 import org.benhur.utility.database.dependencies.group.DatabaseGroupBuilder;
+import org.benhur.utility.database.dependencies.group.Group;
 import org.benhur.utility.database.dependencies.group.GroupUtility;
 import org.benhur.utility.dgml.ADGMLFileBuilder;
 import org.benhur.utility.dgml.Category;
@@ -17,7 +17,7 @@ import org.benhur.utility.dgml.DGMLException;
 import org.benhur.utility.dgml.DirectedGraph;
 import org.benhur.utility.dgml.Node;
 
-public class DatabaseDGMLFileBuilder extends ADGMLFileBuilder<IDatabase, Configuration> {	
+public class DatabaseDGMLFileBuilder extends ADGMLFileBuilder<IDatabase, Configuration> {
   @Override
   protected void buildDirectedGraph(
       IDatabase input,
