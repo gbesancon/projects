@@ -137,17 +137,13 @@ class Folder:
 
     def check_files(self, use_folder_date, verbose) -> Tuple[bool, List[str]]:
         files_valid = True
-        files_error_messages = {}
         file_names = [f for f in os.listdir(self.folder_path) if os.path.isfile(os.path.join(self.folder_path, f))]
         if len(file_names):
             for file_name in file_names:
-                file_path = os.path.join(self.folder_path, file_name)
-                file = self._get_file(file_path)
-                if file:
-                    (file_valid, file_error_message) = file.check_file(use_folder_date, verbose)
-                    files_valid &= file_valid
-                    file_messages.add_file_message(files_error_messages, self.folder_path, file_name, file_error_message)
-                else:
-                    file_error_message = "Extension " + File(file_path).get_file_extension() + " not supported"
-                    file_messages.add_file_message(files_error_messages, self.folder_path, file_name, file_error_message)
-        return (files_valid, files_error_messages)
+                if files_valid:
+                    file_path = os.path.join(self.folder_path, file_name)
+                    file = self._get_file(file_path)
+                    if file:
+                        (file_valid, _) = file.check_file(use_folder_date, verbose)
+                        files_valid &= file_valid
+        return files_valid
