@@ -21,7 +21,7 @@ def check_and_process_files_in_folder(folder_path, use_folder_date, set_dates, m
     folder_process_comments = {}
     _folder = folder.Folder(folder_path)
     if _folder.has_valid_dated_folder_name():
-        (files_valid, _) = _folder.check_files(use_folder_date, verbose)
+        files_valid = _folder.check_files(use_folder_date, verbose)
         if not files_valid:
             file_names = [f for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f))]
             if len(file_names):
