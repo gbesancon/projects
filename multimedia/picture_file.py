@@ -50,7 +50,7 @@ class PictureFile(multimedia_file.MultimediaFile):
         valid = False
         file_name = self.get_file_name()
         file_name_no_extension = os.path.splitext(file_name)[0]
-        match = re.match(r"^" + PictureFile.OLD_PREFIX + r"(\d\d\d\d\d)" + r" - " + PictureFile.OLD_PREFIX + r"(\d\d\d\d\d\d)" + r"$", file_name_no_extension)
+        match = re.match(r"^" + PictureFile.OLD_PREFIX + r"(\d\d\d\d\d)" + r" - " + PictureFile.OLD_PREFIX + r"(\d\d\d\d\d)" + r"$", file_name_no_extension)
         if match:
             valid = True
         else:
@@ -85,7 +85,7 @@ class PictureFile(multimedia_file.MultimediaFile):
 
     def _process_move_file(self, use_folder_date, process, verbose) -> Tuple[bool, str]:
         file_process_comment = None
-        file_date = self.get_file_date(use_folder_date)
+        (_, file_date) = self.get_file_date(use_folder_date)
         _folder = self.get_folder()
         if _folder.is_panorama_folder():
             if not (self._is_valid_panorama_file_name(file_date) or self._is_valid_panorama_old_file_name()):
