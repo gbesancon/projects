@@ -178,9 +178,6 @@ class MultimediaFile(file.File):
         if file_date_valid:
             file_extension = self.get_file_extension()
             file_name = file_date.strftime(self.get_prefix() + "_" + "%Y%m%d_%H%M%S" + file_extension)
-        else:
-            file_extension = self.get_file_extension()
-            file_name = self.get_prefix() + "_" + "00000000_000000" + file_extension
         return file_name
 
     CREATION_DATE: str = "creation_date"
@@ -316,28 +313,29 @@ class MultimediaFile(file.File):
         file_name = self.get_file_name()
         file_name_without_extension = os.path.splitext(file_name)[0]
         new_file_name = self.generate_file_name(use_folder_date)
-        new_file_name_without_extension = os.path.splitext(new_file_name)[0]
-        if not new_file_name_without_extension == file_name_without_extension:
-            if not self.exists():
-                self.file_path += ".tmp"
-            if self.exists():
-                def get_new_available_file_name(folder_path, new_file_name):
+        if new_file_name:
+            new_file_name_without_extension = os.path.splitext(new_file_name)[0]
+            if not new_file_name_without_extension == file_name_without_extension:
+                if not self.exists():
+                    self.file_path += ".tmp"
+                if self.exists():
+                    def get_new_available_file_name(folder_path, new_file_name):
+                        new_file_path = os.path.join(folder_path, new_file_name)
+                        new_file_name_without_extension = os.path.splitext(new_file_name)[0]
+                        new_file = file.File(new_file_path)
+                        new_file_extension = new_file.get_file_extension()
+                        available_file_name = new_file_name
+                        index = 1
+                        while(os.path.exists(os.path.join(folder_path, available_file_name))):
+                            available_file_name = new_file_name_without_extension + "_" + str(index) + new_file_extension
+                            index += 1
+                        return available_file_name
+                    new_file_name = get_new_available_file_name(folder_path, new_file_name)
                     new_file_path = os.path.join(folder_path, new_file_name)
-                    new_file_name_without_extension = os.path.splitext(new_file_name)[0]
-                    new_file = file.File(new_file_path)
-                    new_file_extension = new_file.get_file_extension()
-                    available_file_name = new_file_name
-                    index = 1
-                    while(os.path.exists(os.path.join(folder_path, available_file_name))):
-                        available_file_name = new_file_name_without_extension + "_" + str(index) + new_file_extension
-                        index += 1
-                    return available_file_name
-                new_file_name = get_new_available_file_name(folder_path, new_file_name)
-                new_file_path = os.path.join(folder_path, new_file_name)
-                if not os.path.exists(new_file_path):
-                    if process:
-                        self.rename_file(new_file_path)
-                    file_process_comment = "Renamed " + new_file_name
+                    if not os.path.exists(new_file_path):
+                        if process:
+                            self.rename_file(new_file_path)
+                        file_process_comment = "Renamed " + new_file_name
         return (process, file_process_comment)
 
     def process_file(self, use_folder_date: bool, set_dates: bool, move_files: bool, rename_files: bool, process: bool, verbose: bool) -> Tuple[bool, List[str]]:
