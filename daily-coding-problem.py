@@ -6,10 +6,14 @@ def main(argv):
         problem_folderpath = os.path.join('problems',str(i))
         if not os.path.exists(problem_folderpath):
             os.makedirs(problem_folderpath)
-        readme_filepath = os.path.join(problem_folderpath,"README.txt")
-        if not os.path.exists(readme_filepath):
-            with open(readme_filepath, "w") as readme_file: 
-                readme_file.write("Daily Coding Problem: Problem #" + str(i) + "\n")
+        readme_md_filepath = os.path.join(problem_folderpath,"README.md")
+        if not os.path.exists(readme_md_filepath):
+            readme_txt_filepath = os.path.join(problem_folderpath,"README.txt")
+            if os.path.exists(readme_txt_filepath):
+                os.rename(readme_txt_filepath, readme_md_filepath)
+            else:
+                with open(readme_md_filepath, "w") as readme_file: 
+                    readme_file.write("Daily Coding Problem: Problem #" + str(i) + "\n")
         problem_filepath = os.path.join(problem_folderpath,"problem_" + str(i) + ".py")
         if not os.path.exists(problem_filepath):
             with open(problem_filepath, "w") as problem_file: 
