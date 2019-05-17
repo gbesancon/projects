@@ -1,7 +1,5 @@
 Daily Coding Problem: Problem #145
 
-Good morning! Here's your coding interview problem for today.
-
 This problem was asked by Google.
 
 Given the head of a singly linked list, swap every two nodes and return its head.
