@@ -29,7 +29,7 @@ check_usage ()
 backup ()
 {
   run_rsync "$1/01-Documents" "$2"
-  run_rsync "$1/02-Photos" "$2"
+  run_rsync "$1/02-Multimedia" "$2"
   echo `date` > "$2/timestamp"
 }
 
