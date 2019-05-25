@@ -47,17 +47,17 @@ def check_and_process_files_in_folder(folder_path, use_folder_date, set_dates, m
                                 else:                            
                                     if verbose:
                                         file_error_message = "Checked"
-                                        file_messages.add_file_message(folder_check_errors, _file.get_folder().get_folder_path(), _file.get_file_name(), file_error_message)
+                                        file_messages.add_file_message(folder_process_comments, _file.get_folder().get_folder_path(), _file.get_file_name(), file_error_message)
                                         print(" - " + _file.get_file_name() + ":", file_error_message)
                             else:
                                 if verbose:
                                     file_error_message = "Checked"
-                                    file_messages.add_file_message(folder_check_errors, _file.get_folder().get_folder_path(), _file.get_file_name(), file_error_message)
+                                    file_messages.add_file_message(folder_process_comments, _file.get_folder().get_folder_path(), _file.get_file_name(), file_error_message)
                                     print(" - " + _file.get_file_name() + ":", file_error_message)
         else:
             if verbose:
                 folder_error_message = "Checked"
-                file_messages.add_file_message(folder_check_errors, folder_path, "", folder_error_message)
+                file_messages.add_file_message(folder_process_comments, folder_path, "", folder_error_message)
                 print(folder_path + ": " + folder_error_message)
     else:
         folder_valid = False
@@ -82,8 +82,10 @@ def check_and_process_files_in_folders(folder_pathes, use_folder_date, set_dates
     for folder_path in folder_pathes:
         sub_folder_pathes = get_sub_folders_with_files(folder_path)
         for sub_folder_path in sub_folder_pathes:
-            (folder_valid, _, _) = check_and_process_files_in_folder(sub_folder_path, use_folder_date, set_dates, move_files, rename_files, process, verbose)
+            (folder_valid, folder_check_errors, folder_process_comments) = check_and_process_files_in_folder(sub_folder_path, use_folder_date, set_dates, move_files, rename_files, process, verbose)
             valid &= folder_valid
+            file_messages.add_file_messages(check_errors, folder_check_errors)
+            file_messages.add_file_messages(process_comments, folder_process_comments)
     return (valid, check_errors, process_comments)
 
 def main(argv):
