@@ -38,7 +38,7 @@ class Folder:
         valid = True
         date = None
         folder_name = self.get_folder_name()
-        match = re.match(r"^(\d\d\d\d-\d\d-\d\d)[a-z]?\s-\s.*$", folder_name)
+        match = re.match(r"^(\d\d\d\d-\d\d-\d\d)[a-z]?\s-\s?.*$", folder_name)
         if match:
             valid = True
             try:
@@ -64,7 +64,7 @@ class Folder:
         end_date = None
         folder_name = self.get_folder_name()
         if not valid:
-            match = re.match(r"^(\d\d\d\d-\d\d-\d\d)[a-z]?_(\d\d\d\d-\d\d-\d\d)[a-z]?\s-\s.*$", folder_name)
+            match = re.match(r"^(\d\d\d\d-\d\d-\d\d)[a-z]?_(\d\d\d\d-\d\d-\d\d)[a-z]?\s-\s?.*$", folder_name)
             if match:
                 valid = True
                 try:
@@ -75,7 +75,7 @@ class Folder:
                     beginning_date = None
                     end_date = None
         if not valid:
-            match = re.match(r"^(\d\d\d\d-\d\d-\d\d)[a-z]?_(\d\d-\d\d)[a-z]?\s-\s.*$", folder_name)
+            match = re.match(r"^(\d\d\d\d-\d\d-\d\d)[a-z]?_(\d\d-\d\d)[a-z]?\s-\s?.*$", folder_name)
             if match:
                 valid = True
                 try:
@@ -86,7 +86,7 @@ class Folder:
                     beginning_date = None
                     end_date = None
         if not valid:
-            match = re.match(r"^(\d\d\d\d-\d\d-\d\d)[a-z]?_(\d\d)[a-z]?\s-\s.*$", folder_name)
+            match = re.match(r"^(\d\d\d\d-\d\d-\d\d)[a-z]?_(\d\d)[a-z]?\s-\s?.*$", folder_name)
             if match:
                 valid = True
                 try:

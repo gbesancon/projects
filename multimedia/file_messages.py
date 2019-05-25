@@ -6,6 +6,12 @@ def print_file_messages(messages: Dict[str, Dict[str, List[str]]]):
         for file_name in messages[folder_path]:
             print(" - " + file_name + ": " + ', '.join(message for message in messages[folder_path][file_name]))
 
+def add_file_messages(messages: Dict[str, Dict[str, List[str]]], messages_to_add: Dict[str, Dict[str, List[str]]]):
+    for folder_path in messages_to_add:
+        for file_name in messages_to_add[folder_path]:
+            for message_to_add in messages_to_add[folder_path][file_name]:
+                add_file_message(messages, folder_path, file_name, message_to_add)
+
 def add_file_message(messages: Dict[str, Dict[str, List[str]]], folder_path: str, file_name: str, message_to_add: str):
     if not folder_path in messages:
         messages[folder_path] = {}
