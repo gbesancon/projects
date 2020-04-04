@@ -1,7 +1,7 @@
 #!/bin/sh
 
-source $(dirname $(realpath ${BASH_SOURCE[0]}))/../linux/utils-github.sh
-source $(dirname $(realpath ${BASH_SOURCE[0]}))/../linux/utils-git.sh
+source $(dirname $(realpath ${BASH_SOURCE[0]}))/../utils/github.sh
+source $(dirname $(realpath ${BASH_SOURCE[0]}))/../utils/git.sh
 
 REPOSITORY_NAMES="42 amazon bbingo build-gradle-scripts capgemini-fruitshop cheatsheet codingame codurance cv daily-coding-problem database-dependencies eclipse-utility file-management 
 fortune-cowsay-lolcat-server jpmorgan-super-simple-stocks multimedia pi speakerphat visualstudio-projectdependencies"

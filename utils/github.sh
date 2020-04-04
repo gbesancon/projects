@@ -1,3 +1,5 @@
+#!/bin/sh
+
 GITHUB_REPOSITORY_BASEURL=https://github.com
 
 get_github_repository_url()
