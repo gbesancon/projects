@@ -2,7 +2,7 @@
 #set -e
 #set -x
 
-source utils.sh
+source $(dirname $(realpath ${BASH_SOURCE[0]}))/utils-apt.sh
 
 # https://code.visualstudio.com/docs/setup/linux
 setup_microsoft_package_repository()
