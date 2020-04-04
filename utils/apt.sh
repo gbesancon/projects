@@ -1,6 +1,6 @@
 #!/bin/sh
 
-source $(dirname $(realpath ${BASH_SOURCE[0]}))/utils.sh
+source $(dirname $(realpath ${BASH_SOURCE[0]}))/bash.sh
 
 add_ppa_package_repository()
 {

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-source $(dirname $(realpath ${BASH_SOURCE[0]}))/utils.sh
+source $(dirname $(realpath ${BASH_SOURCE[0]}))/bash.sh
 
 git_clone_repository()
 {
@@ -12,7 +12,7 @@ git_clone_repository()
   if [ $delete_folder_result -eq 0 ]
   then
     echo Cloning repository $URL
-    execute_command git clone $URL $FOLDER_PATH
+    execute_command git clone --recurse-submodules $URL $FOLDER_PATH
     git_clone_result=$?
     if [ $git_clone_result -eq 0 ]
     then
