@@ -2,7 +2,7 @@
 #set -e
 #set -x
 
-source utils.sh
+source $(dirname $(realpath ${BASH_SOURCE[0]}))/utils-apt.sh
 
 install_or_update_jdk()
 {
