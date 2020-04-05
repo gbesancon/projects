@@ -1,4 +1,4 @@
-task wrapper(type: Wrapper) {
+task updateWrapper(type: Wrapper) {
   description = 'Generate the wrapper.'
   group = 'gradle'
   gradleVersion = rootProject.gradleVersion

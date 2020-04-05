@@ -1,0 +1,15 @@
+if(rootProject.checkSpotBugsEnabled == 'true') {
+  apply plugin: "com.github.spotbugs"
+
+  spotbugs{
+    toolVersion = '4.0.1'
+    ignoreFailures=true
+  }
+
+  spotbugsMain {
+    reports {
+      xml.enabled = false
+      html.enabled = true
+    }
+  }
+}
