@@ -19,14 +19,14 @@ install_or_update_vscode() {
   check_command_result=$?
   if [ $check_command_result -eq 0 ]
   then
-    update_package code
+    update_packages code
     result=$?
   else
     setup_microsoft_package_repository
     setup_microsoft_package_repository_result=$?
     if [ $setup_microsoft_package_repository_result -eq 0 ]
     then
-      update_package code
+      update_packages code
       result=$?
     else
       result=$setup_microsoft_package_repository_result
