@@ -16,10 +16,4 @@ if(rootProject.generateJacocoReportEnabled == 'true') {
       xml.enabled = true
     }
   }
-
-  test {
-    jacoco {
-      append = true
-    }
-  }
 }
