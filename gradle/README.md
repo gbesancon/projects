@@ -9,7 +9,7 @@ Gradle Scripts
     * PMD
     * Checkstyle
     * JDepend
-    * FindBugs
+    * SpotBugs
     * SonarQube
   * Licensing
   * Security
