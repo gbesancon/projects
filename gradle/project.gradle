@@ -1,7 +1,5 @@
 apply from: "$gradleScriptsDir/environment.gradle"
 
-apply from: "$gradleScriptsDir/gradle-wrapper.gradle"
-
 apply from: "$gradleScriptsDir/maven-repositories.gradle"
 
 apply from: "$gradleScriptsDir/gradle-update.gradle"
