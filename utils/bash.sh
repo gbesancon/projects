@@ -2,7 +2,7 @@
 #set -e
 set -x
 
-DEBUG=1
+DEBUG=0
 
 execute_command()
 {
