@@ -5,13 +5,16 @@ source $(dirname $(realpath ${BASH_SOURCE[0]}))/../utils/git.sh
 
 REPOSITORY_NAMES=setup
 
+MESSAGE="$@"
+
+result=0
 for REPOSITORY_NAME in $REPOSITORY_NAMES
 do
-  result=0
   echo Processing repository $REPOSITORY_NAME
-  git_add $REPOSITORY_NAME
-  git_add_result=$?
-  if [ $git_add_result -eq 0 ]
+  execute_command pushd $REPOSITORY_NAME
+  git_add_all $REPOSITORY_NAME
+  git_add_all_result=$?
+  if [ $git_add_all_result -eq 0 ]
   then
     git_status
     git_status_result=$?
@@ -27,7 +30,8 @@ do
       result=$git_status_result
     fi
   else
-    result=$git_add_result
+    result=$git_add_all_result
   fi
+  execute_command popd
   exit_on_error $result
 done
