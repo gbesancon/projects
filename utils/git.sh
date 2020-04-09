@@ -95,7 +95,7 @@ git_commit()
   MESSAGE=$1
   result=0
   echo Comiting files
-  execute_command git commit
+  execute_command git commit -m '\"$MESSAGE\"'
   git_commit_result=$?
   if [ $git_commit_result -eq 0 ]
   then
