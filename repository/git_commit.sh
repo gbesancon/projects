@@ -22,8 +22,15 @@ do
     then
       git_commit "$MESSAGE"
       git_commit_result=$?
-      if [ $git_commit_result -ne 0 ]
+      if [ $git_commit_result -eq 0 ]
       then
+        git_push
+        git_push_result=$?
+        if [ $git_push_result -ne 0 ]
+        then
+          result=$git_push_result
+        fi
+      else
         result=$git_commit_result
       fi
     else
