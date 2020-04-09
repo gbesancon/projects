@@ -24,3 +24,85 @@ git_clone_repository()
   fi
   return $result
 }
+
+git_checkout_branch()
+{
+  BRANCH_NAME=$1
+  result=0
+  echo Checking out branch $BRANCH_NAME
+  execute_command git checkout $BRANCH_NAME
+  git_checkout_result=$?
+  if [ $git_checkout_result -eq 0 ]
+  then
+    echo Branch $BRANCH_NAME checked out 
+  else
+    echo Failed checking out branch $BRANCH_NAME
+    result=$git_checkout_result
+  fi
+  return $result
+}
+
+git_pull()
+{
+  result=0
+  echo Pulling git commits
+  execute_command git pull
+  git_pull_result=$?
+  if [ $git_pull_result -eq 0 ]
+  then
+    echo Git commits pulled
+  else
+    echo Failed pulling git commits
+    result=$git_pull_result
+  fi
+  return $result
+}
+
+git_status()
+{
+  result=0
+  echo Show status
+  execute_command git status
+  git_status_result=$?
+  if [ $git_status_result -eq 0 ]
+  then
+    echo Status showed
+  else
+    echo Failed to show status
+    result=$git_status_result
+  fi
+  return $result
+}
+
+git_add_all()
+{
+  result=0
+  echo Adding all files
+  execute_command git add --all
+  git_add_result=$?
+  if [ $git_add_result -eq 0 ]
+  then
+    echo All files added
+  else
+    echo Failed adding all files
+    result=$git_add_result
+  fi
+  return $result
+}
+
+git_commit()
+{
+  MESSAGE=$1
+  result=0
+  echo Comiting files
+  execute_command git commit
+  git_commit_result=$?
+  if [ $git_commit_result -eq 0 ]
+  then
+    echo Files committed
+  else
+    echo Failed committing files
+    result=$git_commit_result
+  fi
+  return $result
+}
