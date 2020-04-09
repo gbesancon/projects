@@ -8,11 +8,11 @@ execute_command()
 {
   if [ $DEBUG -eq 0 ]
   then
-    echo Execute $*
-    $*
+    echo Execute $@
+    $@ > /dev/null
   else
-    echo [DEBUG] Execute $*
-    $* > /dev/null
+    echo [DEBUG] Execute $@
+    $@
   fi
   return $?
 }
