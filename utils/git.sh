@@ -106,3 +106,19 @@ git_commit()
   fi
   return $result
 }
+
+git_push()
+{
+  result=0
+  echo Pushing commits
+  execute_command git push
+  git_push_result=$?
+  if [ $git_push_result -eq 0 ]
+  then
+    echo Commits pushed.
+  else
+    echo Failed pushing commits
+    result=$git_push_result
+  fi
+  return $result
+}
