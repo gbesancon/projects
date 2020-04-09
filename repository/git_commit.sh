@@ -3,9 +3,13 @@
 source $(dirname $(realpath ${BASH_SOURCE[0]}))/../repository/CONFIGURATION
 source $(dirname $(realpath ${BASH_SOURCE[0]}))/../utils/git.sh
 
-REPOSITORY_NAMES=setup
+MESSAGE="$1"
 
-MESSAGE="$@"
+if [ $# -gt 1 ]
+then
+  shift
+  REPOSITORY_NAMES=$@
+fi
 
 result=0
 for REPOSITORY_NAME in $REPOSITORY_NAMES
