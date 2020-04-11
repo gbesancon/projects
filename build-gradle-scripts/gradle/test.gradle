@@ -1,0 +1,18 @@
+tasks.withType(Test) {
+    reports.html.destination = file("${reporting.baseDir}/${name}")
+}
+ 
+if( !sourceSets.test.allSource.empty ) {
+  task testJar(type: Jar) {
+    group = 'build'
+    description = 'Assembles a jar archive containing the tests.'
+    classifier = 'tests'
+    from sourceSets.test.output
+  }
+
+  artifacts {
+    if(rootProject.packageTestsEnabled == 'true') {
+      archives testJar
+    }
+  }
+}

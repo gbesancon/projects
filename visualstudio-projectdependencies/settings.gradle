@@ -1,0 +1,1 @@
+include ':org.benhur.utility.visualstudio.projectdependencies', ':org.benhur.utility.visualstudio.projectdependencies.dgml', ':org.benhur.utility.visualstudio.projectdependencies.dsm'
