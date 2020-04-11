@@ -1,0 +1,23 @@
+// This gradle script help create distribution from a java application jar.
+// Exemple: 
+// ext.getExecutableAppName = {
+//   project.name
+// }
+// ext.getExecutableMainClassName = {
+//   "<CLASS_NAME>"
+// }
+// ext.getExecutableDefaultJavaArgs = {
+//   "<DEFAULT_JAVA_ARGS>" ("-XX:+UseG1GC")
+// }
+// apply from: "$gradleScriptsDir/java-executable.gradle"
+
+apply plugin: 'application'
+mainClassName = getExecutableMainClassName()
+applicationDefaultJvmArgs = [getExecutableDefaultJavaArgs()]
+
+distributions {
+  main {
+    baseName = getExecutableAppName()
+  }
+}
+distribute.dependsOn distZip

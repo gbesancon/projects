@@ -1,0 +1,24 @@
+// https://www.petrikainulainen.net/programming/gradle/getting-started-with-gradle-integration-testing/
+
+sourceSets {
+    productionTest {
+        java {
+            compileClasspath += main.output + test.output + integrationTest.output
+            runtimeClasspath += main.output + test.output + integrationTest.output
+            srcDir file('src/production-test/java')
+        }
+        resources.srcDir file('src/production-test/resources')
+    }
+}
+
+configurations {
+    productionTestCompile.extendsFrom testCompile
+    productionTestRuntime.extendsFrom testRuntime
+}
+
+task productionTest(type: Test) {
+    group = 'verification'
+    description = 'Runs the production tests.'
+    testClassesDirs = sourceSets.productionTest.output.classesDirs
+    classpath = sourceSets.productionTest.runtimeClasspath
+}
