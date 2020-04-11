@@ -1,0 +1,53 @@
+// Include the following block in the build script of the root project to be able to use swagger2markup and asciidoctor
+//buildscript {
+//  apply from: "$gradleScriptsDir/swagger-doc-buildscript.gradle", to:buildscript
+//}
+
+if(rootProject.generateDocumentationEnabled == 'true') {
+  apply plugin: 'io.github.swagger2markup' // https://github.com/Swagger2Markup/swagger2markup
+  apply plugin: 'org.asciidoctor.convert' // http://asciidoctor.org/docs/asciidoctor-gradle-plugin/
+
+  ext {
+    asciiDocOutputDir = file("${buildDir}/reports/asciidoc")
+  }
+
+  convertSwagger2markup {
+    outputDir asciiDocOutputDir
+    config = ['swagger2markup.markupLanguage' : 'ASCIIDOC',
+              'swagger2markup.swaggerMarkupLanguage' : 'ASCIIDOC',
+              'swagger2markup.pathsGroupedBy' : 'TAGS',
+              'swagger2markup.outputLanguage' : 'EN',
+              'swagger2markup.generatedExamplesEnabled' : 'true',
+              'swagger2markup.pathSecuritySectionEnabled' : 'true',
+              'swagger2markup.separatedDefinitionsEnabled' : 'false',
+              'swagger2markup.separatedOperationsEnabled' : 'false',
+              'swagger2markup.interDocumentCrossReferencesEnabled' : 'true',
+              'swagger2markup.extensions.dynamicDefinitions.contentPath' : file("${buildDir}/reports/asciidoc/extensions/definitions").absolutePath,
+              'swagger2markup.extensions.dynamicOverview.contentPath' : file("${buildDir}/reports/asciidoc/extensions/overview").absolutePath,
+              'swagger2markup.extensions.dynamicPaths.contentPath' : file("${buildDir}/reports/asciidoc/extensions/paths").absolutePath,
+              'swagger2markup.extensions.dynamicSecurity.contentPath' : file("${buildDir}/reports/asciidoc/extensions/security").absolutePath
+             ]
+  }
+
+  asciidoctor {
+    dependsOn convertSwagger2markup
+    sourceDir asciiDocOutputDir
+    sources {
+        include "*.adoc"
+    }
+    backends = ['html5']
+    attributes = [
+            doctype: 'book',
+            toc: 'left',
+            toclevels: '3',
+            numbered: '',
+            sectlinks: '',
+            sectanchors: '',
+            hardbreaks: '',
+            generated: asciiDocOutputDir
+    ]
+    outputDir = asciiDocOutputDir
+  }
+
+  report.dependsOn asciidoctor
+}

@@ -1,0 +1,20 @@
+javadoc {
+  enabled = rootProject.generateDocumentationEnabled
+  options.charSet = 'UTF-8'
+  options.encoding = 'UTF-8'
+  options.addStringOption('Xdoclint:none', '-quiet') // Allow generation of the javadoc while containing html code in it.
+  options.tags = [ "todo:a:Unfinished work:", "implNote:X:Implementation note:" ]
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+  group = 'build'
+  description = 'Assembles a jar archive containing the javadoc.'
+  classifier = 'javadoc'
+  from javadoc.destinationDir
+}
+
+artifacts {
+  if(rootProject.generateDocumentationEnabled == 'true') {
+    archives javadocJar
+  }
+}

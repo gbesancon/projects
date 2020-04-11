@@ -1,0 +1,25 @@
+apply plugin: 'scala'
+
+apply from: "$gradleScriptsDir/java.gradle"
+
+dependencies {
+  compile 'org.scala-lang:scala-library:2.12.2'
+  testCompile 'org.scalatest:scalatest_2.12:3.0.1'
+}
+
+scaladoc {
+  enabled = rootProject.generateDocumentationEnabled
+}
+
+task scaladocJar(type: Jar, dependsOn: scaladoc) {
+  group = 'build'
+  description = 'Assembles a jar archive containing the scaladoc.'
+  classifier = 'scaladoc'
+  from scaladoc.destinationDir
+}
+
+artifacts {
+  if(rootProject.generateDocumentationEnabled == 'true') {
+    archives scaladocJar
+  }
+}

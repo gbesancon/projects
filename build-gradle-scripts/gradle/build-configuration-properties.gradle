@@ -1,0 +1,36 @@
+// Include the following properties in the gradle.properties file of the root project
+// gradle.properties
+//checkGoogleJavaFormatEnabled=false
+//checkCheckstyleEnabled=false
+//checkSpotBugsEnabled=false
+//checkPmdEnabled=false
+//packageSourcesEnabled=false
+//packageTestsEnabled=false
+//generateDocumentationEnabled=false
+//runIntegrationTestEnabled=false
+//generateLicenseReportEnabled=false
+//generateOwaspReportEnabled=false
+//generateJacocoReportEnabled=false
+//publishSonarqubeReportEnabled=false
+// You can override a property through the commandline by providing the argument -Dorg.gradle.project.<property-name>=<property-value> 
+// https://docs.gradle.org/3.5/userguide/build_environment.html#sec:gradle_properties_and_system_properties
+
+task printBuildConfigurationProperties {
+  group = 'build'
+  description = 'Print build configuration properties.'
+  doLast {
+    println "Build properties:"
+    println "Check Google Java Format:" + rootProject.checkGoogleJavaFormatEnabled
+    println "Check CheckStyle:" + rootProject.checkCheckstyleEnabled
+    println "Check SpotBugs:" + rootProject.checkSpotBugsEnabled
+    println "Check PMD:" + rootProject.checkPmdEnabled
+    println "Package sources:" + rootProject.packageSourcesEnabled
+    println "Package tests:" + rootProject.packageTestsEnabled
+    println "Generate Documentation:" + rootProject.generateDocumentationEnabled
+    println "Run Integration Test:" + rootProject.runIntegrationTestEnabled
+    println "Generate License Report:" + rootProject.generateLicenseReportEnabled
+    println "Generate OWASP Report:" + rootProject.generateOwaspReportEnabled
+    println "Generate Jacoco Report:" + rootProject.generateJacocoReportEnabled
+    println "Publish Sonarqube Report:" + rootProject.publishSonarqubeReportEnabled
+  }
+}
