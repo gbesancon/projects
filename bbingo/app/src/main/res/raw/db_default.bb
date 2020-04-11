@@ -1,0 +1,404 @@
+# Computer Science - English
+
+# Versionning
+Alpha	10
+Beta	10
+Gamma	10
+Draft	10
+Milestone	10
+Release	10
+
+# Process
+Architecture	10
+Design	10
+Coding	10
+Programming	10
+
+# IDE
+Eclipse	10
+Microsoft Visual Studio	10
+NetBeans	10
+Emacs	10
+Vi	10
+
+# Modeling
+UML2	10
+EMF	Eclipse Modeling Framework	10
+ATL	ATL Transformation Language	10
+Paradigm	10
+Injection	10
+Interface	10
+Model	10
+Folksonomy	10
+Abstraction	10
+Model transformation	10
+Conceptualize	10
+Paradigm shift	10
+
+# Architecture
+Client-Server	10
+Client	10
+Server	10
+COTS	Component on the shelf	10
+
+# Concepts
+Virtualization	10
+Parallel	10
+Scalability	10
+Quality	10
+SaaS	Software as a service	10
+PaaS	Platform as a service	10
+IaaS	Infrastruture as a service	10
+CLOUD	10
+
+# Firmware
+VHDL	10
+System C	10
+
+# Software
+Cobol	10
+C/C++	10
+Java	10
+Python	10
+Ruby	10
+Groovy	10
+Scala	10
+Erlang	10
+Haskell	10
+Lisp	10
+Framework	10
+STL	10
+Eclipse RCP	10
+QT	10
+Cairo	10
+Acceleo	10
+JVM	10
+LDAP	10
+
+# Database
+DB	Database	10
+SQL	Structured Query Language	10
+NoSQL	10
+
+# Web
+HTML	10
+PHP	10
+CSS	10
+Ajax	10
+Javascript	10
+GWT	10
+Web 2.0	10
+Web 3.0	10
+
+# Resources
+XML	10
+XSD/DTD	10
+XSLT	10
+Template	10
+MTL	10
+Properties	10
+
+# Operating Systems
+Linux	10
+Windows	10
+Unix	10
+Solaris	10
+Mac OS	10
+
+# Methodology
+Top-Down	10
+Bottom-Up	10
+Agile development	10
+SCRUM	10
+Brainstorming	10
+User-Driven	10
+Model-Driven	10
+Test-Driven	10
+MDA	Model-Driven-Architecture	10
+Proof of Concept	10
+
+# Configuration Management System
+Issue	10
+Bug	10
+Bug Tracker	10
+Clearquest	10
+
+# Versioning System
+SVN	Subversion	10
+CVS	10
+Git	10
+Clearcase	10
+
+# Mobile
+Mobile	10
+Android	10
+IPhone	10
+Blackberry	10
+
+# Licence
+Legacy	10
+Licence	10
+Open Source	10
+Free	10
+Free Software	10
+GPL	GNU Public Licence	10
+LGPL Lesser GNU Public Licence	10
+BSD	10
+MIT	10
+
+# Technology
+OMG	10
+RFC	10
+
+# Ergonomy
+GUI	10
+
+# Management
+Planning	10
+Risk	10
+Opportunity	15
+Indicators	10
+Metrics	10
+Skills	10
+Partnership	10
+Synergy	10
+Efficiency	10
+Strategic	10
+Project	10
+ROI	Return on Investment	10
+Resource	10
+Initiative	10
+Action plan	10
+Challenge	10
+Convergence	10
+Partnerships	10
+Skills	10
+Team	10
+Collaboration	10
+Competencies	10
+Lading	10
+Innovative	10
+Flexible	10
+Process	10
+Strategy	10
+Scope	10
+Intern	10
+Partner	10
+Empower	10
+Proactive	10
+Team player	10
+Community	10
+Win-Win	10
+Challenge	10
+Leadership	10
+Out of the box	10
+B2B	Business to Business	10
+
+# Terminology
+Wording	10
+
+# Infrastructure
+Network	10
+
+
+holistic	10
+benchmark	10
+big picture	10
+real-time	10
+SOA	10
+Log	10
+vmware	10
+compiler	10
+NAS	10
+Integration	10
+Agnostic	10
+Deployment	10
+Collaborative	10
+Compromise	10
+Interactive	10
+24/7	10
+State of the art	10
+Best-Practice	10
+optimize	10
+revolutionary	10
+research	10
+Touch base	10
+Branding	10
+Time sheet	10
+"No worries"	10
+Offline	10
+Business intelligence	10
+interaction	10
+metadata	10
+connect	10
+V-Model	10
+Grisby-Driven	10
+System-D	10
+OSI Model	10
+Fuzzy Logic	10
+Turn-Over	10
+Multicast	10
+Unicast	10
+iPad	10
+iPod	10
+Blue Ocean	10
+Blue Sky	10
+Competitivity	10
+Checkout	10
+Checkin	10
+Customer	10
+Client	10
+Reliability	10
+FPGA	10
+Requirement	10
+IVVQ	10
+RFLP	10
+Specification	10
+Starring Meeting	10
+Refactoring	10
+Margin	10
+Coffee	10
+Reorganisation	10
+Pool	10
+Seminaire	10
+Kernel panic	10
+Training	10
+Kernel	10
+Segmentation fault	10
+Level	10
+Stack overflow	10
+Congratulation	10
+Memory leak	10
+Endianness	10
+Big endian	10
+Little endian	10
+Multi-thread	10
+CPU	10
+GPU	10
+PPU	10
+Unit test	10
+Embeded	10
+Platform	10
+OpenGL	10
+OpenAL	10
+Beer	10
+Coca-cola	10
+Hotline	10
+Tupple	10
+Pragma	10
+Reuse	10
+Hacker	10
+Macro	10
+Extreme programming	10
+Assembleur	10
+Reverse engeneering	10
+Continuus integration	10
+Environment	10
+Mutex	10
+Peer review	10
+Semaphore	10
+Binding	10
+Encoding	10
+Patch	10
+Keyring	10
+Encription	10
+PLL	10
+UTF-8	10
+Cp-1252	10
+Unicode	10
+Library	10
+SDK	10
+NDK	10
+Matlab	10
+Simulink	10
+Hotfix	10
+Compatibility	10
+Mok-up	10
+Mok	10
+Recursif	10
+Reentrant	10
+Feedback	10
+Loopback	10
+Use-case	10
+Cigaret	10
+Silicon	10
+Silicium	10
+Component	10
+Bootstrap	10
+Carrier	10
+Matrix	10
+Period	10
+Frequency	10
+Market	10
+Marketing	10
+Offshore	10
+Join venture	10
+Croissant	10
+Computer	10
+Tablet	10
+Spreadsheet	10
+Datasheet	10
+RTFM	Read the fucking manual	10
+Administrator	10
+Login	10
+Patator	10
+Deadline	10
+Base-line	10
+Trunk	10
+Delivery	10
+Compilation	10
+Cross-compilation	10
+32 bit	10
+64 bit	10
+void*	10
+StackOverFlow	10
+Kernel panic	10
+Salary	10
+Bonus	10
+Prime	10
+Contract	10
+Middleware	10
+Infrastructure	10
+Cash	10
+Printer	10
+Badge	10
+IT	Information Technology	10
+Linus Torvald	10
+Steve Jobs	10
+Xavier Niel	10
+RMS Richard Matthew Stallman	10
+GNU	10
+Mail	10
+Audio conference	10
+Meeting	10
+Conf call	10
+XCOM	10
+Open space	10
+Patent	10
+NAO	N'importe quoi Assisté par Ordinateur	10
+SAP	10
+Google	10
+Microsoft	10
+Apple	10
+Activity Diagram	10
+Chart Flow	10
+Report	10
+Memo	10
+Manufacturing	10
+Industry	10
+Apéro	10
+After work	10
+Puzzle	10
+IE6	10
+Firefox	10
+Chrome	10
+Incompatibility	10
+Go-noGo	10
+Contractor	10
+Sub-contractor	10
+story	10
+together	10
+transform	10
+world	10
+prototyping	10
+
