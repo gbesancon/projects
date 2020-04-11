@@ -1,0 +1,12 @@
+repositories {
+  mavenLocal()
+  mavenCentral()
+  jcenter()
+  maven {
+    url "https://plugins.gradle.org/m2/"
+  }
+}
+
+dependencies {
+  classpath "gradle.plugin.org.openrepose:gradle-jaxb-plugin:2.5.0"
+}

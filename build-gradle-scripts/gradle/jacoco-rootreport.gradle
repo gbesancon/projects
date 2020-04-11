@@ -1,0 +1,45 @@
+if(rootProject.generateJacocoReportEnabled == 'true') {
+  apply plugin: 'jacoco'
+
+  task jacocoTestMerge(type: org.gradle.testing.jacoco.tasks.JacocoMerge) {
+    group = 'reporting'
+    description = 'Generate a merged executiondata file for all subprojects.'
+    dependsOn subprojects.test
+    executionData = files(subprojects.jacocoTestReport.executionData)
+
+    doFirst {
+      executionData = files(executionData.findAll { it.exists() })
+    }
+  }
+
+  def jacocoTestReportSummaryExcludes = []
+  def jacocoTestReportSummaryIncludes = []
+
+  task jacocoTestReportSummary(type: org.gradle.testing.jacoco.tasks.JacocoReport) {
+    group = 'reporting'
+    description = 'Generate code coverage report for the test task of all subprojects.'
+    dependsOn jacocoTestMerge
+    executionData jacocoTestMerge.destinationFile
+    sourceDirectories = files(subprojects.sourceSets.main.allSource.srcDirs)
+    classDirectories = files()
+
+    doFirst {
+      subprojects.each {
+        if (new File("${it.sourceSets.main.output.classesDir}").exists()) {
+          logger.info("Class directory exists in sub project: ${it.name}")
+          logger.info("Adding class files ${it.sourceSets.main.output.classesDir}")
+          classDirectories += fileTree(dir: "${it.sourceSets.main.output.classesDir}", includes: jacocoTestReportSummaryIncludes, excludes: jacocoTestReportSummaryExcludes)
+        } else {
+          logger.error("Class directory does not exist in sub project: ${it.name}")
+        }
+      }
+    }
+
+    reports {
+      html.enabled = true
+      xml.enabled = true
+    }
+  }
+
+  report.dependsOn jacocoTestReportSummary
+}

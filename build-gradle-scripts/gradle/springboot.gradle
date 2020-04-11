@@ -1,0 +1,12 @@
+// Include the following block in the build script of the root project to be able to use springboot
+//buildscript {
+//  apply from: "$gradleScriptsDir/springboot-buildscript.gradle", to:buildscript
+//}
+
+apply plugin: 'org.springframework.boot'
+
+dependencies {
+  compile 'org.springframework.boot:spring-boot-starter-web:1.5.12.RELEASE'
+  compile 'org.springframework.boot:spring-boot-starter-actuator:1.5.12.RELEASE'
+  testCompile 'org.springframework.boot:spring-boot-starter-test:1.5.12.RELEASE'
+}
