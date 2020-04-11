@@ -1,0 +1,65 @@
+FROM resin/%%RESIN_MACHINE_NAME%%-node:slim
+
+# Install apt deps
+RUN apt-get update \
+    && apt-get upgrade \
+    && apt-get dist-upgrade \
+    && apt-get install -y \
+         apt-utils \
+         alsa-base \
+         alsa-utils \
+         curl \
+         espeak \
+         python-alsaaudio \
+         python-dev \
+         python-espeak \
+         python-imaging \
+         python-numpy \
+         python-pip \
+         python-pyaudio \
+         python-pygame \
+         python-rpi.gpio \
+         python-smbus \
+         python-sn3218 \
+         python-spidev \
+         wget \
+    && apt-get clean \ 
+    && apt-get autoclean 
+
+#RUN rm -rf /var/lib/apt/lists/*
+
+RUN mkdir -p /usr/src/app/
+
+# Move to app dir
+WORKDIR /usr/src/app
+
+# Configure DAC
+COPY asound.conf /etc/asound.conf
+
+# Enable i2c
+# Require dtparam=i2c_arm=on
+
+# Copies the package.json first for better cache on later pushes
+COPY package.json /usr/src/app/package.json
+
+# This install npm dependencies on the resin.io build server,
+# making sure to clean up the artifacts it creates in order to reduce the image size.
+RUN JOBS=MAX npm install --production --unsafe-perm && npm cache clean && rm -rf /tmp/*
+
+COPY server.js /usr/src/app/server.js
+
+COPY speakerphatled.py /usr/src/app/speakerphatled.py
+
+COPY ttsespeak.py /usr/src/app/ttsespeak.py
+
+COPY dot.wav /usr/src/app/dot.wav
+COPY dash.wav /usr/src/app/dash.wav
+COPY morse.py /usr/src/app/morse.py
+COPY playMorse.py /usr/src/app/playMorse.py 
+
+## Uncomment if you want systemd
+ENV INITSYSTEM on
+
+# Start app
+CMD ["npm", "start"]
+
