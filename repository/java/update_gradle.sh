@@ -1,8 +1,8 @@
 #!/bin/sh
 
-source $(dirname $(realpath ${BASH_SOURCE[0]}))/../repository/CONFIGURATION
-source $(dirname $(realpath ${BASH_SOURCE[0]}))/../utils/bash.sh
-source $(dirname $(realpath ${BASH_SOURCE[0]}))/../utils/git.sh
+source $(dirname $(realpath ${BASH_SOURCE[0]}))/../../repository/CONFIGURATION
+source $(dirname $(realpath ${BASH_SOURCE[0]}))/../../utils/bash.sh
+source $(dirname $(realpath ${BASH_SOURCE[0]}))/../../utils/git.sh
 
 update_gradle_scripts()
 {
