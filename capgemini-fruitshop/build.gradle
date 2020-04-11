@@ -1,0 +1,16 @@
+buildscript {
+  ext.gradleScriptsDir = "$rootDir/scripts/build-gradle-scripts/gradle"
+  
+  apply from: "$gradleScriptsDir/gradle-update-buildscript.gradle", to:buildscript
+  apply from: "$gradleScriptsDir/task-tree-buildscript.gradle", to:buildscript
+  apply from: "$gradleScriptsDir/spotbugs-buildscript.gradle", to:buildscript  
+  apply from: "$gradleScriptsDir/google-java-format-buildscript.gradle", to:buildscript
+  apply from: "$gradleScriptsDir/license-buildscript.gradle", to:buildscript
+  apply from: "$gradleScriptsDir/owasp-buildscript.gradle", to:buildscript
+  apply from: "$gradleScriptsDir/sonarqube-buildscript.gradle", to:buildscript
+}
+
+apply from: "$gradleScriptsDir/project-scala.gradle"
+
+group = 'org.benhur'
+description = 'CapGemini - Fruit Shop'
