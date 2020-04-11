@@ -7,9 +7,12 @@ youtube-dl:
 	fi
 	if [ ! -f $@/youtube-dl ] ; \
 	then \
+		sudo apt-get install -y pandoc mplayer vlc && \
 		cd $@ && \
 		make ; \
 	fi 
+
+sudo apt-get install 
 
 clean:
 	rm -rf youtube-dl
