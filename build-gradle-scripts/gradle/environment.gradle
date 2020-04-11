@@ -1,0 +1,10 @@
+task printEnvironmentVariables {
+  group = 'build'
+  description = 'Print Environment Variables.'
+  doLast {
+    println 'Environment Variables:'
+    System.env.each {
+      println "- ${it}"
+    }
+  }
+}
