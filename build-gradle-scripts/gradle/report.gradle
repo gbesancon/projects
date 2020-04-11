@@ -1,0 +1,37 @@
+allprojects  {
+  apply plugin: 'project-report'
+  
+  task report {
+    group = 'reporting'
+    description = 'Generate reports.'
+  }
+  
+  task zipReport(type: Zip) {
+    group = 'reporting'
+    description = 'Zip reports'
+    classifier = 'reports'
+    from projectDir
+    include 'build/reports/**/*'
+    exclude 'build/reports/*-reports.zip'
+    includeEmptyDirs = false
+    destinationDir file("$buildDir/reports")
+  }
+  
+  report.dependsOn projectReport
+}
+
+report.dependsOn = subprojects.report
+
+task zipAllReports(type: Zip) {
+  group = 'reporting'
+  description = 'Zip all reports'
+  mustRunAfter report
+  classifier = 'all-reports'
+  from projectDir
+  include '**/build/reports/**/*'
+  exclude 'build/reports/*-all-reports.zip'
+  includeEmptyDirs = false
+  destinationDir file("$buildDir/reports")
+}
+
+report.finalizedBy zipAllReports
