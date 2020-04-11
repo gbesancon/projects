@@ -1,0 +1,24 @@
+buildscript {
+  ext.gradleScriptsDir = "$rootDir/scripts/build-gradle-scripts/gradle"
+  
+  apply from: "$gradleScriptsDir/gradle-update-buildscript.gradle", to:buildscript
+  apply from: "$gradleScriptsDir/task-tree-buildscript.gradle", to:buildscript
+  apply from: "$gradleScriptsDir/spotbugs-buildscript.gradle", to:buildscript  
+  apply from: "$gradleScriptsDir/google-java-format-buildscript.gradle", to:buildscript
+  apply from: "$gradleScriptsDir/license-buildscript.gradle", to:buildscript
+  apply from: "$gradleScriptsDir/owasp-buildscript.gradle", to:buildscript
+  apply from: "$gradleScriptsDir/sonarqube-buildscript.gradle", to:buildscript
+}
+
+apply from: "$gradleScriptsDir/project-java.gradle"
+
+group = 'org.benhur'
+description = 'Amazon'
+
+subprojects {  
+  apply from: "$gradleScriptsDir/maven-repositories.gradle"
+  apply from: "$gradleScriptsDir/java.gradle"
+  
+  group = rootProject.group
+  version = rootProject.version
+}

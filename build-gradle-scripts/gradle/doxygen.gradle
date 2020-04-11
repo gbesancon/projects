@@ -1,0 +1,24 @@
+// Include the following block in the build script of the root project to be able to use doxygen
+//buildscript {
+//  apply from: "$gradleScriptsDir/doxygen-buildscript.gradle", to:buildscript
+//}
+
+if(rootProject.generateDocumentationEnabled == 'true') {
+  apply plugin : 'org.ysb33r.doxygen'
+
+  doxygen {
+    executables {
+      doxygen version : '1.8.13'
+    }
+    generate_html true
+    generate_latex false
+    source 'src/main/java'
+    source 'src/test/java'
+    source 'src/integrationTest/java'
+    source 'src/productionTest/java'
+    input_encoding 'UTF-8'
+    generate_treeview false
+  }
+  
+  report.dependsOn doxygen
+}

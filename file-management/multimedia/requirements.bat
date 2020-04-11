@@ -1,0 +1,1 @@
+"C:\Python36\Scripts\pip.exe" install -r requirements.txt
