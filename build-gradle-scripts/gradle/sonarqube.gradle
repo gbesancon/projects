@@ -1,0 +1,22 @@
+// Include the following block in the build script of the root project to be able to use sonarqube
+//buildscript {
+//  apply from: "$gradleScriptsDir/sonarqube-buildscript.gradle", to:buildscript
+//}
+
+if(rootProject.publishSonarqubeReportEnabled == 'true') {
+  apply plugin: "org.sonarqube"
+
+  // If encountering issues with the SSL handshake
+  // Enable logs by adding the JVM argument -Djavax.net.debug=all
+  // It will display the information regarding the keystore used and detailed errors
+
+  sonarqube {
+    properties {
+      property "sonar.host.url", "https://sonarcloud.io"
+      property "sonar.organization", "gbesancon-github"
+      property "sonar.login", "$System.env.SONARQUBE_TOKEN"
+    }
+  }
+  
+  report.dependsOn tasks.sonarqube
+}
