@@ -1,0 +1,3 @@
+[submodule "scripts/build-gradle-scripts"]
+	path = scripts/build-gradle-scripts
+	url = https://github.com/gbesancon/build-gradle-scripts.git

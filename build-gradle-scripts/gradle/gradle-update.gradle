@@ -1,0 +1,7 @@
+// Include the following block in the build script of the root project to be able to use appengine
+//buildscript {
+//  apply from: "$gradleScriptsDir/gradle-update-buildscript.gradle", to:buildscript
+//}
+
+apply plugin: "com.github.ben-manes.versions"
+apply plugin: "se.patrikerdes.use-latest-versions"

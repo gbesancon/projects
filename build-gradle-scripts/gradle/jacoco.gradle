@@ -1,0 +1,19 @@
+if(rootProject.generateJacocoReportEnabled == 'true') {
+  apply plugin: 'jacoco'
+
+  def jacocoExcludes = []
+  def jacocoIncludes = []
+
+  jacocoTestReport {
+    dependsOn test
+
+    doFirst {
+      classDirectories = fileTree(dir: "build/classes/main/").exclude(jacocoExcludes).include(jacocoIncludes)
+    }
+
+    reports {
+      html.enabled = true
+      xml.enabled = true
+    }
+  }
+}

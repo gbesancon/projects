@@ -1,0 +1,216 @@
+\documentclass[10pt,landscape]{article}
+
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage{url}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage[T1]{fontenc}
+\usepackage[utf8x]{inputenc}
+\usepackage[english]{babel}
+
+% To make this come out properly in landscape mode, do one of the following
+% 1.
+%  pdflatex latexsheet.tex
+%
+% 2.
+%  latex latexsheet.tex
+%  dvips -P pdf  -t landscape latexsheet.dvi
+%  ps2pdf latexsheet.ps
+
+% This sets page margins to .5 inch if using letter paper, and to 1cm
+% if using A4 paper. (This probably isn't strictly necessary.)
+% If using another size paper, use default 1cm margins.
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+	{ \geometry{top=.5in,left=.5in,right=.5in,bottom=.5in} }
+	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+	}
+
+% Turn off header and footer
+\pagestyle{empty}
+
+% Redefine section commands to use less space
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\makeatother
+
+% Define BibTeX command
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+% Don't print section numbers
+\setcounter{secnumdepth}{0}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+% -----------------------------------------------------------------------
+
+\begin{document}
+  \raggedright
+  \footnotesize
+  \begin{multicols}{4}[
+    \begin{center}
+      \Huge{Feature name}
+    \end{center}
+  ]
+  
+    % multicol parameters
+    % These lengths are set only within the two main columns
+    %\setlength{\columnseprule}{0.25pt}
+    \setlength{\premulticols}{1pt}
+    \setlength{\postmulticols}{1pt}
+    \setlength{\multicolsep}{1pt}
+    \setlength{\columnsep}{2pt}
+
+    \section*{Description}
+    \begin{itemize}
+      \item Objectives
+    \end{itemize}
+    
+    \section*{Traceability}
+    \begin{itemize}
+      \item Requirements
+      \item User stories (\href{http://www.agilemodeling.com/artifacts/userStory.htm}{link})
+      \item Technical documentation
+      \item User documentation
+      \item Contact
+    \end{itemize}
+  
+    \section*{User Interface}
+    \begin{itemize}
+      \item Command Line Interface
+      \begin{itemize}
+        \item Arguments
+      \end{itemize}
+      \item Graphical User Interface
+      \begin{itemize}
+        \item Prototype
+        \item User interactions
+        \item Ergomomy
+        \begin{itemize}
+          \item Number of clicks
+        \end{itemize}
+      \end{itemize}
+    \end{itemize}
+  
+    \section*{Architecture}
+    \begin{itemize}
+      \item Technologies
+      \begin{itemize}
+        \item Languages
+        \item Framework
+        \item Third parties
+        \begin{itemize}
+          \item Licence
+        \end{itemize}
+      \end{itemize}
+      \item Component diagram
+      \begin{itemize}
+        \item Dependencies
+        \item Interface
+        \item Data formats
+        \item Interaction
+      \end{itemize}
+      \item Error/Exception management
+    \end{itemize}
+
+    \section*{Design}
+    \begin{itemize}
+      \item Evolutivity
+      \item Genericity
+      \item Limitations
+      \item Class diagram
+      \begin{itemize}
+        \item Role of classes
+        \item Design-patterns
+      \end{itemize}
+      \item Sequence diagram
+      \item Configuration
+      \begin{itemize}
+        \item Settings
+        \item Provider (file, database, ...)
+      \end{itemize}
+    \end{itemize}
+
+    \section*{Implementation}
+    \begin{itemize}
+      \item Initial refactoring
+      \item Processing
+      \begin{itemize}
+        \item State diagram
+        \item Algorithm
+        \begin{itemize}
+          \item Cases to implement
+          \item Cases NOT to implement
+        \end{itemize}
+      \end{itemize}
+      \item Data
+      \begin{itemize}   
+        \item Size (min / average / max)
+      \end{itemize}
+      \item Performance
+      \begin{itemize}
+        \item Threading (mono/multi)
+        \item Execution time
+        \item Memory consumption
+      \end{itemize}
+    \end{itemize}
+  
+    \section*{Testing}
+    \begin{itemize}
+      \item{Use-cases}
+      \begin{itemize}
+        \item Given \dots When \dots Then \dots (\href{http://guide.agilealliance.org/guide/gwt.html}{link})
+        \item Use-case diagram
+      \end{itemize}    
+      \item Strategy
+      \begin{itemize}
+        \item Mock-up
+        \item Integrated
+      \end{itemize}              
+      \item Execution
+      \begin{itemize}
+        \item Manual tests
+        \item Automatic tests
+      \end{itemize}
+      \item Test types
+      \begin{itemize}
+        \item Unit tests (Nominal/Off cases)
+        \item Functional tests
+        \item Integration tests
+        \item Usability Tests
+        \item UI Tests
+      \end{itemize}
+      \item Coverage
+      \begin{itemize}
+        \item Percentage expected
+      \end{itemize}
+    \end{itemize}
+    
+    \section*{Deployment}
+    \begin{itemize}
+      \item 
+    \end{itemize}
+
+    \scriptsize
+    Source: (\href{https://github.com/gbesancon/cheatsheet}{link})\\
+    Generation date: \today\\
+    Author: Gilles Besan\c{c}on\\
+    \href{https://github.com/gbesancon/cheatsheet}{GitHub} \href{https://www.linkedin.com/in/gbesancon}{LinkedIn}\\
+  \end{multicols}
+\end{document}

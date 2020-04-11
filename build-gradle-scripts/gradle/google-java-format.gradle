@@ -1,0 +1,26 @@
+// Include the following block in the build script of the root project to be able to use google-java-format
+//buildscript {
+//  apply from: "$gradleScriptsDir/google-java-format-buildscript.gradle", to:buildscript
+//}
+
+if(rootProject.checkGoogleJavaFormatEnabled == 'true') {
+  apply plugin: 'com.github.sherter.google-java-format'
+
+  check.dependsOn verifyGoogleJavaFormat
+  
+  googleJavaFormat {
+    toolVersion = '1.3'
+    
+    source = sourceSets*.allJava
+    include '**/*.java'
+  }
+
+  verifyGoogleJavaFormat {
+    source = sourceSets*.allJava
+    include '**/*.java'
+    ignoreFailures true
+  }
+
+  // to auto-format run ./gradlew googleJavaFormat
+  // more info : https://github.com/sherter/google-java-format-gradle-plugin
+}
