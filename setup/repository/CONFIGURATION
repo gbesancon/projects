@@ -1,0 +1,4 @@
+SETUP_RESPOSITORY_NAME="setup"
+JAVA_REPOSITORY_NAMES="amazon capgemini-fruitshop codingame codurance database-dependencies eclipse-utility jpmorgan-super-simple-stocks visualstudio-projectdependencies"
+OTHER_REPOSITORY_NAMES="42 bbingo build-gradle-scripts cheatsheet cv daily-coding-problem file-management fortune-cowsay-lolcat-server multimedia pi speakerphat"
+REPOSITORY_NAMES="$JAVA_REPOSITORY_NAMES $OTHER_REPOSITORY_NAMES"
