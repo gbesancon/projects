@@ -1,0 +1,22 @@
+// Include the following block in the build script of the root project to be able to use appengine
+//buildscript {
+//  apply from: "$gradleScriptsDir/gcp-appengine-buildscript.gradle", to:buildscript
+//}
+
+apply plugin: 'com.google.cloud.tools.appengine'
+
+appengine {
+  deploy {
+    project = "gbesancon"
+    promote = true
+    stopPreviousVersion = true
+  }
+}
+
+sourceSets {
+  appengine {
+    resources {
+      srcDirs "src/main/appengine"
+    }
+  }
+}

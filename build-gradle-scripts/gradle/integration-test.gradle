@@ -1,0 +1,45 @@
+// https://www.petrikainulainen.net/programming/gradle/getting-started-with-gradle-integration-testing/
+
+sourceSets {
+    integrationTest {
+        java {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+            srcDir file('src/integration-test/java')
+        }
+        resources.srcDir file('src/integration-test/resources')
+    }
+}
+
+configurations {
+    integrationTestCompile.extendsFrom testCompile
+    integrationTestRuntime.extendsFrom testRuntime
+}
+
+if( !sourceSets.integrationTest.allSource.empty ) {
+  task integrationTestJar(type: Jar) {
+    group = 'build'
+    description = 'Assembles a jar archive containing the integration tests.'
+    classifier = 'integration-tests'
+    from sourceSets.integrationTest.output
+  }
+
+  artifacts {
+    if(rootProject.packageTestsEnabled == 'true') {
+      archives integrationTestJar
+    }
+  }
+}
+
+task integrationTest(type: Test) {
+    group = 'verification'
+    description = 'Runs the integration tests.'
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
+    classpath = sourceSets.integrationTest.runtimeClasspath
+}
+
+integrationTest.mustRunAfter test
+
+if(rootProject.runIntegrationTestEnabled == 'true') {
+  check.dependsOn integrationTest
+}
