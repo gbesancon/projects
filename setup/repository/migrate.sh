@@ -13,8 +13,7 @@ shopt -s dotglob
 migrate() {
     repo_name=$1
     folder_name=$2
-
-    http_repository_url="https://github.com/gbesancon/${repo_name}.git"
+    http_repository_url=$3
 
     # We clone in /tmp
     git clone $http_repository_url /tmp/$repo_name
@@ -36,18 +35,10 @@ migrate() {
     echo $repo_name moved in folder $folder_name
 }
 
-password=$1
-
-# Create branch 
-git checkout -b migrate-to-mono-repository
-
-SETUP_RESPOSITORY_NAME="setup"
-JAVA_REPOSITORY_NAMES="amazon capgemini-fruitshop codingame codurance database-dependencies eclipse-utility jpmorgan-super-simple-stocks visualstudio-projectdependencies"
-OTHER_REPOSITORY_NAMES="42 bbingo build-gradle-scripts cheatsheet cv daily-coding-problem file-management fortune-cowsay-lolcat-server multimedia pi speakerphat"
-REPOSITORY_NAMES="$SETUP_RESPOSITORY_NAME $JAVA_REPOSITORY_NAMES $OTHER_REPOSITORY_NAMES"
+REPOSITORY_NAMES="$@"
 for REPOSITORY_NAME in $REPOSITORY_NAMES
 do
-    migrate $REPOSITORY_NAME $REPOSITORY_NAME
+    migrate $REPOSITORY_NAME $REPOSITORY_NAME "https://github.com/gbesancon/${REPOSITORY_NAME}.git"
 done
 
 exit 0
