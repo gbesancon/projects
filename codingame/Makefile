@@ -1,1 +1,1 @@
-include ../scripts/common/java/Makefile
+include ../scripts/single/java/Makefile

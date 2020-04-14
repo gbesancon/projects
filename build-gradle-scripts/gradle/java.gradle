@@ -20,8 +20,8 @@ dependencies {
   testCompile 'org.hamcrest:hamcrest-library:1.3'
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = '12'
+targetCompatibility = '12'
 
 tasks.withType(JavaCompile) {
   options.encoding = 'UTF-8'
@@ -44,7 +44,7 @@ artifacts {
   }
 }
 
-/*jar {
+jar {
   manifest {
     attributes 'Implementation-Title': project.name,
                'Implementation-Version': version,
@@ -53,4 +53,4 @@ artifacts {
                'Built-JDK': System.getProperty('java.version'),
                'Built-Gradle': gradle.gradleVersion
   }
-}*/
+}

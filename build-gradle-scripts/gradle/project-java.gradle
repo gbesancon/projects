@@ -15,11 +15,10 @@ apply from: "$gradleScriptsDir/build-configuration-properties.gradle"
 
 apply from: "$gradleScriptsDir/java.gradle"
 
-clean.dependsOn 'cleanBuildDescriptionFiles'
-report.dependsOn 'generateBuildDescriptionFiles'
+ext.versions = [
+  project_version: '0.0.1-SNAPSHOT',
+]
 
 allprojects {
-  build.mustRunAfter rootProject.generateBuildDescription
-  build.dependsOn rootProject.generateBuildDescription
-  version = rootProject.ext.fullVersion
+  version = (findProperty('version') != 'unspecified') ? version : "$versions.project_version"
 }

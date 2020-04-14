@@ -12,6 +12,4 @@ apply from: "$gradleScriptsDir/distribute.gradle"
 
 apply from: "$gradleScriptsDir/report.gradle"
 
-apply from: "$gradleScriptsDir/versioning.gradle"
-
 apply from: "$gradleScriptsDir/sonarqube.gradle"

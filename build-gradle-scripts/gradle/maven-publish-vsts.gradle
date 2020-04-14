@@ -1,5 +1,7 @@
 apply plugin: 'maven-publish'
 
+ext.mavenVersion = version.replaceAll('-.*','-SNAPSHOT')
+
 publishing {
   repositories {
     maven {
