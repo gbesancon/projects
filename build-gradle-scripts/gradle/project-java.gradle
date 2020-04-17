@@ -14,11 +14,3 @@ apply from: "$gradleScriptsDir/project.gradle"
 apply from: "$gradleScriptsDir/build-configuration-properties.gradle"
 
 apply from: "$gradleScriptsDir/java.gradle"
-
-ext.versions = [
-  project_version: '0.0.1-SNAPSHOT',
-]
-
-allprojects {
-  version = (findProperty('version') != 'unspecified') ? version : "$versions.project_version"
-}

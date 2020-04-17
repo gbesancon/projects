@@ -1,3 +1,7 @@
+allprojects {
+  version = findProperty('version') ?: "0.0.1-SNAPSHOT"
+}
+
 apply from: "$gradleScriptsDir/environment.gradle"
 
 apply from: "$gradleScriptsDir/gradle-wrapper.gradle"
