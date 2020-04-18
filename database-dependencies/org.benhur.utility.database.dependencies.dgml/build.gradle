@@ -1,6 +1,6 @@
 dependencies {
   compile project(':org.benhur.utility.database.dependencies') 
-  compile 'org.benhur:org.benhur.utility.dgml:0.0.1-SNAPSHOT'
+  compile 'org.benhur:org.benhur.utility.dgml:' + project.version
 }
 
 def myMainClassName = "org.benhur.utility.database.dependencies.dgml.DatabaseDependenciesDGML"
