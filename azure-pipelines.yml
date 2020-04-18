@@ -5,6 +5,10 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+- task: UseGitVersion@5
+  inputs:
+    versionSpec: 'x.x.x'
+
 - script: |
     make ci-build -e VERSION=$(GitVersion.SemVer)
   env:
