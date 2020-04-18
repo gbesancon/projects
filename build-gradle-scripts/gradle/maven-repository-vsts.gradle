@@ -1,9 +1,0 @@
-repositories {
-  maven {
-    url "https://gbesancon.pkgs.visualstudio.com/_packaging/github/maven/v1"
-    credentials {
-      username ""
-      password "$System.env.VSTS_PACKAGE_TOKEN"
-    }
-  }
-}

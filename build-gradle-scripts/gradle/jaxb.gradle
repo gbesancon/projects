@@ -7,9 +7,9 @@
 apply plugin: 'org.openrepose.gradle.plugins.jaxb'
 
 dependencies {
-  jaxb 'com.sun.xml.bind:jaxb-xjc:2.2.7'
-  jaxb 'com.sun.xml.bind:jaxb-impl:2.2.7'
-  jaxb 'javax.xml.bind:jaxb-api:2.2.7'
+  jaxb 'com.sun.xml.bind:jaxb-xjc:2.5.0'
+  jaxb 'com.sun.xml.bind:jaxb-impl:2.5.0'
+  jaxb 'javax.xml.bind:jaxb-api:2.5.0'
 }
 
 jaxb {
