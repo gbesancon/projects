@@ -6,5 +6,7 @@ pool:
 
 steps:
 - script: |
-    make ci-build
+    make ci-build -e VERSION=$(GitVersion.SemVer)
+  env:
+    AZURE_DEVOPS_PACKAGE_TOKEN: $(System.AccessToken)
   displayName: 'CI Build'
