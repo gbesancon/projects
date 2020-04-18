@@ -11,7 +11,7 @@ docker.io:
 	touch $@
 
 ansi2html.sh:
-        wget http://www.pixelbeat.org/scripts/ansi2html.sh
+	wget http://www.pixelbeat.org/scripts/ansi2html.sh
 
 build: docker.io ansi2html.sh Dockerfile
 	sudo docker build -t $(DOCKER_IMAGE) .
