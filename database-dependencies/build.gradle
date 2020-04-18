@@ -15,28 +15,11 @@ apply from: "$gradleScriptsDir/project-java.gradle"
 group = 'org.benhur'
 description = 'Database Dependencies'
 
-subprojects {
-  apply from: "$gradleScriptsDir/maven-repositories.gradle"
-  apply from: "$gradleScriptsDir/maven-repository-vsts.gradle"
-  apply from: "$gradleScriptsDir/java.gradle"
-  
+subprojects {  
   group = rootProject.group
   version = rootProject.version
-  
-  apply from: "$gradleScriptsDir/maven-publish-vsts.gradle"
-  publishing {
-    publications {
-      project(MavenPublication) {
-        version = mavenVersion
-        from components.java
-        if(rootProject.packageSourcesEnabled == 'true') {
-          artifact sourcesJar
-        }
-        if(rootProject.generateDocumentationEnabled == 'true') {
-          artifact javadocJar
-        }
-      }
-    }
-  }
-  distribute.dependsOn publish
+  apply from: "$gradleScriptsDir/maven-repositories.gradle"
+  apply from: "$gradleScriptsDir/maven-repository-azure-devops.gradle"
+  apply from: "$gradleScriptsDir/java.gradle"  
+  apply from: "$gradleScriptsDir/maven-publish-repository-azure-devops.gradle"
 }

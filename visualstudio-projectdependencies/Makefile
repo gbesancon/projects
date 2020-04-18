@@ -1,0 +1,1 @@
+include ../scripts/single/java/Makefile

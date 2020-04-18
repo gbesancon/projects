@@ -1,3 +1,7 @@
+allprojects {
+  version = findProperty('version') ?: "0.0.1-SNAPSHOT"
+}
+
 apply from: "$gradleScriptsDir/environment.gradle"
 
 apply from: "$gradleScriptsDir/gradle-wrapper.gradle"
@@ -11,7 +15,5 @@ apply from: "$gradleScriptsDir/task-tree.gradle"
 apply from: "$gradleScriptsDir/distribute.gradle"
 
 apply from: "$gradleScriptsDir/report.gradle"
-
-apply from: "$gradleScriptsDir/versioning.gradle"
 
 apply from: "$gradleScriptsDir/sonarqube.gradle"
