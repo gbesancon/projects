@@ -58,7 +58,7 @@ install_package()
   PACKAGE=$1
   result=0
   echo Installing package $PACKAGE
-  execute_command sudo apt-get install -y $PACKAGE
+  execute_command sudo DEBIAN_FRONTEND=noninteractive apt-get install -y $PACKAGE
   install_package_result=$?
   if [ $install_package_result -eq 0 ]
   then
