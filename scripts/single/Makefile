@@ -4,6 +4,10 @@ VERSION=0.0.1
 
 all: ci-build
 
+.PHONY: setup
+setup:
+	echo setup
+
 .PHONY: clean
 clean:
 	echo clean
@@ -21,4 +25,4 @@ test:
 	echo test
 
 .PHONY: ci-build
-ci-build: clean build test
+ci-build: setup clean build test
