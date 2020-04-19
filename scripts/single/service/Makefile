@@ -54,4 +54,4 @@ k8s-deploy: k8s-prep-deploy
 	kubectl apply -f deployment-${VERSION}-${ENVIRONMENT_NAME}.yaml
 
 .PHONY: ci-build
-ci-build: clean build test docker-build docker-publish
+ci-build: setup clean build test docker-build docker-publish
