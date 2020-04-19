@@ -93,8 +93,8 @@ install_or_update_jdk()
 }
 
 # oracle / openjdk
-JDK_DISTRIBUTION=$1
-JDK_VERSION=$2
+JDK_TYPE=$1
+JAVA_VERSION=$2
 
-install_or_update_jdk $JDK_DISTRIBUTION $JDK_VERSION
+install_or_update_jdk $JDK_TYPE $JAVA_VERSION
 exit_on_error $?
