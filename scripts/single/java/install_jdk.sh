@@ -2,7 +2,7 @@
 #set -e
 #set -x
 
-source $(dirname $(realpath ${BASH_SOURCE[0]}))/../utils/apt.sh
+source $(dirname $(realpath ${BASH_SOURCE[0]}))/../../../setup/utils/apt.sh
 
 get_java_version()
 {
@@ -92,11 +92,9 @@ install_or_update_jdk()
   return $result
 }
 
-install_or_update_jdk openjdk 8
-exit_on_error $?
+# oracle / openjdk
+JDK_DISTRIBUTION=$1
+JDK_VERSION=$2
 
-install_or_update_jdk openjdk 11
-exit_on_error $?
-
-install_or_update_jdk oracle 14
+install_or_update_jdk $JDK_DISTRIBUTION $JDK_VERSION
 exit_on_error $?
