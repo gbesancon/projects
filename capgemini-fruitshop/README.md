@@ -1,1 +1,0 @@
-# capgemini-fruitshop
