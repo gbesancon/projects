@@ -1,4 +1,0 @@
-eclipse-utility
-==============
-
-Eclipse Utility
