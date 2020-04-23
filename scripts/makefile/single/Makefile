@@ -24,4 +24,4 @@ test:
 	echo test
 
 .PHONY: ci-build
-ci-build: setup clean build test
+ci-build: clean build test
