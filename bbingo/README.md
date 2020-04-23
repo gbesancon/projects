@@ -1,2 +1,0 @@
-# bbingo
-Business Bingo
