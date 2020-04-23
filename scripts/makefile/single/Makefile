@@ -1,5 +1,4 @@
-# shellcheck disable=SC2046
-PROJECT_NAME="$(basename $(dirname -z $(dirname -z $(readlink -f $0))))"
+PROJECT_NAME=
 VERSION=0.0.1
 
 all: ci-build

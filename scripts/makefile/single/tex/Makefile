@@ -1,4 +1,4 @@
-include ../scripts/single/Makefile
+include ../scripts/makefile/single/Makefile
 
 PDFS=$(TEXS:.tex=.pdf)
 

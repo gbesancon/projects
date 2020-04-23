@@ -1,5 +1,5 @@
 buildscript {
-  ext.gradleScriptsDir = "$rootDir/../scripts/single/java/gradle"
+  ext.gradleScriptsDir = "$rootDir/../scripts/makefile/single/java/gradle"
   
   apply from: "$gradleScriptsDir/gradle-update-buildscript.gradle", to:buildscript
   apply from: "$gradleScriptsDir/task-tree-buildscript.gradle", to:buildscript

@@ -2,7 +2,7 @@
 #set -e
 #set -x
 
-source $(dirname $(realpath ${BASH_SOURCE[0]}))/../../../setup/utils/apt.sh
+source $(dirname $(realpath ${BASH_SOURCE[0]}))/../../../utils/apt.sh
 
 get_java_version()
 {
