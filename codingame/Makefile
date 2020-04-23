@@ -1,1 +1,2 @@
-include ../scripts/single/java/Makefile
+include ../scripts/makefile/single/java/Makefile
+PROJECT_NAME=codingame
