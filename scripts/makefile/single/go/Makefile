@@ -1,5 +1,4 @@
-include ../scripts/single/Makefile
-VERSION=0.0.1-SNAPSHOT
+include ../scripts/makefile/single/Makefile
 
 .PHONY: vendor-clean
 vendor-clean:
