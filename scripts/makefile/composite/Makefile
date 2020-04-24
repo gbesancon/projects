@@ -2,8 +2,8 @@ all: ci-build
 
 .PHONY: setup
 setup:
-	for project in ${PROJECTS} ; do \
-		$(MAKE) -C $$project $@ ; \
+	for project_name in ${PROJECT_NAMES} ; do \
+		$(MAKE) -C $$project_name $@ ; \
 		make_result=$$? ; \
 		if [ $$make_result -ne 0 ] ; then \
 			exit $$make_result ; \
@@ -12,8 +12,8 @@ setup:
 
 .PHONY: clean
 clean:
-	for project in ${PROJECTS} ; do \
-		$(MAKE) -C $$project $@ ; \
+	for project_name in ${PROJECT_NAMES} ; do \
+		$(MAKE) -C $$project_name $@ ; \
 		make_result=$$? ; \
 		if [ $$make_result -ne 0 ] ; then \
 			exit $$make_result ; \
@@ -22,8 +22,8 @@ clean:
 
 .PHONY: build-dev
 build-dev:
-	for project in ${PROJECTS} ; do \
-		$(MAKE) -C $$project $@ ; \
+	for project_name in ${PROJECT_NAMES} ; do \
+		$(MAKE) -C $$project_name $@ ; \
 		make_result=$$? ; \
 		if [ $$make_result -ne 0 ] ; then \
 			exit $$make_result ; \
@@ -32,8 +32,8 @@ build-dev:
 
 .PHONY: build
 build:
-	for project in ${PROJECTS} ; do \
-		$(MAKE) -C $$project $@ ; \
+	for project_name in ${PROJECT_NAMES} ; do \
+		$(MAKE) -C $$project_name $@ ; \
 		make_result=$$? ; \
 		if [ $$make_result -ne 0 ] ; then \
 			exit $$make_result ; \
@@ -42,8 +42,8 @@ build:
 
 .PHONY: test
 test:
-	for project in ${PROJECTS} ; do \
-		$(MAKE) -C $$project $@ ; \
+	for project_name in ${PROJECT_NAMES} ; do \
+		$(MAKE) -C $$project_name $@ ; \
 		make_result=$$? ; \
 		if [ $$make_result -ne 0 ] ; then \
 			exit $$make_result ; \
@@ -52,8 +52,8 @@ test:
 
 .PHONY: ci-build
 ci-build: 
-	for project in ${PROJECTS} ; do \
-		$(MAKE) -C $$project $@ ; \
+	for project_name in ${PROJECT_NAMES} ; do \
+		$(MAKE) -C $$project_name $@ ; \
 		make_result=$$? ; \
 		if [ $$make_result -ne 0 ] ; then \
 			exit $$make_result ; \
