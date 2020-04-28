@@ -3,7 +3,6 @@ include ./project.Makefile
 DOCKER_IMAGE_PREFIX=gbesancon
 ENVIRONMENT_NAME=localhost
 
-.PHONY: clean
 clean:
 	rm -rf deployment-*.yaml
 
@@ -53,5 +52,4 @@ k8s-prep-deploy:
 k8s-deploy: k8s-prep-deploy
 	kubectl apply -f deployment-${VERSION}-${ENVIRONMENT_NAME}.yaml
 
-.PHONY: ci-build
 ci-build: clean build test docker-build docker-publish
