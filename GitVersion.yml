@@ -1,5 +1,5 @@
 next-version: 0.1.0
-mode: ContinuousDelivery
+mode: Mainline
 branches:
   master:
     tag: ''
