@@ -5,23 +5,21 @@ all: ci-build
 
 .PHONY: setup
 setup:
-	echo setup
 
 .PHONY: clean
 clean:
-	echo clean
-
-.PHONY: build
-build:
-	echo build
 
 .PHONY: build-dev
 build-dev:
-	echo build-dev
 
-.PHONY: test
-test:
-	echo test
+.PHONY: build
+build:
 
-.PHONY: ci-build
-ci-build: clean build test
+.PHONY: publish-dev
+publish-dev:
+
+.PHONY: publish
+publish:
+
+.PHONY: ci-build-dev
+ci-build-dev:
