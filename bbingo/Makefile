@@ -1,1 +1,1 @@
-include ../scripts/makefile/single/Makefile
+include ../scripts/makefile/single/android/Makefile
