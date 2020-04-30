@@ -6,6 +6,7 @@ Grepolis.tv
 Burnout crash
 
 https://www.digikam.org/
+https://github.com/jitsi/jitsi-meet-electron
 
 # Games
 https://www.kerbalspaceprogram.com/en/
