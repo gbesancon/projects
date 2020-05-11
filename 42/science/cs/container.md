@@ -38,3 +38,4 @@ https://www.openshift.com/
 http://opentracing.io/
 
 https://nautilusdev.com/
+https://github.com/ramitsurana/awesome-kubernetes
