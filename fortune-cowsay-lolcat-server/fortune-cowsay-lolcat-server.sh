@@ -29,7 +29,17 @@ check_tools ()
 run_server ()
 {
   echo "http://localhost:$1/"
-  while true; do { echo -e 'HTTP/1.1 200 OK\r\n'; /usr/games/fortune | /usr/games/cowsay -f $(ls /usr/share/cowsay/cows/ | shuf -n1) | /usr/games/lolcat -f | sh $(dirname $0)/ansi2html.sh --bg=dark; } | nc -l $1; done
+  while true
+  do
+    { \
+      echo -e 'HTTP/1.1 200 OK\r\n'; \
+      /usr/games/fortune \
+      | /usr/games/cowsay -f $(ls /usr/share/cowsay/cows/ | shuf -n1) \
+      | /usr/games/lolcat -f \
+      | sh $(dirname $0)/ansi2html.sh --bg=dark; \
+    } \
+    | nc -l $1
+  done
 }
 
 check_usage "$@"
