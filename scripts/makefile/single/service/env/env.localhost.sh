@@ -1,1 +1,0 @@
-source ../scripts/env/env.localhost.sh
