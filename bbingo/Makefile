@@ -1,1 +1,2 @@
-include ../scripts/makefile/single/android/Makefile
+SCRIPTS_DIR=../scripts
+include ${SCRIPTS_DIR}/makefile/single/android/Makefile

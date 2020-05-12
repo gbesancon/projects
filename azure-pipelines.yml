@@ -4,7 +4,14 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+group:
+ - TOKEN
+
 steps:
+- checkout: self
+  clean: true
+  lfs: false
+  submodules: true
 - task: UseGitVersion@5
   inputs:
     versionSpec: '5.x'
@@ -12,7 +19,5 @@ steps:
     configFilePath: 'GitVersion.yml'
 
 - script: |
-    make ci-build -e VERSION=$(GitVersion.SemVer)
-  env:
-    AZURE_DEVOPS_PACKAGE_TOKEN: $(System.AccessToken)
+    make ci-build -e VERSION=$(GitVersion.SemVer) -e GBESANCON_GITHUB_PACKAGE_TOKEN=$(GBESANCON_GITHUB_PACKAGE_TOKEN)
   displayName: 'CI Build'
