@@ -4,8 +4,8 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-group:
- - TOKEN
+variables:
+  - group: TOKENS
 
 steps:
 - checkout: self
