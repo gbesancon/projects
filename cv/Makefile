@@ -1,2 +1,3 @@
+SCRIPTS_DIR=../scripts
 TEXS=resume_en.tex resume_es.tex resume_fr.tex
-include ../scripts/makefile/single/tex/Makefile
+include ${SCRIPTS_DIR}/makefile/single/tex/Makefile
