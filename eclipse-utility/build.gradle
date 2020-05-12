@@ -20,5 +20,5 @@ subprojects {
   version = rootProject.version
   apply from: "$gradleScriptsDir/maven-repositories.gradle"
   apply from: "$gradleScriptsDir/java.gradle"  
-  apply from: "$gradleScriptsDir/maven-publish-repository-azure-devops.gradle"
+  apply from: "$gradleScriptsDir/maven-publish-repository-github-gbesancon-projects.gradle"
 }
