@@ -39,3 +39,7 @@ http://opentracing.io/
 
 https://nautilusdev.com/
 https://github.com/ramitsurana/awesome-kubernetes
+
+https://developers.redhat.com/blog/2020/05/11/top-10-must-know-kubernetes-design-patterns/
+https://codeopolis.com/posts/25-basic-docker-commands-for-beginners/
+https://github.com/earthly/earthly
