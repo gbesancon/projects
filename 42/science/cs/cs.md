@@ -90,3 +90,5 @@ https://grafana.com/get
 https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard
 https://github.com/aristocratos/bashtop
 https://github.com/plotly/falcon
+https://github.com/yemount/pose-animator
+https://github.com/alexellis/awesome-baremetal
