@@ -11,12 +11,13 @@ class PhotoMosaic:
         parser.add_argument('--image-source', required=True)
         parser.add_argument('--width', required=True, type=int)
         parser.add_argument('--length', required=True, type=int)
-        parser.add_argument('--image_destination', required=False)
+        parser.add_argument('--image-destination', required=False)
         parser.add_argument('--display', required=False, default=False, action='store_true')
         parser.add_argument('--use-color-tile', required=False, default=False, action='store_true')
         parser.add_argument('--color-tile-folderpath', required=False, default='/tmp/color_tile/')
         parser.add_argument('--use-image-tile', required=False, default=False, action='store_true')
         parser.add_argument('--image-tile-folderpath', required=False, default='/tmp/image_tile')
+        parser.add_argument('--image-tile-extension', required=False, default='.png')
         parsed_args = parser.parse_args(args)
         return parsed_args
 
@@ -27,22 +28,31 @@ class PhotoMosaic:
         return image
 
     def create_color_pool(self, folderpath: str):
-        print("Creating color pool")
-        photomosaic.rainbow_of_squares(folderpath)        
+        print("Creating color pool", folderpath)
+        photomosaic.rainbow_of_squares(folderpath)
+        print("Color pool created")
         
-    def create_pool(self, folderpath: str) -> any:
-        pool = photomosaic.make_pool(folderpath + "*.png")
+    def create_pool(self, folderpath: str, file_extension: str) -> any:
+        print("Preparing pool", folderpath)
+        pool = photomosaic.make_pool(folderpath + "*" + file_extension)
+        print("Pool prepared.")
         return pool
 
     def create_mosaic(self, image, pool, n_width, n_length) -> any:
+        print("Creating mosaic")
         mosaic = photomosaic.basic_mosaic(image, pool, (n_width, n_length))
+        print("Mosaic created.")
         return mosaic
 
     def save_mosaic(self, mosaic: any, filepath: str) -> any:
+        print("Saving mosaic as", filepath)
         skimage.io.imsave(filepath, mosaic)
+        print("Mosaic saved.")
 
     def display_mosaic(self, mosaic: any):
+        print("Displaying mosaic")
         matplotlib.pyplot.imshow(mosaic)
+        print("Mosaic displayed.")
 
     def main(self, args: dict):
         parsed_args = self.parse_args(args)
@@ -50,7 +60,7 @@ class PhotoMosaic:
         pool = None
         if parsed_args.use_color_tile:
             self.create_color_pool(parsed_args.color_tile_folderpath)
-            pool = self.create_pool(parsed_args.color_tile_folderpath)
+            pool = self.create_pool(parsed_args.color_tile_folderpath, ".png")
         elif parsed_args.use_image_tile:
             pass
         else:
