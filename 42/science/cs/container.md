@@ -43,3 +43,8 @@ https://github.com/ramitsurana/awesome-kubernetes
 https://developers.redhat.com/blog/2020/05/11/top-10-must-know-kubernetes-design-patterns/
 https://codeopolis.com/posts/25-basic-docker-commands-for-beginners/
 https://github.com/earthly/earthly
+https://github.com/lensapp/lens
+https://github.com/yolossn/Prometheus-Basics
+https://tech.fretlink.com/from-click-a-boo-cloud-architecture-to-infrastructure-as-code/
+https://github.com/derailed/k9s
+https://www.datadoghq.com/dg/apm/microservices-ts/
