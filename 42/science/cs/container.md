@@ -48,3 +48,4 @@ https://github.com/yolossn/Prometheus-Basics
 https://tech.fretlink.com/from-click-a-boo-cloud-architecture-to-infrastructure-as-code/
 https://github.com/derailed/k9s
 https://www.datadoghq.com/dg/apm/microservices-ts/
+https://github.com/lensapp/lens
