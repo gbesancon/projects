@@ -34,6 +34,7 @@ https://en.wikipedia.org/wiki/Malbolge
 https://www.wavemetrics.com/products/igorpro/programming.htm
 https://docs.docker.com/engine/understanding-docker/
 
+https://ricardoanderegg.com/posts/bash_wrap_functions/
 https://levelup.gitconnected.com/the-regular-expression-denial-of-service-redos-cheat-sheet-a78d0ed7d865
 http://ohmyz.sh/
 http://www.houstonlinux.org/
