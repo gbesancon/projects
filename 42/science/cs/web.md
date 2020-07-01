@@ -13,6 +13,8 @@ D3 data driven documents : http://d3js.org/
 JS presentation: https://github.com/hakimel/reveal.js/
 http://animateddata.co.uk/slides/datavis-tools-and-techniques/#/
 https://plot.ly/javascript/
+https://github.com/schenkd/nginx-ui
+https://hyperapp.dev/
 
 ## JavaScript
 http://gruntjs.com/
