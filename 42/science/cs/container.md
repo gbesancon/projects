@@ -49,3 +49,4 @@ https://tech.fretlink.com/from-click-a-boo-cloud-architecture-to-infrastructure-
 https://github.com/derailed/k9s
 https://www.datadoghq.com/dg/apm/microservices-ts/
 https://github.com/lensapp/lens
+https://github.com/knrt10/kubernetes-basicLearning/blob/master/readme.md
