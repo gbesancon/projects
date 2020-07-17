@@ -96,3 +96,4 @@ https://github.com/yemount/pose-animator
 https://github.com/alexellis/awesome-baremetal
 https://www.scraperapi.com/?utm_source=tldr
 https://github.com/github/super-linter
+https://samizdat.dev/help-message-for-shell-scripts/
