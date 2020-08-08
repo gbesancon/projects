@@ -1,16 +1,16 @@
-https://www.hau.gr/?i=learning.el.podcasts-in-greek
-Βιβλιο Α δημοτικου 
-http://ebooks.edu.gr/ebooks/v/html/8547/1993/Glossa_A-Dimotikou_html-empl/indexb_00.html
+# Learning greek
 
-https://www.youtube.com/channel/UCUDJWYidxNHanwrRtBfcwpw
+## Website
 
-https://dschool.edu.gr/
+- [Modern Greek Grammar](https://www.greekgrammar.eu/)
+- https://dschool.edu.gr/
+- [Accent Marks denoting Stress in Greek, and Other Diacritics](https://www.foundalis.com/lan/grstress.htm)
+- [Hellenic American Union](https://www.hau.gr)
+  - [Podcast Learning Greek](https://www.hau.gr/?i=learning.el.podcasts-in-greek)
+  - [Video for Learning Greek](https://www.hau.gr/?i=learning.el.video_casts)
+- [Lawless Greek](https://www.lawlessgreek.com/)
 
-https://www.foundalis.com/lan/grstress.htm
+## Materials
 
-https://www.greekgrammar.eu/
-Video for Μάθημα 1: Συστάσεις (1)
-https://www.hau.gr/?i=learning.el.mg-video_1
-
-
-https://www.lawlessgreek.com/
+- [Βιβλιο Α δημοτικου](http://ebooks.edu.gr/ebooks/v/html/8547/1993/Glossa_A-Dimotikou_html-empl/indexb_00.html)
+- [Miss Ruby](https://www.youtube.com/channel/UCUDJWYidxNHanwrRtBfcwpw)
