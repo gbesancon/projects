@@ -45,3 +45,6 @@ https://1loc.dev/#check-if-all-items-in-an-array-are-equal
 https://gridjs.io/
 https://github.com/tiangolo/fastapi
 https://github.com/ThasianX/ElegantTimeline-SwiftUI
+https://github.com/bernaferrari/FigmaToCode
+https://github.com/gpujs/gpu.js
+https://github.com/alias-rahil/handwritten.js

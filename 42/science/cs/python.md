@@ -7,3 +7,4 @@
 - https://github.com/JaidedAI/EasyOCR
 - https://brython.info/
 - https://github.com/fbdesignpro/sweetviz
+https://github.com/gugarosa/opytimizer

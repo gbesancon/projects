@@ -31,3 +31,4 @@ https://cloud.spring.io/spring-cloud-contract/spring-cloud-contract.html
 
 
 https://kafka.apache.org/
+https://github.com/intuit/karate
