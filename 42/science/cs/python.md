@@ -8,3 +8,5 @@
 - https://brython.info/
 - https://github.com/fbdesignpro/sweetviz
 https://github.com/gugarosa/opytimizer
+https://isaak.dev/2020/08/python-libraries-to-make-your-code-readable-and-maintainable
+https://realpython.com/courses/cool-new-features-python-39/

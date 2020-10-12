@@ -48,3 +48,6 @@ https://github.com/ThasianX/ElegantTimeline-SwiftUI
 https://github.com/bernaferrari/FigmaToCode
 https://github.com/gpujs/gpu.js
 https://github.com/alias-rahil/handwritten.js
+https://bennettfeely.com/ztext/
+https://arwes.dev/docs
+https://www.calligrapher.ai/
