@@ -98,3 +98,5 @@ https://www.scraperapi.com/?utm_source=tldr
 https://github.com/github/super-linter
 https://samizdat.dev/help-message-for-shell-scripts/
 https://nelsonmichael.dev/awesome-developer-resources-ckcrin0gg00khpms1gbue38dz
+https://github.com/intel-isl/OpenBot
+https://github.com/mxrch/GHunt
