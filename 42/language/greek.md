@@ -1,5 +1,8 @@
 # Learning greek
 
+Display keyboard: Windows + Ctrl + O
+Switch keyboard: Windows + Space
+
 ## Website
 
 - [Modern Greek Grammar](https://www.greekgrammar.eu/)
