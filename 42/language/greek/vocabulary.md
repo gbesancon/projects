@@ -40,6 +40,7 @@
 Έτοιμος, έτοιμη, έτοιμο= ready( adj.)
 Το ταχυδρομείο= the post office
 Το φαρμακείο= the pharmacy
+παιδάκια=the little kids
 
 Το ξενοδοχείο= the hotel
 Το καθαριστήριο= the dry cleaners
