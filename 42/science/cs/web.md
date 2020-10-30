@@ -51,3 +51,4 @@ https://github.com/alias-rahil/handwritten.js
 https://bennettfeely.com/ztext/
 https://arwes.dev/docs
 https://www.calligrapher.ai/
+https://flat-svg-designs.net/en/
