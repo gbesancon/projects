@@ -20,3 +20,4 @@ https://github.com/hediet/vscode-drawio
 https://github.com/features/codespaces
 https://blog.pragmaticengineer.com/the-developer-culture-test/
 https://github.com/madd86/awesome-system-design
+https://github.com/preslavmihaylov/booknotes
