@@ -29,6 +29,7 @@
 - Το ρολόι -> the watch, the clock
 - Το πρόβλημα -> the problem
 - Το τηλέφωνο -> the telephone
+- πεινάω -> to be hungry
 
 # Family
 - H μαμά -> the mom
@@ -81,7 +82,8 @@
 - Το λουλούδι / Τα λουλουδια ->  Flower
 
 # Music instruments
-- Ο αυλός / Οι Αυλοί -> Flute
+- Ο αυλός / Οι Αυλοί -> The Flute
+- To πιάνo -> the piano
 
 # Animals
 - Το πουλί / Τα πουλία -> Bird
