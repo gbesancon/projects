@@ -7,69 +7,73 @@
 - Ο μαθτής / Οι μαθητές -> The student
 - Το θαύμα / Τα θαύματα -> The miracle
 - Η ζωή / Οι ζωές -> Life
+- Καλά -> well
 - Εντάξει -> OK
+- Όχι -> no
+- Το ταξί -> the taxi
+- Η ταβέρνα -> the tavern (restaurant)
+- Το αεροδρόμιο -> the airport
+- Το αεροπλάνο -> the airplane
+- Ο λογαριασμός -> the bill
+- Αθηνά -> Athena (name for a female)
+- Έτοιμος, έτοιμη, έτοιμο -> ready (adj.)
+- Το ταχυδρομείο -> the post office
+- Το φαρμακείο -> the pharmacy
+
+- Το ξενοδοχείο -> the hotel
+- Το καθαριστήριο -> the dry cleaners
+- Το μπαρ -> the bar
+- Η ντίσκο -> the disco
+- Το μπάσκετ-μπωλ -> the basketball
+- Η λαϊκή αγορά -> the once a week neighborhood street market
+- Το ρολόι -> the watch, the clock
+- Το πρόβλημα -> the problem
+- Το τηλέφωνο -> the telephone
 
 # Family
 - H μαμά -> the mom
-- Η μητέρα= the mother
-- Ο μπαμπάς= the dad
-- Ο πατέρας= the father
+- Η μητέρα -> the mother
+- Ο μπαμπάς -> the dad
+- Ο πατέρας -> the father
 - Το αγόρι / Τα αγόρια -> The boy
 - Το κορίτσι -> the girl
 - Το αγόρι -> the boy
 - Η γιαγιά -> the grandmother
-
-Όχι= no
-Καλά= well
-Η σαλάτα= the salad
-Ένα= one
-Στο= at the, on the, in the
-Το γάλα= the milk
-Το ταξί= the taxi
-Δεν= not (goes in front of the verb to make it negative)
-Το ούζο= ouzo( drink)
-Το κρασί= the wine
-Η ταβέρνα= the tavern (restaurant)
-Το αεροδρόμιο= the airport
-Το αεροπλάνο= the airplane
-Ο λογαριασμός= the bill
-Η πορτοκαλάδα= the orange juice
-Το πορτοκάλι= the orange
-Το πορτοκαλί= the color orange
-Αθηνά= Athena( name for a female)
-Έτοιμος, έτοιμη, έτοιμο= ready( adj.)
-Το ταχυδρομείο= the post office
-Το φαρμακείο= the pharmacy
-παιδάκια=the little kids
-
-Το ξενοδοχείο= the hotel
-Το καθαριστήριο= the dry cleaners
-Η μπύρα= the beer
-Το μπαρ= the bar
-Η ντίσκο= the disco
-Η ντομάτα= the tomato
-Το τζατζίκι= Greek yogurt sauce
-Το μπάσκετ-μπωλ= the basketball
-Το τσάι= the tea
-Η λαϊκή αγορά= the once a week neighborhood street market
-Το ρολόι= the watch, the clock
-Ο καφές= the coffee
-Το νερό= the water
-Το πρόβλημα= the problem
-Το τηλέφωνο= the telephone
-Γαλλικά= French (language)
-Γερμανικά= German (language)
-Ισπανικά= Spanish (language)
+- παιδάκια -> the little kids
 
 # Countries
 - Η ευρώπη -> Europe
-Η Ελλάδα= Greece
-Η Αγγλία= England
-Αθήνα= Athens(city)
+- Η Ελλάδα -> Greece
+- Ελληνικά -> Greek (language)
+- Αθήνα -> Athens (city)
+- Η Αγγλία -> England
+- Αγγλικά -> English (language)
+- Η Γαλλία -> France
+- Γαλλικά -> French (language)
+- Η Γερμάνια -> Germany 
+- Γερμανικά -> German (language)
+- Η Ισπανιά -> Spain
+- Ισπανικά -> Spanish (language)
 
 # Food
 - Το λουκάνικο / Τα λουκάνικα -> Sausage
 - Το αυγό / Τα αυγά -> Egg
+- Η σαλάτα -> the salad
+- Η ντομάτα -> the tomato
+- Το τζατζίκι -> Greek yogurt sauce
+
+# Fruit
+- Το πορτοκάλι -> the orange
+
+# Drink
+- Η μπύρα -> the beer
+- Το τσάι -> the tea
+- Ο καφές -> the coffee
+- Το νερό -> the water
+- Η πορτοκαλάδα -> the orange juice
+- Το γάλα -> the milk
+- Το ούζο -> ouzo
+- Το κρασί -> the wine
 
 # Garden
 - Η αυλή / Οι αυλές -> Yard
