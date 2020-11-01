@@ -12,27 +12,34 @@
 - Τι -> What
 - Γιατί -> Why, because
   
-# 
-Δεν -> Don't / No
-Θα-> will
+# Articles
+- Δεν -> not (goes in front of the verb to make it negative)
+- Θα -> will
+- Στο -> at the, on the, in the
 
 # Verbs
+- Είμαι -> to be
+- Θέλω -> to want
+- Κάνω -> to do
+- Έχω -> to have
+- Μένω -> to stay, to live
+- Ξέρω -> to know
+- Καταλαβαίνω -> to understand
+- Με λένε -> I am called, my name is
+- Άργησα -> I am late
 
-Είμαι= I am
-Είσαι= you are
-Είναι= he, she, it is
-Είμαστε= we are
-Είστε, είσαστε= you all are
-Είναι= they are
+# Conjugate: to be
+- Είμαι -> I am
+- Είσαι -> you are
+- Είναι -> he, she, it is
+- Είμαστε -> we are
+- Είστε, είσαστε -> you all are
+- Είναι -> they are
 
-
-Μένω= to stay, to live (I stay , I live)
-Μένεις= you stay, you live
-Θέλω= to want
-Κάνω= to do
-Καταλαβαίνω= to understand
-Με λένε= I am called, my name is
-Έχω= I have
-Έχεις= you have
-Άργησα= I am late
-Ξέρω= to know
+# Conjugate: to stay
+- Μένω -> I stay
+- Μένεις -> you stay
+- Μένει -> he, she, it stay
+- Μένουμε -> we stay
+- Μένετε -> you all stay
+- Μένουν -> they stay
