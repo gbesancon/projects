@@ -21,3 +21,4 @@ https://github.com/features/codespaces
 https://blog.pragmaticengineer.com/the-developer-culture-test/
 https://github.com/madd86/awesome-system-design
 https://github.com/preslavmihaylov/booknotes
+https://danuker.go.ro/the-grand-unified-theory-of-software-architecture.html
