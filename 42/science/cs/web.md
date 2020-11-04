@@ -52,3 +52,4 @@ https://bennettfeely.com/ztext/
 https://arwes.dev/docs
 https://www.calligrapher.ai/
 https://flat-svg-designs.net/en/
+https://github.com/presenta-software/presenta-lib
