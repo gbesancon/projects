@@ -9,6 +9,7 @@ trigger:
     include:
     - codurance/*
     - scripts
+    - GitVersion.yml
 
 pool:
   vmImage: 'ubuntu-latest'

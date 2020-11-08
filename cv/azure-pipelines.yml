@@ -7,15 +7,12 @@ trigger:
     - master
   paths:
     include:
-    - amazon/*
+    - cv/*
     - scripts
     - GitVersion.yml
 
 pool:
   vmImage: 'ubuntu-latest'
-
-variables:
-  - group: TOKENS
 
 steps:
 - checkout: self
@@ -29,6 +26,6 @@ steps:
     configFilePath: 'GitVersion.yml'
 
 - script: |
-    make ci-build -e VERSION=$(GitVersion.SemVer) -e GBESANCON_GITHUB_PACKAGE_TOKEN=$(GBESANCON_GITHUB_PACKAGE_TOKEN)
-  workingDirectory: amazon
+    make ci-build -e VERSION=$(GitVersion.SemVer)
+  workingDirectory: cv
   displayName: 'CI Build'
