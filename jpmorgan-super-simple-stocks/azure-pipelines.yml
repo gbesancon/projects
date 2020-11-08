@@ -1,0 +1,34 @@
+########################################
+###   FILE GENERATED FROM TEMPLATE   ###
+########################################
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - jpmorgan-super-simple-stocks/*
+    - scripts
+    - GitVersion.yml
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  - group: TOKENS
+
+steps:
+- checkout: self
+  clean: true
+  lfs: false
+  submodules: true
+- task: UseGitVersion@5
+  inputs:
+    versionSpec: '5.x'
+    useConfigFile: true
+    configFilePath: 'GitVersion.yml'
+
+- script: |
+    make ci-build -e VERSION=$(GitVersion.SemVer) -e GBESANCON_GITHUB_PACKAGE_TOKEN=$(GBESANCON_GITHUB_PACKAGE_TOKEN)
+  workingDirectory: jpmorgan-super-simple-stocks
+  displayName: 'CI Build'
