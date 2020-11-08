@@ -1,5 +1,11 @@
 trigger:
-- master
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - amazon/*
+    - scripts
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -20,4 +26,5 @@ steps:
 
 - script: |
     make ci-build -e VERSION=$(GitVersion.SemVer) -e GBESANCON_GITHUB_PACKAGE_TOKEN=$(GBESANCON_GITHUB_PACKAGE_TOKEN)
+  workingDirectory: amazon
   displayName: 'CI Build'
