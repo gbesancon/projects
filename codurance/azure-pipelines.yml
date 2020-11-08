@@ -1,3 +1,6 @@
+########################################
+###   FILE GENERATED FROM TEMPLATE   ###
+########################################
 trigger:
   branches:
     include:
