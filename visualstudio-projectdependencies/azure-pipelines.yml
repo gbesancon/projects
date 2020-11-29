@@ -15,7 +15,6 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  - GitVersion.SemVer: ''
   - group: TOKENS
 
 steps:

@@ -14,9 +14,6 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-variables:
-  - GitVersion.SemVer: ''
-
 steps:
 - checkout: self
   clean: true
