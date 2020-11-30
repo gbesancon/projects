@@ -33,3 +33,15 @@ steps:
     make ci-build -e VERSION=$(GitVersion.SemVer) -e GBESANCON_GITHUB_PACKAGE_TOKEN=$(GBESANCON_GITHUB_PACKAGE_TOKEN)
   workingDirectory: database-dependencies
   displayName: 'CI Build'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.SourcesDirectory)/**/reports/*-all-reports.zip'
+    ArtifactName: 'reports'
+    publishLocation: 'Container'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.SourcesDirectory)/**/distributions/*.*'
+    ArtifactName: 'distributions'
+    publishLocation: 'Container'
