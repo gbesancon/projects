@@ -33,3 +33,25 @@ steps:
     make ci-build -e VERSION=$(GitVersion.SemVer) -e GBESANCON_GITHUB_PACKAGE_TOKEN=$(GBESANCON_GITHUB_PACKAGE_TOKEN)
   workingDirectory: codurance
   displayName: 'CI Build'
+
+- task: CopyFiles@2
+  displayName: 'Copy reports'
+  inputs:
+    sourceFolder: '$(Build.SourcesDirectory)'
+    contents: 'codurance/build/reports/*-all-reports.zip'
+    targetFolder: '$(Build.ArtifactStagingDirectory)/reports'
+    flattenFolders: true
+
+- task: CopyFiles@2
+  displayName: 'Copy distributions'
+  inputs:
+    sourceFolder: '$(Build.SourcesDirectory)'
+    contents: 'codurance/*/build/distributions/?(*.zip|*.tar)'
+    targetFolder: '$(Build.ArtifactStagingDirectory)/distributions'
+    flattenFolders: true
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish drop'
+  inputs:
+    pathToPublish: '$(Build.ArtifactStagingDirectory)'
+    artifactName: drop

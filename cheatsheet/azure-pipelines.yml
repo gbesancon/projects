@@ -30,3 +30,17 @@ steps:
     make ci-build -e VERSION=$(GitVersion.SemVer)
   workingDirectory: cheatsheet
   displayName: 'CI Build'
+
+- task: CopyFiles@2
+  displayName: 'Copy pdfs'
+  inputs:
+    sourceFolder: '$(Build.SourcesDirectory)'
+    contents: 'cheatsheet/*.pdf'
+    targetFolder: '$(Build.ArtifactStagingDirectory)'
+    flattenFolders: true
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish drop'
+  inputs:
+    pathToPublish: '$(Build.ArtifactStagingDirectory)'
+    artifactName: drop

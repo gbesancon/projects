@@ -47,7 +47,7 @@ steps:
   inputs:
     sourceFolder: '$(Build.SourcesDirectory)'
     contents: 'database-dependencies/*/build/distributions/?(*.zip|*.tar)'
-    targetFolder: '$(Build.ArtifactStagingDirectory)'
+    targetFolder: '$(Build.ArtifactStagingDirectory)/distributions'
     flattenFolders: true
 
 - task: PublishBuildArtifacts@1
