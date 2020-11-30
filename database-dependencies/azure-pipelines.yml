@@ -35,16 +35,20 @@ steps:
   displayName: 'CI Build'
 
 - task: CopyFiles@2
+  displayName: 'Copy reports'
   inputs:
     sourceFolder: '$(Build.SourcesDirectory)'
     contents: 'database-dependencies/build/reports/*-all-reports.zip'
     targetFolder: '$(Build.ArtifactStagingDirectory)/reports'
+    flattenFolders: true
 
 - task: CopyFiles@2
+  displayName: 'Copy distributions'
   inputs:
     sourceFolder: '$(Build.SourcesDirectory)'
     contents: 'database-dependencies/*/build/distributions/?(*.zip|*.tar)'
     targetFolder: '$(Build.ArtifactStagingDirectory)'
+    flattenFolders: true
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish drop'
