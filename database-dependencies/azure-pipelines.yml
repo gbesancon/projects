@@ -34,16 +34,20 @@ steps:
   workingDirectory: database-dependencies
   displayName: 'CI Build'
 
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish reports'
+- task: CopyFiles@2
   inputs:
-    PathtoPublish: '$(Build.SourcesDirectory)/database-dependencies/build/reports/*-all-reports.zip'
-    ArtifactName: 'reports'
-    publishLocation: 'Container'
+    sourceFolder: '$(Build.SourcesDirectory)'
+    contents: 'database-dependencies/build/reports/*-all-reports.zip'
+    targetFolder: '$(Build.ArtifactStagingDirectory)/reports'
+
+- task: CopyFiles@2
+  inputs:
+    sourceFolder: '$(Build.SourcesDirectory)'
+    contents: 'database-dependencies/*/build/distributions/?(*.zip|*.tar)'
+    targetFolder: '$(Build.ArtifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
-  displayName: 'Publish distributions'
+  displayName: 'Publish drop'
   inputs:
-    PathtoPublish: '$(Build.SourcesDirectory)/database-dependencies/*/build/distributions/*.*'
-    ArtifactName: 'distributions'
-    publishLocation: 'Container'
+    pathToPublish: '$(Build.ArtifactStagingDirectory)'
+    artifactName: drop
