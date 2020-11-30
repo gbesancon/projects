@@ -35,13 +35,15 @@ steps:
   displayName: 'CI Build'
 
 - task: PublishBuildArtifacts@1
+  displayName: 'Publish reports'
   inputs:
-    PathtoPublish: '$(Build.SourcesDirectory)/**/reports/*-all-reports.zip'
+    PathtoPublish: '$(Build.SourcesDirectory)/database-dependencies/reports/*-all-reports.zip'
     ArtifactName: 'reports'
     publishLocation: 'Container'
 
 - task: PublishBuildArtifacts@1
+  displayName: 'Publish distributions'
   inputs:
-    PathtoPublish: '$(Build.SourcesDirectory)/**/distributions/*.*'
+    PathtoPublish: '$(Build.SourcesDirectory)/database-dependencies/*/build/distributions/*.*'
     ArtifactName: 'distributions'
     publishLocation: 'Container'
