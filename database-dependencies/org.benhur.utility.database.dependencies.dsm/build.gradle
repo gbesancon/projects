@@ -1,6 +1,6 @@
 dependencies {
   compile project(':org.benhur.utility.database.dependencies') 
-  compile 'org.benhur:org.benhur.utility.dsm:' + project.version
+  compile 'org.benhur:org.benhur.utility.dsm:' + project.mavenVersion
 }
 
 def myMainClassName = "org.benhur.utility.database.dependencies.dsm.DatabaseDependenciesDSM"

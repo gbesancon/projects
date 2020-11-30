@@ -1,4 +1,4 @@
 dependencies {
-    compile 'org.benhur:org.benhur.utility:' + project.version
+    compile 'org.benhur:org.benhur.utility:' + project.mavenVersion
     runtime 'com.microsoft.sqlserver:mssql-jdbc:6.4.0.jre8'
 }
