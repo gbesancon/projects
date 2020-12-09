@@ -100,3 +100,6 @@ https://samizdat.dev/help-message-for-shell-scripts/
 https://nelsonmichael.dev/awesome-developer-resources-ckcrin0gg00khpms1gbue38dz
 https://github.com/intel-isl/OpenBot
 https://github.com/mxrch/GHunt
+https://github.com/muesli/duf
+https://github.com/mingrammer/diagrams
+https://github.com/gnebbia/kb
