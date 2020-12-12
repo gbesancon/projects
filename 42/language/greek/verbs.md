@@ -1,8 +1,6 @@
-# Pronouns
-- Εγώ -> I
-- Εσύ -> You
+# Verbs
 
-# Questions
+## Questions
 - Ποιός / Ποιοί -> Who
 - Αυτός / Αυτοί -> This / These
 - Πόσοι / Πόσες / Πόσα -> How many
@@ -11,13 +9,21 @@
 - Πώς -> What
 - Τι -> What
 - Γιατί -> Why, because
+- Πόσον καιρό -> How long
   
-# Articles
+## Articles
+
 - Δεν -> not (goes in front of the verb to make it negative)
 - Θα -> will
 - Στο -> at the, on the, in the
+- Για -> for
+- Αλλά -> but
+- Με -> with
 
-# Verbs
+## [Personal pronouns](./pronouns.md)
+
+## Verbs
+
 - Είμαι -> to be
 - Θέλω -> to want
 - Κάνω -> to do
@@ -25,10 +31,13 @@
 - Μένω -> to stay, to live
 - Ξέρω -> to know
 - Καταλαβαίνω -> to understand
+- Πεινάω -> to be hungry
 - Με λένε -> I am called, my name is
 - Άργησα -> I am late
+- Δουλεύω -> I work
 
-# Conjugate: to be
+## Conjugate: to be
+
 - Είμαι -> I am
 - Είσαι -> you are
 - Είναι -> he, she, it is
@@ -36,10 +45,22 @@
 - Είστε, είσαστε -> you all are
 - Είναι -> they are
 
-# Conjugate: to stay
+## Conjugate: to stay
+
 - Μένω -> I stay
 - Μένεις -> you stay
 - Μένει -> he, she, it stay
 - Μένουμε -> we stay
 - Μένετε -> you all stay
 - Μένουν -> they stay
+
+## Conjugate to like
+
+- Μου αρεσει -> I like
+- Σου αρεσει -> You like (singular)
+- Του αρεσει -> He like
+- Της αρεσει -> She likes
+- Του αρεσει -> It likes
+- Μας αρεσει -> We like
+- Σας αρεσει -> You like (plural / formal)
+- Τους αρεσει -> They like

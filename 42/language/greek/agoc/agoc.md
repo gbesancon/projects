@@ -1,0 +1,3 @@
+- https://quizlet.com/_929jc4?x=1jqt&i=12emva 
+- https://quizlet.com/_93d92c?x=1jqt&i=12emva
+- https://quizlet.com/_929s9t?x=1jqt&i=12emva 

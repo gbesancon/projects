@@ -22,6 +22,7 @@
 
 - Πρωτομαγιά -> 1rst of May
 
+- Πόσων χρονών είσαι; -> How old are you?
 # Days of the week
 
 - Δευτέρα -> Monday
