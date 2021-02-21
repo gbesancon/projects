@@ -9,4 +9,6 @@ __pycache__
 *.pyc
 build
 dist
+package
 *.egg-info
+*.spec

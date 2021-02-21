@@ -17,10 +17,8 @@ format-check: tools-requirements
 format: tools-requirements
 
 lint: tools-requirements
-	flake8 --ignore=E402,F401,W391,W291,W293 pl --max-line-length=160
-	# R0801: duplicate-code is temporary disabled
-	pylint pl -r n --msg-template="{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}" --rcfile=./pylint.rc --disable=R0801 | tee pylint.output
-	cat pylint.output | grep "10.00/10"
+	pylint pl -r n --msg-template="{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}" --rcfile=./pylint.rc | tee pylint-pl.output
+	cat pylint-pl.output | grep "10.00/10"
 
 build: build-requirements format-check lint
 	pip install .
@@ -31,7 +29,8 @@ test-requirements:
 	pip install -r tests/requirements.txt
 
 test-lint: tools-requirements
-	flake8 --ignore=E123,E126,E128,E501,W391,W291,W293,F401 tests
+	pylint tests -r n --msg-template="{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}" --rcfile=./pylint.rc | tee pylint-tests.output
+	cat pylint-tests.output | grep "10.00/10"
 
 test: test-requirements test-lint
 	find tests -type d | xargs nosetests
