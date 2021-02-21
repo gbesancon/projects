@@ -1,0 +1,12 @@
+# VSCode
+.vscode
+
+pylint.output
+.coverage
+*.log
+
+__pycache__
+*.pyc
+build
+dist
+*.egg-info
