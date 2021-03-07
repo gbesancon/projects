@@ -2,8 +2,8 @@
 
 - Το γυαλί / Τα γυαλιά -> Glass (material)
 - Ο ναύτης / Οι ναύτες -> Sailor
-- Η ευτυχία / Οι ευτυχίες -> Happiness
-- Ο μαθτής / Οι μαθητές -> The student
+- Ο μαθητής / Η μαθήτρια -> The student
+- Το μαθημα -> the lesson
 - Το θαύμα / Τα θαύματα -> The miracle
 - Η ζωή / Οι ζωές -> Life
 - Εντάξει -> OK
@@ -17,17 +17,40 @@
 - Ο υπεύθυνος / Οι υπεύθυνοι -> Responsible
 - Ο καιρός -> the weather
 - Η δουλειά -> the work
+- Το διαβατηριο -> the passport
+- Το κινητο -> the mobile
+- Ο ύπνος -> the sleep
+- Το φαρμακο -> the medicine
+- Μια χαρά -> all right
+- Οριστε -> here you are
+- Το ταξι -> the taxi
+- Ο κύριος / Η κυρία -> Mr / Mrs
+- Το τραπεζι -> the table
+- Η καρεκλα -> the chair
+- Το λεωφορείο -> the bus
+- Το δεμα -> the package
 
 ## Adjectives
 
 - μεγάλος / μεγάλη / μεγάλο -> big
 - καλός / καλή / καλό -> good
-- Έτοιμος, έτοιμη, έτοιμο -> ready
+- έτοιμος, έτοιμη, έτοιμο -> ready
 - μικρός / μικρη / μικρό -> small
 - όμορφος / όμορφή / όμορφο -> beautiful
 - άσκημος / άσκημη / άσκημος -> ugly
 - παντρεμένος / παντρεμένη / παντρεμένο -> married
 - ελεύθερος / ελεύθερη / ελεύθερο -> single
+
+## Feeling
+
+- Η ευτυχία -> Happiness
+- Χαρούμενη -> Joyful (adv)
+
+## Position
+
+- Εδώ -> here
+- Εκει -> there
+- Κοντά -> near
 
 ## Location
 
@@ -48,6 +71,8 @@
 - Το φεγγάρι -> The moon
 - Το βουνό -> the mountain
 - Το σπιτι -> the house
+- Το σκολιο -> the school
+- Η τραπεζά -> the bank
 
 ## Family
 
@@ -60,6 +85,7 @@
 - Η κόρη -> the daughter
 - Ο γιός -> the son
 - Ο αδερφος / Η αδερφη -> the brother / the sister
+- Το παιδι -> the child
 - Τα παιδάκια -> the little kids
 - Η γιαγιά -> the grand-mother
 - Ο θείος -> the uncle
@@ -67,9 +93,10 @@
 
 ## Countries
 
-- Η ευρώπη -> Europe
+- Η Eυρώπη -> Europe
 - Η Ελλάδα -> Greece
 - Ελληνικά -> Greek (language)
+- Ο ελλινας / Η ελλινιδα -> Greek (person)
 - Αθήνα -> Athens (city)
 - Η Αγγλία -> England
 - Αγγλικά -> English (language)
@@ -79,6 +106,8 @@
 - Γερμανικά -> German (language)
 - Η Ισπανιά -> Spain
 - Ισπανικά -> Spanish (language)
+- Η Ιταλια -> Italy
+- Ο κινέζικος / Η κινέζικα -> Chinese (person)
 
 ## Food
 
@@ -90,10 +119,15 @@
 - Το τζατζίκι -> Greek yogurt sauce
 - Η πατάτα / Οι πατάτες -> the potato
 - Η ομελέτα -> the omelette
+- Το παγωτό -> the ice-cream
+- Τα μακαρονία -> the pasta
+- Η παστα -> the pastry
+- Το πογοτο
 
 ## Fruit
 
 - Το πορτοκάλι -> the orange
+- Το λεμόνι -> the lemon
 
 ## Drink
 
@@ -115,13 +149,14 @@
 ## Music
 
 - Η μουσική -> the music
-- Ο αυλός / Οι Αυλοί -> the Flute
+- Ο αυλός / Οι aυλοί -> the flute
 - To πιάνo -> the piano
 
 ## Animals
 
 - Το πουλί / Τα πουλία -> the bird
-- Το ψαρί / Ta ψαρία -> the fish
+- Το ψάρί / Ta ψάρια -> the fish
+- O χοίρος -> the pig
 
 ## Body
 

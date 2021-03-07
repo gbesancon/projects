@@ -1,10 +1,12 @@
 # Verbs
 
 ## Questions
-- Ποιός / Ποιοί -> Who
+
+- Ποιός (Ποιοί) / Ποιά / Ποιό -> Who
 - Αυτός / Αυτοί -> This / These
 - Πόσοι / Πόσες / Πόσα -> How many
 - Πόσο -> How much
+- Απο πού -> From where
 - Πού -> Where
 - Πώς -> What
 - Τι -> What
@@ -18,7 +20,9 @@
 - Στο -> at the, on the, in the
 - Για -> for
 - Αλλά -> but
+- Μα -> but
 - Με -> with
+- Από -> from
 
 ## [Personal pronouns](./pronouns.md)
 
@@ -34,7 +38,13 @@
 - Πεινάω -> to be hungry
 - Με λένε -> I am called, my name is
 - Άργησα -> I am late
-- Δουλεύω -> I work
+- Δουλεύω -> to work
+- Ροτάω -> to ask
+- Μαθαίνω -> to learn
+- Βλεπώ -> to see
+- Τρώω -> to eat
+- Λέω -> to say
+- Τηλεφωνω -> to call on the phone
 
 ## Conjugate: to be
 
@@ -54,7 +64,7 @@
 - Μένετε -> you all stay
 - Μένουν -> they stay
 
-## Conjugate to like
+## Conjugate: to like
 
 - Μου αρεσει -> I like
 - Σου αρεσει -> You like (singular)

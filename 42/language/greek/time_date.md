@@ -6,11 +6,11 @@
 - Τώρα -> Now
 - Μετά -> After
 
-- Ημέπα / Ημέρες -> The day
-- Εβδομάδα / Εβδομάδες -> The week
-- Μήνασ / Οι Μήνες -> The month
-- Χρονιά / Χρονιές -> The year
-- Εποχή / Οι Εποχές -> The season
+- Η ημέπα / Η ημέρες -> The day
+- Η εβδομάδα / Οι εβδομάδες -> The week
+- Ο μήνασ / Οι Μήνες -> The month
+- Η χρονιά / Οι χρονιές -> The year
+- Η εποχή / Οι Εποχές -> The season
 
 - Προχθές -> The day before yesterday
 - Χθές -> Yesterday
@@ -32,6 +32,8 @@
 - Παρασκευή -> Friday
 - Σάββατο -> Saturday
 - Κυριακύ -> Sunday
+
+- Σάββατοκύριακο -> Weekend
 
 # Months of the year
 
