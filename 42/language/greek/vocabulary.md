@@ -29,6 +29,10 @@
 - Η καρεκλα -> the chair
 - Το λεωφορείο -> the bus
 - Το δεμα -> the package
+- Ο οδιγος / Η οδιγος -> the driver
+- Το τετράγωνο -> the square (shape)
+- ακριβώς -> exactly
+- Γρήγοπα -> quickly (adv)
 
 ## Adjectives
 
@@ -40,6 +44,8 @@
 - άσκημος / άσκημη / άσκημος -> ugly
 - παντρεμένος / παντρεμένη / παντρεμένο -> married
 - ελεύθερος / ελεύθερη / ελεύθερο -> single
+- ευχαρστημένος / ευχαρστημένη / ευχαρστημένο -> pleased
+- κουρασμενος / κουρασμενη / κουρασμενο -> tired
 
 ## Feeling
 
@@ -50,7 +56,13 @@
 
 - Εδώ -> here
 - Εκει -> there
+- Εξω -> out
 - Κοντά -> near
+- Μακριά -> far
+- Ευθεια -> straight
+- Απεναντις -> across
+- Κατω -> down / downstairs
+- Επανω -> up / upstairs
 
 ## Location
 
@@ -60,19 +72,23 @@
 - Το μπαλκόνι -> the balcony
 - Το δωμάτιο -> the room
 - Η λαϊκή αγορά -> the once a week neighborhood street market
-- Ο κινηματογράφος -> The cinema
-- Το σινεμά -> The cinema
+- Ο κινηματογράφος -> the cinema
+- Το σινεμά -> the cinema
 - Το ταξί -> the taxi
 - Η ταβέρνα -> the tavern (restaurant)
 - Το αεροδρόμιο -> the airport
 - Το αεροπλάνο -> the airplane
 - Το ταχυδρομείο -> the post office
 - Το φαρμακείο -> the pharmacy
-- Το φεγγάρι -> The moon
+- Το φεγγάρι -> the moon
 - Το βουνό -> the mountain
 - Το σπιτι -> the house
 - Το σκολιο -> the school
 - Η τραπεζά -> the bank
+- Ο δρόμος -> the street
+- Η οδός -> the street
+- Η γωνία -> the corner
+- Η τετράγωνα -> the bloc
 
 ## Family
 

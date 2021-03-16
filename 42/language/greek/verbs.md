@@ -3,6 +3,7 @@
 ## Questions
 
 - Ποιός (Ποιοί) / Ποιά / Ποιό -> Who
+- Ποιον -> Whom
 - Αυτός / Αυτοί -> This / These
 - Πόσοι / Πόσες / Πόσα -> How many
 - Πόσο -> How much
@@ -45,6 +46,14 @@
 - Τρώω -> to eat
 - Λέω -> to say
 - Τηλεφωνω -> to call on the phone
+- Ανεβαινω -> to go up
+- Κατεβαινω -> to go down
+- Στριβω -> to turn
+- Βγαινω -> to go out
+- Μπαινω -> to go in
+- Γκρνιαζω -> to complain
+- Φεύγω -> to leave
+- Γεμισω -> to fill
 
 ## Conjugate: to be
 
