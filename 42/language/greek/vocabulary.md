@@ -33,6 +33,63 @@
 - Το τετράγωνο -> the square (shape)
 - ακριβώς -> exactly
 - Γρήγοπα -> quickly (adv)
+- Το δουλεια -> the work
+- Τι δουλεια κανεις -> What job do you do ?
+- Ετσι και ετσι -> so and so
+- Και τα δυο -> the both
+- επισυς -> me too
+- σωστος / σωστα / σωστο -> correct
+- λαθος / λαθα / λαθο -> wrong
+- Ο γιατρος -> the doctor
+- Ο ξενος -> a foeigner
+- Μήπως -> maybe
+- Βεβαίως -> of course
+- Η στάση -> the bus stop
+- Το στάδιο -> the stadium
+- Το νοσοκομείο -> the hospital
+- Ο φούρνος -> the bakery / the oven
+- Τιποτα -> nothing
+- Οι πληροφορίες -> the information
+- Ορίστε -> here
+- Τα ρεστά -> the change
+- Το ψιλά -> smaller bill
+- Το περιπτερο -> the kiosk
+- Το μολύβι -> the pen
+- Τα γραμματόςημα -> the stamps
+- ολα -> all
+- άλλο -> other
+- το εισιτηπίο -> the ticket
+- Μαζι -> together
+- Το τηλεφωνημα -> the phone call
+- Το όνομα -> the name
+- Τα γενέθλια -> the birthday
+- Το εργο -> the movie
+- Το ψυγειο -> the fridge
+- Φυσικά -> of course
+- Το πρωιωό -> the breakfast
+- Το Κλειδι -> the key
+- Το κρεβατι -> the bed
+- Το ρεύμα -> the electricity
+- Ο καιρος -> the weather
+- Το γραφειο -> the office
+- Το πανετιστημιο -> the university
+- Το κολεγιο -> the college
+- Το νουμερο -> the number
+- Ο μεγθος -> the number
+- Το τιμή -> the price
+- Ο γέρος -> the old man
+- Η γρια -> the old woman
+- Το σακακι -> the jacket
+- Το καταλογο -> the menu
+- σε εμενα -> for me
+- Τα λεφτα -> the money
+- Το πόλυ -> the city
+- ουτε -> neither
+- Το φαρμακο -> the drug
+- Καθε -> every
+- Το δοματιο -> the room
+- Το κλινη -> the bed
+- Ο οροφος -> the floor
 
 ## Adjectives
 
@@ -46,6 +103,20 @@
 - ελεύθερος / ελεύθερη / ελεύθερο -> single
 - ευχαρστημένος / ευχαρστημένη / ευχαρστημένο -> pleased
 - κουρασμενος / κουρασμενη / κουρασμενο -> tired
+- ακριβος / ακριβη / ακριβο -> expensive
+- Εξυπνος / εξυπνη / εξυπνο -> smart
+- φτηνος / φτηνη / φτηνο -> cheap
+- σκετος / σκετη / σκετο -> plain
+- λεπτός / λεπτή / λεπτο -> skinny
+- ανοιχτος / ανοιχτη / αωοιχτο -> open
+- κλειστος / κλειστη / κλειστο -> closed
+- αστειος / αστεια / αστειο -> funny
+- κρυος / κρυα / κρυο -> cold
+- ζεστος / ζεστη / ζεστο -> hot
+- παλιος / παλια / παλιο -> old
+- νεος / νεα / νεο -> young
+- ωραίος / ωραία / ωραίο -> handsome
+- ομορφος / ομορφη / ομορφο -> beautiful
 
 ## Feeling
 
@@ -63,6 +134,8 @@
 - Απεναντις -> across
 - Κατω -> down / downstairs
 - Επανω -> up / upstairs
+- Αριστερά -> left
+- δεξιά -> right
 
 ## Location
 
@@ -89,72 +162,9 @@
 - Η οδός -> the street
 - Η γωνία -> the corner
 - Η τετράγωνα -> the bloc
-
-## Family
-
-- H μαμά -> the mom
-- Η μητέρα -> the mother
-- Ο μπαμπάς -> the dad
-- Ο πατέρας -> the father
-- Το αγόρι / Τα αγόρια -> The boy
-- Το κορίτσι -> the girl
-- Η κόρη -> the daughter
-- Ο γιός -> the son
-- Ο αδερφος / Η αδερφη -> the brother / the sister
-- Το παιδι -> the child
-- Τα παιδάκια -> the little kids
-- Η γιαγιά -> the grand-mother
-- Ο θείος -> the uncle
-- Η θεία -> the aunt
-
-## Countries
-
-- Η Eυρώπη -> Europe
-- Η Ελλάδα -> Greece
-- Ελληνικά -> Greek (language)
-- Ο ελλινας / Η ελλινιδα -> Greek (person)
-- Αθήνα -> Athens (city)
-- Η Αγγλία -> England
-- Αγγλικά -> English (language)
-- Η Γαλλία -> France
-- Γαλλικά -> French (language)
-- Η Γερμάνια -> Germany
-- Γερμανικά -> German (language)
-- Η Ισπανιά -> Spain
-- Ισπανικά -> Spanish (language)
-- Η Ιταλια -> Italy
-- Ο κινέζικος / Η κινέζικα -> Chinese (person)
-
-## Food
-
-- Το φαγητό -> the food
-- Το λουκάνικο / Τα λουκάνικα -> Sausage
-- Το αυγό / Τα αυγά -> Egg
-- Η σαλάτα -> the salad
-- Η ντομάτα -> the tomato
-- Το τζατζίκι -> Greek yogurt sauce
-- Η πατάτα / Οι πατάτες -> the potato
-- Η ομελέτα -> the omelette
-- Το παγωτό -> the ice-cream
-- Τα μακαρονία -> the pasta
-- Η παστα -> the pastry
-- Το πογοτο
-
-## Fruit
-
-- Το πορτοκάλι -> the orange
-- Το λεμόνι -> the lemon
-
-## Drink
-
-- Η μπύρα -> the beer
-- Το τσάι -> the tea
-- Ο καφές -> the coffee
-- Το νερό -> the water
-- Η πορτοκαλάδα -> the orange juice
-- Το γάλα -> the milk
-- Το ούζο -> the ouzo
-- Το κρασί -> the wine
+- Το μαγαζι -> the store
+- Το σινεμά -> the cinema
+- Το χιόνι -> the snow
 
 ## Garden
 
@@ -173,6 +183,7 @@
 - Το πουλί / Τα πουλία -> the bird
 - Το ψάρί / Ta ψάρια -> the fish
 - O χοίρος -> the pig
+- Η κότα -> the chicken
 
 ## Body
 

@@ -11,19 +11,25 @@
 - Πού -> Where
 - Πώς -> What
 - Τι -> What
+- Ποτε -> When
 - Γιατί -> Why, because
 - Πόσον καιρό -> How long
   
 ## Articles
 
-- Δεν -> not (goes in front of the verb to make it negative)
+- δεν -> not (goes in front of the verb to make it negative)
 - Θα -> will
-- Στο -> at the, on the, in the
-- Για -> for
-- Αλλά -> but
-- Μα -> but
-- Με -> with
-- Από -> from
+- για + accusative -> for
+- αλλά -> but
+- μα -> but
+- με + accusative -> with
+- από + accusative -> from
+- και / κι -> and
+- η -> or
+- οtav -> when
+- στις <time> -> at <time>
+- σε + accusative -> at / on  / in
+- στο -> at the, on the, in the
 
 ## [Personal pronouns](./pronouns.md)
 
@@ -54,6 +60,26 @@
 - Γκρνιαζω -> to complain
 - Φεύγω -> to leave
 - Γεμισω -> to fill
+- Αγορώ -> to buy / to take
+- Αγοραζώ -> to purchase
+- Αρεσω -> to be liked
+- Χορεβω -> to dance
+- Μιλαώ -> to speak
+- Πυγαίνω -> to go
+- Διαβαζω -> to read
+- Ζω -> to live
+- Ζητάω -> to ask
+- Nomizv -> to think
+- Αρχιζω -> to start
+- Σταματαω -> to stop
+- Δίνω -> to give
+- Φωνιζω -> to shop
+- Περνάω -> to pass / to cross
+- Παίρνω -> to take
+- Σπουδαζω -> to study
+- Πληρωνώ -> to pay
+- Τελειωνώ -> to finish
+- φοραω -> to wear
 
 ## Conjugate: to be
 

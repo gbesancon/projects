@@ -18,11 +18,26 @@
 - Αύριο -> Tomorrow
 - Μεθαύριο - > The day after tomorrow
 
+- Το πρωί
+- Η μεσημερη
+- Το βραδυ
+- 
+
 - Αυγή -> Dawn
 
 - Πρωτομαγιά -> 1rst of May
 
+- Λεπτό -> minutes
+
 - Πόσων χρονών είσαι; -> How old are you?
+
+# Time
+
+- Τεταρτο -> quarter
+- Μιση -> half
+
+- Οχτο και δεκα -> 8:10
+- Οχτο παρα δεκα -> 7:50
 # Days of the week
 
 - Δευτέρα -> Monday

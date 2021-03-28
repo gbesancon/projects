@@ -1,0 +1,31 @@
+# Το φαγητό (the food)
+
+- Το λουκάνικο / Τα λουκάνικα -> Sausage
+- Το αυγό / Τα αυγά -> Egg
+- Η σαλάτα -> the salad
+- Η ντομάτα -> the tomato
+- Το τζατζίκι -> Greek yogurt sauce
+- Η πατάτα / Οι πατάτες -> the potato
+- Η ομελέτα -> the omelette
+- Το παγωτό -> the ice-cream
+- Τα μακαρονία -> the pasta
+- Η παστα -> the pastry
+- Ο κρεας -> the meat
+
+# Fruit
+
+- Το πορτοκάλι -> the orange
+- Το λεμόνι -> the lemon
+
+# Το πογοτο (the drink)
+
+- Το ποτό -> the drink
+- Η μπύρα -> the beer
+- Το τσάι -> the tea
+- Ο καφές -> the coffee
+- Το νερό -> the water
+- Η πορτοκαλάδα -> the orange juice
+- Το γάλα -> the milk
+- Το ούζο -> the ouzo
+- Το κρασί -> the wine
+- το σοκολατουχο -> the milk chocolate
