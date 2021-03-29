@@ -21,3 +21,72 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
+
+openApiGenerate {
+	generatorName = "spring"
+	inputSpec = "$rootDir/specs/api-v1.0.yaml".toString()
+	outputDir = "$buildDir/generated/server/spring".toString()
+	apiPackage = "org.benhur.springboot.api"
+	invokerPackage = "org.benhur.springboot.api.invoker"
+	modelPackage = "org.benhur.springboot.api.model"
+	configOptions = [
+		delegatePattern: "true",
+		dateLibrary: "java8"
+	]
+}
+
+task generateJavaClient(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask){
+	generatorName = "java"
+	inputSpec = "$rootDir/specs/api-v1.0.yaml".toString()
+	outputDir = "$buildDir/generated/client/java".toString()
+	apiPackage = "org.benhur.springboot.api"
+	invokerPackage = "org.benhur.springboot.api.invoker"
+	modelPackage = "org.benhur.springboot.api.model"
+	configOptions = [
+		library: "resttemplate",
+		dateLibrary: "java8"
+	]
+}
+
+task generateHtmlDocs(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask){
+	generatorName = "html"
+	inputSpec = "$rootDir/specs/api-v1.0.yaml".toString()
+	outputDir = "$buildDir/generated/docs".toString()
+}
+
+task generateHtml2Docs(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask){
+	generatorName = "html2"
+	inputSpec = "$rootDir/specs/api-v1.0.yaml".toString()
+	outputDir = "$buildDir/generated/docs".toString()
+}
+
+task generateMarkdownDocs(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask){
+	generatorName = "markdown"
+	inputSpec = "$rootDir/specs/api-v1.0.yaml".toString()
+	outputDir = "$buildDir/generated/docs".toString()
+}
+
+task generateOpenapiYamlDocs(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask){
+	generatorName = "openapi-yaml"
+	inputSpec = "$rootDir/specs/api-v1.0.yaml".toString()
+	outputDir = "$buildDir/generated/docs".toString()
+}
+
+task generatePlantumlDocs(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask){
+	generatorName = "plantuml"
+	inputSpec = "$rootDir/specs/api-v1.0.yaml".toString()
+	outputDir = "$buildDir/generated/docs".toString()
+}
+
+compileJava.dependsOn tasks.openApiGenerate
+compileJava.dependsOn generateJavaClient
+compileJava.dependsOn generateHtmlDocs
+compileJava.dependsOn generateHtml2Docs
+compileJava.dependsOn generateMarkdownDocs
+compileJava.dependsOn generateOpenapiYamlDocs
+compileJava.dependsOn generatePlantumlDocs
+
+openApiValidate {
+	inputSpec = "$rootDir/specs/api-v1.0.yaml".toString()
+	recommend = true
+}

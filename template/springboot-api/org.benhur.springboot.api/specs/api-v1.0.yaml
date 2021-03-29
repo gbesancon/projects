@@ -1,0 +1,173 @@
+# https://swagger.io/specification/
+
+openapi: 3.0.0
+
+info:
+  title: Task
+  description: 'Tasks API'
+  termsOfService: 'https://api.benhur.org'
+  version: 1.0.0
+
+servers:
+  - url: 'https://localhost/api/v1'
+    description: localhost
+
+tags:
+  - name: task
+    description: Tasks
+
+paths:
+
+  /tasks:
+    get:
+      tags:
+        - task
+      summary: Get a list of all tasks
+      operationId: getTasks
+      parameters:
+        - $ref: '#/components/parameters/listLimit'
+        - $ref: '#/components/parameters/listOffset'
+      responses:
+        200:
+          description: List of all tasks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+    post:
+      tags:
+        - task
+      summary: Create a Task
+      operationId: createTask
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskData'
+        description: Task information
+        required: true
+      responses:
+        '201':
+          description: Task created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+
+  /tasks/{taskName}:
+    parameters:
+      - $ref: '#/components/parameters/taskName'
+
+    get:
+      tags:
+        - task
+      summary: Get task by task name
+      operationId: getTask
+      responses:
+        '200':
+          description: Task information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '404':
+          description: Task not found
+
+    delete:
+      tags:
+        - task
+      summary: Delete task by task name
+      operationId: deleteTask
+      responses:
+        '200':
+          description: Task deleted
+        '404':
+          description: Task not found
+
+components:
+  parameters:
+    taskName:
+      name: taskName
+      in: path
+      description: The task name
+      required: true
+      schema:
+        $ref: '#/components/schemas/ID'
+
+    # https://www.moesif.com/blog/technical/api-design/REST-API-Design-Filtering-Sorting-and-Pagination/
+    listLimit:
+      name: limit
+      in: query
+      description: The maximum number of elements in the list returned.
+      required: false
+      schema:
+        type: number
+        format: uint64
+        default: 20
+    listOffset:
+      name: offset
+      in: query
+      description: The offset of the first element in the list returned.
+      required: false
+      schema:
+        type: number
+        format: uint64
+        default: 0
+
+  schemas:
+
+    ID:
+      type: number
+      format: uint64
+      readOnly: true
+
+    Name:
+      type: string
+      example: 'entity_name'
+
+#    DateTime:
+#      type: string
+#      format: date-time
+
+    Identified:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+      required:
+        - id
+
+    NamedAndDescribed:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/Name'
+        description:
+          type: string
+          example: 'A detailed description of the entity.'
+      required:
+        - name
+        - description
+
+    TaskData:
+      allOf:
+        - $ref: '#/components/schemas/NamedAndDescribed'
+#        - type: object
+#          properties:
+#            timestamp:
+#              $ref: '#/components/schemas/DateTime'
+#          required:
+#            - timestamp
+
+    Task:
+      allOf:
+        - $ref: '#/components/schemas/Identified'
+        - $ref: '#/components/schemas/TaskData'
+
+
+externalDocs:
+  description: Find out more
+  url: 'https://www.benhur.org'
+
