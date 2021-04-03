@@ -1,7 +1,9 @@
 # Learning greek
 
-Display keyboard: Windows + Ctrl + O
-Switch keyboard: Windows + Space
+| Shortcut | Description |
+|--|--|
+| Windows + Ctrl + O | Display keyboard |
+| Windows + Space | Switch keyboard |
 
 ## Website
 

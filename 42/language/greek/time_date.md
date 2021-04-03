@@ -1,77 +1,87 @@
 # Vocabulary
 
-- Πριν -> Before
-- Τώρα -> Now
-- Μετά -> After
+| Greek | English |
+|--|--|
+| Πριν | Before |
+| Τώρα | Now |
+| Μετά | After |
 
-- Η ημέπα / Η ημέρες -> the day
-- Η εβδομάδα / Οι εβδομάδες -> the week
-- Ο μήνασ / Οι Μήνες -> the month
-- Η χρονιά / Οι χρονιές -> the year
-- Η εποχή / Οι Εποχές -> the season
+| Η ημέπα / Η ημέρες | the day |
+| Η εβδομάδα / Οι εβδομάδες | the week |
+| Ο μήνασ / Οι Μήνες | the month |
+| Η χρονιά / Οι χρονιές | the year |
+| Η εποχή / Οι Εποχές | the season |
 
-- Προχθές -> the day before yesterday
-- Χθές -> Yesterday
-- Σήμερα  -> Today
-- Αύριο -> Tomorrow
-- Μεθαύριο - > the day after tomorrow
+| Προχθές | the day before yesterday |
+| Χθές | Yesterday |
+| Σήμερα  | Today |
+| Αύριο | Tomorrow |
+| Μεθαύριο | the day after tomorrow |
 
-- Η αυγή -> the dawn
-- Το πρωί -> the morning
-- Η μεσημέρη -> noon
-- Το απόγευμα -> the afternoon
-- Το βραδυ -> the evening
-- Τα μεσάνυχτα -> midnight
-- Η νύχτα -> the night
-- Το σούρουπο -> the dusk
+| Η αυγή | the dawn |
+| Το πρωί | the morning |
+| Η μεσημέρη | noon |
+| Το απόγευμα | the afternoon |
+| Το βραδυ | the evening |
+| Τα μεσάνυχτα | midnight |
+| Η νύχτα | the night |
+| Το σούρουπο | the dusk |
 
-- Πρωτομαγιά -> 1rst of May
+| Πρωτομαγιά | 1rst of May |
 
-- Πόσων χρονών είσαι; -> How old are you?
+| Πόσων χρονών είσαι; | How old are you? |
 
 # Time (ο χρονος)
 
-- το λεπτό -> the minute
-- Τεταρτο -> quarter
-- Μιση -> half
-- Ακριβώς -> exactly
-- Περιπου -> -ish
-- πριν μεσημέπι (πμ) -> AM
-- μετα το μεσημέπι (μμ) -> PM
+| Greek | English |
+|--|--|
+| το λεπτό | the minute |
+| Τεταρτο | quarter |
+| Μιση | half |
+| Ακριβώς | exactly |
+| Περιπου | -ish |
+| πριν μεσημέπι (πμ) | AM |
+| μετα το μεσημέπι (μμ) | PM |
 
-- Οχτο και δεκα -> 8:10
-- Οχτο παρα δεκα -> 7:50
+| Οχτο και δεκα | 8:10 |
+| Οχτο παρα δεκα | 7:50 |
 
 # Days of the week
 
-- Δευτέρα -> Monday
-- Τριτη -> Tuesday
-- Τετάρτη -> Wednesday
-- Πέμπτη -> Thursday
-- Παρασκευή -> Friday
-- Σάββατο -> Saturday
-- Κυριακύ -> Sunday
+| Greek | English |
+|--|--|
+| Δευτέρα | Monday |
+| Τριτη | Tuesday |
+| Τετάρτη | Wednesday |
+| Πέμπτη | Thursday |
+| Παρασκευή | Friday |
+| Σάββατο | Saturday |
+| Κυριακύ | Sunday |
 
-- Σάββατοκύριακο -> Weekend
+| Σάββατοκύριακο | Weekend |
 
 # Months of the year
 
-- Ιανουαριος -> Januray
-- Φεβρουαριος -> February
-- Μαρτίος -> March
-- Απρίλιος -> April
-- Μαίος -> May
-- Ιούνιος -> June
-- Ιούλιος -> July
-- Αυγούστος -> August
-- Σεπτέμβριος -> September
-- Οκτώβριος -> October
-- Νοέμβριος -> November
-- Δεκέμβριος -> December
+| Greek | English |
+|--|--|
+| Ιανουαριος | Januray |
+| Φεβρουαριος | February |
+| Μαρτίος | March |
+| Απρίλιος | April |
+| Μαίος | May |
+| Ιούνιος | June |
+| Ιούλιος | July |
+| Αυγούστος | August |
+| Σεπτέμβριος | September |
+| Οκτώβριος | October |
+| Νοέμβριος | November |
+| Δεκέμβριος | December |
 
 # Seasons
 
-- Ανοιξη -> Spring
-- Καλοκαίρι -> Summer
-- Φθινόπωρο -> Fall
-- Χειμωνασ -> Winter
+| Greek | English |
+|--|--|
+| Ανοιξη | Spring |
+| Καλοκαίρι | Summer |
+| Φθινόπωρο | Fall |
+| Χειμωνασ | Winter |

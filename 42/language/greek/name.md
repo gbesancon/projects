@@ -1,3 +1,5 @@
 # Name
 
-- Αθηνά -> Athena (name for a female)
+| Greek | English |
+|--|--|
+| Αθηνά | Athena (name for a female) |
