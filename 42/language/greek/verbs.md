@@ -7,18 +7,16 @@
 | Greek | English |
 |--|--|
 | Αγοραζώ | to purchase |
-| Αγορώ | to buy / to take |
 | Ακούω | to listen |
 | Αρεσω | to be liked |
-| Άργησα | I am late |
 | Αρχιζω | to start |
 | Ανεβαινω | to go up |
-| Ανοιγω | to open |
+| Ανοίγω | to open |
 |  |  |
 | Βγαινω | to go out |
 | Βλεπώ | to see |
 |  |  |
-| Γεμισω | to fill |
+| Γεμίζω | to fill |
 | Γκρνιαζω | to complain |
 | Γυριζω | to return |
 |  |  |
@@ -33,21 +31,16 @@
 | Ζω | to live |
 |  |  |
 | Θέλω | to want |
-| Φεύγω | to leave |
-| φοραω | to wear |
-| Φταιω | to be my fault |
-| Φωνιζω | to shop |
 |  |  |
 | Καταλαβαίνω | to understand |
 | Κατεβαινω | to go down |
 | Κάνω | to do |
+| Κλαίω | to cry |
 | Κλεινω | to close |
 |  |  |
-| Λεύγω | to leave |
 | Λέω | to say |
 |  |  |
 | Μαθαίνω | to learn |
-| Με λένε | I am called, my name is |
 | Μένω | to stay, to live |
 | Μιλαώ | to speak |
 | Μπαινω | to go in |
@@ -58,13 +51,12 @@
 |  |  |
 | Παίρνω | to take |
 | Παω | to go |
-| Παω βόλτα | to go out |
 | Πεινάω | to be hungry |
 | Περνάω | to pass / to cross |
 | Πληρωνώ | to pay |
-| Πυγαίνω | to go |
+| Πηγαίνω | to go |
 |  |  |
-| Ροτάω | to ask |
+| Ρωτάω | to ask |
 |  |  |
 | Σπουδαζω | to study |
 | Σταματαω | to stop |
@@ -74,7 +66,19 @@
 | Τηλεφωνω | to call on the phone |
 | Τρώω | to eat |
 |  |  |
-| Χορεβω | to dance |
+| Φεύγω | to leave |
+| Φοραω | to wear |
+| Φταιω | to be my fault |
+|  |  |
+| Χορεύω | to dance |
+|  |  |
+| Ψωνιζω | to shop |
+
+| Greek | English |
+|--|--|
+| Άργησα | I am late |
+| Με λένε | I am called, my name is |
+| Παω βόλτα | to go out |
 
 ## Conjugate: to be
 

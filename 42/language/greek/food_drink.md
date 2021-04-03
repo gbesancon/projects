@@ -34,4 +34,6 @@
 | Το γάλα | the milk |
 | Το ούζο | the ouzo |
 | Το κρασί | the wine |
-| το σοκολατουχο | the milk chocolate |
+| Το σοκολατουχο | the milk chocolate |
+| Το βούτυρο | the butter |
+| Το μέλι | the honey |
