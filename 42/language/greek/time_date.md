@@ -1,43 +1,47 @@
 # Vocabulary
 
-- Χρονος / Χρονοι -> The time
-
 - Πριν -> Before
 - Τώρα -> Now
 - Μετά -> After
 
-- Η ημέπα / Η ημέρες -> The day
-- Η εβδομάδα / Οι εβδομάδες -> The week
-- Ο μήνασ / Οι Μήνες -> The month
-- Η χρονιά / Οι χρονιές -> The year
-- Η εποχή / Οι Εποχές -> The season
+- Η ημέπα / Η ημέρες -> the day
+- Η εβδομάδα / Οι εβδομάδες -> the week
+- Ο μήνασ / Οι Μήνες -> the month
+- Η χρονιά / Οι χρονιές -> the year
+- Η εποχή / Οι Εποχές -> the season
 
-- Προχθές -> The day before yesterday
+- Προχθές -> the day before yesterday
 - Χθές -> Yesterday
 - Σήμερα  -> Today
 - Αύριο -> Tomorrow
-- Μεθαύριο - > The day after tomorrow
+- Μεθαύριο - > the day after tomorrow
 
-- Το πρωί
-- Η μεσημερη
-- Το βραδυ
-- 
-
-- Αυγή -> Dawn
+- Η αυγή -> the dawn
+- Το πρωί -> the morning
+- Η μεσημέρη -> noon
+- Το απόγευμα -> the afternoon
+- Το βραδυ -> the evening
+- Τα μεσάνυχτα -> midnight
+- Η νύχτα -> the night
+- Το σούρουπο -> the dusk
 
 - Πρωτομαγιά -> 1rst of May
 
-- Λεπτό -> minutes
-
 - Πόσων χρονών είσαι; -> How old are you?
 
-# Time
+# Time (ο χρονος)
 
+- το λεπτό -> the minute
 - Τεταρτο -> quarter
 - Μιση -> half
+- Ακριβώς -> exactly
+- Περιπου -> -ish
+- πριν μεσημέπι (πμ) -> AM
+- μετα το μεσημέπι (μμ) -> PM
 
 - Οχτο και δεκα -> 8:10
 - Οχτο παρα δεκα -> 7:50
+
 # Days of the week
 
 - Δευτέρα -> Monday
