@@ -23,6 +23,7 @@
 | Όχι | no |
 | Φυσικά | of course |
 | Οριστε | here you are |
+| λαθος | wrong |
 
 ## Articles
 

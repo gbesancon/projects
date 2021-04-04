@@ -2,18 +2,18 @@
 
 | Greek | English |
 |--|--|
-| Το γυαλί / Τα γυαλιά | the glass (material) |
-| Ο ναύτης / Οι ναύτες | the sailor |
+| Το γυαλί | the glass (material) |
+| Ο ναύτης | the sailor |
 | Ο μαθητής / Η μαθήτρια | the student |
 | Το μαθημα | the lesson |
 | Το θαύμα / Τα θαύματα | the miracle |
-| Η ζωή / Οι ζωές | the life |
+| Η ζωή | the life |
 | Η ντίσκο | the disco |
 | Το ρολόι | the watch, the clock |
 | Το πρόβλημα | the problem |
 | Το τηλέφωνο | the telephone |
 | Ο λογαριασμός | the bill |
-| Ο υπεύθυνος / Οι υπεύθυνοι | the responsible |
+| Ο υπεύθυνος | the responsible |
 | Ο καιρός | the weather |
 | Η δουλειά | the work |
 | Το διαβατηριο | the passport |

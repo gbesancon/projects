@@ -80,7 +80,7 @@
 | Με λένε | I am called, my name is |
 | Παω βόλτα | to go out |
 
-## Conjugate: to be
+## Conjugate Είμαι: to be
 
 | Greek | English |
 |--|--|
@@ -91,7 +91,7 @@
 | Είστε, είσαστε | you are (plural / formal) |
 | Είναι | they are |
 
-## Conjugate: to stay
+## Conjugate Μένω: to stay
 
 | Greek | English |
 |--|--|
@@ -102,7 +102,7 @@
 | Μένετε | you stay (plural / formal) |
 | Μένουν | they stay |
 
-## Conjugate: to like
+## Conjugate Μου αρέσει: to like
 
 | Greek | English |
 |--|--|
@@ -115,13 +115,24 @@
 | Σας αρέσει | you like (plural / formal) |
 | Τους αρέσει | they like |
 
-## Conjugate: to go
+## Conjugate Μιλάω: to speak
 
 | Greek | English |
 |--|--|
-| Πάω / Πώ | I go |
+| Μιλάω / Μιλώ | I go |
+| Μιλάς | you go (singular) |
+| Μιλάει / Μιλά | he / she / it goes |
+| Μιλάμε | we go |
+| Μιλάτε | you go (plural / formal) |
+| Μιλάνε / Μιλάν | they go |
+
+## Conjugate Πάω: to go
+
+| Greek | English |
+|--|--|
+| Πάω | I go |
 | Πάς | you go (singular) |
-| Πάει / Πά | he / she / it goes |
+| Πάει | he / she / it goes |
 | Πάμε | we go |
 | Πάτε | you go (plural / formal) |
 | Πάν(ε) | they go |
