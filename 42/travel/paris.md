@@ -1,5 +1,5 @@
-
 ## Trip Paris
+
 - Jour 19/06/2015 (PM) :
 Champ de Mars + Eiffel tower + Trocadero.
 In the evening take L6 + L2 to Montmartre to see Paris by night.
