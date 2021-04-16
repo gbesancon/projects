@@ -1,0 +1,21 @@
+# Workout
+
+- 10' run 7m/h
+- 4x
+  - 25 squat
+  - 25 lounges
+- 4x
+  - 25 rowing
+  - 1' plank
+  - 50 calves raises
+  - 1' Push Up position plank
+- 4x
+  - 25 step up
+  - 25 leg raises (rest up)
+  - 25 arm pull down
+- 4x
+  - 10 Push Up
+  - 25 crunches
+  - 25 left side crunches
+  - 25 right side crunches
+  - 25 leg raises (rest on floor)
