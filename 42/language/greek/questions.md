@@ -14,3 +14,4 @@
 | Πόσοι / Πόσες / Πόσα | How many |
 | Πόσο | How much |
 | Πόσον καιρό | How long |
+| Μιπος | Perhaps / maybe |

@@ -62,6 +62,7 @@
 | Σταματαω | to stop |
 | Στριβω | to turn |
 |  |  |
+| Ταξιδευω | to travel |
 | Τελειωνώ | to finish |
 | Τηλεφωνω | to call on the phone |
 | Τρώω | to eat |
@@ -73,6 +74,7 @@
 | Χορεύω | to dance |
 |  |  |
 | Ψωνιζω | to shop |
+|  |  |
 
 | Greek | English |
 |--|--|

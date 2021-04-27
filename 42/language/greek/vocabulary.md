@@ -79,6 +79,12 @@
 | το πλοιο | the cruise boat |
 | το τραγουδακι | the song |
 | το φεγγαρι | the moon |
+| το ονομα | the name |
+| η φρυγανια | the toast |
+| η διευθύνσή | the address |
+| η τσαντα | the bag / purse |
+| ο παγος | the ice |
+| η λαϊκή | the neighbourhood |
 
 ## Feeling
 
@@ -171,6 +177,7 @@
 | Το μάτι / Τα μάτια | Eye |
 | Η Μύτη / Οι Μύτες | Nose |
 | Το στόμα / Τα στόματα | Mouth |
+| το κεφαλι | the head |
 
 ## Sport
 

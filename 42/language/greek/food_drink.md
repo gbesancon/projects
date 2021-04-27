@@ -13,6 +13,8 @@
 | Τα μακαρονία | the pasta |
 | Η παστα | the pastry |
 | Ο κρεας | the meat |
+| το αγγουρι | the cucumber |
+| το κρεμμύδι | the onion |
 
 # Fruit
 
