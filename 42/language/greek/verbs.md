@@ -12,11 +12,13 @@
 | Αργώ | to be late  |
 | Αρχιζω | to start |
 | Ανεβαινω | to go up |
+| Ανησυχω | to worry |
 | Ανοίγω | to open |
 | Απαντάω | to answer |
 |  |  |
 | Βγαινω | to go out |
 | Βλεπώ | to see |
+| Βρισκω | to find |
 |  |  |
 | Γεμίζω | to fill |
 | Γκρινιαζω | to complain |
@@ -43,12 +45,14 @@
 | Κλαίω | to cry |
 | Κλεινω | to close |
 | Κοιμηθώ | to sleep |
+| Κουναω | to move |
 |  |  |
 | Λέω | to say |
 |  |  |
 | Μαθαίνω | to learn |
 | Μένω | to stay, to live |
 | Μιλαώ | to speak |
+| Μυριζω | to smell |
 | Μπαινω | to go in |
 |  |  |
 | Νομίζω | to think |
@@ -59,8 +63,10 @@
 | Παω | to go |
 | Πεινάω | to be hungry |
 | Περνάω | to pass / to cross |
+| Περνω | to go well |
 | Πληρωνώ | to pay |
 | Πηγαίνω | to go |
+| Ποναω | to hurt |
 |  |  |
 | Ρωτάω | to ask |
 |  |  |
@@ -76,6 +82,7 @@
 | Φεύγω | to leave |
 | Φοραω | to wear |
 | Φταιω | to be my fault |
+| Φωναζω | to yell, to shout |
 |  |  |
 | Υπαρχω | to exist |
 |  |  |

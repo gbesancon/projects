@@ -90,6 +90,12 @@
 | το σταθμό | the station |
 | το ψυγείο | the fridge |
 | το αλλο | the next |
+| ο οπόνος | the pain |
+| η λεξη | the word |
+| ο αστειος | the joke |
+| το μυστικό | the secret |
+| ο διευθυντής | the manager / the school principal |
+| η φορα | the time (occurence) |
 
 ## Feeling
 
@@ -183,6 +189,8 @@
 | Η Μύτη / Οι Μύτες | Nose |
 | Το στόμα / Τα στόματα | Mouth |
 | το κεφαλι | the head |
+| η καρδία | the heart |
+| το στομαχι | the stomach |
 
 ## Sport
 
