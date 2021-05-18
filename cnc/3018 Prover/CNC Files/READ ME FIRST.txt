@@ -1,0 +1,5 @@
+Before using UGS Platform, you will need to have Java installed on your machine. 
+
+This can be found from the Java site:
+
+https://java.com/en/download/manual.jsp

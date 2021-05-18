@@ -9,23 +9,28 @@
 | Αγοραζώ | to purchase |
 | Ακούω | to listen |
 | Αρεσω | to be liked |
+| Αργώ | to be late  |
 | Αρχιζω | to start |
 | Ανεβαινω | to go up |
 | Ανοίγω | to open |
+| Απαντάω | to answer |
 |  |  |
 | Βγαινω | to go out |
 | Βλεπώ | to see |
 |  |  |
 | Γεμίζω | to fill |
-| Γκρνιαζω | to complain |
+| Γκρινιαζω | to complain |
 | Γυριζω | to return |
 |  |  |
 | Διαβαζω | to read |
 | Δίνω | to give |
 | Δουλεύω | to work |
+| Διψαω | to be thirsty |
 |  |  |
 | Είμαι | to be |
 | Έχω | to have |
+| Επιστρεφώ | to return |
+| Έπχομαι | to come |
 |  |  |
 | Ζητάω | to ask |
 | Ζω | to live |
@@ -37,6 +42,7 @@
 | Κάνω | to do |
 | Κλαίω | to cry |
 | Κλεινω | to close |
+| Κοιμηθώ | to sleep |
 |  |  |
 | Λέω | to say |
 |  |  |
@@ -70,6 +76,8 @@
 | Φεύγω | to leave |
 | Φοραω | to wear |
 | Φταιω | to be my fault |
+|  |  |
+| Υπαρχω | to exist |
 |  |  |
 | Χορεύω | to dance |
 |  |  |

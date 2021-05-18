@@ -14,8 +14,9 @@
 | ουτε | neither |
 | Καθε | every |
 | ξανά | again |
-| Παλι | again |
+| Πάλι | again |
 | Μαζι | together |
+| συχνά | often |
 | Ορίστε | here |
 | Βεβαίως | of course |
 | Και τα δυο | the both |

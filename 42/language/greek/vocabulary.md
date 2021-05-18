@@ -85,6 +85,11 @@
 | η τσαντα | the bag / purse |
 | ο παγος | the ice |
 | η λαϊκή | the neighbourhood |
+| τα νεα | the news |
+| το ταξιδι | the trip |
+| το σταθμό | the station |
+| το ψυγείο | the fridge |
+| το αλλο | the next |
 
 ## Feeling
 
