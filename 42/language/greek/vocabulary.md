@@ -96,6 +96,8 @@
 | το μυστικό | the secret |
 | ο διευθυντής | the manager / the school principal |
 | η φορα | the time (occurence) |
+| ο πυρετος | the fever |
+| ο γειτονας | the neighbourhood |
 
 ## Feeling
 

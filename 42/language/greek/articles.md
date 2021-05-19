@@ -18,3 +18,4 @@
 | στον / στην / στο | at the, on the, in the |
 | κανενας / κανεμια / κανενα | any |
 | εισος | perhaps / maybe |
+| μαζι | with |
