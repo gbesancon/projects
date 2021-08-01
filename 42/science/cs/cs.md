@@ -106,3 +106,10 @@ https://github.com/gnebbia/kb
 https://www.freecodecamp.org/news/system-design-interview-practice-tutorial/
 
 https://github.com/OffcierCia/DeFi-Developer-Road-Map
+
+Book: 
+- The cathedral and the bazaar
+- Jargon: www.tuxedo.org/jargon
+- KISS: Keep it simple, Stupid
+- The Mythical Man Month
+- The Delphi Effect

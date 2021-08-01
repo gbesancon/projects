@@ -27,3 +27,27 @@ https://gitup.co/
 https://github.com/chriskiehl/Gooey
 https://github.com/slidevjs/slidev?utm_source=tldrnewsletter
 https://catalins.tech/how-to-create-a-kickass-github-profile-page
+
+# Agile Leadership Network
+- WITIN: Women in Technologie International Network
+- Personal Kanban
+- Toyota Methodology
+- Lean Manufacturing
+- Kaizen (Continuous improvement)
+- Kanban (visual signals, pull systems)
+- Genba (go to the problen to for yourself)
+- Scrumban: SCRUM + Kanban
+
+# Book: Personal Kanban
+- Keys: Limit Work in Progress to 2-3 items at a time
+- https://personalkanban.com (Jim Benson)
+  - Backlog
+  - Ready
+  - In Progress (WIP limit 3)
+  - Pending
+  - Done
+- leankitkanban.com
+- kanbantool.com
+- seenowdo.com
+- scrumy.com
+- Pomodoro techniques
