@@ -103,3 +103,6 @@ https://github.com/mxrch/GHunt
 https://github.com/muesli/duf
 https://github.com/mingrammer/diagrams
 https://github.com/gnebbia/kb
+https://www.freecodecamp.org/news/system-design-interview-practice-tutorial/
+
+https://github.com/OffcierCia/DeFi-Developer-Road-Map

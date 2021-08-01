@@ -53,3 +53,5 @@ https://arwes.dev/docs
 https://www.calligrapher.ai/
 https://flat-svg-designs.net/en/
 https://github.com/presenta-software/presenta-lib
+https://dev.to/newday-technology/api-s-from-dev-to-production-part-10-9j1
+https://dzone.com/articles/spring-boot-api-first-approach

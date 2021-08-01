@@ -11,3 +11,7 @@
 # Project: Digital Avatar
 - Platform of execution for smart Digital Twins enabling data driven maintenance of assets.
 - Provide a SDK to create model for Digital Twins and scale execution
+
+
+# Nice resume as reference
+- https://danielclarke.tech/
