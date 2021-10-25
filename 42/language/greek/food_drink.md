@@ -20,8 +20,18 @@
 
 | Greek | English |
 |--|--|
+| Η φραουλα | the strawberry |
 | Το πορτοκάλι | the orange |
 | Το λεμόνι | the lemon |
+| Το ροδακινο | the peach |
+| To σύκo | the fig |
+| Το μηλo | the apple |
+| Το μουρο | the berry |
+| Το καρπουζι | the watermelon |
+| To σταφυλι | the grape |
+| Το αχλαδι | the pear |
+| To βερικοκo | the apricot |
+| Το κερασι | the cherry |
 
 # Το πογοτο (the drink)
 

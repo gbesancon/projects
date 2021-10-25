@@ -113,3 +113,6 @@ Book:
 - KISS: Keep it simple, Stupid
 - The Mythical Man Month
 - The Delphi Effect
+
+https://zorin.com/os/
+https://www.remotemobprogramming.org/

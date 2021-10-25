@@ -2,28 +2,28 @@
 
 | Greek | English |
 |--|--|
-| ολη | whole |
-| ποτέ | never |
 | ακριβώς | exactly |
-| Γρήγοπα | quickly |
-| Ετσι και ετσι | so and so |
-| Μήπως | maybe |
-| Τιποτα | nothing |
-| ολα | all |
 | άλλο | other |
-| ουτε | neither |
-| Καθε | every |
-| ξανά | again |
-| Πάλι | again |
-| Μαζι | together |
-| συχνά | often |
-| Ορίστε | here |
-| Βεβαίως | of course |
-| Και τα δυο | the both |
+| βεβαίως | of course |
+| εντάξει | OK |
+| ετσι και ετσι | so and so |
 | επισυς | me too |
-| Εντάξει | OK |
-| Όχι | no |
-| Φυσικά | of course |
-| Οριστε | here you are |
+| φυσικά | of course |
+| γρήγοπα | quickly |
+| και τα δυο | the both |
+| καθε | every |
 | λαθος | wrong |
+| μάλι | again |
 | μαλιστα | yes |
+| μαζι | together |
+| μήπως | maybe |
+| ολα | all |
+| ολη | whole |
+| ορίστε | here |
+| ουτε | neither |
+| οχι | no |
+| ποτέ | never |
+| παντα | always |
+| συχνά | often |
+| τιποτα | nothing |
+| ξανά | again |

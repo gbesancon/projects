@@ -55,3 +55,4 @@ https://www.datadoghq.com/dg/apm/microservices-ts/
 https://github.com/lensapp/lens
 https://github.com/knrt10/kubernetes-basicLearning/blob/master/readme.md
 https://github.com/storax/kubedoom
+https://dev.to/_nicolas_louis_/how-to-run-docker-on-windows-without-docker-desktop-hik

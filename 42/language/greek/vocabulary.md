@@ -73,7 +73,6 @@
 | Ο οροφος | the floor |
 | Ο δεμα | the package |
 | το νησί | the island |
-| Η οικογενεια | the family |
 | Η ηλιοθεραπεία | the sunbath |
 | η παρεα | the group of friend |
 | το πλοιο | the cruise boat |
@@ -98,6 +97,19 @@
 | η φορα | the time (occurence) |
 | ο πυρετος | the fever |
 | ο γειτονας | the neighbourhood |
+| Το αρσενικο | the male |
+| η ερωτηση | the question |
+| Η αγαπημενη | the favourite |
+| Η υγρασία | the humidity |
+| Ο πινακας | the board |
+| Ο αναπτηρασ | the lighter |
+| Η απεργία | the strike |
+| Το αγαλμα | the statue |
+| Το μεταναστη | the immigrant |
+| Ο καθρεφτης | the mirror |
+| Η φετα | the slice |
+| Ο ναος | the temple |
+| To μηνυμα | the message |
 
 ## Feeling
 
@@ -199,3 +211,9 @@
 | Greek | English |
 |--|--|
 | Το μπάσκετ-μπωλ | the basketball |
+
+## Expression
+
+| Greek | English |
+|--|--|
+| Πως περασες | How did you spend your time ? |

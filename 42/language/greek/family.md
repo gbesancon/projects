@@ -2,6 +2,7 @@
 
 | Greek | English |
 |--|--|
+| Η οικογενεια | the family |
 | H μαμά | the mom |
 | Η μητέρα | the mother |
 | Ο μπαμπάς | the dad |
@@ -18,5 +19,6 @@
 | Η γιαγιά | the grand-mother |
 | Ο θείος | the uncle |
 | Η θεία | the aunt |
+| Η ανιψια | the niece |
 | Το μωρακί | the baby |
 | Το μωρό | the baby |

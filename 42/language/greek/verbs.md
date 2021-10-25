@@ -15,6 +15,7 @@
 | Ανησυχω | to worry |
 | Ανοίγω | to open |
 | Απαντάω | to answer |
+| Απεργω | to strike |
 |  |  |
 | Βγαινω | to go out |
 | Βλεπώ | to see |
@@ -71,12 +72,14 @@
 | Ρωτάω | to ask |
 |  |  |
 | Σπουδαζω | to study |
+| Συμφωνώ | to aggree |
 | Σταματαω | to stop |
 | Στριβω | to turn |
 |  |  |
 | Ταξιδευω | to travel |
 | Τελειωνώ | to finish |
 | Τηλεφωνω | to call on the phone |
+| Τραγοθδαω | to sing |
 | Τρώω | to eat |
 |  |  |
 | Φεύγω | to leave |
