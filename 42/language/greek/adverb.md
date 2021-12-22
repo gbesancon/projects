@@ -27,3 +27,4 @@
 | συχνά | often |
 | τιποτα | nothing |
 | ξανά | again |
+| μαλλον | perhaps |

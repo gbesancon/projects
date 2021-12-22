@@ -110,6 +110,16 @@
 | Η φετα | the slice |
 | Ο ναος | the temple |
 | To μηνυμα | the message |
+| Το μαναυικο | the fruit vendor |
+| Η λαχανικα |  |
+| Η μαντηλι | the scarf |
+| Η σκουλαρικι | the earings |
+| Το παραθυρο | the window |
+| Το πλοιο | the ship |
+| τα μαλλια | the hair |
+| Η φαρμακα | the drug |
+| Η ασπιρινη | the aspirin |
+| Ο ζωγραφος | the painter |
 
 ## Feeling
 
@@ -217,3 +227,8 @@
 | Greek | English |
 |--|--|
 | Πως περασες | How did you spend your time ? |
+| Μη με πειραζεις | don't leave |
+| Τι κανεις |  |
+| Περαστικα | Get well |
+| Που βρισκεσαι |  |
+| Τι εγινε | what happened |

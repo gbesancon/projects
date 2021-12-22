@@ -7,6 +7,7 @@
 | Greek | English |
 |--|--|
 | Αγοραζώ | to purchase |
+| Αισθανομαι | to feel |
 | Ακούω | to listen |
 | Αρεσω | to be liked |
 | Αργώ | to be late  |
@@ -19,7 +20,7 @@
 |  |  |
 | Βγαινω | to go out |
 | Βλεπώ | to see |
-| Βρισκω | to find |
+| Βρισκω | to find, to be located |
 |  |  |
 | Γεμίζω | to fill |
 | Γκρινιαζω | to complain |
@@ -37,18 +38,24 @@
 |  |  |
 | Ζητάω | to ask |
 | Ζω | to live |
+| Ζεσταινομαι | to be hot |
 |  |  |
 | Θέλω | to want |
+| Θυμαμαι | to remember |
 |  |  |
 | Καταλαβαίνω | to understand |
 | Κατεβαινω | to go down |
 | Κάνω | to do |
+| Καθομαι | to sit |
 | Κλαίω | to cry |
 | Κλεινω | to close |
 | Κοιμηθώ | to sleep |
 | Κουναω | to move |
+| Κρυωνω | to be cold |
+| Κοιμαμαι | to sleep |
 |  |  |
 | Λέω | to say |
+| ληπαμαι | to feel sorry |
 |  |  |
 | Μαθαίνω | to learn |
 | Μένω | to stay, to live |
@@ -71,6 +78,7 @@
 |  |  |
 | Ρωτάω | to ask |
 |  |  |
+| Σηκωνομαι | to lift oneself |
 | Σπουδαζω | to study |
 | Συμφωνώ | to aggree |
 | Σταματαω | to stop |
@@ -86,10 +94,12 @@
 | Φοραω | to wear |
 | Φταιω | to be my fault |
 | Φωναζω | to yell, to shout |
+| Φοβαμαι | to be afraid |
 |  |  |
 | Υπαρχω | to exist |
 |  |  |
 | Χορεύω | to dance |
+| Χρειαζομαι | to need |
 |  |  |
 | Ψωνιζω | to shop |
 |  |  |

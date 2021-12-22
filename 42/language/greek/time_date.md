@@ -83,7 +83,7 @@
 
 | Greek | English |
 |--|--|
-| Ανοιξη | Spring |
-| Καλοκαίρι | Summer |
-| Φθινόπωρο | Fall |
-| Χειμωνασ | Winter |
+| Η Ανοιξη | Spring |
+| Το Καλοκαίρι | Summer |
+| Το Φθινόπωρο | Fall |
+| Ο Χειμωνασ | Winter |
