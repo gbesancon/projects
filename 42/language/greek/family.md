@@ -11,14 +11,16 @@
 | Το αγόρι / Τα αγόρια | The boy |
 | Το κορίτσι | the girl |
 | Η κόρη | the daughter |
-| Ο γιός | the son |
+| Ο γιος | the son |
 | Ο αδερφος / Η αδερφη | the brother / the sister |
 | Το παιδι | the child |
 | Τα παιδάκια | the little kids |
 | Ο παππούς | the grand-father |
 | Η γιαγιά | the grand-mother |
+| Το εγγονι | the grand-child |
 | Ο θείος | the uncle |
 | Η θεία | the aunt |
 | Η ανιψια | the niece |
-| Το μωρακί | the baby |
+| Το μωράκι | the baby |
 | Το μωρό | the baby |
+| Ο ανηψιός | the nephew |

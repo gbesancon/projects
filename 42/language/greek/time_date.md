@@ -2,27 +2,29 @@
 
 | Greek | English |
 |--|--|
-| Πριν | Before |
-| Τώρα | Now |
-| Μετά | After |
-| αργά | early |
-| νωρις | late |
+| Πριν | before |
+| Τώρα | now |
+| Μετά | after |
+| Επειτα | after |
+| νωρις | early |
+| αργά | late |
 
-| Η ημέπα / Η ημέρες | the day |
+| Η ημέρα / Η ημέρες | the day |
 | Η εβδομάδα / Οι εβδομάδες | the week |
-| Ο μήνασ / Οι Μήνες | the month |
+| Ο μήνας / Οι Μήνες | the month |
 | Η χρονιά / Οι χρονιές | the year |
 | Η εποχή / Οι Εποχές | the season |
 
 | Προχθές | the day before yesterday |
-| Χθές | Yesterday |
-| Σήμερα  | Today |
-| Αύριο | Tomorrow |
+| Χθες | yesterday |
+| Σήμερα  | today |
+| Αποψε | tonight |
+| Αύριο | tomorrow |
 | Μεθαύριο | the day after tomorrow |
 
 | Η αυγή | the dawn |
 | Το πρωί | the morning |
-| Η μεσημέρη | noon |
+| Η μεσημέρι | noon |
 | Το απόγευμα | the afternoon |
 | Το βραδυ | the evening |
 | Τα μεσάνυχτα | midnight |
@@ -42,8 +44,8 @@
 | Μιση | half |
 | Ακριβώς | exactly |
 | Περιπου | -ish |
-| πριν μεσημέπι (πμ) | AM |
-| μετα το μεσημέπι (μμ) | PM |
+| πριν μεσημέρι (πμ) | AM |
+| μετα το μεσημέρι (μμ) | PM |
 
 | Οχτο και δεκα | 8:10 |
 | Οχτο παρα δεκα | 7:50 |
@@ -58,22 +60,22 @@
 | Πέμπτη | Thursday |
 | Παρασκευή | Friday |
 | Σάββατο | Saturday |
-| Κυριακύ | Sunday |
+| Κυριακή | Sunday |
 
-| Σάββατοκύριακο | Weekend |
+| Σαββατοκύριακο | Weekend |
 
 # Months of the year
 
 | Greek | English |
 |--|--|
-| Ιανουαριος | Januray |
-| Φεβρουαριος | February |
-| Μαρτίος | March |
+| Ιανουάριος | January |
+| Φεβρουάριος | February |
+| Μάρτιος | March |
 | Απρίλιος | April |
 | Μαίος | May |
 | Ιούνιος | June |
 | Ιούλιος | July |
-| Αυγούστος | August |
+| Αύγουστος | August |
 | Σεπτέμβριος | September |
 | Οκτώβριος | October |
 | Νοέμβριος | November |
@@ -86,4 +88,4 @@
 | Η Ανοιξη | Spring |
 | Το Καλοκαίρι | Summer |
 | Το Φθινόπωρο | Fall |
-| Ο Χειμωνασ | Winter |
+| Ο Χειμωνας | Winter |

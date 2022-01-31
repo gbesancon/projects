@@ -80,10 +80,10 @@
 | το φεγγαρι | the moon |
 | το ονομα | the name |
 | η φρυγανια | the toast |
-| η διευθύνσή | the address |
+| η διεύθυνσή | the address |
 | η τσαντα | the bag / purse |
 | ο παγος | the ice |
-| η λαϊκή | the neighbourhood |
+| η λαϊκή | the neighborhood |
 | τα νεα | the news |
 | το ταξιδι | the trip |
 | το σταθμό | the station |
@@ -96,13 +96,13 @@
 | ο διευθυντής | the manager / the school principal |
 | η φορα | the time (occurence) |
 | ο πυρετος | the fever |
-| ο γειτονας | the neighbourhood |
+| ο γειτονας | the neighborhood |
 | Το αρσενικο | the male |
 | η ερωτηση | the question |
-| Η αγαπημενη | the favourite |
+| Η αγαπημενη | the favorite |
 | Η υγρασία | the humidity |
 | Ο πινακας | the board |
-| Ο αναπτηρασ | the lighter |
+| Ο αναπτηρας | the lighter |
 | Η απεργία | the strike |
 | Το αγαλμα | the statue |
 | Το μεταναστη | the immigrant |
@@ -110,7 +110,8 @@
 | Η φετα | the slice |
 | Ο ναος | the temple |
 | To μηνυμα | the message |
-| Το μαναυικο | the fruit vendor |
+| Το μαναβικο | the fruit market |
+| Ο μαναβης | the fruit vendor |
 | Η λαχανικα |  |
 | Η μαντηλι | the scarf |
 | Η σκουλαρικι | the earings |
@@ -120,6 +121,14 @@
 | Η φαρμακα | the drug |
 | Η ασπιρινη | the aspirin |
 | Ο ζωγραφος | the painter |
+| Η βροχη | the rain |
+| Η ξηρασία | the dryness |
+| Η υγρασια | the humidity |
+| Η κομμωτρια | the hair dresser |
+| Ο δημοσιογραφος | the journalist |
+| Το δεντρο | the tree |
+| Το παραθυρο | the window |
+| Το ποδηλατο | the bicycle |
 
 ## Feeling
 
@@ -142,11 +151,12 @@
 | Κοντά | near |
 | Μακριά | far |
 | Ευθεια | straight |
-| Απεναντις | across |
+| Απεναντι | across |
 | Κατω | down / downstairs |
 | Επανω | up / upstairs |
 | Αριστερά | left |
 | Δεξιά | right |
+| Πισω απο | behind |
 
 ## Location
 
@@ -192,26 +202,37 @@
 | Greek | English |
 |--|--|
 | Η μουσική | the music |
-| Ο αυλός / Οι aυλοί | the flute |
-| To πιάνo | the piano |
+| Ο αυλός | the flute |
+| To πιάνο | the piano |
 
 ## Animals
 
 | Greek | English |
 |--|--|
-| Το πουλί / Τα πουλία | the bird |
-| Το ψάρί / Ta ψάρια | the fish |
+| Το πουλί | the bird |
+| Το ψάρι | the fish |
 | O χοίρος | the pig |
 | Η κότα | the chicken |
+| Το ιπταμενο | the flying dolphin |
+| Το κοκορακι | the rooster |
+| Η κοτουλα | the hen |
+| Η γατουλα | the cat |
+| Το σκυλακι | the dog |
+| Το λιονταρακι | the lion |
+| Το αλογακι | the horse |
+| Η αγελαδα | the cow |
+| Το παπακι | the duck |
+| Το προβατακι | the sheep |
+
 
 ## Body
 
 | Greek | English |
 |--|--|
-| Το αυτί / Τα αυτιά | Ear |
-| Το μάτι / Τα μάτια | Eye |
-| Η Μύτη / Οι Μύτες | Nose |
-| Το στόμα / Τα στόματα | Mouth |
+| Το αυτί | Ear |
+| Το μάτι | Eye |
+| Η Μύτη | Nose |
+| Το στόμα | Mouth |
 | το κεφαλι | the head |
 | η καρδία | the heart |
 | το στομαχι | the stomach |
@@ -232,3 +253,6 @@
 | Περαστικα | Get well |
 | Που βρισκεσαι |  |
 | Τι εγινε | what happened |
+| Καλη διασκεδαση | have a good time |
+| Εμπρος | Hello |
+| Να τος | Here he is |

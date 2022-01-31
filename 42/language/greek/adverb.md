@@ -7,13 +7,13 @@
 | βεβαίως | of course |
 | εντάξει | OK |
 | ετσι και ετσι | so and so |
-| επισυς | me too |
+| επίσης | me too |
 | φυσικά | of course |
-| γρήγοπα | quickly |
+| γρήγορα | quickly |
 | και τα δυο | the both |
 | καθε | every |
 | λαθος | wrong |
-| μάλι | again |
+| πάλι | again |
 | μαλιστα | yes |
 | μαζι | together |
 | μήπως | maybe |
@@ -28,3 +28,11 @@
 | τιποτα | nothing |
 | ξανά | again |
 | μαλλον | perhaps |
+| σπανια | rarely |
+| συνηθως | usually |
+| πολλες φορες| many times |
+| καπου-καπου | sometime |
+| ακομα | still, yet |
+| ήδη | already |
+| μα | but |
+| αλλα | but |

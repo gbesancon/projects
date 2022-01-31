@@ -6,7 +6,7 @@
 
 | Greek | English |
 |--|--|
-| Αγοραζώ | to purchase |
+| Αγοραζω | to purchase |
 | Αισθανομαι | to feel |
 | Ακούω | to listen |
 | Αρεσω | to be liked |
@@ -17,14 +17,16 @@
 | Ανοίγω | to open |
 | Απαντάω | to answer |
 | Απεργω | to strike |
+| Αποφασιζω | to decide |
 |  |  |
 | Βγαινω | to go out |
-| Βλεπώ | to see |
+| Βλεπω | to see |
 | Βρισκω | to find, to be located |
 |  |  |
 | Γεμίζω | to fill |
 | Γκρινιαζω | to complain |
 | Γυριζω | to return |
+| Γνωριζω | to meet, to introduce |
 |  |  |
 | Διαβαζω | to read |
 | Δίνω | to give |
@@ -42,6 +44,7 @@
 |  |  |
 | Θέλω | to want |
 | Θυμαμαι | to remember |
+| Θυμωνω | to be angry |
 |  |  |
 | Καταλαβαίνω | to understand |
 | Κατεβαινω | to go down |
@@ -58,10 +61,12 @@
 | ληπαμαι | to feel sorry |
 |  |  |
 | Μαθαίνω | to learn |
+| Μαζευω | to gather |
 | Μένω | to stay, to live |
 | Μιλαώ | to speak |
 | Μυριζω | to smell |
 | Μπαινω | to go in |
+| Μελεταω | to study on your own |
 |  |  |
 | Νομίζω | to think |
 |  |  |
@@ -80,14 +85,14 @@
 |  |  |
 | Σηκωνομαι | to lift oneself |
 | Σπουδαζω | to study |
-| Συμφωνώ | to aggree |
+| Συμφωνώ | to agree |
 | Σταματαω | to stop |
 | Στριβω | to turn |
 |  |  |
 | Ταξιδευω | to travel |
 | Τελειωνώ | to finish |
 | Τηλεφωνω | to call on the phone |
-| Τραγοθδαω | to sing |
+| Τραγουδαω | to sing |
 | Τρώω | to eat |
 |  |  |
 | Φεύγω | to leave |
@@ -95,6 +100,7 @@
 | Φταιω | to be my fault |
 | Φωναζω | to yell, to shout |
 | Φοβαμαι | to be afraid |
+| Φυσαω | to blow |
 |  |  |
 | Υπαρχω | to exist |
 |  |  |
@@ -109,6 +115,10 @@
 | Άργησα | I am late |
 | Με λένε | I am called, my name is |
 | Παω βόλτα | to go out |
+
+## Irregular verbs
+
+| Χιονιζει | to snow |
 
 ## Conjugate Είμαι: to be
 
