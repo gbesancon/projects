@@ -36,3 +36,12 @@
 | ήδη | already |
 | μα | but |
 | αλλα | but |
+
+| ερωτηση - αρνηση (question, negative) | english | καταφαση (positive) | english |
+|--|--|--|--|
+| τιποτα | nothing | κατι | something |
+| κανενας, καμια, κανενα | noone | καποιος, καποια, καποιο | someone |
+| καθολου | not at all | λιγο, πολυ | a bit, a lot |
+| πουθενα | nowhere | καπου | somewhere |
+| ποτε | never | παντα, καπου-καπου, συχνα | always, sometime, often |
+|  |  | καποτε, καμια φορα, δυο φορες | sometime, once, twice |

@@ -1,3 +1,4 @@
-- https://quizlet.com/_929jc4?x=1jqt&i=12emva 
-- https://quizlet.com/_93d92c?x=1jqt&i=12emva
-- https://quizlet.com/_929s9t?x=1jqt&i=12emva 
+- https://quizlet.com/548011361/greek-language-s-flash-cards/?x=1jqt
+- https://quizlet.com/547999780/greek-language-chapter-1-flash-cards/?x=1jqt
+- https://quizlet.com/549852708/greek-language-chapter-2-flash-cards/?x=1jqt
+- https://quizlet.com/smiley3173/folders/greek/sets
