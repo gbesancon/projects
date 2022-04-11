@@ -58,3 +58,8 @@
 |  |  |  |  |
 | υψηλος | υψηλη | υψηλο | tall |
 |  |  |  |  |
+
+# Rule
+
+How to create comparative more (eros)
+How to convert adjective to adverb 
