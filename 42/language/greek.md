@@ -14,6 +14,7 @@
   - [Podcast Learning Greek](https://www.hau.gr/?i=learning.el.podcasts-in-greek)
   - [Video for Learning Greek](https://www.hau.gr/?i=learning.el.video_casts)
 - [Lawless Greek](https://www.lawlessgreek.com/)
+- [Cool Jugator](https://cooljugator.com/gr)
 
 ## Materials
 
